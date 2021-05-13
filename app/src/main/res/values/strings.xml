@@ -6,4 +6,11 @@
     <string name="profile">個人頁面</string>
     <string name="search">搜尋文章</string>
 
+    <string-array name="category_array">
+        <item>交換技能</item>
+        <item>找學生</item>
+        <item>找老師</item>
+        <item>讀書會</item>
+    </string-array>
+
 </resources>

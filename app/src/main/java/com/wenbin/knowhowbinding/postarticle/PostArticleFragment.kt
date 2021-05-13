@@ -15,6 +15,7 @@ class PostArticleFragment : Fragment(){
         ViewModelProvider(this).get(PostArticleViewModel::class.java)
     }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
