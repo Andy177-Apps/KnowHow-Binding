@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentProfileBinding
+import com.wenbin.knowhowbinding.home.HomeAdapter
 
 
 class ProfileFragment  : Fragment() {
@@ -24,6 +25,9 @@ class ProfileFragment  : Fragment() {
         binding = FragmentProfileBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        var adapter = ProfileCommentAdapter()
+        binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("個人頁面")
