@@ -34,6 +34,12 @@
         android:label="ProfileFragment"
         tools:layout="@layout/fragment_profile"/>
 
+    <fragment
+        android:id="@+id/postArticleFragment"
+        android:name="com.wenbin.knowhowbinding.postarticle.PostArticleFragment"
+        android:label="PostArticleFragment"
+        tools:layout="@layout/fragment_postarticle"/>
+
     <action android:id="@+id/navigate_to_home_fragment" app:destination="@id/homeFragment"
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
@@ -51,6 +57,10 @@
         app:popUpToInclusive="true" />
 
     <action android:id="@+id/navigate_to_profile_fragment" app:destination="@id/profileFragment"
+        app:popUpTo="@id/navigation"
+        app:popUpToInclusive="true" />
+
+    <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true" />
 </navigation>

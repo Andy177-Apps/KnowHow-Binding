@@ -5,24 +5,26 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.Gravity
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
+import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.factory.ViewModelFactory
+import com.wenbin.knowhowbinding.util.CurrentFragmentType
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
-//    val viewModel by viewModels<MainViewModel> { getVmFactory() }
+    val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel : MainViewModel by lazy {
-        ViewModelProvider(this).get(MainViewModel::class.java)
-    }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -69,10 +71,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-//        binding.viewModel = viewModel
+        binding.viewModel = viewModel
 
         setupBottomNav()
-//        setupNavController ()
+        setupNavController ()
     }
     /**
      * Set up [BottomNavigationView]
@@ -80,25 +82,20 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNav() {
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
-//        val menuView = binding.bottomNavView.getChildAt(0) as BottomNavigationMenuView
-//        val itemView = menuView.getChildAt(2) as BottomNavigationItemView
-//        val bindingBadge = BadgeBottomBinding.inflate(LayoutInflater.from(this), itemView, true)
-//        bindingBadge.lifecycleOwner = this
-//        bindingBadge.viewModel = viewModel
     }
 
-//    private fun setupNavController() {
-//        findNavController(R.id.myNavHostFragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
-//            viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
-//                R.id.homeFragment -> CurrentFragmentType.HOME
-//                R.id.searchFragment -> CurrentFragmentType.SEARCH
-//                R.id.calendarFragment-> CurrentFragmentType.CALENDAR
-//                R.id.chatRoomFragment -> CurrentFragmentType.CHATROOM
-//                R.id.profileFragment -> CurrentFragmentType.PROFILE
-//                else -> viewModel.currentFragmentType.value
-//            }
-//        }
-//    }
+    private fun setupNavController() {
+        findNavController(R.id.myNavHostFragment).addOnDestinationChangedListener { navController: NavController, _: NavDestination, _: Bundle? ->
+            viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
+                R.id.homeFragment -> CurrentFragmentType.HOME
+                R.id.searchFragment -> CurrentFragmentType.SEARCH
+                R.id.calendarFragment-> CurrentFragmentType.CALENDAR
+                R.id.chatRoomFragment -> CurrentFragmentType.CHATROOM
+                R.id.profileFragment -> CurrentFragmentType.PROFILE
+                else -> viewModel.currentFragmentType.value
+            }
+        }
+    }
 
     fun resetToolBar(title: String){
         binding.textViewToolBarTitle.text = title
