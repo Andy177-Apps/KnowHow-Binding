@@ -10,8 +10,4 @@ class MainViewModel(private val knowHowBindingRepository: KnowHowBindingReposito
 
     // Record current fragment to support data binding
     val currentFragmentType = MutableLiveData<CurrentFragmentType>()
-
-    fun runLog() {
-        Log.d("wenbin", "shfoisfidsjfisfofsisfdo")
-    }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentSearchBinding
 
 class SearchFragment  : Fragment() {
@@ -23,6 +24,9 @@ class SearchFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        if (activity is MainActivity) {
+            (activity as MainActivity).resetToolBar("搜尋文章")
+        }
         return binding.root
     }
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentCalendarBinding
 
 class CalendarFragment : Fragment() {
@@ -23,6 +24,9 @@ class CalendarFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        if (activity is MainActivity) {
+            (activity as MainActivity).resetToolBar("月曆")
+        }
         return binding.root
     }
 }

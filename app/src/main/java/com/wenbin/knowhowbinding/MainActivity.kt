@@ -1,22 +1,20 @@
 package com.wenbin.knowhowbinding
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.view.LayoutInflater
-import androidx.activity.viewModels
+import android.util.DisplayMetrics
+import android.view.Gravity
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
-import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.wenbin.knowhowbinding.calendar.CalendarViewModel
+import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
-import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.home.HomeViewModel
-import com.wenbin.knowhowbinding.util.CurrentFragmentType
+import com.wenbin.knowhowbinding.factory.ViewModelFactory
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 //    val viewModel by viewModels<MainViewModel> { getVmFactory() }
@@ -69,11 +67,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 //        binding.viewModel = viewModel
-//        viewModel.runLog()
+
         setupBottomNav()
 //        setupNavController ()
     }
@@ -102,4 +99,9 @@ class MainActivity : AppCompatActivity() {
 //            }
 //        }
 //    }
+
+    fun resetToolBar(title: String){
+        binding.textViewToolBarTitle.text = title
+    }
+
 }
