@@ -24,6 +24,9 @@ class ChatRoomFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        var adapter = ChatRoomAdapter()
+        binding.recyclerView.adapter = adapter
+
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("聊天紀錄")
         }
