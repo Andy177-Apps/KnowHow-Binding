@@ -1,7 +1,7 @@
 package com.wenbin.knowhowbinding
 
 import android.app.Application
-import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.util.ServiceLocator
 import kotlin.properties.Delegates
 

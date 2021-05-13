@@ -1,25 +1,17 @@
 package com.wenbin.knowhowbinding
 
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.view.Gravity
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.factory.ViewModelFactory
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
@@ -99,6 +91,11 @@ class MainActivity : AppCompatActivity() {
 
     fun resetToolBar(title: String){
         binding.textViewToolBarTitle.text = title
+        binding.bottomNavView.visibility = View.VISIBLE
+
     }
 
+    fun coverToolBarandBottomNav() {
+        binding.bottomNavView.visibility = View.GONE
+    }
 }

@@ -3,7 +3,7 @@ package com.wenbin.knowhowbinding.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.MainViewModel
-import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 
 class ViewModelFactory constructor(
     private val knowHowBindingRepository: KnowHowBindingRepository

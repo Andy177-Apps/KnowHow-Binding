@@ -1,7 +1,4 @@
-package com.wenbin.knowhowbinding.data
-
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+package com.wenbin.knowhowbinding.data.source
 
 class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSource: KnowHowBindingDataSource,
                                        private val knowHowBindingLocalDataSource: KnowHowBindingDataSource,

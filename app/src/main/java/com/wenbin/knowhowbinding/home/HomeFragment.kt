@@ -33,6 +33,10 @@ class HomeFragment : Fragment() {
                 viewModel.onPostArticleNavigated()
             }
         })
+
+        var adapter = HomeAdapter()
+        binding.recyclerView.adapter = adapter
+
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("文章列表")
         }

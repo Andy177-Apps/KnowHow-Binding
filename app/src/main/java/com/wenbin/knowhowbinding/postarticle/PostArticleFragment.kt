@@ -27,6 +27,9 @@ class PostArticleFragment : Fragment(){
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("發文")
         }
+        if (activity is MainActivity) {
+            (activity as MainActivity).coverToolBarandBottomNav()
+        }
         return binding.root
 
     }

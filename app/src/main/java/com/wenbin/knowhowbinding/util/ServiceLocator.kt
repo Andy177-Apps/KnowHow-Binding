@@ -2,11 +2,11 @@ package com.wenbin.knowhowbinding.util
 
 import android.content.Context
 import androidx.annotation.VisibleForTesting
-import com.wenbin.knowhowbinding.data.DefaultKnowHowBindingRepository
-import com.wenbin.knowhowbinding.data.KnowHowBindingDataSource
-import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
-import com.wenbin.knowhowbinding.data.local.KnowHowBindingLocalDataSource
-import com.wenbin.knowhowbinding.data.remote.KnowHowBindingRemoteDataSource
+import com.wenbin.knowhowbinding.data.source.DefaultKnowHowBindingRepository
+import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
+import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.data.source.local.KnowHowBindingLocalDataSource
+import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource
 
 object ServiceLocator {
     @Volatile
@@ -22,7 +22,8 @@ object ServiceLocator {
     }
 
     private fun createStylishRepository(context: Context): KnowHowBindingRepository {
-        return DefaultKnowHowBindingRepository(KnowHowBindingRemoteDataSource,
+        return DefaultKnowHowBindingRepository(
+            KnowHowBindingRemoteDataSource,
             createLocalDataSource(context)
         )
     }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -41,26 +41,28 @@
         tools:layout="@layout/fragment_postarticle"/>
 
     <action android:id="@+id/navigate_to_home_fragment" app:destination="@id/homeFragment"
-        app:popUpTo="@id/navigation"
+        app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
 
     <action android:id="@+id/navigate_to_search_fragment" app:destination="@id/searchFragment"
-        app:popUpTo="@id/navigation"
+        app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
 
     <action android:id="@+id/navigate_to_calendar_fragment" app:destination="@id/calendarFragment"
-        app:popUpTo="@id/navigation"
+        app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
 
     <action android:id="@+id/navigate_to_chatroom_fragment" app:destination="@id/chatRoomFragment"
-        app:popUpTo="@id/navigation"
+        app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
 
     <action android:id="@+id/navigate_to_profile_fragment" app:destination="@id/profileFragment"
         app:popUpTo="@id/navigation"
-        app:popUpToInclusive="true" />
+        app:popUpToInclusive="true"
 
+        />
     <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"
-        app:popUpTo="@id/navigation"
-        app:popUpToInclusive="true" />
+
+        />
+
 </navigation>

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.view.Gravity
 import android.widget.Toast
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
-import com.wenbin.knowhowbinding.data.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.factory.ViewModelFactory
 
 /**
