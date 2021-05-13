@@ -1,4 +1,6 @@
 package com.wenbin.knowhowbinding.data.remote
 
-object KnowHowBindingRemoteDataSource {
+import com.wenbin.knowhowbinding.data.KnowHowBindingDataSource
+
+object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 }
