@@ -28,7 +28,7 @@ class MyCollectFragment  : Fragment() {
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {
-            (activity as MainActivity).resetToolBar("我的文章")
+            (activity as MainActivity).resetToolBar("我的收藏")
             (activity as MainActivity).coverToolBarandBottomNav()
         }
         return binding.root

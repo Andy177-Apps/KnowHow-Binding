@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "945428471905",
+    "project_id": "knowhowbinding-956aa",
+    "storage_bucket": "knowhowbinding-956aa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945428471905:android:08a0ccb1f8541a87ae8a20",
+        "android_client_info": {
+          "package_name": "app.appworks.school.stylish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945428471905-97srd6thaupemktdjcfjd8pq08einbf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA936zzlQUGk5bLvIAgyvcoDd5yiQ1vJCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945428471905-97srd6thaupemktdjcfjd8pq08einbf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945428471905:android:06742b7260127783ae8a20",
+        "android_client_info": {
+          "package_name": "com.wenbin.knowhowbinding"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945428471905-97srd6thaupemktdjcfjd8pq08einbf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA936zzlQUGk5bLvIAgyvcoDd5yiQ1vJCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "945428471905-97srd6thaupemktdjcfjd8pq08einbf5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

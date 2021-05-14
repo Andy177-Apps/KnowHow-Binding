@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,8 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.firestore.DocumentChange
+import com.google.firebase.firestore.FirebaseFirestore
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
@@ -17,6 +20,8 @@ class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
     private lateinit var binding: ActivityMainBinding
+
+
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
@@ -64,6 +69,40 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        var db = FirebaseFirestore.getInstance()
+
+
+        //隨時監聽整份 collectionPath 變化
+        db.collection("Friends")
+                .addSnapshotListener { snapshots, e ->
+                    if (e != null) {
+                        Log.w("TAG", "listen:error", e)
+                        return@addSnapshotListener
+                    }
+
+                    for (dc in snapshots!!.documentChanges) {
+                        when (dc.type) {
+                            DocumentChange.Type.ADDED -> Log.d(
+                                    "TAG",
+                                    "New Invitation Card: ${dc.document.data}"
+                            )
+                            DocumentChange.Type.MODIFIED -> {
+                                Log.d(
+                                        "TAG",
+                                        "Changed Data: ${dc.document.data}"
+                                )
+
+                            }
+
+                            DocumentChange.Type.REMOVED -> Log.d(
+                                    "TAG",
+                                    "Removed Invitation Card: ${dc.document.data}"
+                            )
+//                        inviter = dc.document.data["name"]
+                        }
+                    }
+                }
 
         setupBottomNav()
         setupNavController ()

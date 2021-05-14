@@ -11,11 +11,11 @@ class KnowHowBindingApplication : Application() {
         get() = ServiceLocator.provideTasksRepository(this)
 
     companion object {
-        var INSTANCE: KnowHowBindingApplication by Delegates.notNull()
+        var instance: KnowHowBindingApplication by Delegates.notNull()
     }
 
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
+        instance = this
     }
 }

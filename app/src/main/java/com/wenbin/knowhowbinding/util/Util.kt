@@ -11,10 +11,10 @@ object Util {
 //    }
 
     fun getString(resourceId: Int): String {
-        return KnowHowBindingApplication.INSTANCE.getString(resourceId)
+        return KnowHowBindingApplication.instance.getString(resourceId)
     }
 
     fun getColor(resourceId: Int): Int {
-        return KnowHowBindingApplication.INSTANCE.getColor(resourceId)
+        return KnowHowBindingApplication.instance.getColor(resourceId)
     }
 }
