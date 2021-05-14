@@ -7,12 +7,21 @@ import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Comment
 import com.wenbin.knowhowbinding.data.Message
 import com.wenbin.knowhowbinding.home.HomeAdapter
+import com.wenbin.knowhowbinding.myarticle.MyArticleAdapter
+import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
 import com.wenbin.knowhowbinding.profile.ProfileCommentAdapter
 
 @BindingAdapter("GetArticle")
 fun BindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>?) {
-    val adapter = recyclerView.adapter as HomeAdapter
-    adapter.submitList(data)
+    data?.let {
+        recyclerView.adapter.apply {
+            when (this) {
+                is HomeAdapter -> submitList(it)
+                is MyArticleAdapter -> submitList(it)
+                is MyCollectAdapter -> submitList(it)
+            }
+        }
+    }
 }
 
 @BindingAdapter("ShowMessage")

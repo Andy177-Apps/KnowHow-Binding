@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentProfileBinding
-import com.wenbin.knowhowbinding.home.HomeAdapter
 
 
 class ProfileFragment  : Fragment() {
@@ -28,6 +29,23 @@ class ProfileFragment  : Fragment() {
 
         var adapter = ProfileCommentAdapter()
         binding.recyclerView.adapter = adapter
+
+        // Navigating to My Article Fragment.
+        viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
+            it?.let {
+                findNavController().navigate(ProfileFragmentDirections.navigateToMyArticleFragment())
+                viewModel.onMyArticleNavigated()
+            }
+        })
+
+        // Navigating to My Collect Fragment.
+        viewModel.navigateToMyCollect.observe(viewLifecycleOwner, Observer{
+            it?.let {
+                findNavController().navigate(ProfileFragmentDirections.navigateToMyCollectFragment())
+                viewModel.onMyCollectNavigated()
+            }
+        })
+
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("個人頁面")

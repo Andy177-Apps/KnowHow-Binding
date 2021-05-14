@@ -27,4 +27,37 @@ class ProfileViewModel : ViewModel() {
         _comment.value = defaultData
         Log.d("Wenbin", "_articles.value = $_comment.value")
     }
+
+    /**
+     * For navigate to My Article Fragment
+     */
+    private val _navigateToMyArticle = MutableLiveData<Boolean>()
+
+    val navigateToMyArticle: LiveData<Boolean>
+        get() = _navigateToMyArticle
+
+    fun navigateToMyArticle() {
+        _navigateToMyArticle.value = true
+    }
+
+    fun onMyArticleNavigated() {
+        _navigateToMyArticle.value = null
+    }
+
+    /**
+     * For navigate to My Collect Fragment
+     */
+    private val _navigateToMyCollect = MutableLiveData<Boolean>()
+
+    val navigateToMyCollect: LiveData<Boolean>
+        get() = _navigateToMyCollect
+
+    fun navigateToMyCollect() {
+        _navigateToMyCollect.value = true
+    }
+
+    fun onMyCollectNavigated() {
+        _navigateToMyCollect.value = null
+    }
+
 }
