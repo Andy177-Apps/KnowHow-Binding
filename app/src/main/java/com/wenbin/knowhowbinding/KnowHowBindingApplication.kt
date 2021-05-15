@@ -7,7 +7,7 @@ import kotlin.properties.Delegates
 
 class KnowHowBindingApplication : Application() {
 
-    val knowHowBindingRepository : KnowHowBindingRepository
+    val repository : KnowHowBindingRepository
         get() = ServiceLocator.provideTasksRepository(this)
 
     companion object {

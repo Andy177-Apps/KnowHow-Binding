@@ -12,7 +12,7 @@ import com.wenbin.knowhowbinding.factory.ViewModelFactory
  * Extension functions for Activity.
  */
 fun Activity.getVmFactory(): ViewModelFactory {
-    val repository = (applicationContext as KnowHowBindingApplication).knowHowBindingRepository
+    val repository = (applicationContext as KnowHowBindingApplication).repository
     return ViewModelFactory(repository)
 }
 

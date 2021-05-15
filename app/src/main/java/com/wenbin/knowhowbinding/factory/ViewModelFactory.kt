@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.MainViewModel
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.home.HomeViewModel
+import com.wenbin.knowhowbinding.postarticle.PostArticleViewModel
 
 class ViewModelFactory constructor(
     private val knowHowBindingRepository: KnowHowBindingRepository
@@ -18,6 +19,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(HomeViewModel::class.java) ->
                     HomeViewModel(knowHowBindingRepository)
+
+                isAssignableFrom(PostArticleViewModel::class.java) ->
+                    PostArticleViewModel(knowHowBindingRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

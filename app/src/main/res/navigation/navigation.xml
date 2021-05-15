@@ -38,7 +38,9 @@
         android:id="@+id/postArticleFragment"
         android:name="com.wenbin.knowhowbinding.postarticle.PostArticleFragment"
         android:label="PostArticleFragment"
-        tools:layout="@layout/fragment_postarticle"/>
+        tools:layout="@layout/fragment_postarticle">
+    </fragment>
+
 
     <fragment
         android:id="@+id/myArticleFragment"

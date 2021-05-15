@@ -10,17 +10,11 @@ import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import java.util.Observer
 
 
 class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
-
-
-//    private val viewModel : HomeViewModel by lazy {
-//        ViewModelProvider(this).get(HomeViewModel::class.java)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -11,13 +11,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">++
+        android:layout_height="match_parent">
 
         <Button
             android:id="@+id/button_send_article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="送出文章"
+            android:onClick="@{() -> viewModel.publish()}"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
