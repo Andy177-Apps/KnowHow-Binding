@@ -12,4 +12,6 @@ interface KnowHowBindingDataSource {
 
     suspend fun publish(article: Article): Result<Boolean>
 
+    suspend fun getArticles(): Result<List<Article>>
+
 }

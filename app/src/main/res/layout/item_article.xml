@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="article"
             type="com.wenbin.knowhowbinding.data.Article" />
@@ -30,30 +31,28 @@
             android:layout_height="15dp"
             android:layout_marginStart="16dp"
             android:hint="Wenbin"
+            android:text="@{article.author.name}"
             app:layout_constraintBottom_toBottomOf="@+id/imageView_author_photo"
             app:layout_constraintStart_toEndOf="@id/imageView_author_photo"
             app:layout_constraintTop_toTopOf="@+id/imageView_author_photo" />
-<!--        android:text="@{article.authorName}"-->
 
         <TextView
             android:id="@+id/textView_city_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="地點"
-            app:layout_constraintTop_toBottomOf="@id/imageView_author_photo"
             android:layout_marginTop="16dp"
+            android:text="地點"
             app:layout_constraintStart_toStartOf="@id/imageView_author_photo"
-            />
+            app:layout_constraintTop_toBottomOf="@id/imageView_author_photo" />
 
         <TextView
             android:id="@+id/textView_description_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="想說的話"
-            app:layout_constraintTop_toBottomOf="@id/textView_city_title"
             android:layout_marginTop="16dp"
+            android:text="想說的話"
             app:layout_constraintStart_toStartOf="@id/imageView_author_photo"
-            />
+            app:layout_constraintTop_toBottomOf="@id/textView_city_title" />
 
 
         <TextView
@@ -61,30 +60,30 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Taipei"
+            android:text="@{article.title}"
             app:layout_constraintStart_toStartOf="@id/textView_description"
             app:layout_constraintTop_toTopOf="@+id/textView_city_title" />
-<!--        android:text="@{article.city}"-->
 
         <TextView
             android:id="@+id/textView_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Hi Hi"
             android:layout_marginStart="16dp"
+            android:hint="Hi Hi"
+            android:text="@{article.content}"
             app:layout_constraintStart_toEndOf="@+id/textView_description_title"
             app:layout_constraintTop_toTopOf="@+id/textView_description_title" />
-<!--        android:text="@{article.description}"-->
 
         <TextView
             android:id="@+id/textView_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="找學生"
             android:layout_marginEnd="16dp"
+            android:hint="找學生"
+            android:text="@{article.tag}"
             app:layout_constraintBottom_toBottomOf="@+id/textView_author_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView_author_name" />
-<!--        android:text="@{article.category}"-->
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

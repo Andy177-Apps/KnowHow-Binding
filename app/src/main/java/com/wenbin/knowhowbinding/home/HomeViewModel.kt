@@ -55,8 +55,8 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-//        createTestedData()
         getArticlesResult()
+//        practiceMVVMfun()
     }
 
     private suspend fun login(id: String ="") : User? = suspendCoroutine {
@@ -75,13 +75,19 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
         _navigateToPostArticle.value = null
     }
 
+    private fun practiceMVVMfun() {
+        coroutineScope.launch {
+            repository.createTestedData()
+        }
+    }
+
     private fun getArticlesResult() {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.createTestedData()
+            val result = repository.getArticles()
 
             _articles.value = when (result) {
                 is Result.Success -> {

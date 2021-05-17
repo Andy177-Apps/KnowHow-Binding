@@ -19,4 +19,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
     override suspend fun publish(article: Article): Result<Boolean> {
         return knowHowBindingRemoteDataSource.publish(article)
     }
+
+    override suspend fun getArticles():  Result<List<Article>> {
+        return knowHowBindingRemoteDataSource.getArticles()
+    }
 }
