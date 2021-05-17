@@ -6,6 +6,7 @@
     <string name="profile">個人頁面</string>
     <string name="search">搜尋文章</string>
     <string name="you_know_nothing">You know nothing</string>
+    <string name="start_a_new_conversation">Start a new conversation</string>
 
     <string-array name="category_array">
         <item>交換技能</item>

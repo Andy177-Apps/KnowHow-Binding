@@ -33,8 +33,6 @@ class PostArticleViewModel(
         )
     }
 
-
-
     val article : LiveData<Article>
         get() = _article
 

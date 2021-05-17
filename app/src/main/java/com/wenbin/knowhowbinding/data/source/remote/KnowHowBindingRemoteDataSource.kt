@@ -1,24 +1,22 @@
 package com.wenbin.knowhowbinding.data.source.remote
 
-import android.icu.util.Calendar
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
+import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
-import com.wenbin.knowhowbinding.util.Logger
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     private const val PATH_ARTICLES = "articles"
+    private const val PATH_CHATROOMLIST = "chatRoomList"
     private const val KEY_CREATED_TIME = "createdTime"
 
     override suspend fun login(id: String): Result<User> {
@@ -78,6 +76,47 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             return@addOnCompleteListener
                         }
                         continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+    }
+
+    override suspend fun getLiveChatRooms(): Result<List<ChatRoom>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_CHATROOMLIST)
+                .orderBy("latestTime", Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener() { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<ChatRoom>()
+                        for (document in task.result!!) {
+                            Log.d("Tron", document.id + " => " + document.data)
+
+                            val chatroom1 = ChatRoom()
+                            val chatroom = document.toObject(ChatRoom::class.java)
+//                            chatroom1.id = chatroom.id
+//                            chatroom1.userImage = chatroom.userImage.filter { it != UserManager.photo}
+//                            chatroom1.attenderId = chatroom.attenderId.filter { it != UserManager.email }
+//                            chatroom1.attenderName = chatroom.attenderName.filter { it != UserManager.name }
+                            list.add(chatroom)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Log.w(
+                                    "Tron",
+                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                            )
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(
+                                Result.Fail(
+                                        KnowHowBindingApplication.instance.getString(
+                                                R.string.you_know_nothing
+                                        )
+                                )
+                        )
                     }
                 }
     }
