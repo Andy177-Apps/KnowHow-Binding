@@ -17,6 +17,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="#FFDCB9"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/button_send_message"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -31,17 +32,29 @@
             app:layout_constraintEnd_toStartOf="@id/button_send_message"
             app:layout_constraintTop_toTopOf="@id/button_send_message"
             android:ems="10"
+            android:hint="@string/indicator_message"
             android:text="@={viewModel.textSend}"
             android:gravity="start|top"
             android:inputType="textMultiLine" />
 
         <Button
             android:id="@+id/button_send_message"
-            android:layout_width="64dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="Send" />
+            android:text="Send"
+            android:textSize="12sp"/>
+
+        <ImageView
+            android:id="@+id/imageView_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:srcCompat="@drawable/outline_send_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,11 @@ class MessageViewModel(
         private val chatRoom : ChatRoom?
 ) : ViewModel() {
 
+    private val _identified = MutableLiveData<ChatRoom>()
+
+    val identified : LiveData<ChatRoom>
+        get() = _identified
+
     val textSend = MutableLiveData<String>()
 
     // status: The internal MutableLiveData that stores the status of the most recent request
@@ -40,6 +45,9 @@ class MessageViewModel(
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    init {
+        _identified.value = chatRoom
+    }
 
 
     fun addMessage(chatRoom: ChatRoom, message: Message) {

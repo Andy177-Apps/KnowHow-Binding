@@ -62,7 +62,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         val list = mutableListOf<Article>()
                         for (document in task.result!!) {
                             Log.d("wembin",document.id + " => " + document.data)
-
                             val article = document.toObject(Article::class.java)
                             list.add(article)
                         }
@@ -93,6 +92,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                             val chatroom1 = ChatRoom()
                             val chatroom = document.toObject(ChatRoom::class.java)
+                            Log.d("wenbin", "chatroom = $chatroom")
 //                            chatroom1.id = chatroom.id
 //                            chatroom1.userImage = chatroom.userImage.filter { it != UserManager.photo}
 //                            chatroom1.attenderId = chatroom.attenderId.filter { it != UserManager.email }
@@ -126,7 +126,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     ): Result<Boolean> = suspendCoroutine { continuation ->
     val userCollection = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
     userCollection
-            .whereEqualTo("id", chatRoom.id)
+//            .whereEqualTo("id", chatRoom.id)
             .get()
             .addOnSuccessListener { it ->
                 for (index in it) {
