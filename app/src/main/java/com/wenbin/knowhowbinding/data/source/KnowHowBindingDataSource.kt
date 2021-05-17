@@ -1,10 +1,7 @@
 package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
-import com.wenbin.knowhowbinding.data.Article
-import com.wenbin.knowhowbinding.data.ChatRoom
-import com.wenbin.knowhowbinding.data.Result
-import com.wenbin.knowhowbinding.data.User
+import com.wenbin.knowhowbinding.data.*
 
 interface KnowHowBindingDataSource {
 
@@ -17,5 +14,7 @@ interface KnowHowBindingDataSource {
     suspend fun getArticles(): Result<List<Article>>
 
     suspend fun getLiveChatRooms() : Result<List<ChatRoom>>
+
+    suspend fun addMessage(chatRoom: ChatRoom, message: Message) : Result<Boolean>
 
 }

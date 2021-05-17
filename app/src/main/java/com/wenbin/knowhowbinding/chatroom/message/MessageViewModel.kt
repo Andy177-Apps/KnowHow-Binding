@@ -1,6 +1,5 @@
-package com.wenbin.knowhowbinding.chatroom
+package com.wenbin.knowhowbinding.chatroom.message
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,33 +7,28 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Message
+import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import com.wenbin.knowhowbinding.data.Result
 
+class MessageViewModel(
+        private val repository: KnowHowBindingRepository,
+        private val chatRoom : ChatRoom?
+) : ViewModel() {
 
+    val textSend = MutableLiveData<String>()
 
-class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
-    private var _updatedChatRooms = MutableLiveData<List<ChatRoom>>()
-
-    val updatedChatRooms: LiveData<List<ChatRoom>>
-        get() = _updatedChatRooms
-
-    private val _fakeMessages = MutableLiveData<List<Message>>()
-
-    val fakeMessages: LiveData<List<Message>>
-        get() = _fakeMessages
-//    private val words = listOf<Words>(Words("請問這週改週三上ge課方便嗎？","2小時前"))
-
+    // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
-    val status : LiveData<LoadApiStatus>
+    val status: LiveData<LoadApiStatus>
         get() = _status
 
+    // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
 
     val error: LiveData<String>
@@ -43,48 +37,33 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    // The Coroutine runs using the Main (UI) dispatcher
+    // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    override fun onCleared() {
-        super.onCleared()
-        viewModelJob.cancel()
-    }
 
 
-    init {
-        getAllLiveChatRoom()
-    }
-
-    private fun getAllLiveChatRoom() {
+    fun addMessage(chatRoom: ChatRoom, message: Message) {
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getLiveChatRooms()
-
-            _updatedChatRooms.value = when (result) {
+            when (val result = repository.addMessage(chatRoom, message)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
-                    result.data
                 }
                 is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
-                    null
                 }
-                is Result.Error-> {
+                is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
-                    null
                 }
                 else -> {
                     _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
-                    null
                 }
             }
-            Log.d("wenbin", "_updatedChatRooms.value = ${_updatedChatRooms.value}")
         }
     }
 }

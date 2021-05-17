@@ -5,11 +5,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.data.Article
-import com.wenbin.knowhowbinding.data.ChatRoom
-import com.wenbin.knowhowbinding.data.Result
-import com.wenbin.knowhowbinding.data.User
+import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
+import com.wenbin.knowhowbinding.util.UserManager
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -17,6 +15,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     private const val PATH_ARTICLES = "articles"
     private const val PATH_CHATROOMLIST = "chatRoomList"
+    private const val PATH_MESSAGE = "message"
     private const val KEY_CREATED_TIME = "createdTime"
 
     override suspend fun login(id: String): Result<User> {
@@ -84,6 +83,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         FirebaseFirestore.getInstance()
                 .collection(PATH_CHATROOMLIST)
                 .orderBy("latestTime", Query.Direction.DESCENDING)
+//                .whereArrayContains("attenderId", "leo55576")
                 .get()
                 .addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
@@ -119,6 +119,26 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         )
                     }
                 }
+    }
+
+    override suspend fun addMessage(chatRoom: ChatRoom,
+                                    message: Message
+    ): Result<Boolean> = suspendCoroutine { continuation ->
+    val userCollection = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
+    userCollection
+            .whereEqualTo("id", chatRoom.id)
+            .get()
+            .addOnSuccessListener { it ->
+                for (index in it) {
+                    userCollection.document(index.id).collection(PATH_MESSAGE)
+                            .add(message).addOnSuccessListener {
+                                continuation.resume(Result.Success(true))
+                            }
+                            .addOnFailureListener {
+                                continuation.resume(Result.Error(it))
+                            }
+                }
+            }
     }
 }
 

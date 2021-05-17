@@ -1,12 +1,14 @@
 package com.wenbin.knowhowbinding.chatroom
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentChatroomBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
@@ -29,7 +31,10 @@ class ChatRoomFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        var adapter = ChatRoomAdapter()
+        var adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{
+            Log.d("Message Clicked", "ChatRoom = $it")
+            findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(it))
+        })
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

@@ -53,7 +53,15 @@
         android:name="com.wenbin.knowhowbinding.mycollect.MyCollectFragment"
         android:label="MyCollectFragment"
         tools:layout="@layout/fragment_mycollect"/>
-
+    <fragment
+        android:id="@+id/messageFragment"
+        android:name="com.wenbin.knowhowbinding.chatroom.message.MessageFragment"
+        android:label="MessageFragment"
+        tools:layout="@layout/fragment_message">
+        <argument
+            android:name="chatRoomInfo"
+            app:argType="com.wenbin.knowhowbinding.data.ChatRoom"/>
+    </fragment>
 
     <action android:id="@+id/navigate_to_home_fragment" app:destination="@id/homeFragment"
         app:popUpTo="@+id/navigation"
@@ -78,6 +86,7 @@
     <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"        />
     <action android:id="@+id/navigate_to_my_article_fragment" app:destination="@id/myArticleFragment"        />
     <action android:id="@+id/navigate_to_my_collect_fragment" app:destination="@id/myCollectFragment"        />
+    <action android:id="@+id/navigate_to_message_fragment" app:destination="@id/messageFragment"        />
 
 
 

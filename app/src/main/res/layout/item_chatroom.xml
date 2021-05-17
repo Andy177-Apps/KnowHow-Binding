@@ -6,7 +6,7 @@
     <data>
         <import type="android.view.View"/>
         <variable
-            name="charRoom"
+            name="chatRoom"
             type="com.wenbin.knowhowbinding.data.ChatRoom" />
         <variable
             name="imageUrl"
@@ -41,7 +41,7 @@
                 android:id="@+id/textView_object_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="TextView"
+                android:text="@{chatRoom.attenderName[0]}"
                 android:textSize="16dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,25 +57,14 @@
                 app:layout_constraintStart_toStartOf="@id/textView_object_name"
                 app:layout_constraintTop_toBottomOf="@id/textView_object_name"
                 >
-
-
                 <TextView
                     android:id="@+id/textView_show_latested_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{charRoom.latestMessage.toString()}"
+                    android:text="@{chatRoom.latestMessage.toString()}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/start_a_new_conversation"
-                    android:visibility="@{charRoom.latestMessage.length() == 0 ? View.VISIBLE : View.GONE}"
-                    app:layout_constraintStart_toStartOf="@id/textView_show_latested_message"
-                    app:layout_constraintTop_toTopOf="@id/textView_show_latested_message"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/textView_show_latested_time"

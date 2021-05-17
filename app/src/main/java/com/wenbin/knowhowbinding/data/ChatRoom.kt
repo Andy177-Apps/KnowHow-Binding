@@ -5,11 +5,12 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ChatRoom(
-        var chatRoomId : String = "",
+        var id : String = "",
         var latestTime : Long = -0L,
         var attendeesInfo : List<UserInfo> = listOf(),
         var attendees : List<String> = listOf(""),
-        var latestMessage : String = ""
+        var attenderName: List<String> = emptyList(),
+        var latestMessage : Message? = null
 ): Parcelable
 
 @Parcelize

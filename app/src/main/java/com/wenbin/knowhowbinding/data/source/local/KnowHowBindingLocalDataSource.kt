@@ -3,11 +3,8 @@ package com.wenbin.knowhowbinding.data.source.local
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import com.wenbin.knowhowbinding.data.Article
-import com.wenbin.knowhowbinding.data.ChatRoom
+import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
-import com.wenbin.knowhowbinding.data.Result
-import com.wenbin.knowhowbinding.data.User
 
 
 class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSource {
@@ -32,6 +29,10 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
     }
 
     override suspend fun getLiveChatRooms(): Result<List<ChatRoom>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun addMessage(chatRoom: ChatRoom, message: Message): Result<Boolean> {
         TODO("Not yet implemented")
     }
 

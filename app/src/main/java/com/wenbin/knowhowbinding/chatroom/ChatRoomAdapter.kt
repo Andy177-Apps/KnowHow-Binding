@@ -5,35 +5,36 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.wenbin.knowhowbinding.data.Message
-import com.wenbin.knowhowbinding.databinding.ItemMessageBinding
+import com.wenbin.knowhowbinding.data.ChatRoom
+import com.wenbin.knowhowbinding.databinding.ItemChatroomBinding
 
-class ChatRoomAdapter : ListAdapter<Message,
+class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener) :
+        ListAdapter<ChatRoom,
         ChatRoomAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-        private var binding : ItemMessageBinding
+        private var binding : ItemChatroomBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Message) {
-            binding.message = item
+        fun bind (item : ChatRoom) {
+            binding.chatRoom = item
             binding.executePendingBindings()
         }
         companion object {
             fun from(parent: ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ItemMessageBinding.inflate(layoutInflater,
+                val binding = ItemChatroomBinding.inflate(layoutInflater,
                     parent, false)
                 return ViewHolder(binding)
             }
         }
     }
 
-    object DiffCallback : DiffUtil.ItemCallback<Message>() {
-        override fun areItemsTheSame(oldItem: Message, newItem: Message): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<ChatRoom>() {
+        override fun areItemsTheSame(oldItem: ChatRoom, newItem: ChatRoom): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
+        override fun areContentsTheSame(oldItem: ChatRoom, newItem: ChatRoom): Boolean {
             return oldItem == newItem
         }
     }
@@ -43,7 +44,19 @@ class ChatRoomAdapter : ListAdapter<Message,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as Message)
+        val item = getItem(position)
+        when (holder) {
+            is ViewHolder -> {
+                val chatRoom = item as ChatRoom
+                holder.bind(chatRoom)
+                holder.itemView.setOnClickListener {
+                    itemChickListener.onItemClicked(chatRoom)
+                }
+            }
+        }
     }
 
+    class MessageOnItemClickListener(val clickListener : (chatRoom : ChatRoom) -> Unit) {
+        fun onItemClicked(chatRoom : ChatRoom) = clickListener(chatRoom)
+    }
 }
