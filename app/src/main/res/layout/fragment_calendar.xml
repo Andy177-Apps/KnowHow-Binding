@@ -20,7 +20,19 @@
             app:layout_constraintTop_toTopOf="parent"
             />
 
-<!--        <androidx.core.widget.NestedScrollView-->
+        <ImageView
+            android:id="@+id/imageView_create_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendarView"
+            android:background="#FFDC35"
+            app:srcCompat="@drawable/outline_add_black_24dp"
+            />
+
+        <!--        <androidx.core.widget.NestedScrollView-->
 <!--            android:id="@+id/nestedScroll_bottom_sheet"-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="0dp"-->

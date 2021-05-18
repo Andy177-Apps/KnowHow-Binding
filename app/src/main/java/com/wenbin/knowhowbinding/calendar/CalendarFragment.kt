@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentCalendarBinding
 
@@ -24,6 +25,9 @@ class CalendarFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        binding.imageViewCreateEvent.setOnClickListener {
+            findNavController().navigate(CalendarFragmentDirections.navigateToCreateEventDialog())
+        }
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("月曆")
         }

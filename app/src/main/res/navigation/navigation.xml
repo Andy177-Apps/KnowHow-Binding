@@ -83,11 +83,16 @@
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true"
         />
+    <dialog
+        android:id="@+id/createEventDialogFragment"
+        android:name="com.wenbin.knowhowbinding.calendar.createevent.CreateEventDialogFragment"
+        android:label="CreateEventDialogFragment"
+        tools:layout="@layout/dialog_create_event"/>
     <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"        />
     <action android:id="@+id/navigate_to_my_article_fragment" app:destination="@id/myArticleFragment"        />
     <action android:id="@+id/navigate_to_my_collect_fragment" app:destination="@id/myCollectFragment"        />
     <action android:id="@+id/navigate_to_message_fragment" app:destination="@id/messageFragment"        />
-
+    <action android:id="@+id/navigate_to_create_event_dialog" app:destination="@id/createEventDialogFragment"        />
 
 
 
