@@ -53,6 +53,11 @@ class CreateEventViewModel(
 
     val date = TimeUtil.stampToDate(selectedDate)
 
+    private val _isAllDay = MutableLiveData<Boolean>()
+
+    val isAllDay : LiveData<Boolean>
+        get() = _isAllDay
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -129,6 +134,9 @@ class CreateEventViewModel(
         _eventTime.value = TimeUtil.dateToStamp(date, Locale.TAIWAN)
     }
 
+    fun setAllDay(isAllDay : Boolean) {
+        _isAllDay.value = isAllDay
+    }
     fun setEventTime(timeStamp: Long) {
         _eventTime.value = timeStamp
     }

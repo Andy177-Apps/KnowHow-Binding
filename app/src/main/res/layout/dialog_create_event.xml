@@ -195,6 +195,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="19:00"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="@id/switch_is_all_day"
                             app:layout_constraintTop_toTopOf="@id/textView_date"
                             />
@@ -204,6 +205,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="21:00"
+                            android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="@id/switch_is_all_day"
                             app:layout_constraintTop_toBottomOf="@id/textView_start_time"
                             />

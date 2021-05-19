@@ -20,7 +20,7 @@ import com.wenbin.knowhowbinding.util.TimeUtil
 import kotlinx.android.synthetic.main.dialog_create_event.*
 import java.util.*
 import com.wenbin.knowhowbinding.util.Logger
-
+import kotlinx.android.synthetic.main.dialog_create_event.view.*
 
 
 class CreateEventDialogFragment : DialogFragment() {
@@ -45,6 +45,17 @@ class CreateEventDialogFragment : DialogFragment() {
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
         val minute = calendar.get(Calendar.MINUTE)
+
+        // Setup TimePickDialog visibility associated is all day
+        binding.switchIsAllDay.setOnClickListener {
+            if (it.switch_is_all_day.isChecked) {
+                timeIntervalVisibility(true)
+                viewModel.setAllDay(true)
+            } else {
+                timeIntervalVisibility(false)
+                viewModel.setAllDay(false)
+            }
+        }
 
         // Setup Time Picker - Start Time
         binding.textViewStartTime.setOnClickListener {
@@ -88,6 +99,17 @@ class CreateEventDialogFragment : DialogFragment() {
             Log.d("wenbin", "it = $it")
         })
         return binding.root
+    }
+
+    private fun timeIntervalVisibility(condition : Boolean) {
+        // When condtion == ture, it represent switch is open
+        if (condition) {
+            binding.textViewStartTime.visibility = View.GONE
+            binding.textViewEndTime.visibility = View.GONE
+        } else {
+            binding.textViewStartTime.visibility = View.VISIBLE
+            binding.textViewEndTime.visibility = View.VISIBLE
+        }
     }
 
     private fun showTimePickerDialog(type: Int, startHour: Int, startMinute: Int) {
