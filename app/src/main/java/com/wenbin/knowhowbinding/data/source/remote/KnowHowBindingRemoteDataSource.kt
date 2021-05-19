@@ -16,6 +16,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     private const val PATH_ARTICLES = "articles"
     private const val PATH_CHATROOMLIST = "chatRoomList"
     private const val PATH_MESSAGE = "message"
+    private const val PATH_EVENTS = "event"
     private const val KEY_CREATED_TIME = "createdTime"
 
     override suspend fun login(id: String): Result<User> {
@@ -137,6 +138,33 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             .addOnFailureListener {
                                 continuation.resume(Result.Error(it))
                             }
+                }
+            }
+    }
+
+    override suspend fun postEvent(event: Event): Result<Boolean> = suspendCoroutine { continuation->
+        //先與 Firebase 的 collection 連動
+        val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
+        //再與 Firebase 的 document 連動，方法就是創造該 document
+        val document = events.document()
+
+        event.id = document.id
+
+        document
+            .set(event)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.i("wenbin", "Post: $event")
+
+                    continuation.resume( Result.Success(true))
+                } else {
+                    task.exception?.let {
+
+                        Log.w("wenbin","[${this::class.simpleName}] Error getting documents. ${it.message}")
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
                 }
             }
     }

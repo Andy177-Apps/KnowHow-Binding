@@ -17,11 +17,11 @@ object ServiceLocator {
         synchronized(this) {
             return knowHowBindingRepository
                 ?: knowHowBindingRepository
-                ?: createStylishRepository(context)
+                ?: createKnowHowBindingRepository(context)
         }
     }
 
-    private fun createStylishRepository(context: Context): KnowHowBindingRepository {
+    private fun createKnowHowBindingRepository(context: Context): KnowHowBindingRepository {
         return DefaultKnowHowBindingRepository(
             KnowHowBindingRemoteDataSource,
             createLocalDataSource(context)

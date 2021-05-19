@@ -16,6 +16,7 @@ import com.wenbin.knowhowbinding.home.HomeAdapter
 import com.wenbin.knowhowbinding.myarticle.MyArticleAdapter
 import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
 import com.wenbin.knowhowbinding.profile.ProfileCommentAdapter
+import com.wenbin.knowhowbinding.search.SearchAdapter
 import com.wenbin.knowhowbinding.util.TimeUtil
 
 @BindingAdapter("imageUrl")
@@ -40,6 +41,7 @@ fun BindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>
                 is HomeAdapter -> submitList(it)
                 is MyArticleAdapter -> submitList(it)
                 is MyCollectAdapter -> submitList(it)
+                is SearchAdapter -> submitList(it)
             }
         }
     }

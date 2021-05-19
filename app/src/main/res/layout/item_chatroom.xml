@@ -41,7 +41,7 @@
                 android:id="@+id/textView_object_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{chatRoom.attenderName[0]}"
+                android:text="@{chatRoom.message.userName}"
                 android:textSize="24dp"
                 android:textColor="@color/black"
                 android:textStyle="bold"

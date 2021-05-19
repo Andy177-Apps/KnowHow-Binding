@@ -16,4 +16,6 @@ interface KnowHowBindingRepository {
     suspend fun getLiveChatRooms() : Result<List<ChatRoom>>
 
     suspend fun addMessage(chatRoom: ChatRoom, message: Message) : Result<Boolean>
+
+    suspend fun postEvent(event: Event): Result<Boolean>
 }

@@ -30,4 +30,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
     override suspend fun addMessage(chatRoom: ChatRoom, message: Message): Result<Boolean> {
         return knowHowBindingRemoteDataSource.addMessage(chatRoom, message)
     }
+
+    override suspend fun postEvent(event: Event): Result<Boolean> {
+        return knowHowBindingRemoteDataSource.postEvent(event)
+    }
 }

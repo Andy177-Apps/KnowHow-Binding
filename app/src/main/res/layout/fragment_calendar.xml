@@ -17,8 +17,19 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             />
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/material_calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_showOtherDates="all"
+            app:mcv_selectionColor="#00F"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
 
         <ImageView
             android:id="@+id/imageView_create_event"
@@ -27,7 +38,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/calendarView"
+            app:layout_constraintTop_toBottomOf="@id/material_calendarView"
             android:background="#FFDC35"
             app:srcCompat="@drawable/outline_add_black_24dp"
             />

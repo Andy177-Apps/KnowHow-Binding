@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.wenbin.knowhowbinding.calendar.createevent.CreateEventViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -68,7 +70,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Add Title"
-                        android:inputType="text"
+                        android:text="@={viewModel.title}"
                         android:paddingHorizontal="8dp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/textView_title"
@@ -112,6 +114,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="City"
+                        android:text="@={viewModel.city}"
                         android:inputType="text"
                         android:paddingHorizontal="8dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -138,6 +141,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:hint="Description"
+                        android:text="@={viewModel.description}"
                         android:inputType="text"
                         android:paddingHorizontal="8dp"
                         app:layout_constraintStart_toStartOf="parent"
