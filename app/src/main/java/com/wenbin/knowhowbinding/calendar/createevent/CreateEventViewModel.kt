@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
@@ -25,6 +26,9 @@ class CreateEventViewModel(
 
     val description = MutableLiveData<String>()
 
+
+
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -36,6 +40,12 @@ class CreateEventViewModel(
 
     val error: LiveData<String>
         get() = _error
+
+    // status for the loading icon of swl
+    private val _refreshStatus = MutableLiveData<Boolean>()
+
+    val refreshStatus: LiveData<Boolean>
+        get() = _refreshStatus
 
     //Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -70,4 +80,5 @@ class CreateEventViewModel(
             }
         }
     }
+
 }

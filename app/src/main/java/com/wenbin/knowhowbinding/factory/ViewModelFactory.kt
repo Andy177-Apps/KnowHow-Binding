@@ -3,6 +3,7 @@ package com.wenbin.knowhowbinding.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.MainViewModel
+import com.wenbin.knowhowbinding.calendar.CalendarViewModel
 import com.wenbin.knowhowbinding.calendar.createevent.CreateEventViewModel
 import com.wenbin.knowhowbinding.chatroom.ChatRoomViewModel
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
@@ -34,6 +35,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(CreateEventViewModel::class.java) ->
                     CreateEventViewModel(knowHowBindingRepository)
+
+                isAssignableFrom(CalendarViewModel::class.java) ->
+                    CalendarViewModel(knowHowBindingRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

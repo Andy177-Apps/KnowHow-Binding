@@ -88,6 +88,7 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.getArticles()
+            Log.d("wenbin", "ArticlesResult = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {

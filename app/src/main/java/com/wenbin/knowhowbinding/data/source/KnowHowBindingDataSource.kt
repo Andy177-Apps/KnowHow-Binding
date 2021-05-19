@@ -19,4 +19,6 @@ interface KnowHowBindingDataSource {
 
     suspend fun postEvent(event: Event): Result<Boolean>
 
+    suspend fun getAllEvents():  Result<List<Event>>
+
 }

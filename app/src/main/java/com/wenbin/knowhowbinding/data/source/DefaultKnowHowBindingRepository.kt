@@ -34,4 +34,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
     override suspend fun postEvent(event: Event): Result<Boolean> {
         return knowHowBindingRemoteDataSource.postEvent(event)
     }
+
+    override suspend fun getAllEvents(): Result<List<Event>> {
+        return knowHowBindingRemoteDataSource.getAllEvents()
+    }
 }
