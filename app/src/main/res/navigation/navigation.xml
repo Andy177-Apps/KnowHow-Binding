@@ -87,7 +87,12 @@
         android:id="@+id/createEventDialogFragment"
         android:name="com.wenbin.knowhowbinding.calendar.createevent.CreateEventDialogFragment"
         android:label="CreateEventDialogFragment"
-        tools:layout="@layout/dialog_create_event"/>
+        tools:layout="@layout/dialog_create_event">
+        <argument
+            android:name="selectedDate"
+            app:argType="long"/>
+    </dialog>
+
     <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"        />
     <action android:id="@+id/navigate_to_my_article_fragment" app:destination="@id/myArticleFragment"        />
     <action android:id="@+id/navigate_to_my_collect_fragment" app:destination="@id/myCollectFragment"        />

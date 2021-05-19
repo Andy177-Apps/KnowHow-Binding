@@ -21,4 +21,6 @@ interface KnowHowBindingRepository {
 
     suspend fun getAllEvents():  Result<List<Event>>
 
+    fun getLiveEvents(): MutableLiveData<List<Event>>
+
 }

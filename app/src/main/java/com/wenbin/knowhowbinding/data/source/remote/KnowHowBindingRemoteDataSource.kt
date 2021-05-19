@@ -1,12 +1,14 @@
 package com.wenbin.knowhowbinding.data.source.remote
 
 import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
+import com.wenbin.knowhowbinding.util.Logger
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -193,6 +195,36 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 }
             }
     }
+
+    override fun getLiveEvents(): MutableLiveData<List<Event>> {
+
+        val liveData = MutableLiveData<List<Event>>()
+
+        FirebaseFirestore.getInstance()
+            .collection(PATH_EVENTS)
+//            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+            .addSnapshotListener { snapshot, exception ->
+
+                Logger.i("addSnapshotListener detect")
+
+                exception?.let {
+                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                }
+
+                val list = mutableListOf<Event>()
+                for (document in snapshot!!) {
+                    Logger.d(document.id + " => " + document.data)
+
+                    val event = document.toObject(Event::class.java)
+                    list.add(event)
+                }
+
+                liveData.value = list
+            }
+        return liveData
+    }
+
+
 }
 
 

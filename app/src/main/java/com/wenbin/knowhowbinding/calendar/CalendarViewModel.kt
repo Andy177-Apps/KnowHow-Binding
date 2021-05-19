@@ -9,11 +9,16 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.ext.sortByTimeStamp
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
+import com.wenbin.knowhowbinding.util.TimeUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import org.threeten.bp.LocalDate
+import java.util.*
 
 class CalendarViewModel(
     private val repository: KnowHowBindingRepository
@@ -22,6 +27,16 @@ class CalendarViewModel(
 
     val events: LiveData<List<Event>>
         get() = _events
+
+    var liveEvents = MutableLiveData<List<Event>>()
+
+    // Handle navigation to CreateEventDialogFragment with Selected date by safe arg
+    private val _navigationToCreateEventDialogFragment = MutableLiveData<Long>()
+
+    val navigationToCreateEventDialogFragment : LiveData<Long>
+        get() = _navigationToCreateEventDialogFragment
+
+    val selectedLiveEvent = MutableLiveData<List<Event>>()
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -48,7 +63,21 @@ class CalendarViewModel(
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        getEventsResult()
+        Logger.i("------------------------------------")
+        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("------------------------------------")
+
+        if (KnowHowBindingApplication.instance.isLiveDataDesign()) {
+            getLiveEventsResult()
+        }else {
+            getEventsResult()
+        }
+    }
+
+    private fun getLiveEventsResult() {
+        liveEvents = repository.getLiveEvents()
+        _status.value = LoadApiStatus.DONE
+        _refreshStatus.value = false
     }
     private fun getEventsResult() {
 
@@ -83,6 +112,15 @@ class CalendarViewModel(
             }
             _refreshStatus.value = false
         }
+    }
+
+    fun createdDailyEvent (toTimeStamp: Long) {
+        selectedLiveEvent.value = liveEvents.value.sortByTimeStamp(toTimeStamp)
+        _navigationToCreateEventDialogFragment.value = toTimeStamp
+    }
+
+    private fun todayDate() {
+        _navigationToCreateEventDialogFragment.value = TimeUtil.dateToStamp(LocalDate.now().toString(), Locale.TAIWAN)
     }
 
 }

@@ -33,9 +33,6 @@ class ViewModelFactory constructor(
                 isAssignableFrom(SearchViewModel::class.java) ->
                     SearchViewModel(knowHowBindingRepository)
 
-                isAssignableFrom(CreateEventViewModel::class.java) ->
-                    CreateEventViewModel(knowHowBindingRepository)
-
                 isAssignableFrom(CalendarViewModel::class.java) ->
                     CalendarViewModel(knowHowBindingRepository)
 

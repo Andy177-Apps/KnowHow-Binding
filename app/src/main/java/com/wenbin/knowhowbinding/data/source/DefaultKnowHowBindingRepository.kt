@@ -38,4 +38,9 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
     override suspend fun getAllEvents(): Result<List<Event>> {
         return knowHowBindingRemoteDataSource.getAllEvents()
     }
+
+    override fun getLiveEvents(): MutableLiveData<List<Event>> {
+        return knowHowBindingRemoteDataSource.getLiveEvents()
+    }
+
 }

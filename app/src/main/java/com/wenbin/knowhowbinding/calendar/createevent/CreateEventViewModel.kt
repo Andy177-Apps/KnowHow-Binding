@@ -7,17 +7,22 @@ import androidx.lifecycle.ViewModel
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
+import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
+import com.wenbin.knowhowbinding.util.TimeUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 
 class CreateEventViewModel(
-    private val repository: KnowHowBindingRepository
+    private val repository: KnowHowBindingRepository,
+    private val selectedDate: Long
 ) : ViewModel()  {
 
     val title = MutableLiveData<String>()
@@ -26,8 +31,27 @@ class CreateEventViewModel(
 
     val description = MutableLiveData<String>()
 
+    private val _startTime = MutableLiveData<Long>()
 
+    val startTime : LiveData<Long>
+        get() = _startTime
 
+    private val _endTime = MutableLiveData<Long>()
+
+    val endTime : LiveData<Long>
+        get() = _endTime
+
+    private val _eventTime = MutableLiveData<Long>()
+
+    val eventTime : LiveData<Long>
+        get() = _eventTime
+
+    private val _type = MutableLiveData<String>()
+
+    val type : LiveData<String>
+        get() = _type
+
+    val date = TimeUtil.stampToDate(selectedDate)
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -52,6 +76,22 @@ class CreateEventViewModel(
 
     //the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    init {
+        Logger.i("------------------------------------")
+        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("------------------------------------")
+        setInitialTime()
+    }
+    fun getEvent(): Event {
+        return Event(
+            id = "",
+            city = city.value.toString(),
+            title = title.value.toString(),
+            description = description.value.toString(),
+
+        )
+    }
 
     fun post() {
         coroutineScope.launch {
@@ -80,5 +120,26 @@ class CreateEventViewModel(
             }
         }
     }
+
+    fun setType(selectedType: String) {
+        _type.value = selectedType
+    }
+
+    private fun setInitialTime() {
+        _eventTime.value = TimeUtil.dateToStamp(date, Locale.TAIWAN)
+    }
+
+    fun setEventTime(timeStamp: Long) {
+        _eventTime.value = timeStamp
+    }
+
+    fun setStartIme(timeStamp: Long) {
+        _startTime.value = timeStamp
+    }
+
+    fun setEndTime(timeStamp: Long) {
+        _endTime.value = timeStamp
+    }
+
 
 }
