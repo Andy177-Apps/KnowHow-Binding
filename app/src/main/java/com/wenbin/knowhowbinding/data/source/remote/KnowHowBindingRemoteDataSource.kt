@@ -9,6 +9,7 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
 import com.wenbin.knowhowbinding.util.Logger
+import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -150,6 +151,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         val document = events.document()
 
         event.id = document.id
+        event.createdTime = Calendar.getInstance().timeInMillis
 
         document
             .set(event)

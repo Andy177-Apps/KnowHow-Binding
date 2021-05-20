@@ -21,9 +21,9 @@ import kotlinx.coroutines.launch
 import java.util.*
 
 class CreateEventViewModel(
-    private val repository: KnowHowBindingRepository,
-    private val selectedDate: Long
-) : ViewModel()  {
+        private val repository: KnowHowBindingRepository,
+        private val selectedDate: Long
+) : ViewModel() {
 
     val title = MutableLiveData<String>()
 
@@ -33,29 +33,29 @@ class CreateEventViewModel(
 
     private val _startTime = MutableLiveData<Long>()
 
-    val startTime : LiveData<Long>
+    val startTime: LiveData<Long>
         get() = _startTime
 
     private val _endTime = MutableLiveData<Long>()
 
-    val endTime : LiveData<Long>
+    val endTime: LiveData<Long>
         get() = _endTime
 
     private val _eventTime = MutableLiveData<Long>()
 
-    val eventTime : LiveData<Long>
+    val eventTime: LiveData<Long>
         get() = _eventTime
 
     private val _type = MutableLiveData<String>()
 
-    val type : LiveData<String>
+    val type: LiveData<String>
         get() = _type
 
     val date = TimeUtil.stampToDate(selectedDate)
 
     private val _isAllDay = MutableLiveData<Boolean>()
 
-    val isAllDay : LiveData<Boolean>
+    val isAllDay: LiveData<Boolean>
         get() = _isAllDay
 
     // status: The internal MutableLiveData that stores the status of the most recent request
@@ -88,22 +88,32 @@ class CreateEventViewModel(
         Logger.i("------------------------------------")
         setInitialTime()
     }
-    fun getEvent(): Event {
-        return Event(
-            id = "",
-            city = city.value.toString(),
-            title = title.value.toString(),
-            description = description.value.toString(),
 
+    // Set content from xml to Event data
+    fun getEvent(): Event {
+        //Where, id and createdTime are both assigned in fun postEvent at RemoteDataSource
+        return Event(
+                city = city.value.toString(),
+                title = title.value.toString(),
+                description = description.value.toString(),
+                creatorName = "Wenbin",
+                creatorImage = "",
+                attendees = listOf("id one", "id two"),
+                attendeesName = listOf("person one", "person two"),
+                tag = type.value.toString(),
+                eventTime = eventTime.value ?: -1,
+                startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
+                endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
+                invitation = listOf("Invite people one")
         )
     }
 
-    fun post() {
+    fun post(event: Event) {
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
             Log.d("wenbin", "title.value = ${title.value}")
 
-            val event = Event(id = "leo55576",city = city.value.toString(), title = title.value.toString(), description = description.value.toString())
+//            val event = Event(id = "leo55576", city = city.value.toString(), title = title.value.toString(), description = description.value.toString())
             Log.d("wenbin", "event = $event")
             when (val result = repository.postEvent(event)) {
                 is Result.Success -> {
@@ -134,9 +144,10 @@ class CreateEventViewModel(
         _eventTime.value = TimeUtil.dateToStamp(date, Locale.TAIWAN)
     }
 
-    fun setAllDay(isAllDay : Boolean) {
+    fun setAllDay(isAllDay: Boolean) {
         _isAllDay.value = isAllDay
     }
+
     fun setEventTime(timeStamp: Long) {
         _eventTime.value = timeStamp
     }
@@ -148,6 +159,5 @@ class CreateEventViewModel(
     fun setEndTime(timeStamp: Long) {
         _endTime.value = timeStamp
     }
-
 
 }

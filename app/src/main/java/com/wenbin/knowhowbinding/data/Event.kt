@@ -15,9 +15,9 @@ data class Event (
     var attendees : List<String> = listOf(""),
     var attendeesName : List<String> = listOf(""),
     val tag  : String = "",
-    val eventTime : Long = -1,
-    var startTime : Long = -1,
-    val endTime : Long = -1,
+    val eventTime : Long = -1L,
+    var startTime : Long = -1L,
+    val endTime : Long = -1L,
     var invitation : List<String> = listOf("")
 
     ) : Parcelable

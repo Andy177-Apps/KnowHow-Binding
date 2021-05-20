@@ -92,7 +92,7 @@ class CalendarFragment : Fragment() {
     private fun addDotDecoration(year: Int, month: Int, day: Int) {
         widget.addDecorator(
             SingleDateDecorator(
-                KnowHowBindingApplication.appContext.resources.getColor(R.color.purple_500),
+                KnowHowBindingApplication.appContext.applicationContext.getColor(R.color.purple_500),
                 CalendarDay.from(year, month, day)
             )
         )

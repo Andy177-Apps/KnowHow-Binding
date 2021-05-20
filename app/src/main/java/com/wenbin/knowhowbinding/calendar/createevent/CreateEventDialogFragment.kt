@@ -57,6 +57,9 @@ class CreateEventDialogFragment : DialogFragment() {
             }
         }
 
+        // Set up textView_date to show selected date by safe arg from calendar page.
+        binding.textViewDate.text = viewModel.date
+
         // Setup Time Picker - Start Time
         binding.textViewStartTime.setOnClickListener {
             showTimePickerDialog(timePickerTypeStart, hour, minute)
@@ -66,8 +69,12 @@ class CreateEventDialogFragment : DialogFragment() {
             showTimePickerDialog(timePickerTypeEnd, hour, minute)
         }
         binding.viewBtnSend.setOnClickListener {
-            viewModel.title.value = editText_title.text.toString()
-            viewModel.post()
+            // TODO determine condition if filled out the form.
+            val event = viewModel.getEvent()
+            Logger.i("${viewModel.startTime.value}")
+
+            viewModel.post(event)
+            Logger.i("$event")
             findNavController().navigate(CreateEventDialogFragmentDirections.navigateToCalendarFragment())
         }
 
