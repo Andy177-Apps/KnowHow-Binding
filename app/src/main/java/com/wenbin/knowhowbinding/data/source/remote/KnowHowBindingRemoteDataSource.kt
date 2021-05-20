@@ -215,7 +215,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                 val list = mutableListOf<Event>()
                 for (document in snapshot!!) {
-                    Logger.d(document.id + " => " + document.data)
+                    Logger.d(document.id + " =>>>> " + document.data)
 
                     val event = document.toObject(Event::class.java)
                     list.add(event)

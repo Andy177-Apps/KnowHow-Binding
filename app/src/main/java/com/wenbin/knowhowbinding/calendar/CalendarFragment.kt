@@ -39,22 +39,22 @@ class CalendarFragment : Fragment() {
         binding = FragmentCalendarBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
         widget = binding.materialCalendarView
         val localDate = LocalDate.now()
-
         widget.setCurrentDate(localDate)
 
-
-
+        // Set Indecator of current date
+        widget.setSelectedDate(localDate)
 
         // Add dots based on my events
         viewModel.liveEvents.observe(viewLifecycleOwner, Observer {
             Log.d("wenbin", "viewModel.allLiveEvents, it = $it")
             it?.let {
                 it.forEach {event ->
-                    val year = TimeUtil.stampToYear(event.endTime).toInt()
-                    val month = TimeUtil.stampToMothInt(event.endTime).toInt()
-                    val day = TimeUtil.stampToDay(event.endTime).toInt()
+                    val year = TimeUtil.stampToYear(event.eventTime).toInt()
+                    val month = TimeUtil.stampToMothInt(event.eventTime).toInt()
+                    val day = TimeUtil.stampToDay(event.eventTime).toInt()
                     addDotDecoration(year, month, day)
                 }
                 viewModel.createdDailyEvent(TimeUtil.dateToStamp(localDate.toString(), Locale.TAIWAN))
@@ -92,7 +92,7 @@ class CalendarFragment : Fragment() {
     private fun addDotDecoration(year: Int, month: Int, day: Int) {
         widget.addDecorator(
             SingleDateDecorator(
-                KnowHowBindingApplication.appContext.applicationContext.getColor(R.color.purple_500),
+                KnowHowBindingApplication.appContext.applicationContext.getColor(R.color.orange),
                 CalendarDay.from(year, month, day)
             )
         )

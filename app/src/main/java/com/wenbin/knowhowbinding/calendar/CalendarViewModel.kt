@@ -67,6 +67,9 @@ class CalendarViewModel(
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
 
+        getLiveEventsResult()
+        todayDate()
+
         if (KnowHowBindingApplication.instance.isLiveDataDesign()) {
             getLiveEventsResult()
         }else {
