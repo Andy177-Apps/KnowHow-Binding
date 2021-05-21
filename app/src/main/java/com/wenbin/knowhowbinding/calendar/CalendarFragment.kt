@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
@@ -43,6 +45,9 @@ class CalendarFragment : Fragment() {
         widget = binding.materialCalendarView
         val localDate = LocalDate.now()
         widget.setCurrentDate(localDate)
+
+        var adapter = CalendarAdapter()
+        binding.recyclerView.adapter = adapter
 
         // Set Indecator of current date
         widget.setSelectedDate(localDate)

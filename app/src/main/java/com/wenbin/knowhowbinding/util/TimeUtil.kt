@@ -48,5 +48,48 @@ object TimeUtil {
         return simpleDateFormat.parse(time).time
     }
 
+    fun stampToWeek(time: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = time
+        return when(calendar.get(Calendar.DAY_OF_WEEK)) {
+            1 -> "SUN"
+            2 -> "MON"
+            3 -> "TUE"
+            4 -> "WED"
+            5 -> "THU"
+            6 -> "FRI"
+            else -> "SAT"
+        }
+    }
 
+    fun stampToMonth(time: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = time
+        return when(calendar.get(Calendar.MONTH)) {
+            0 -> "JAN"
+            1 -> "FEB"
+            2 -> "MAR"
+            3 -> "APR"
+            4 -> "MAY"
+            5 -> "JUN"
+            6 -> "JUL"
+            7 -> "AUG"
+            8 -> "SEP"
+            9 -> "OCT"
+            10 -> "NOV"
+            else -> "DEC"
+        }
+    }
+
+    fun stampToDayOfMonth(time: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = time
+        val date = calendar.get(Calendar.DAY_OF_MONTH)
+        return date.toString()
+    }
+
+    fun stampToTime(time: Long): String {
+        val simpleDateFormat = SimpleDateFormat("HH:mm")
+        return simpleDateFormat.format(Date(time))
+    }
 }

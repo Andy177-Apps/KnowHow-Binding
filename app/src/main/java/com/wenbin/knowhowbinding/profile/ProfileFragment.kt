@@ -9,11 +9,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
-import com.wenbin.knowhowbinding.databinding.FragmentProfileBinding
+import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
 
 
 class ProfileFragment  : Fragment() {
-    private lateinit var binding : FragmentProfileBinding
+    private lateinit var binding : FragmentMyselfProfileBinding
     private val viewModel : ProfileViewModel by lazy {
         ViewModelProvider(this).get(ProfileViewModel::class.java)
     }
@@ -23,7 +23,7 @@ class ProfileFragment  : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileBinding.inflate(inflater)
+        binding = FragmentMyselfProfileBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 

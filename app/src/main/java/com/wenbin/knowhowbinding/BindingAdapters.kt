@@ -7,11 +7,9 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.wenbin.knowhowbinding.calendar.CalendarAdapter
 import com.wenbin.knowhowbinding.chatroom.ChatRoomAdapter
-import com.wenbin.knowhowbinding.data.Article
-import com.wenbin.knowhowbinding.data.ChatRoom
-import com.wenbin.knowhowbinding.data.Comment
-import com.wenbin.knowhowbinding.data.Message
+import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.home.HomeAdapter
 import com.wenbin.knowhowbinding.myarticle.MyArticleAdapter
 import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
@@ -34,7 +32,7 @@ fun bindImage (imgView: ImageView, imgUrl : String) {
 }
 
 @BindingAdapter("GetArticle")
-fun BindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>?) {
+fun bindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>?) {
     data?.let {
         recyclerView.adapter.apply {
             when (this) {
@@ -48,17 +46,47 @@ fun BindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>
 }
 
 @BindingAdapter("ShowMessage")
-fun BindRecyclerViewWithMessage(recyclerView: RecyclerView, data : List<ChatRoom>?) {
+fun bindRecyclerViewWithMessage(recyclerView: RecyclerView, data : List<ChatRoom>?) {
     val adapter = recyclerView.adapter as ChatRoomAdapter
     adapter.submitList(data)
 }
 
+@BindingAdapter("ShowEvent")
+fun bindRecyclerViewWithEvent(recyclerView: RecyclerView, data : List<Event>?) {
+    data?.let {
+        recyclerView.adapter.apply {
+            when (this) {
+                is CalendarAdapter -> submitList(it)
+            }
+        }
+    }
+}
+
 @BindingAdapter("ShowComment")
-fun BindRecyclerViewWithComment(recyclerView: RecyclerView, data : List<Comment>?) {
+fun bindRecyclerViewWithComment(recyclerView: RecyclerView, data : List<Comment>?) {
     val adapter = recyclerView.adapter as ProfileCommentAdapter
     adapter.submitList(data)
 }
 
+@BindingAdapter("week")
+fun bindWeek(textView: TextView, time: Long?) {
+    time?.let { textView.text = TimeUtil.stampToWeek(time) }
+}
+
+@BindingAdapter("month")
+fun bindMonth(textView: TextView, time: Long?) {
+    time?.let { textView.text = TimeUtil.stampToMonth(time) }
+}
+
+@BindingAdapter("day")
+fun bindDay(textView: TextView, time: Long?) {
+    time?.let { textView.text = TimeUtil.stampToDayOfMonth(time) }
+}
+
+@BindingAdapter("time")
+fun bindTime(textView: TextView, time: Long?) {
+    time?.let { textView.text = TimeUtil.stampToTime(time) }
+}
 //@BindingAdapter("ShowLatestTime")
 //fun bindLatestTime(textView: TextView, time : Long?) {
 //    time?.let {  textView.text = TimeUtil.stampTo }

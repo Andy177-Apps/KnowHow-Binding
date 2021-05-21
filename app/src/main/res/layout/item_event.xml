@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="event"
+            type="com.wenbin.knowhowbinding.data.Event" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_event"
+            android:layout_width="match_parent"
+            android:layout_height="108dp"
+            app:cardCornerRadius="8dp"
+            app:cardUseCompatPadding="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_category_background"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:background='@{event.tag.equals("交換技能") ? @drawable/bg_event_card_category_change_skill : event.tag.equals("找學生") ? @drawable/bg_event_card_category_find_student : event.tag.equals("找老師") ? @drawable/bg_event_card_category_find_teacher : @drawable/bg_event_card_category_read_group}'>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <TextView
+                        android:id="@+id/textView_title_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        week="@{event.eventTime}"
+                        />
+
+                    <TextView
+                        android:id="@+id/textView_title_month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@id/textView_title_week"
+                        app:layout_constraintTop_toBottomOf="@id/textView_title_week"
+                        month="@{event.eventTime}"/>
+
+                    <TextView
+                        android:id="@+id/textView_title_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toEndOf="@id/textView_title_week"
+                        app:layout_constraintTop_toBottomOf="@id/textView_title_week"
+                        day="@{event.eventTime}"/>
+
+                    <TextView
+                        android:id="@+id/textView_title_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/textView_title_month"
+                        app:layout_constraintStart_toStartOf="@id/textView_title_week"
+                        android:text="@{event.tag}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <TextView
+                    android:id="@+id/textView_event_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:layout_marginStart="96dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:text="@{event.title}" />
+                <TextView
+                    android:id="@+id/textView_event_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_title"
+                    android:layout_marginTop="16dp"
+                    android:text="@{event.city}" />
+
+                <TextView
+                    android:id="@+id/textView_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/textView_event_city"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_city"
+                    android:layout_marginTop="8dp"
+                    android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
+                    time="@{event.startTime}"/>
+
+                <TextView
+                    android:id="@+id/textView_dash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/textView_start_time"
+                    app:layout_constraintTop_toTopOf="@id/textView_start_time"
+                    android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/textView_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="@id/textView_start_time"
+                    app:layout_constraintStart_toEndOf="@id/textView_dash"
+                    android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
+                    time="@{event.endTime}"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

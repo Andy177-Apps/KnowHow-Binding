@@ -32,7 +32,7 @@
         android:id="@+id/profileFragment"
         android:name="com.wenbin.knowhowbinding.profile.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_myself_profile"/>
 
     <fragment
         android:id="@+id/postArticleFragment"

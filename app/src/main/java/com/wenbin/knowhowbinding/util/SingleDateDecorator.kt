@@ -7,9 +7,9 @@ import com.prolificinteractive.materialcalendarview.spans.DotSpan
 
 class SingleDateDecorator(private val color: Int, date: CalendarDay) :
 DayViewDecorator {
-    var theDay = date
+    var myDay = date
     override fun shouldDecorate(day: CalendarDay?): Boolean {
-        return day == theDay
+        return day == myDay
     }
 
     override fun decorate(view: DayViewFacade?) {
