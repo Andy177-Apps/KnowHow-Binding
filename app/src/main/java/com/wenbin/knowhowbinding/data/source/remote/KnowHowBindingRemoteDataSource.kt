@@ -126,23 +126,56 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 }
     }
 
-    override suspend fun addMessage(chatRoom: ChatRoom,
-                                    message: Message
+    override suspend fun postMessage(emails: List<String>,
+                                     message: Message
     ): Result<Boolean> = suspendCoroutine { continuation ->
-    val userCollection = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
-    userCollection
+
+    val chat = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
+    chat.whereIn("attendees", listOf(emails, emails.reversed()))
 //            .whereEqualTo("id", chatRoom.id)
             .get()
-            .addOnSuccessListener { it ->
-                for (index in it) {
-                    userCollection.document(index.id).collection(PATH_MESSAGE)
-                            .add(message).addOnSuccessListener {
-                                continuation.resume(Result.Success(true))
-                            }
-                            .addOnFailureListener {
-                                continuation.resume(Result.Error(it))
-                            }
+            .addOnSuccessListener { result ->
+                val documentId = chat.document(result.documents[0].id)
+                documentId
+                        //更新文檔的某些字段而不覆蓋整個文檔，請使用update()方法：
+                        .update("latestTime", Calendar.getInstance().timeInMillis,
+                                "latestMessage", message.text)
+            }
+        // 用上 Storage 的 continueWithTask
+            .continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    if (task.exception != null) {
+                        task.exception?.let {
+                            Log.d("wenbin", "[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                        }
+                    } else {
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
+                    }
+            }
+                task.result?.let {
+                    val documentId2 = chat.document(it.documents[0].id).collection("message").document()
+
+                    message.createdTime = Calendar.getInstance().timeInMillis
+                    message.id = documentId2.id
+
+                    chat.document(it.documents[0].id).collection("message").add(message)
                 }
+            }
+            .addOnCompleteListener { taskTwo->
+            if (taskTwo.isSuccessful) {
+                Logger.i("ChatRoom: $message")
+
+                continuation.resume(Result.Success(true))
+            } else {
+                taskTwo.exception?.let {
+                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    continuation.resume(Result.Error(it))
+                    return@addOnCompleteListener
+                }
+                continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
+            }
+
             }
     }
 

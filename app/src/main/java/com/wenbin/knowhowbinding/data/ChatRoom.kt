@@ -18,11 +18,12 @@ data class ChatRoom(
 ): Parcelable
 @Parcelize
 data class Message(
-        @Json(name = "user_id") val userId : String = "",
-        var userName : String = "",
-        var userImage : String? = null,
-        var time: Date? = Calendar.getInstance().time,
-        var text : String = ""
+        var id: String = "",
+        var senderName : String = "",
+        var senderImage : String = "",
+        var senderEmail : String = "",
+        var text : String = "",
+        var createdTime: Long = 0L
 ) : Parcelable
 
 @Parcelize

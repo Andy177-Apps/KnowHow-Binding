@@ -152,12 +152,12 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
             }
             _refreshStatus.value = false
             Log.d("wenbin", "_user.value =  ${_user.value}")
-            assginUserInfo()
+            assignUserInfo()
             it.resume(_user.value)
         }
     }
 
-    private fun assginUserInfo() {
+    private fun assignUserInfo() {
         val currentUser = _user.value?.let {
             User(
                     id = it.id,

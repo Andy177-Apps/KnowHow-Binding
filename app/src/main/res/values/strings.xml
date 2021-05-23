@@ -9,6 +9,7 @@
     <string name="start_a_new_conversation">Start a new conversation</string>
     <string name="indicator_message">Message...</string>
     <string name="reminder_invalid_time">Please select a valid time</string>
+    <string name="you_shall_not_pass">You Shall Not Pass</string>
 
     <string-array name="category_array">
         <item>交換技能</item>

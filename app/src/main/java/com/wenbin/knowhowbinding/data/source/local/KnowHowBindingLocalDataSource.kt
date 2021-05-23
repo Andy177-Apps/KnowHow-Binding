@@ -37,7 +37,7 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
-    override suspend fun addMessage(chatRoom: ChatRoom, message: Message): Result<Boolean> {
+    override suspend fun postMessage(emails: List<String>, message: Message): Result<Boolean> {
         TODO("Not yet implemented")
     }
 

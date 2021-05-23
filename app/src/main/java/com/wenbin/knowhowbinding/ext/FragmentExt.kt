@@ -20,9 +20,9 @@ fun Fragment.getVmFactory(): ViewModelFactory {
 //    return AuthorViewModelFactory(repository, author)
 //}
 
-fun Fragment.getVmFactory(chatRoom: ChatRoom?): MessageViewModelFactory {
+fun Fragment.getVmFactory(userEmail: String, userName: String): MessageViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
-    return MessageViewModelFactory(repository, chatRoom)
+    return MessageViewModelFactory(repository, userEmail, userName)
 }
 
 fun Fragment.getVmFactory(selectedDate: Long): EventViewModelFactory {

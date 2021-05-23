@@ -33,7 +33,8 @@ class ChatRoomFragment  : Fragment() {
 
         var adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{
             Log.d("Message Clicked", "ChatRoom = $it")
-            findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(it))
+            findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(
+                    it.message!!.senderEmail, it.message!!.senderName))
         })
         binding.recyclerView.adapter = adapter
 

@@ -59,8 +59,11 @@
         android:label="MessageFragment"
         tools:layout="@layout/fragment_message">
         <argument
-            android:name="chatRoomInfo"
-            app:argType="com.wenbin.knowhowbinding.data.ChatRoom"/>
+            android:name="userEmail"
+            app:argType="string"/>
+        <argument
+            android:name="userName"
+            app:argType="string"/>
     </fragment>
 
     <dialog

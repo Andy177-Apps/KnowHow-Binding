@@ -10,11 +10,12 @@ import java.lang.IllegalArgumentException
 @Suppress("UNCHECKED_CAST")
 class MessageViewModelFactory(
         private val repository: KnowHowBindingRepository,
-        private val chatRoom : ChatRoom?
+        private val userEmail: String,
+        private val userName: String
 ) : ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MessageViewModel::class.java)) {
-            return MessageViewModel(repository, chatRoom) as T
+            return MessageViewModel(repository, userEmail, userName) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class : ${modelClass.name}")
     }

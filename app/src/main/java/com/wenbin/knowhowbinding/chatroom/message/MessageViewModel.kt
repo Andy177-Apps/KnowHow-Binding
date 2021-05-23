@@ -9,7 +9,9 @@ import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Message
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -17,8 +19,13 @@ import kotlinx.coroutines.launch
 
 class MessageViewModel(
         private val repository: KnowHowBindingRepository,
-        private val chatRoom : ChatRoom?
+        userEmail : String,
+        userName : String
 ) : ViewModel() {
+
+    val currentChattingUser = userEmail
+
+    val currentChattingName = userName
 
     private val _identified = MutableLiveData<ChatRoom>()
 
@@ -39,6 +46,11 @@ class MessageViewModel(
     val error: LiveData<String>
         get() = _error
 
+    private val _leave = MutableLiveData<Boolean>()
+
+    val leave: LiveData<Boolean>
+        get() = _leave
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -46,18 +58,22 @@ class MessageViewModel(
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        _identified.value = chatRoom
+        Logger.i("------------------------------------")
+        Logger.i("[${this::class.simpleName}]${this}")
+        Logger.i("------------------------------------")
     }
 
 
-    fun addMessage(chatRoom: ChatRoom, message: Message) {
+    private fun postMessage(userEmails: List<String>, message: Message) {
+
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.addMessage(chatRoom, message)) {
+            when (val result = repository.postMessage(userEmails, message)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+                    leave(true)
                 }
                 is Result.Fail -> {
                     _error.value = result.error
@@ -73,5 +89,26 @@ class MessageViewModel(
                 }
             }
         }
+    }
+
+    fun getUserEmails(userOneEmail: String, userTwoEmail: String): List<String> {
+        return listOf(userOneEmail,userTwoEmail)
+    }
+
+    fun getMessage(): Message {
+        return Message(
+                id = "",
+                senderName = UserManager.user.name,
+                senderImage = UserManager.user.image,
+                senderEmail = UserManager.user.email,
+                text = textSend.value.toString(),
+                createdTime = 0L
+        )
+    }
+    fun sendMessage(myEmail: String, friendEmail: String) {
+        postMessage(getUserEmails(myEmail,friendEmail), getMessage())
+    }
+    private fun leave(isNeedRefresh: Boolean = false) {
+        _leave.value = isNeedRefresh
     }
 }
