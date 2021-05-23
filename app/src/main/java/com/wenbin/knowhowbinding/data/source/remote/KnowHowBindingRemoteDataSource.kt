@@ -66,6 +66,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         for (document in task.result!!) {
                             Log.d("wembin",document.id + " => " + document.data)
                             val article = document.toObject(Article::class.java)
+                            Log.d("wembin","article = $article")
+
                             list.add(article)
                         }
                         continuation.resume(Result.Success(list))
@@ -225,6 +227,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
             }
         return liveData
     }
+
+    // test
 
 
 }

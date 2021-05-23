@@ -60,4 +60,20 @@ class ProfileViewModel : ViewModel() {
         _navigateToMyCollect.value = null
     }
 
+    /**
+     * For navigate to Edit Profile Fragment
+     */
+    private val _navigateToEditProfile = MutableLiveData<Boolean>()
+
+    val navigateToEditProfile: LiveData<Boolean>
+        get() = _navigateToEditProfile
+
+    fun navigateToEditProfile() {
+        _navigateToEditProfile.value = true
+    }
+
+    fun onEditProfileNavigated() {
+        _navigateToEditProfile.value = null
+    }
+
 }

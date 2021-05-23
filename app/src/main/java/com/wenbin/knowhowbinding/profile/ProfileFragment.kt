@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
+import com.wenbin.knowhowbinding.login.UserManager
 
 
 class ProfileFragment  : Fragment() {
@@ -23,6 +25,8 @@ class ProfileFragment  : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("wenbin","UserManager.user = ${UserManager.user}")
+
         binding = FragmentMyselfProfileBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -46,6 +50,13 @@ class ProfileFragment  : Fragment() {
             }
         })
 
+        // Navigating to Edit Profile Fragment.
+        viewModel.navigateToEditProfile.observe(viewLifecycleOwner, Observer{
+            it?.let {
+                findNavController().navigate(ProfileFragmentDirections.navigateToEditProfile())
+                viewModel.onEditProfileNavigated()
+            }
+        })
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("個人頁面")

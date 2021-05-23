@@ -9,6 +9,7 @@ import com.wenbin.knowhowbinding.chatroom.ChatRoomViewModel
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.home.HomeViewModel
 import com.wenbin.knowhowbinding.postarticle.PostArticleViewModel
+import com.wenbin.knowhowbinding.profile.editprofile.EditProfileViewModel
 import com.wenbin.knowhowbinding.search.SearchViewModel
 
 class ViewModelFactory constructor(
@@ -35,6 +36,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(CalendarViewModel::class.java) ->
                     CalendarViewModel(knowHowBindingRepository)
+
+                isAssignableFrom(EditProfileViewModel::class.java) ->
+                    EditProfileViewModel(knowHowBindingRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

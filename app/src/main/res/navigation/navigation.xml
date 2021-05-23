@@ -63,6 +63,22 @@
             app:argType="com.wenbin.knowhowbinding.data.ChatRoom"/>
     </fragment>
 
+    <dialog
+        android:id="@+id/createEventDialogFragment"
+        android:name="com.wenbin.knowhowbinding.calendar.createevent.CreateEventDialogFragment"
+        android:label="CreateEventDialogFragment"
+        tools:layout="@layout/dialog_create_event">
+        <argument
+            android:name="selectedDate"
+            app:argType="long"/>
+    </dialog>
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.wenbin.knowhowbinding.profile.editprofile.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_editprofile"/>
+
     <action android:id="@+id/navigate_to_home_fragment" app:destination="@id/homeFragment"
         app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
@@ -83,21 +99,14 @@
         app:popUpTo="@id/navigation"
         app:popUpToInclusive="true"
         />
-    <dialog
-        android:id="@+id/createEventDialogFragment"
-        android:name="com.wenbin.knowhowbinding.calendar.createevent.CreateEventDialogFragment"
-        android:label="CreateEventDialogFragment"
-        tools:layout="@layout/dialog_create_event">
-        <argument
-            android:name="selectedDate"
-            app:argType="long"/>
-    </dialog>
+
 
     <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"        />
     <action android:id="@+id/navigate_to_my_article_fragment" app:destination="@id/myArticleFragment"        />
     <action android:id="@+id/navigate_to_my_collect_fragment" app:destination="@id/myCollectFragment"        />
     <action android:id="@+id/navigate_to_message_fragment" app:destination="@id/messageFragment"        />
     <action android:id="@+id/navigate_to_create_event_dialog" app:destination="@id/createEventDialogFragment"        />
+    <action android:id="@+id/navigate_to_edit_profile" app:destination="@id/editProfileFragment"        />
 
 
 

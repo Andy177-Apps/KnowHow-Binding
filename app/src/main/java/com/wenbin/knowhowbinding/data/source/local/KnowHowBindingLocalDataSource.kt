@@ -13,8 +13,13 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         return when (id) {
             "wenbin" -> Result.Success((User(
                     id,
-                    "AKA小安老師",
-                    "wayne@school.appworks.tw"
+                    "文彬",
+                    "leo55576@gmail.com"
+            )))
+            "exercise" -> Result.Success((User(
+                    id,
+                    "運勳",
+                    "leo55576@hotmail.com"
             )))
             else -> Result.Fail("You have to add $id info in local data source.")
         }
