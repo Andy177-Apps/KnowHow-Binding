@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentPostarticleBinding
@@ -33,11 +34,11 @@ class PostArticleFragment : Fragment(){
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-//        binding.buttonSendArticle.setOnClickListener {
-//            viewModel.addData()
-//            viewModel.getData()
-//            Log.d("Wenbin", "onClicked")
-//        }
+        binding.buttonSendArticle.setOnClickListener {
+            viewModel.publish(viewModel.article.value!!)
+            findNavController().navigate(PostArticleFragmentDirections.navigateToHomeFragment())
+            Log.d("Wenbin", "onClicked")
+        }
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("發文")

@@ -34,10 +34,10 @@ class ChatRoomFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        var adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{
-            Log.d("Message Clicked", "ChatRoom = $it")
+        var adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{ it ->
+
             findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(
-                    it.message!!.senderEmail, it.message!!.senderName))
+                    it.attendeesInfo[0].userEmail, it.message!!.senderName))
         })
         binding.recyclerView.adapter = adapter
 

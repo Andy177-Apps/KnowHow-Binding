@@ -50,25 +50,26 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Wenbin" />
+
             <!--            android:text="@{chatRoom.message.senderName}"-->
 
-            <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-            <!--                android:id="@+id/constraint_layout_latest_information"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                app:layout_constraintStart_toStartOf="@id/textView_object_name"-->
-            <!--                app:layout_constraintTop_toBottomOf="@id/textView_object_name"-->
-            <!--                >-->
-            <!--                <TextView-->
-            <!--                    android:id="@+id/textView_show_latested_message"-->
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="wrap_content"-->
-            <!--                    android:text="@{chatRoom.text}"-->
-            <!--                    android:textSize="20sp"-->
-            <!--                    android:textColor="@color/black"-->
-            <!--                    app:layout_constraintStart_toStartOf="parent"-->
-            <!--                    app:layout_constraintTop_toTopOf="parent"/>-->
-            <!--                 </androidx.constraintlayout.widget.ConstraintLayout>-->
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraint_layout_latest_information"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toStartOf="@id/textView_object_name"
+                            app:layout_constraintTop_toBottomOf="@id/textView_object_name"
+                            >
+                            <TextView
+                                android:id="@+id/textView_show_latested_message"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{chatRoom.latestMessage}"
+                                android:textSize="20sp"
+                                android:textColor="@color/black"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--            <TextView-->
             <!--                android:id="@+id/textView_show_latested_time"-->

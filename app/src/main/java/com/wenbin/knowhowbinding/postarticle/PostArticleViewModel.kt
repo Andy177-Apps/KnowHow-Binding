@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
@@ -13,6 +15,7 @@ import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -29,7 +32,8 @@ class PostArticleViewModel(
 
     private val _article = MutableLiveData<Article>().apply {
         value = Article(
-                author = User("w1231", "wenbin", "leo55576@gmail.com")
+                author = User(UserManager.user.id,
+                        UserManager.user.name, email = UserManager.user.email)
         )
     }
 
@@ -54,10 +58,9 @@ class PostArticleViewModel(
     //the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    fun publish() {
+    fun publish(article: Article) {
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
-            val article = Article(author = User("w1231", "wenbin", "leo55576@gmail.com"))
             when (val result = repository.publish(article)) {
                 is Result.Success -> {
                     _error.value = null

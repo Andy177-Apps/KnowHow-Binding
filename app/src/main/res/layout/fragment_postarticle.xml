@@ -13,12 +13,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/textView_article_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="文章標題"
+            app:layout_constraintStart_toStartOf="@id/textView_category_title"
+            app:layout_constraintTop_toTopOf="@id/button_send_article"
+            />
+
+        <EditText
+            android:id="@+id/editText_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:ems="10"
+            android:text="@={viewModel.article.title}"
+            app:layout_constraintStart_toStartOf="@id/textView_category_title"
+            app:layout_constraintTop_toBottomOf="@id/textView_article_title"
+            android:layout_marginTop="16dp"
+            />
+
         <Button
             android:id="@+id/button_send_article"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="送出文章"
-            android:onClick="@{() -> viewModel.publish()}"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +52,7 @@
             android:text="類別"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
-            app:layout_constraintTop_toBottomOf="@id/button_send_article"
+            app:layout_constraintTop_toBottomOf="@id/editText_title"
             android:layout_marginTop="16dp"
             />
 
@@ -62,14 +82,12 @@
             android:id="@+id/editText_city"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="text"
-
+            android:layout_marginTop="16dp"
             android:ems="10"
+            android:inputType="text"
             android:text="Name"
             app:layout_constraintStart_toStartOf="@id/textView_category_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_city_title"
-            android:layout_marginTop="16dp"
-            />
+            app:layout_constraintTop_toBottomOf="@id/textView_city_title" />
 
         <TextView
             android:id="@+id/textView_interestedSubject_title"

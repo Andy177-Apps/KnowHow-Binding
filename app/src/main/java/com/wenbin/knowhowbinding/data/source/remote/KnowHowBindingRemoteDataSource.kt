@@ -58,7 +58,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun getArticles(): Result<List<Article>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_ARTICLES)
-                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .orderBy(KEY_CREATED_TIME)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -264,20 +264,28 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     }
 
                     task.result?.let {
-                        chat.document(it.documents[0].id).collection(PATH_MESSAGE)
-                                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                        chat.document(it.documents[0].id)
+                                .collection(PATH_MESSAGE)
+                                .orderBy(KEY_CREATED_TIME)
                                 .addSnapshotListener { snapshot, exception ->
-
                                     Logger.i("addSnapshotListener detect")
+
+                                    if (snapshot != null) {
+                                        Log.d("outbounder", "snapshot = ${snapshot.documents}")
+                                    } else {
+                                        Log.d("outbounder", "snapshot = null")
+                                    }
+
 
                                     exception?.let {
                                         Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                                     }
 
                                     val list = mutableListOf<Message>()
+
                                     for (document in snapshot!!) {
                                         Logger.d(document.id + " => " + document.data)
-
+                                        Log.d("outbounder", "${document.data}")
                                         val message = document.toObject(Message::class.java)
                                         list.add(message)
                                     }
@@ -285,7 +293,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                     liveData.value = list
                                     Logger.w("liveData.value = ${liveData.value}")
                                 }
-
                     }
                 }
         return liveData
