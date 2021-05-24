@@ -21,16 +21,17 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-            android:text="content"
+            android:background="@color/green_chat_bg"
+            android:text="@{message.text}"
             />
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toStartOf="@id/textView_content"
-            app:layout_constraintBottom_toBottomOf="@id/textView_content"
-            android:text="Time" />
+<!--        <TextView-->
+<!--            android:id="@+id/textView3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:layout_constraintEnd_toStartOf="@id/textView_content"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/textView_content"-->
+<!--            android:text="@{message.showTime}" />-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -13,7 +13,7 @@ interface KnowHowBindingRepository {
 
     suspend fun getArticles():  Result<List<Article>>
 
-    suspend fun getLiveChatRooms() : Result<List<ChatRoom>>
+    fun getLiveChatRooms(userEmail: String) : MutableLiveData<List<ChatRoom>>
 
     suspend fun postMessage(emails: List<String>, message: Message) : Result<Boolean>
 
@@ -22,5 +22,8 @@ interface KnowHowBindingRepository {
     suspend fun getAllEvents():  Result<List<Event>>
 
     fun getLiveEvents(): MutableLiveData<List<Event>>
+
+    fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>>
+
 
 }

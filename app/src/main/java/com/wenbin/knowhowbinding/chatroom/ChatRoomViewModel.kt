@@ -15,10 +15,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
-
+import com.wenbin.knowhowbinding.login.UserManager
 
 
 class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
+
+//    var LiveChatRooms = MutableLiveData<List<ChatRoom>>()
+
+    private val _filteredChatRooms = MutableLiveData<List<ChatRoom>>()
+
+    val filteredChatRooms: LiveData<List<ChatRoom>>
+        get() = _filteredChatRooms
+
     private var _updatedChatRooms = MutableLiveData<List<ChatRoom>>()
 
     val updatedChatRooms: LiveData<List<ChatRoom>>
@@ -53,38 +61,46 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
 
 
     init {
-        getAllLiveChatRoom()
+        getAllLiveChatRoom(UserManager.user.email)
     }
 
-    private fun getAllLiveChatRoom() {
-        coroutineScope.launch {
-            _status.value = LoadApiStatus.LOADING
-
-            val result = repository.getLiveChatRooms()
-
-            _updatedChatRooms.value = when (result) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    result.data
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                is Result.Error-> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-            }
-            Log.d("wenbin", "_updatedChatRooms.value = ${_updatedChatRooms.value}")
-        }
+    private fun getAllLiveChatRoom(userEmail:String) {
+        _updatedChatRooms = repository.getLiveChatRooms(userEmail)
+        _status.value = LoadApiStatus.DONE
     }
+
+    fun createFilteredChatRooms(filteredChatRoom: List<ChatRoom>) {
+        _filteredChatRooms.value = filteredChatRoom
+    }
+//    private fun getAllLiveChatRoom() {
+//        coroutineScope.launch {
+//            _status.value = LoadApiStatus.LOADING
+//
+//            val result = repository.getLiveChatRooms()
+//
+//            _updatedChatRooms.value = when (result) {
+//                is Result.Success -> {
+//                    _error.value = null
+//                    _status.value = LoadApiStatus.DONE
+//                    result.data
+//                }
+//                is Result.Fail -> {
+//                    _error.value = result.error
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//                is Result.Error-> {
+//                    _error.value = result.exception.toString()
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//                else -> {
+//                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+//                    _status.value = LoadApiStatus.ERROR
+//                    null
+//                }
+//            }
+//            Log.d("wenbin", "_updatedChatRooms.value = ${_updatedChatRooms.value}")
+//        }
+//    }
 }

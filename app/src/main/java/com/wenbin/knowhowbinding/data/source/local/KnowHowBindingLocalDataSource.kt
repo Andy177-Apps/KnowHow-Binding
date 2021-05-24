@@ -33,7 +33,7 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
-    override suspend fun getLiveChatRooms(): Result<List<ChatRoom>> {
+    override fun getLiveChatRooms(userEmail: String):  MutableLiveData<List<ChatRoom>> {
         TODO("Not yet implemented")
     }
 
@@ -53,12 +53,16 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
+    override fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>> {
+        TODO("Not yet implemented")
+    }
+
 
     override suspend fun createTestedData(): Result<List<Article>> {
         var defaultData = mutableListOf<Article>()
         defaultData.run {
-            add((Article("leo55576", "交換技能",72345959,"測試用","測試本地端資料",User("Andy117",
-            "Wenbin", "leo55576@hotmail.com"))))
+            add((Article("leo55576", "交換技能",72345959,"測試用","測試本地端資料", User("Andy117",
+                    "Wenbin", "leo55576@hotmail.com"))))
              }
         Log.d("DefaultData", "Frist Data = $defaultData")
         return Result.Success(defaultData)

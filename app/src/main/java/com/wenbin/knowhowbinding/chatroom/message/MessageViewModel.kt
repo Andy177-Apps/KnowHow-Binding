@@ -34,6 +34,8 @@ class MessageViewModel(
 
     val textSend = MutableLiveData<String>()
 
+    var liveMessages = MutableLiveData<List<Message>>()
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -51,6 +53,11 @@ class MessageViewModel(
     val leave: LiveData<Boolean>
         get() = _leave
 
+    private val _refreshStatus = MutableLiveData<Boolean>()
+
+    val refreshStatus: LiveData<Boolean>
+        get() = _refreshStatus
+
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
@@ -61,6 +68,8 @@ class MessageViewModel(
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+
+        getLiveMessages(getUserEmails(UserManager.user.email, currentChattingUser))
     }
 
 
@@ -110,5 +119,11 @@ class MessageViewModel(
     }
     private fun leave(isNeedRefresh: Boolean = false) {
         _leave.value = isNeedRefresh
+    }
+
+    private fun getLiveMessages(emails: List<String>) {
+        liveMessages = repository.getLiveMessages(emails)
+        _status.value = LoadApiStatus.DONE
+        _refreshStatus.value = false
     }
 }

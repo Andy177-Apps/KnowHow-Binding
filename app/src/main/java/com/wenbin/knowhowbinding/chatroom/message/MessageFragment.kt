@@ -2,11 +2,13 @@ package com.wenbin.knowhowbinding.chatroom.message
 
 import android.os.Bundle
 import android.text.TextUtils.isEmpty
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.wenbin.knowhowbinding.data.Message
 import com.wenbin.knowhowbinding.databinding.FragmentMessageBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
@@ -29,9 +31,14 @@ class MessageFragment : Fragment() {
 
         val myUserEmail = UserManager.user.email
         val friendUserEmail = viewModel.currentChattingUser
+        Log.d("wenbin","myUserEmail = $myUserEmail, friendUserEmail = $friendUserEmail")
 
         val adapter = MessageAdapter()
         binding.recyclerView.adapter = adapter
+
+        viewModel.liveMessages.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
 
         binding.buttonSendMessage.setOnClickListener {
 

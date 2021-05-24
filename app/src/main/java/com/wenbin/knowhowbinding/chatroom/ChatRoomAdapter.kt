@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.chatroom
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -17,6 +18,11 @@ class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root){
         fun bind (item : ChatRoom) {
             binding.chatRoom = item
+//             Chat room has been filtered, the attendee info only holds the other user's info
+            val friendInfo = item.attendeesInfo.first()
+            Log.d("wenbin", " friendInfo = $friendInfo")
+            binding.textViewObjectName.text = friendInfo.userName
+            binding.imageUrl = friendInfo.userImage
             binding.executePendingBindings()
         }
         companion object {

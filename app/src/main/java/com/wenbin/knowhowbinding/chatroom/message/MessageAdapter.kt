@@ -6,20 +6,20 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.Message
-import com.wenbin.knowhowbinding.data.MessageItem
 import com.wenbin.knowhowbinding.databinding.ItemMessageMyselfBinding
 import com.wenbin.knowhowbinding.databinding.ItemMessageOtherSideBinding
+import com.wenbin.knowhowbinding.login.UserManager
 
-class MessageAdapter() : ListAdapter<MessageItem,
+class MessageAdapter() : ListAdapter<Message,
         RecyclerView.ViewHolder> (DiffCallback) {
 
-    companion object DiffCallback : DiffUtil.ItemCallback<MessageItem>() {
-        override fun areItemsTheSame(oldItem: MessageItem, newItem: MessageItem): Boolean {
-            return oldItem == newItem
+    companion object DiffCallback : DiffUtil.ItemCallback<Message>() {
+        override fun areItemsTheSame(old: Message, aNew: Message): Boolean {
+            return old == aNew
         }
 
-        override fun areContentsTheSame(oldItem: MessageItem, newItem: MessageItem): Boolean {
-            return oldItem == newItem
+        override fun areContentsTheSame(old: Message, aNew: Message): Boolean {
+            return old == aNew
         }
         private const val ITEM_VIEW_TYPE_MYSELF     = 0x00
         private const val ITEM_VIEW_TYPE_OTHER_SIDE = 0x01
@@ -70,38 +70,21 @@ class MessageAdapter() : ListAdapter<MessageItem,
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val item = getItem(position)
         when (holder) {
             is MyselfViewHolder -> {
-                var message : Message? = null
-                when (item) {
-                    is MessageItem.Myself -> {
-                        message = item.userId
-                    }
-                }
-                if (message != null) {
-                    holder.bind(message)
-                }
+                holder.bind((getItem(position) as Message))
             }
             is OtherSideViewHolder -> {
-                var message : Message? = null
-                when (item) {
-                    is MessageItem.OtherSide -> {
-                        message = item.userId
-                    }
-                }
-                if (message != null) {
-                    holder.bind(message)
-                }
+                holder.bind((getItem(position) as Message))
             }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)){
-            is MessageItem.Myself -> ITEM_VIEW_TYPE_MYSELF
-            is MessageItem.OtherSide -> ITEM_VIEW_TYPE_OTHER_SIDE
-        }
+        return when(getItem(position).senderEmail){
+            UserManager.user.email -> ITEM_VIEW_TYPE_MYSELF
+            else -> ITEM_VIEW_TYPE_OTHER_SIDE
+            }
     }
 }
 

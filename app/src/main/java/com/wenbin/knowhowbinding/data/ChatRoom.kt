@@ -1,9 +1,8 @@
 package com.wenbin.knowhowbinding.data
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
-import java.util.*
+import java.text.SimpleDateFormat
 
 @Parcelize
 data class ChatRoom(
@@ -14,8 +13,10 @@ data class ChatRoom(
         var attenderName: List<String> = emptyList(),
         var text : String = "",
         var mainImage : String = "",
-        var message : Message? = null
+        var message : Message? = null,
+        val latestMessage: String = ""
 ): Parcelable
+
 @Parcelize
 data class Message(
         var id: String = "",
@@ -24,7 +25,10 @@ data class Message(
         var senderEmail : String = "",
         var text : String = "",
         var createdTime: Long = 0L
-) : Parcelable
+) : Parcelable {
+    private val sdf = SimpleDateFormat("yyyy.MM.dd.HH.mm")
+    val showTime = sdf.format(createdTime)
+}
 
 @Parcelize
 data class UserInfo(

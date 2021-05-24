@@ -2,6 +2,7 @@ package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
 import com.wenbin.knowhowbinding.data.*
+import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource
 
 
 class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSource: KnowHowBindingDataSource,
@@ -23,8 +24,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return knowHowBindingRemoteDataSource.getArticles()
     }
 
-    override suspend fun getLiveChatRooms(): Result<List<ChatRoom>> {
-        return knowHowBindingRemoteDataSource.getLiveChatRooms()
+    override fun getLiveChatRooms(userEmail: String): MutableLiveData<List<ChatRoom>> {
+        return knowHowBindingRemoteDataSource.getLiveChatRooms(userEmail)
     }
 
     override suspend fun postMessage(emails: List<String>, message: Message): Result<Boolean> {
@@ -41,6 +42,10 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
 
     override fun getLiveEvents(): MutableLiveData<List<Event>> {
         return knowHowBindingRemoteDataSource.getLiveEvents()
+    }
+
+    override fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>> {
+        return KnowHowBindingRemoteDataSource.getLiveMessages(emails)
     }
 
 }
