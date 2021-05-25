@@ -35,7 +35,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         val document = articles.document()
 
         article.id = document.id
-//        article.createdTime = Calendar.getInstance().timeInMillis
+        article.createdTime = Calendar.getInstance().timeInMillis
 
         document
                 .set(article)
@@ -67,7 +67,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         for (document in task.result!!) {
                             Log.d("wembin", document.id + " => " + document.data)
                             val article = document.toObject(Article::class.java)
-                            Log.d("wembin", "article = $article")
+                            Log.d("wembin", "article_list = $article")
 
                             list.add(article)
                         }
