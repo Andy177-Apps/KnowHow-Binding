@@ -64,7 +64,7 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     init {
         getArticlesResult()
 //        practiceMVVMfun()
-        autoLogin("exercise")
+        autoLogin("wenbin")
     }
 
     fun navigateToPostArticle() {

@@ -129,7 +129,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@color/grey_edit_text_bg"
-
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -167,11 +166,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:onClick="@{() -> viewModel.navigateToProfilePage()}"
                 android:text="儲存"
                 android:textSize="24dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                        android:onClick="@{() -> viewModel.navigateToProfilePage()}"
+
+            app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

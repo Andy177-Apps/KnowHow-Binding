@@ -19,6 +19,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     private const val PATH_CHATROOMLIST = "chatRoomList"
     private const val PATH_MESSAGE = "message"
     private const val PATH_EVENTS = "event"
+    private const val PATH_USERS = "users"
     private const val KEY_CREATED_TIME = "createdTime"
 
     override suspend fun login(id: String): Result<User> {
@@ -58,7 +59,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun getArticles(): Result<List<Article>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_ARTICLES)
-                .orderBy(KEY_CREATED_TIME)
+                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -298,6 +299,67 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         return liveData
     }
 
+    override suspend fun updateUser(user: User): Result<Boolean> = suspendCoroutine {
+        val db = FirebaseFirestore.getInstance()
+        Log.d("RemoteupdateUser", "user.email = ${user.email}")
+
+        val users = db.collection(PATH_USERS)
+                .whereEqualTo("email", user.email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //發出邀請
+                        val updateUserInfo = db.collection(PATH_USERS).document(document.id)
+                        // Set the "isCapital" field of the city 'DC'
+                        updateUserInfo.
+                        update("identity", user.identity,
+                                "talentedSubjects", user.talentedSubjects,
+                                "interestedSubjects", user.interestedSubjects,
+                                "introduction", user.introduction)
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
+                }
+
+
+        // 更新資料
+//        users.
+//
+//                .addOnSuccessListener {
+//                    Logger.d("DocumentSnapshot added with ID: $users")
+//                }
+//                .addOnFailureListener { e ->
+//                    Logger.w("Error adding document $e")
+//                }
+    }
+
+    override suspend fun getUser(userEmail: String): Result<User> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_USERS)
+                .whereEqualTo("email", userEmail)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        var list = User()
+                        for (document in task.result!!) {
+                            Logger.d(document.id + " => " + document.data)
+
+                            val user = document.toObject(User::class.java)
+                            list = user
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+    }
 }
 
 

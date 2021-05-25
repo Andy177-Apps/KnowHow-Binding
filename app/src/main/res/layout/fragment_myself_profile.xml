@@ -94,23 +94,44 @@
             app:layout_constraintStart_toEndOf="@+id/textView_myArticles"
             app:layout_constraintTop_toTopOf="@+id/textView_about" />
 
+<!--        -->
+        <TextView
+            android:id="@+id/textView_identity_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="身份"
+            app:layout_constraintTop_toBottomOf="@id/textView_about"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            />
+
+        <TextView
+            android:id="@+id/textView_identity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.userInfo.identity}"
+            app:layout_constraintTop_toBottomOf="@+id/textView_identity_title"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/textView_talentedSubjects_title"
+            />
+<!--        -->
         <TextView
             android:id="@+id/textView_talentedSubjects_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="拿手項目"
-            app:layout_constraintTop_toBottomOf="@id/textView_about"
+            app:layout_constraintTop_toBottomOf="@id/textView_identity"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"
-
             />
 
         <TextView
             android:id="@+id/textView_talentedSubjects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="鋼琴、小提琴"
+            android:text="@{viewModel.userInfo.talentedSubjects}"
             app:layout_constraintTop_toBottomOf="@+id/textView_talentedSubjects_title"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@id/textView_talentedSubjects_title"
@@ -131,11 +152,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:text="FrontEnd, BackEnd, Data, iOS, Android"
+            android:text="@{viewModel.userInfo.interestedSubjects}"
             app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects_title"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects"
             />
+
+        <!--        -->
+        <TextView
+            android:id="@+id/textView_introduction_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="自我介紹"
+            app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="16dp"
+            />
+
+        <TextView
+            android:id="@+id/textView_introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.userInfo.introduction}"
+            app:layout_constraintTop_toBottomOf="@+id/textView_introduction_title"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toEndOf="@id/textView_talentedSubjects_title"
+            />
+        <!--        -->
 
         <TextView
             android:id="@+id/textView_comment_title"
@@ -144,7 +188,7 @@
             android:layout_marginStart="16dp"
             android:text="綜合評價"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects"
+            app:layout_constraintTop_toBottomOf="@id/textView_introduction"
             android:layout_marginTop="32dp"
             />
 

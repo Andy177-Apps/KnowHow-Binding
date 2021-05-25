@@ -6,19 +6,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
+import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.profile.editprofile.EditProfileViewModel
 
 
 class ProfileFragment  : Fragment() {
     private lateinit var binding : FragmentMyselfProfileBinding
-    private val viewModel : ProfileViewModel by lazy {
-        ViewModelProvider(this).get(ProfileViewModel::class.java)
-    }
+    val viewModel by viewModels<ProfileViewModel> { getVmFactory() }
+
+//    private val viewModel : ProfileViewModel by lazy {
+//        ViewModelProvider(this).get(ProfileViewModel::class.java)
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +63,9 @@ class ProfileFragment  : Fragment() {
             }
         })
 
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
+            Log.d("ProfilePage", "userInfo = $it")
+        })
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("個人頁面")
         }

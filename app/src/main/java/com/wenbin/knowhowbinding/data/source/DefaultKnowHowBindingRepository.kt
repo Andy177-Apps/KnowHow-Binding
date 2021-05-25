@@ -48,4 +48,12 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.getLiveMessages(emails)
     }
 
+    override suspend fun updateUser(user: User): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.updateUser(user)
+    }
+
+    override suspend fun getUser(userEmail: String): Result<User> {
+        return KnowHowBindingRemoteDataSource.getUser(userEmail)
+    }
+
 }

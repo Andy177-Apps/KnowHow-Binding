@@ -25,4 +25,8 @@ interface KnowHowBindingDataSource {
 
     fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>>
 
+    suspend fun updateUser(user: User):  Result<Boolean>
+
+    suspend fun getUser(userEmail: String): Result<User>
+
 }

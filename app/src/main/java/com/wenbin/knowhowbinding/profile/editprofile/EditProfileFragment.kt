@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.profile.editprofile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentEditprofileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
+import com.wenbin.knowhowbinding.login.UserManager
 
 
 class EditProfileFragment : Fragment() {
@@ -29,11 +31,18 @@ class EditProfileFragment : Fragment() {
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{
             it?.let {
+                val observeIdentity = viewModel.getUser()
+                Log.d("EditPage", "observeIdentity = $observeIdentity")
+
+                viewModel.updateUser(viewModel.getUser())
                 findNavController().navigate(EditProfileFragmentDirections.navigateToProfileFragment())
                 viewModel.onProfilePageNavigated()
             }
         })
 
+        viewModel.identity.observe(viewLifecycleOwner, Observer {
+            Log.d("EditPage", "identity = $it")
+        })
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("編輯個人頁面")

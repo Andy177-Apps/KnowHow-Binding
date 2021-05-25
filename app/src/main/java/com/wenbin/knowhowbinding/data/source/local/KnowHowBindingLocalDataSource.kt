@@ -18,7 +18,7 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
             )))
             "exercise" -> Result.Success((User(
                     id,
-                    "運勳",
+                    "柏均",
                     "leo55576@hotmail.com"
             )))
             else -> Result.Fail("You have to add $id info in local data source.")
@@ -54,6 +54,14 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
     }
 
     override fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun updateUser(user: User): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUser(userEmail: String): Result<User> {
         TODO("Not yet implemented")
     }
 

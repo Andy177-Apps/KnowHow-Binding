@@ -39,6 +39,7 @@ class PostArticleFragment : Fragment(){
             findNavController().navigate(PostArticleFragmentDirections.navigateToHomeFragment())
             Log.d("Wenbin", "onClicked")
         }
+        
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("發文")
