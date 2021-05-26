@@ -10,12 +10,20 @@
     <string name="indicator_message">Message...</string>
     <string name="reminder_invalid_time">Please select a valid time</string>
     <string name="you_shall_not_pass">You Shall Not Pass</string>
+    <string name="spinner_select_partner">Select Partner</string>
 
     <string-array name="category_array">
         <item>交換技能</item>
         <item>找學生</item>
         <item>找老師</item>
         <item>讀書會</item>
+    </string-array>
+
+    <string-array name="category_attendees">
+        <item>Sean</item>
+        <item>Peter</item>
+        <item>Scolley</item>
+        <item>Czerny</item>
     </string-array>
 
     <string-array name="city_array">

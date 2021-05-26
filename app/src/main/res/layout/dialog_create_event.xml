@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.calendar.createevent.CreateEventViewModel" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -238,6 +239,30 @@
                         android:gravity="center_vertical"
                         android:layout_marginHorizontal="12dp"
                         />
+
+                    <TextView
+                        android:id="@+id/textView_other_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attendee"
+                        app:layout_constraintTop_toBottomOf="@id/editText_description"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@id/editText_title"/>
+
+                    <Spinner
+                        android:id="@+id/spinner_other_user"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:spinnerMode="dialog"
+                        app:layout_constraintStart_toStartOf="@id/textView_category"
+                        app:layout_constraintTop_toBottomOf="@id/textView_other_user"
+                        android:layout_marginTop="8dp"
+                        android:entries="@{viewModel.followingName}"
+
+                        />
+<!--                    android:spinnerMode="dropdown"-->
+<!--                    android:theme="@style/Widget.AppCompat.ListView.DropDown"-->
+<!--                    style="@style/Widget.AppCompat.ListView.DropDown"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>

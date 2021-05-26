@@ -10,5 +10,7 @@ data class Article(
         var createdTime: Long = -1,
         var title: String = "",
         var content: String = "",
+        var find: String = "",
+        var give: String = "",
         val author: User? = null
 ) : Parcelable

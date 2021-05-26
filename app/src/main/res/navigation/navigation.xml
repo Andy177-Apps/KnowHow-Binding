@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
     app:startDestination="@+id/homeFragment">
-
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.wenbin.knowhowbinding.home.HomeFragment"
@@ -75,6 +74,13 @@
             android:name="selectedDate"
             app:argType="long"/>
     </dialog>
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.wenbin.knowhowbinding.user.UserProfileFragment"
+        android:label="UserProfileFragment"
+        tools:layout="@layout/fragment_user_detail"
+        />
 
     <fragment
         android:id="@+id/editProfileFragment"

@@ -68,10 +68,10 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
 
     override suspend fun createTestedData(): Result<List<Article>> {
         var defaultData = mutableListOf<Article>()
-        defaultData.run {
-            add((Article("leo55576", "交換技能",72345959,"測試用","測試本地端資料", User("Andy117",
-                    "Wenbin", "leo55576@hotmail.com"))))
-             }
+//        defaultData.run {
+//            add((Article("leo55576", "交換技能",72345959,"測試用","測試本地端資料", User("Andy117",
+//                    "Wenbin", "leo55576@hotmail.com"))))
+//             }
         Log.d("DefaultData", "Frist Data = $defaultData")
         return Result.Success(defaultData)
     }

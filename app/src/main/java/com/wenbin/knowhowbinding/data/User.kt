@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.data
 
 import android.os.Parcelable
-import androidx.lifecycle.MutableLiveData
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -20,6 +19,8 @@ data class User(
         var followingName: List<String> = listOf(),
         var followedBy: List<String> = listOf(),
 
+        var following: List<Following> = listOf(),
+
         var identity: String = "",
 
         val talentedSubjects: String = "",
@@ -34,4 +35,10 @@ data class User(
 data class Comment(
     val poster_id : String,
     val description: String
+) : Parcelable
+
+@Parcelize
+data class Following(
+        val userEmail : String="",
+        val userName: String=""
 ) : Parcelable

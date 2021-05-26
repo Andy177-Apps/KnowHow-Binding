@@ -63,7 +63,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         getUser(UserManager.user.email)
     }
 
-    fun getUser(userEmail: String) {
+    private fun getUser(userEmail: String) {
 
         coroutineScope.launch {
 

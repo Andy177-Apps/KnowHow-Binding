@@ -87,6 +87,8 @@ fun bindDay(textView: TextView, time: Long?) {
 fun bindTime(textView: TextView, time: Long?) {
     time?.let { textView.text = TimeUtil.stampToTime(time) }
 }
+
+
 //@BindingAdapter("ShowLatestTime")
 //fun bindLatestTime(textView: TextView, time : Long?) {
 //    time?.let {  textView.text = TimeUtil.stampTo }

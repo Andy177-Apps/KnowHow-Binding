@@ -17,7 +17,6 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.databinding.DialogCreateEventBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.TimeUtil
-import kotlinx.android.synthetic.main.dialog_create_event.*
 import java.util.*
 import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.main.dialog_create_event.view.*
@@ -71,6 +70,7 @@ class CreateEventDialogFragment : DialogFragment() {
         binding.viewBtnSend.setOnClickListener {
             // TODO determine condition if filled out the form.
             val event = viewModel.getEvent()
+            Log.d("newEvent", "event = $event")
             Logger.i("${viewModel.startTime.value}")
 
             viewModel.post(event)
@@ -93,10 +93,67 @@ class CreateEventDialogFragment : DialogFragment() {
             ) {
                 if (parent != null) {
                     val selectedType = parent.selectedItem.toString()
+                    Log.d("Spinner_type","position = $position")
+                    Log.d("Spinner_type","id = $id")
+
                     viewModel.setType(selectedType)
                 }
             }
         }
+
+        viewModel.type.observe(viewLifecycleOwner, Observer {
+            Log.d("wenbin", "createEventViewModel type = $it")
+        })
+
+        viewModel.followingName.observe(viewLifecycleOwner, Observer {
+            Log.d("wenbin", "followingEmail = $it")
+            binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(it)
+        })
+
+//        binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(
+//                KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_attendees))
+
+
+        // Set Invitation
+        binding.spinnerOtherUser.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+            ) {
+                if (parent != null) {
+                    Log.d("Spinner_Following","position = $position")
+                    Log.d("Spinner_Following","id = $id")
+                    viewModel.setInvitation(position)
+                }
+            }
+        }
+
+
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer { it ->
+            Log.d("wenbin", "got user following = ${it.following}")
+
+            // Get userEmail list from list of following
+            val list = arrayListOf<String>()
+
+            // Give following name
+            for (item in it.following) {
+                Log.d("wenbin", "userEmail = ${item.userName}")
+                list.add(item.userName)
+            }
+            Log.d("wenbin", "New list = $list")
+            viewModel.getFollowingName(list)
+        })
+
+
+
+        viewModel.invitation.observe(viewLifecycleOwner, Observer {
+            Log.d("wenbin", "createEventViewModel invitation = $it")
+        })
 
 //        binding.viewBtnSend.setOnClickListener {
 //            if ()

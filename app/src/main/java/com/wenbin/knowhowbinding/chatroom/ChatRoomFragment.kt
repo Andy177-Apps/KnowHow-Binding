@@ -41,7 +41,36 @@ class ChatRoomFragment  : Fragment() {
         })
         binding.recyclerView.adapter = adapter
 
+        ///////test function
+        viewModel.testString.observe(viewLifecycleOwner, Observer {
+            Log.d("wenbin", "testString = $it")
+        })
+
+
         viewModel.updatedChatRooms.observe(viewLifecycleOwner, Observer {
+            /////// test function
+
+            Log.d("wenbin", "updatedChatRooms = $it")
+
+            it?.let {
+                it.forEach {chatRoom ->
+                    Log.d("wenbin", "chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
+
+                    val list = arrayListOf<String>()
+                    for (item in chatRoom.attendeesInfo) {
+                        Log.d("wenbin", "UserInfo Email = ${item.userEmail}")
+                        list.add(item.userEmail)
+                    }
+                    Log.d("wenbin", "New list = $list")
+                    viewModel.changer(list)
+                }
+            }
+
+            fun printListandArray() {
+                val list = listOf<String>("1", "2")
+                Log.d("wenbin","PrintList list = $list")
+            }
+            ///////test function
             it?.let {
                 val filteredChatRoom = mutableListOf<ChatRoom>()
 

@@ -6,11 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.data.Article
-import com.wenbin.knowhowbinding.data.ChatRoom
-import com.wenbin.knowhowbinding.data.Event
-import com.wenbin.knowhowbinding.data.Result
+import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import com.wenbin.knowhowbinding.util.Logger
 import com.wenbin.knowhowbinding.util.TimeUtil
@@ -19,6 +17,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CreateEventViewModel(
         private val repository: KnowHowBindingRepository,
@@ -30,6 +29,16 @@ class CreateEventViewModel(
     val city = MutableLiveData<String>()
 
     val description = MutableLiveData<String>()
+
+    private val _userInfo = MutableLiveData<User>()
+
+    val userInfo: LiveData<User>
+        get() = _userInfo
+
+    private var _followingName = MutableLiveData<ArrayList<String>>()
+
+    val followingName: LiveData<ArrayList<String>>
+        get() = _followingName
 
     private val _startTime = MutableLiveData<Long>()
 
@@ -50,6 +59,11 @@ class CreateEventViewModel(
 
     val type: LiveData<String>
         get() = _type
+
+    private val _invitation = MutableLiveData<String>()
+
+    val invitation: LiveData<String>
+        get() = _invitation
 
     val date = TimeUtil.stampToDate(selectedDate)
 
@@ -86,7 +100,43 @@ class CreateEventViewModel(
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+        getUser(UserManager.user.email)
         setInitialTime()
+    }
+
+    // Get the user information in the first place.
+    private fun getUser(userEmail: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getUser(userEmail)
+
+            _userInfo.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
     }
 
     // Set content from xml to Event data
@@ -104,7 +154,7 @@ class CreateEventViewModel(
                 eventTime = eventTime.value ?: -1,
                 startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
                 endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
-                invitation = listOf("Invite people one")
+                invitation = listOf(_invitation.value) as List<String>
         )
     }
 
@@ -140,6 +190,12 @@ class CreateEventViewModel(
         _type.value = selectedType
     }
 
+    fun setInvitation(selectedFollowing: Int) {
+//        if (selectedFollowing !=0 ){
+            _invitation.value = userInfo.value?.followingEmail?.get(selectedFollowing)
+//        }
+    }
+
     private fun setInitialTime() {
         _eventTime.value = TimeUtil.dateToStamp(date, Locale.TAIWAN)
     }
@@ -160,4 +216,7 @@ class CreateEventViewModel(
         _endTime.value = timeStamp
     }
 
+    fun getFollowingName(array: ArrayList<String>) {
+        _followingName.value = array
+    }
 }

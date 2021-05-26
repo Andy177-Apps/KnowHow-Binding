@@ -113,6 +113,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="年資"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/textView_city_title"
             app:layout_constraintTop_toBottomOf="@id/spinner_city" />
 
@@ -122,6 +123,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="評論數"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/textView_years"
             app:layout_constraintTop_toTopOf="@id/textView_years" />
 
@@ -131,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="星星數"
+            android:visibility="gone"
             app:layout_constraintStart_toEndOf="@id/textView_comment"
             app:layout_constraintTop_toTopOf="@id/textView_years" />
 
@@ -139,6 +142,7 @@
             android:layout_width="12dp"
             android:layout_height="12dp"
             android:layout_marginStart="4dp"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@id/textView_years"
             app:layout_constraintStart_toEndOf="@id/textView_star"
             app:layout_constraintTop_toTopOf="@id/textView_years"

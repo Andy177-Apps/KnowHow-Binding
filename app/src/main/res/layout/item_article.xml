@@ -17,6 +17,19 @@
         android:layout_marginTop="8dp"
         android:background="@color/white">
 
+        <TextView
+            android:id="@+id/textView_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:hint="找學生"
+            android:text="@{article.tag}"
+            app:layout_constraintBottom_toBottomOf="@+id/textView_author_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <ImageView
             android:id="@+id/imageView_author_photo"
             android:layout_width="wrap_content"
@@ -24,7 +37,7 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView_category"
             app:layout_goneMarginTop="16dp"
             app:srcCompat="@drawable/outline_person_outline_black_24dp" />
 
@@ -35,28 +48,46 @@
             android:layout_marginStart="16dp"
             android:hint="Wenbin"
             android:text="@{article.author.name}"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView_author_photo"
             app:layout_constraintStart_toEndOf="@id/imageView_author_photo"
             app:layout_constraintTop_toTopOf="@+id/imageView_author_photo" />
+
+        <TextView
+            android:id="@+id/textView_author_identity"
+            android:layout_width="46dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="16dp"
+            android:hint="Wenbin"
+            android:text="@{article.author.identity}"
+            app:layout_constraintStart_toEndOf="@id/imageView_author_photo"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView_author_photo"
+            />
 
         <TextView
             android:id="@+id/textView_city_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="文章標題"
+            android:text="地點"
             app:layout_constraintStart_toStartOf="@id/imageView_author_photo"
             app:layout_constraintTop_toBottomOf="@id/imageView_author_photo" />
 
         <TextView
-            android:id="@+id/textView_description_title"
+            android:id="@+id/textView_find_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="想說的話"
+            android:text="想找"
             app:layout_constraintStart_toStartOf="@id/imageView_author_photo"
             app:layout_constraintTop_toBottomOf="@id/textView_city_title" />
 
+        <TextView
+            android:id="@+id/textView_give_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="提供"
+            app:layout_constraintStart_toStartOf="@id/imageView_author_photo"
+            app:layout_constraintTop_toBottomOf="@id/textView_find_title" />
 
         <TextView
             android:id="@+id/textView_city"
@@ -64,9 +95,29 @@
             android:layout_height="wrap_content"
             android:hint="Taipei"
             android:text="@{article.title}"
-            app:layout_constraintStart_toEndOf="@id/textView_description_title"
+            app:layout_constraintStart_toEndOf="@id/textView_city_title"
             android:layout_marginStart="16dp"
             app:layout_constraintTop_toTopOf="@+id/textView_city_title" />
+
+        <TextView
+            android:id="@+id/textView_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:hint="Taipei"
+            android:text="@{article.find}"
+            app:layout_constraintStart_toEndOf="@id/textView_find_title"
+            app:layout_constraintTop_toTopOf="@+id/textView_find_title" />
+
+        <TextView
+            android:id="@+id/textView_give"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Taipei"
+            android:text="@{article.give}"
+            app:layout_constraintStart_toEndOf="@id/textView_give_title"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toTopOf="@+id/textView_give_title" />
 
         <TextView
             android:id="@+id/textView_description"
@@ -74,39 +125,49 @@
             android:layout_height="wrap_content"
             android:hint="Hi Hi"
             android:text="@{article.content}"
-            app:layout_constraintStart_toStartOf="@id/textView_description_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_description_title"
+            app:layout_constraintStart_toStartOf="@id/textView_city_title"
+            app:layout_constraintTop_toBottomOf="@id/textView_give_title"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
 
             />
 
-        <TextView
-            android:id="@+id/textView_category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:hint="找學生"
-            android:text="@{article.tag}"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_author_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView_author_name" />
+
 
         <com.google.android.material.chip.ChipGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="@+id/textView_category"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:orientation="horizontal"
-            >
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView_description"
+            app:layout_constraintEnd_toEndOf="@+id/textView_category">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/chip5"
+                android:id="@+id/chip1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="chip5"
-                android:theme="@style/Platform.MaterialComponents.Light"/>
+                android:clickable="false"
+                android:text="chip1"
+                android:theme="@style/Platform.MaterialComponents.Light" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="chip2"
+                android:theme="@style/Platform.MaterialComponents.Light" />
         </com.google.android.material.chip.ChipGroup>
+
+        <TextView
+            android:id="@+id/textView_createdTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(article.createdTime)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView_category"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

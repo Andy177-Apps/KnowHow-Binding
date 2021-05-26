@@ -46,6 +46,9 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         week="@{event.eventTime}"
+                        tools:text="WED"
+                        android:textColor="@color/white"
+
                         />
 
                     <TextView
@@ -54,7 +57,11 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@id/textView_title_week"
                         app:layout_constraintTop_toBottomOf="@id/textView_title_week"
-                        month="@{event.eventTime}"/>
+                        month="@{event.eventTime}"
+                        tools:text="JUNE"
+                        android:textColor="@color/white"
+
+                        />
 
                     <TextView
                         android:id="@+id/textView_title_day"
@@ -62,7 +69,11 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toEndOf="@id/textView_title_week"
                         app:layout_constraintTop_toBottomOf="@id/textView_title_week"
-                        day="@{event.eventTime}"/>
+                        day="@{event.eventTime}"
+                        android:textColor="@color/white"
+
+                        tools:text="26"
+                        />
 
                     <TextView
                         android:id="@+id/textView_title_category"
@@ -70,7 +81,10 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintTop_toBottomOf="@id/textView_title_month"
                         app:layout_constraintStart_toStartOf="@id/textView_title_week"
-                        android:text="@{event.tag}" />
+                        android:text="@{event.tag}"
+                        android:textColor="@color/white"
+                        tools:text="交換技能"
+                        />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -100,11 +114,24 @@
                     android:text="@{event.city}" />
 
                 <TextView
+                    android:id="@+id/textView_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_city"
+                    android:layout_marginTop="16dp"
+                    android:text="Wenbin, Scolley"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="16dp"
+                    />
+
+
+                <TextView
                     android:id="@+id/textView_start_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/textView_event_city"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_city"
+                    app:layout_constraintTop_toBottomOf="@id/textView_member"
                     android:layout_marginTop="8dp"
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
                     time="@{event.startTime}"/>

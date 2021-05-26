@@ -1,11 +1,8 @@
 package com.wenbin.knowhowbinding.chatroom
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
-import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Message
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
@@ -13,8 +10,6 @@ import com.wenbin.knowhowbinding.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.login.UserManager
 
 
@@ -31,6 +26,11 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
 
     val updatedChatRooms: LiveData<List<ChatRoom>>
         get() = _updatedChatRooms
+
+    private var _testString = MutableLiveData<List<String>>()
+
+    val testString: LiveData<List<String>>
+        get() = _testString
 
     private val _fakeMessages = MutableLiveData<List<Message>>()
 
@@ -72,6 +72,14 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
     fun createFilteredChatRooms(filteredChatRoom: List<ChatRoom>) {
         _filteredChatRooms.value = filteredChatRoom
     }
+
+
+    // test function
+    fun changer(array: ArrayList<String>) {
+        _testString.value = array
+    }
+    // test function
+
 //    private fun getAllLiveChatRoom() {
 //        coroutineScope.launch {
 //            _status.value = LoadApiStatus.LOADING
