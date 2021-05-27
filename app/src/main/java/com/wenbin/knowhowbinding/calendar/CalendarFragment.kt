@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
@@ -24,14 +25,20 @@ import com.wenbin.knowhowbinding.util.Logger
 import com.wenbin.knowhowbinding.util.OneDayDecorator
 import com.wenbin.knowhowbinding.util.SingleDateDecorator
 import com.wenbin.knowhowbinding.util.TimeUtil
+import kotlinx.android.synthetic.main.fragment_calendar.*
 import org.threeten.bp.LocalDate
 import java.util.*
 
 class CalendarFragment : Fragment() {
     private lateinit var binding : FragmentCalendarBinding
     val viewModel by viewModels<CalendarViewModel> { getVmFactory() }
+
     private lateinit var widget : MaterialCalendarView
     private val oneDayDecorator: OneDayDecorator = OneDayDecorator()
+    @RequiresApi(Build.VERSION_CODES.O)
+
+    private var isFABOpen: Boolean = false
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -88,6 +95,32 @@ class CalendarFragment : Fragment() {
                 }
             }
         })
+
+        // fab setOnClickListener
+        binding.fab.setOnClickListener {
+            if (!isFABOpen) {
+                showFABMenu()
+            } else {
+                closeFABMenu()
+            }
+        }
+        binding.fabCreateEvent.setOnClickListener {
+//
+            Log.d("checkFab", "fabCreateEvent is clicked")
+            binding.fabShadow.visibility = View.GONE
+            closeFABMenu()
+        }
+
+        binding.fabLayoutCreateEvent.setOnClickListener {
+//            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToShapeRecordFragment(
+//                    Shape()
+//            ))
+            Log.d("checkFab", "fabLayoutCreateEvent is clicked")
+
+            binding.fabShadow.visibility = View.GONE
+            closeFABMenu()
+        }
+
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("月曆")
         }
@@ -101,5 +134,51 @@ class CalendarFragment : Fragment() {
                 CalendarDay.from(year, month, day)
             )
         )
+    }
+
+    // Set fab
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showFABMenu() {
+        when (fabLayout_create_event.y){
+            resources.getDimension(R.dimen.standard_0) -> fabLayout_create_event.visibility = View.INVISIBLE
+            else -> fabLayout_create_event.visibility = View.VISIBLE
+        }
+        when (fabLayout_notification.y){
+            resources.getDimension(R.dimen.standard_0) -> fabLayout_notification.visibility = View.INVISIBLE
+            else -> fabLayout_notification.visibility = View.VISIBLE
+        }
+
+        isFABOpen = true
+        fabLayout_create_event.animate().translationY(-resources.getDimension(R.dimen.standard_55))
+        fabLayout_notification.animate().translationY(-resources.getDimension(R.dimen.standard_105))
+        fab.animate().rotation(45.0f)
+        fab_custom_pic.animate().rotation(45.0f)
+        // Show shadow background.
+        binding.fabShadow.visibility = View.VISIBLE
+        binding.fab.visibility = View.VISIBLE
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun closeFABMenu() {
+
+        fab_create_event.visibility = View.VISIBLE
+        fab_notification.visibility = View.VISIBLE
+
+
+        when (fabLayout_create_event.y){
+            resources.getDimension(R.dimen.standard_0) -> fabLayout_create_event.visibility = View.INVISIBLE
+            else -> fabLayout_create_event.visibility = View.VISIBLE
+        }
+        when (fabLayout_notification.y){
+            resources.getDimension(R.dimen.standard_0) -> fabLayout_notification.visibility = View.INVISIBLE
+            else -> fabLayout_notification.visibility = View.VISIBLE
+        }
+
+        isFABOpen = false
+        binding.fabShadow.visibility = View.GONE
+        fab.animate().rotation(90.0f)
+        fab_custom_pic.animate().rotation(90.0f)
+        fabLayout_create_event.animate().translationY(resources.getDimension(R.dimen.standard_0))
+        fabLayout_notification.animate().translationY(resources.getDimension(R.dimen.standard_0))
     }
 }

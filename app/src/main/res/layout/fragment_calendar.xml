@@ -7,6 +7,9 @@
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.calendar.CalendarViewModel" />
+        <variable
+            name="fragment"
+            type="com.wenbin.knowhowbinding.calendar.CalendarFragment" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,60 +31,18 @@
             app:mcv_selectionColor="#00F"
             app:mcv_showOtherDates="all" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/fabLayout_goal"
-            android:background="@color/purple_200"
-            android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/fabShadow"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="2dp"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="@+id/fab"
-            app:layout_constraintEnd_toEndOf="@id/fab"
-            app:layout_constraintTop_toTopOf="@+id/fab">
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_goal"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                app:backgroundTint="@color/colorMyType"
-                app:elevation="0dp"
-                app:fabCustomSize="45dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/outline_add_black_24dp"
-                app:tint="@color/colorWhite" />
-
-            <TextView
-                android:id="@+id/text_goal_setting_title"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:fontFamily="@font/noto_sans"
-                android:paddingLeft="@dimen/dialog_padding"
-                android:paddingTop="@dimen/dialog_padding"
-                android:paddingRight="@dimen/dialog_padding"
-                android:paddingBottom="@dimen/dialog_padding"
-                android:text="這是我的第一個 Fab 按鈕"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_content"
-                app:layout_constraintBottom_toBottomOf="@+id/fab_goal"
-                app:layout_constraintEnd_toStartOf="@+id/fab_goal"
-                app:layout_constraintTop_toTopOf="@+id/fab_goal" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/imageView_create_event"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:background="#FFDC35"
+            android:onClick="@{()->fragment.closeFABMenu()}"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/outline_add_black_24dp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@color/colorShadow"
+            />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
@@ -114,6 +75,18 @@
             app:srcCompat="@drawable/outline_add_black_24dp" />
 
 
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/imageView_create_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="#FFDC35"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/outline_add_black_24dp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             ShowEvent="@{viewModel.selectedLiveEvent}"
@@ -125,6 +98,93 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/material_calendarView" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fabLayout_notification"
+            android:background="@color/green_chat_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@id/fab"
+            app:layout_constraintTop_toTopOf="@+id/fab">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_notification"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:backgroundTint="@color/colorMyType"
+                app:elevation="0dp"
+                app:fabCustomSize="45dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/outline_notifications_active_black_24dp"
+                app:tint="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/text_notification_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:paddingLeft="@dimen/dialog_padding"
+                android:paddingTop="@dimen/dialog_padding"
+                android:paddingRight="@dimen/dialog_padding"
+                android:paddingBottom="@dimen/dialog_padding"
+                android:text="Notification"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_content"
+                app:layout_constraintBottom_toBottomOf="@+id/fab_notification"
+                app:layout_constraintEnd_toStartOf="@+id/fab_notification"
+                app:layout_constraintTop_toTopOf="@+id/fab_notification" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fabLayout_create_event"
+            android:background="@color/purple_200"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="2dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/fab"
+            app:layout_constraintEnd_toEndOf="@id/fab"
+            app:layout_constraintTop_toTopOf="@+id/fab">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_create_event"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                app:backgroundTint="@color/colorMyType"
+                app:elevation="0dp"
+                app:fabCustomSize="45dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/outline_add_black_24dp"
+                app:tint="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/text_create_event_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/noto_sans"
+                android:paddingLeft="@dimen/dialog_padding"
+                android:paddingTop="@dimen/dialog_padding"
+                android:paddingRight="@dimen/dialog_padding"
+                android:paddingBottom="@dimen/dialog_padding"
+                android:text="發佈活動"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_content"
+                app:layout_constraintBottom_toBottomOf="@+id/fab_create_event"
+                app:layout_constraintEnd_toStartOf="@+id/fab_create_event"
+                app:layout_constraintTop_toTopOf="@+id/fab_create_event" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <!--        <androidx.core.widget.NestedScrollView-->
         <!--            android:id="@+id/nestedScroll_bottom_sheet"-->
         <!--            android:layout_width="match_parent"-->
