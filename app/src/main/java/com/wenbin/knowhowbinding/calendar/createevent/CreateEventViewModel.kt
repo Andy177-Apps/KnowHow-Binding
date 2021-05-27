@@ -191,9 +191,9 @@ class CreateEventViewModel(
     }
 
     fun setInvitation(selectedFollowing: Int) {
-//        if (selectedFollowing !=0 ){
-            _invitation.value = userInfo.value?.followingEmail?.get(selectedFollowing)
-//        }
+        if (selectedFollowing !=0 ){
+            _invitation.value = userInfo.value?.followingEmail?.get(selectedFollowing-1)
+        }
     }
 
     private fun setInitialTime() {

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/title_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black_54_alpha"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="GogoZoo" />
+<!--        android:text="@{viewModel.event.title}"-->
+
+        <ImageView
+            android:id="@+id/image_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:alpha="0.5"
+            app:layout_constraintStart_toStartOf="@id/title_title"
+            app:layout_constraintTop_toBottomOf="@id/title_title"
+            app:srcCompat="@drawable/ic_clock_black_24" />
+
+        <TextView
+            android:id="@+id/text_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black_54_alpha"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/image_clock"
+            app:layout_constraintStart_toEndOf="@id/image_clock"
+            app:layout_constraintTop_toTopOf="@id/image_clock"
+            tools:text="AUG" />
+<!--        month="@{viewModel.event.eventTime}"-->
+
+        <TextView
+            android:id="@+id/text_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black_54_alpha"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/text_month"
+            app:layout_constraintTop_toTopOf="@id/text_month"
+            tools:text="21" />
+<!--        day="@{viewModel.event.eventTime}"-->
+
+        <TextView
+            android:id="@+id/text_week_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/black_54_alpha"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/text_date"
+            app:layout_constraintTop_toTopOf="@id/text_month"
+            tools:text="FRIDAY" />
+<!--        weekday="@{viewModel.event.eventTime}"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_start_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@id/text_week_day"
+            app:layout_constraintTop_toTopOf="@id/text_week_day">
+
+            <TextView
+                android:id="@+id/divider_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto"
+                android:text="⋅"
+                android:textColor="@color/black_54_alpha"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/text_start_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black_54_alpha"
+                app:layout_constraintStart_toEndOf="@id/divider_date"
+                app:layout_constraintTop_toTopOf="@id/divider_date"
+                tools:text="18:00" />
+<!--            time="@{viewModel.event.startTime}"-->
+
+            <TextView
+                android:id="@+id/divider_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/roboto"
+                android:text="-"
+                android:textColor="@color/black_54_alpha"
+                app:layout_constraintStart_toEndOf="@id/text_start_time"
+                app:layout_constraintTop_toTopOf="@id/divider_date" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:fontFamily="@font/roboto"
+                android:textColor="@color/black_54_alpha"
+                app:layout_constraintStart_toEndOf="@id/divider_time"
+                app:layout_constraintTop_toTopOf="@id/divider_date"
+                tools:text="19:00" />
+<!--            time="@{viewModel.event.endTime}"-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/image_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.5"
+            app:layout_constraintStart_toStartOf="@id/image_clock"
+            app:layout_constraintTop_toBottomOf="@id/image_clock"
+            app:srcCompat="@drawable/ic_location_on_black_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/image_location"
+            app:layout_constraintStart_toEndOf="@id/image_location"
+            app:layout_constraintTop_toTopOf="@id/image_location"
+            tools:text="Taipei Zoo" />
+<!--        android:text="@{viewModel.event.city}"-->
+
+
+        <ImageView
+            android:id="@+id/image_attendee"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:alpha="0.5"
+            app:layout_constraintStart_toStartOf="@id/image_location"
+            app:layout_constraintTop_toBottomOf="@id/image_location"
+            app:srcCompat="@drawable/ic_face_black_24" />
+
+        <TextView
+            android:id="@+id/text_attenddes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toBottomOf="@id/image_attendee"
+            app:layout_constraintStart_toEndOf="@id/image_attendee"
+            app:layout_constraintTop_toTopOf="@id/image_attendee"
+            tools:text="Sam Lee" />
+
+        <TextView
+            android:id="@+id/text_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/text_attenddes"
+            app:layout_constraintTop_toBottomOf="@id/text_attenddes"
+            tools:text="Gogo Zooooooooooooo LETS gooooooooooooo check out some animals" />
+<!--        android:text="@{viewModel.event.description}"-->
+
+        <View
+            android:id="@+id/divider_button"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/black_36_alpha"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_description" />
+
+        <TextView
+            android:id="@+id/button_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/btn_going"
+            android:textColor="@color/black_54_alpha"
+            android:textSize="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_button" />
+
+        <TextView
+            android:id="@+id/button_decline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:padding="8dp"
+            android:text="@string/btn_no"
+            android:textColor="@color/pinkish"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/divider_button" />
+
+        <TextView
+            android:id="@+id/button_accept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="8dp"
+            android:text="@string/btn_yes"
+            android:textColor="@color/blue"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/button_decline"
+            app:layout_constraintTop_toTopOf="@id/button_decline" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

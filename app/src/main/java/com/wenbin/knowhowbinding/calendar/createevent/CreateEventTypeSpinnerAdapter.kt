@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.calendar.createevent
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,7 @@ class CreateEventTypeSpinnerAdapter(private val strings: Array<String>) : BaseAd
         return position.toLong()
     }
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val binding = ItemTypeSpinnerBinding.inflate(LayoutInflater.from(parent?.context), parent, false)
         if (position == 0) {

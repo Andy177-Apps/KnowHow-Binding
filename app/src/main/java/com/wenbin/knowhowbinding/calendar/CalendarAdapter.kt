@@ -28,7 +28,7 @@ class CalendarAdapter : ListAdapter<Event,
         }
     }
 
-    object DiffCallback : DiffUtil.ItemCallback<Event>() {
+    companion object DiffCallback : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
             return oldItem == newItem
         }

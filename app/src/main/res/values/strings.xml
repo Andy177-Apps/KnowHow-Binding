@@ -11,6 +11,13 @@
     <string name="reminder_invalid_time">Please select a valid time</string>
     <string name="you_shall_not_pass">You Shall Not Pass</string>
     <string name="spinner_select_partner">Select Partner</string>
+    <string name="no_notification">No Notification</string>
+    <string name="btn_accept">ACCEPT</string>
+    <string name="btn_decline">DECLINE</string>
+    <string name="text_invitation">\ has sent an invitation of event: \</string>
+    <string name="btn_going">Going?</string>
+    <string name="btn_no">NO</string>
+    <string name="btn_yes">YES</string>
 
     <string-array name="category_array">
         <item>交換技能</item>

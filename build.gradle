@@ -17,6 +17,8 @@ buildscript {
         version_fragment = "1.2.5"
         version_paging = "3.0.0-alpha07"
         version_room = "2.2.5"
+        work_version = "2.4.0"
+
     }
     ext.kotlin_version = "1.4.31"
     repositories {

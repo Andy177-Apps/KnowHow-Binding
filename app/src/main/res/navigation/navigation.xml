@@ -76,6 +76,16 @@
     </dialog>
 
     <fragment
+        android:id="@+id/eventDetailFragment"
+        android:name="com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailFragment"
+        android:label="EventDetailFragment"
+        tools:layout="@layout/fragment_event_detail">
+    <argument
+        android:name="event"
+        app:argType="com.wenbin.knowhowbinding.data.Event"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.wenbin.knowhowbinding.user.UserProfileFragment"
         android:label="UserProfileFragment"
@@ -87,6 +97,12 @@
         android:name="com.wenbin.knowhowbinding.profile.editprofile.EditProfileFragment"
         android:label="EditProfileFragment"
         tools:layout="@layout/fragment_editprofile"/>
+
+    <fragment
+        android:id="@+id/notifyFragment"
+        android:name="com.wenbin.knowhowbinding.notify.NotifyFragment"
+        android:label="NotifyFragment"
+        tools:layout="@layout/fragment_notify"/>
 
     <action android:id="@+id/navigate_to_home_fragment" app:destination="@id/homeFragment"
         app:popUpTo="@+id/navigation"
@@ -116,6 +132,8 @@
     <action android:id="@+id/navigate_to_message_fragment" app:destination="@id/messageFragment"        />
     <action android:id="@+id/navigate_to_create_event_dialog" app:destination="@id/createEventDialogFragment"        />
     <action android:id="@+id/navigate_to_edit_profile" app:destination="@id/editProfileFragment"        />
+    <action android:id="@+id/navigate_to_notify" app:destination="@id/notifyFragment"        />
+    <action android:id="@+id/navigate_to_event_detail" app:destination="@id/eventDetailFragment"        />
 
 
 

@@ -119,4 +119,15 @@ dependencies {
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.0'
     implementation "com.github.prolificinteractive:material-calendarview:${version}"
 
+    // CircleImage
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // TimeAgo
+    implementation "com.github.marlonlom:timeago:4.0.1"
+
+    //Worker
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+
+
 }

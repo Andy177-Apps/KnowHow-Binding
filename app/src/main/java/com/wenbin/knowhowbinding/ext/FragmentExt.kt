@@ -2,8 +2,8 @@ package com.wenbin.knowhowbinding.ext
 
 import androidx.fragment.app.Fragment
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
-import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Event
+import com.wenbin.knowhowbinding.factory.CreateEventViewModelFactory
 import com.wenbin.knowhowbinding.factory.EventViewModelFactory
 import com.wenbin.knowhowbinding.factory.MessageViewModelFactory
 import com.wenbin.knowhowbinding.factory.ViewModelFactory
@@ -25,7 +25,12 @@ fun Fragment.getVmFactory(userEmail: String, userName: String): MessageViewModel
     return MessageViewModelFactory(repository, userEmail, userName)
 }
 
-fun Fragment.getVmFactory(selectedDate: Long): EventViewModelFactory {
+fun Fragment.getVmFactory(selectedDate: Long): CreateEventViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
-    return EventViewModelFactory(repository, selectedDate)
+    return CreateEventViewModelFactory(repository, selectedDate)
+}
+
+fun Fragment.getVmFactory(event: Event) : EventViewModelFactory {
+    val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
+    return EventViewModelFactory(repository, event)
 }

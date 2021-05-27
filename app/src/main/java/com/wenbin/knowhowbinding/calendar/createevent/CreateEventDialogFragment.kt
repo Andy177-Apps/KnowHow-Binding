@@ -78,8 +78,8 @@ class CreateEventDialogFragment : DialogFragment() {
             findNavController().navigate(CreateEventDialogFragmentDirections.navigateToCalendarFragment())
         }
 
-//        binding.spinnerCategory.adapter = CreateEventTypeSpinnerAdapter(
-//            KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array))
+        binding.spinnerCategory.adapter = CreateEventTypeSpinnerAdapter(
+            KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array))
 
         binding.spinnerCategory.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {

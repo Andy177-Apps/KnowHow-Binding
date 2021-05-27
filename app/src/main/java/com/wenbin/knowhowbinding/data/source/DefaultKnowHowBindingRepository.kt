@@ -56,4 +56,20 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.getUser(userEmail)
     }
 
+    override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {
+        return KnowHowBindingRemoteDataSource.getLiveMyEventInvitation(userEmail)
+    }
+
+    override suspend fun acceptEvent(
+        event: Event,
+        userEmail: String,
+        userName: String
+    ): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.acceptEvent(event, userEmail, userName)
+    }
+
+    override suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.declineEvent(event, userEmail)
+    }
+
 }

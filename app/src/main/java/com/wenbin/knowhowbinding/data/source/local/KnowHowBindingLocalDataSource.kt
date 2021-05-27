@@ -65,6 +65,22 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
+    override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun acceptEvent(
+        event: Event,
+        userEmail: String,
+        userName: String
+    ): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
 
     override suspend fun createTestedData(): Result<List<Article>> {
         var defaultData = mutableListOf<Article>()

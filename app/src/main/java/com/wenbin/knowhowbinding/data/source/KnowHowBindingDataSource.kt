@@ -29,4 +29,9 @@ interface KnowHowBindingDataSource {
 
     suspend fun getUser(userEmail: String): Result<User>
 
+    fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>>
+
+    suspend fun acceptEvent(event: Event, userEmail: String, userName: String): Result<Boolean>
+
+    suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean>
 }
