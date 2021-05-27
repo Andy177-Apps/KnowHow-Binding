@@ -32,7 +32,7 @@ class NotifyAdapter (val viewModel: NotifyViewModel) : ListAdapter<Event, Recycl
             binding.textCreatorName.text = string
 
             binding.layoutInfo.setOnClickListener {
-                Navigation.createNavigateOnClickListener(NavigationDirections.navigateToEventDetail(event)).onClick(binding.layoutInfo)
+                Navigation.createNavigateOnClickListener(NavigationDirections.navigateToEventDetailFragment(event)).onClick(binding.layoutInfo)
             }
 
             binding.buttonDecline.setOnClickListener {

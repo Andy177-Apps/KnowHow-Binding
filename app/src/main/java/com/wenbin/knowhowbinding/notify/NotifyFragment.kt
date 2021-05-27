@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.notify
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.wenbin.knowhowbinding.databinding.FragmentNotifyBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.login.UserManager
 
 class NotifyFragment: Fragment() {
     private val viewModel by viewModels<NotifyViewModel> { getVmFactory() }
@@ -30,16 +32,24 @@ class NotifyFragment: Fragment() {
         binding.recyclerNotify.adapter = adapter
         adapter.notifyDataSetChanged()
 
+//        viewModel.getLiveAllEventInvitations(UserManager.user.email)
+//        Log.d("fragment", "viewModel.allLiveEventInvitations = ${viewModel.allLiveEventInvitations.value} ")
+
         viewModel.allLiveEventInvitations.observe(viewLifecycleOwner, Observer {
+            Log.d("see what is Empty_1" , "allLiveEventInvitations = $it ")
+
             if(it.isEmpty()) {
                 invitationValueVisibility(false)
             } else {
                 invitationValueVisibility(true)
             }
+
             adapter.submitList(it)
+            it?.let {
+                binding.viewModel = viewModel
+            }
+//            Log.d("see what is Empty_2" , "allLiveEventInvitations = $it ")
         })
-
-
         return binding.root
     }
 

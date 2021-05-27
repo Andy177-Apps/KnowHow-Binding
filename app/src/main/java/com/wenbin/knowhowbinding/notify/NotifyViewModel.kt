@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.notify
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,6 +20,8 @@ import com.wenbin.knowhowbinding.data.Result
 class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewModel(){
 
 
+    private val _allLiveEventInvitations = MutableLiveData<List<Event>>()
+
     var allLiveEventInvitations = MutableLiveData<List<Event>>()
 
 
@@ -33,6 +36,11 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
 
     val error: LiveData<String>
         get() = _error
+
+    private val _refreshStatus = MutableLiveData<Boolean>()
+
+    val refreshStatus: LiveData<Boolean>
+        get() = _refreshStatus
 
     // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
@@ -51,11 +59,14 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
         Logger.i("------------------------------------")
 
         getLiveAllEventInvitations(UserManager.user.email)
+
     }
 
-    private fun getLiveAllEventInvitations(userEmail: String){
+    fun getLiveAllEventInvitations(userEmail: String){
         allLiveEventInvitations = repository.getLiveMyEventInvitation(userEmail)
+        Log.d("wenbn", "getLiveAllEventInvitations is actioned")
         _status.value = LoadApiStatus.DONE
+        _refreshStatus.value = false
     }
 
     fun declineEvent (event: Event, userEmail: String) {

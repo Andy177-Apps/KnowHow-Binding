@@ -39,12 +39,12 @@ class EventDetailFragment : Fragment(){
 
         binding.buttonDecline.setOnClickListener {
             viewModel.declineEvent(viewModel.event, UserManager.user.email)
-            findNavController().navigate(NavigationDirections.navigateToNotify())
+            findNavController().navigate(NavigationDirections.navigateToNotifyFragment())
         }
 
         binding.buttonAccept.setOnClickListener {
             viewModel.acceptEvent(viewModel.event, UserManager.user.email, UserManager.user.name)
-            findNavController().navigate(NavigationDirections.navigateToNotify())
+            findNavController().navigate(NavigationDirections.navigateToNotifyFragment())
         }
 
         return binding.root

@@ -132,8 +132,8 @@
     <action android:id="@+id/navigate_to_message_fragment" app:destination="@id/messageFragment"        />
     <action android:id="@+id/navigate_to_create_event_dialog" app:destination="@id/createEventDialogFragment"        />
     <action android:id="@+id/navigate_to_edit_profile" app:destination="@id/editProfileFragment"        />
-    <action android:id="@+id/navigate_to_notify" app:destination="@id/notifyFragment"        />
-    <action android:id="@+id/navigate_to_event_detail" app:destination="@id/eventDetailFragment"        />
+    <action android:id="@+id/navigate_to_notify_fragment" app:destination="@id/notifyFragment"        />
+    <action android:id="@+id/navigate_to_event_detail_fragment" app:destination="@id/eventDetailFragment"        />
 
 
 

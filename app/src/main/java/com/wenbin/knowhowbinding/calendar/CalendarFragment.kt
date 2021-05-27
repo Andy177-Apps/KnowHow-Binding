@@ -116,16 +116,14 @@ class CalendarFragment : Fragment() {
             }
         }
         binding.fabNotification.setOnClickListener {
-//
+            findNavController().navigate(CalendarFragmentDirections.navigateToNotifyFragment())
             Log.d("checkFab", "fabNotification is clicked")
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }
 
         binding.fabLayoutNotification.setOnClickListener {
-//            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToShapeRecordFragment(
-//                    Shape()
-//            ))
+            findNavController().navigate(CalendarFragmentDirections.navigateToNotifyFragment())
             Log.d("checkFab", "fabLayoutNotification is clicked")
 
             binding.fabShadow.visibility = View.GONE
