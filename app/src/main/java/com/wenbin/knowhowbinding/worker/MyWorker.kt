@@ -45,7 +45,7 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineW
             } else {
                 Notification.Builder(appContext)
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(KnowHowBindingApplication.instance.resources.getColor(R.color.colorPrimary))
+                    .setColor(KnowHowBindingApplication.instance.applicationContext.getColor(R.color.colorPrimary))
                     .setContentTitle("Upcoming Appointment")
                     .setContentText(content)
                     .setAutoCancel(true)

@@ -304,7 +304,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         val db = FirebaseFirestore.getInstance()
         Log.d("RemoteupdateUser", "user.email = ${user.email}")
 
-        val users = db.collection(PATH_USERS)
+        db.collection(PATH_USERS)
                 .whereEqualTo("email", user.email)
                 .get()
                 .addOnSuccessListener { documents ->

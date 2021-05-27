@@ -19,15 +19,15 @@ import com.wenbin.knowhowbinding.util.TimeUtil
 
 @BindingAdapter("imageUrl")
 fun bindImage (imgView: ImageView, imgUrl : String) {
-    imgUrl?.let {
+    imgUrl.let {
         val imgUrl = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
-            .load(imgUrl)
-            .apply(
-                RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image))
-            .into(imgView)
+                .load(imgUrl)
+                .apply(
+                        RequestOptions()
+                                .placeholder(R.drawable.loading_animation)
+                                .error(R.drawable.ic_broken_image))
+                .into(imgView)
     }
 }
 
