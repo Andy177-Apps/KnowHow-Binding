@@ -90,8 +90,19 @@ class CalendarFragment : Fragment() {
         viewModel.navigationToCreateEventDialogFragment.observe(viewLifecycleOwner,
         Observer { date ->
             date?.let {
-                binding.imageViewCreateEvent.setOnClickListener {
+//                binding.imageViewCreateEvent.setOnClickListener {
+//                    findNavController().navigate(CalendarFragmentDirections.navigateToCreateEventDialog(date))
+//                }
+                binding.fabCreateEvent.setOnClickListener {
                     findNavController().navigate(CalendarFragmentDirections.navigateToCreateEventDialog(date))
+                    binding.fabShadow.visibility = View.GONE
+                    closeFABMenu()
+                }
+
+                binding.fabLayoutCreateEvent.setOnClickListener {
+                    findNavController().navigate(CalendarFragmentDirections.navigateToCreateEventDialog(date))
+                    binding.fabShadow.visibility = View.GONE
+                    closeFABMenu()
                 }
             }
         })
@@ -104,22 +115,24 @@ class CalendarFragment : Fragment() {
                 closeFABMenu()
             }
         }
-        binding.fabCreateEvent.setOnClickListener {
+        binding.fabNotification.setOnClickListener {
 //
-            Log.d("checkFab", "fabCreateEvent is clicked")
+            Log.d("checkFab", "fabNotification is clicked")
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }
 
-        binding.fabLayoutCreateEvent.setOnClickListener {
+        binding.fabLayoutNotification.setOnClickListener {
 //            findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToShapeRecordFragment(
 //                    Shape()
 //            ))
-            Log.d("checkFab", "fabLayoutCreateEvent is clicked")
+            Log.d("checkFab", "fabLayoutNotification is clicked")
 
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }
+
+
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("月曆")
