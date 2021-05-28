@@ -59,6 +59,16 @@ class CalendarFragment : Fragment() {
         // Set Indecator of current date
         widget.setSelectedDate(localDate)
 
+        viewModel.events.observe(viewLifecycleOwner, Observer { it ->
+//            Log.d("events_in_calendar_page", "events = $it")
+            it?.forEach {
+                Log.d("events_in_calendar_page", "events = $it")
+
+//                Log.d("events_in_calendar_page", "it.attendeesName.component1() = ${it.attendeesName.component1()}")
+            }
+
+        })
+
         // Add dots based on my events
         viewModel.liveEvents.observe(viewLifecycleOwner, Observer {
             Log.d("wenbin", "viewModel.allLiveEvents, it = $it")

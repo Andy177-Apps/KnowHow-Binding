@@ -1,10 +1,14 @@
 package com.wenbin.knowhowbinding.calendar
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.wenbin.knowhowbinding.KnowHowBindingApplication
+import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.databinding.ItemEventBinding
 
@@ -16,6 +20,24 @@ class CalendarAdapter : ListAdapter<Event,
     ) : RecyclerView.ViewHolder(binding.root){
         fun bind (item : Event) {
             binding.event = item
+
+            binding.cardViewEvent.setOnClickListener {
+
+                Log.d("checkcard","cardView is clicked")
+                if (binding.layoutScheduleDetail.visibility == View.INVISIBLE) {
+                    binding.layoutScheduleDetail.visibility = View.VISIBLE
+                } else {
+                    binding.layoutScheduleDetail.visibility = View.INVISIBLE
+                }
+            }
+
+
+
+            binding.textAttendee1.text = item.attendeesName.first()
+            if (item.attendeesName.size > 1) {
+                binding.textAttendee2.text = item.attendeesName.last()
+            }
+            binding.textDetail.text = item.description
             binding.executePendingBindings()
         }
         companion object {

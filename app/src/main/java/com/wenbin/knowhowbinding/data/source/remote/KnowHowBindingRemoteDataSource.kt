@@ -376,20 +376,23 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 }
 
                 val list = mutableListOf<Event>()
-//                snapshot?.forEach { document ->
-//                    Logger.d(document.id + " => " + document.data)
-//
-//                    val event = document.toObject(Event::class.java)
-//                    Log.d("check_event","event = ${event}")
-//
-//                    list.add(event)
-//                }
-                for (document in snapshot!!) {
+                snapshot?.forEach { document ->
                     Logger.d(document.id + " => " + document.data)
 
                     val event = document.toObject(Event::class.java)
+                    Log.d("check_event","event = $event")
+
                     list.add(event)
                 }
+//                if (snapshot != null) {
+//                    for (document in snapshot) {
+//                        Logger.d(document.id + " => " + document.data)
+//
+//                        val event = document.toObject(Event::class.java)
+//                        list.add(event)
+//                    }
+//                }
+
 
                 liveData.value = list
                 Log.d("check_liveevents","liveData.value = ${liveData.value}")

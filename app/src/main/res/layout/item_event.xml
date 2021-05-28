@@ -117,13 +117,13 @@
                     android:id="@+id/textView_member"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_city"
                     android:layout_marginTop="16dp"
-                    android:text="Wenbin, Scolley"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginBottom="16dp"
-                    />
+                    android:text="Wenbin, Scolley"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_city" />
 
 
                 <TextView
@@ -156,5 +156,124 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_schedule_detail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="88dp"
+            android:background="@drawable/bg_botton_corner"
+            android:paddingBottom="16dp"
+            app:layout_constraintEnd_toEndOf="@id/cardView_event"
+            app:layout_constraintStart_toStartOf="@id/cardView_event"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_attendee"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/title_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/member"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/divider_attendee"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="79dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/colon"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title_attendee" />
+
+                <TextView
+                    android:id="@+id/text_attendee_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintStart_toEndOf="@id/divider_attendee"
+                    app:layout_constraintTop_toTopOf="@id/title_attendee"
+                    tools:text="Taylor Swift" />
+
+                <TextView
+                    android:id="@+id/text_attendee_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_attendee_1"
+                    app:layout_constraintTop_toTopOf="@id/title_attendee"
+                    tools:text="Taylor Swift" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layout_attendee">
+
+                <TextView
+                    android:id="@+id/title_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/detail"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/divider_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="79dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/colon"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title_detail" />
+
+                <TextView
+                    android:id="@+id/text_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="@{event.description}"
+                    android:textColor="@color/black_36_alpha"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/divider_detail"
+                    app:layout_constraintTop_toTopOf="@id/title_detail"
+                    tools:text="Taylor Swift" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

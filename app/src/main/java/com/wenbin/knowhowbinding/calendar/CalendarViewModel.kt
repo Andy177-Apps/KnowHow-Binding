@@ -69,7 +69,7 @@ class CalendarViewModel(
 
         getLiveEventsResult()
         todayDate()
-
+        getEventsResult()
         if (KnowHowBindingApplication.instance.isLiveDataDesign()) {
             getLiveEventsResult()
         }else {

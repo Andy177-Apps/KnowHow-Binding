@@ -18,6 +18,9 @@
     <string name="btn_going">Going?</string>
     <string name="btn_no">NO</string>
     <string name="btn_yes">YES</string>
+    <string name="member">Member</string>
+    <string name="colon">:</string>
+    <string name="detail">Detail</string>
 
     <string-array name="category_array">
         <item>交換技能</item>
