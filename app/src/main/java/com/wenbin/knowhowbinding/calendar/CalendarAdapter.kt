@@ -31,8 +31,6 @@ class CalendarAdapter : ListAdapter<Event,
                 }
             }
 
-
-
             binding.textAttendee1.text = item.attendeesName.first()
             if (item.attendeesName.size > 1) {
                 binding.textAttendee2.text = item.attendeesName.last()

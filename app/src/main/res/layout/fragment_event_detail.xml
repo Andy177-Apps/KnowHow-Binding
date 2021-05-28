@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailViewModel" />
@@ -12,6 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/title_title"
             android:layout_width="wrap_content"
@@ -19,13 +21,14 @@
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/roboto"
+            android:text="@{viewModel.event.title}"
+
             android:textColor="@color/black_54_alpha"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="GogoZoo" />
-<!--        android:text="@{viewModel.event.title}"-->
 
         <ImageView
             android:id="@+id/image_clock"
@@ -39,43 +42,46 @@
 
         <TextView
             android:id="@+id/text_month"
+            month="@{viewModel.event.eventTime}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black_54_alpha"
             android:textSize="14sp"
+
             app:layout_constraintBottom_toBottomOf="@id/image_clock"
             app:layout_constraintStart_toEndOf="@id/image_clock"
             app:layout_constraintTop_toTopOf="@id/image_clock"
             tools:text="AUG" />
-<!--        month="@{viewModel.event.eventTime}"-->
 
         <TextView
             android:id="@+id/text_date"
+            day="@{viewModel.event.eventTime}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black_54_alpha"
+
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/text_month"
             app:layout_constraintTop_toTopOf="@id/text_month"
             tools:text="21" />
-<!--        day="@{viewModel.event.eventTime}"-->
 
         <TextView
             android:id="@+id/text_week_day"
+            week="@{viewModel.event.eventTime}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:fontFamily="@font/roboto"
             android:textColor="@color/black_54_alpha"
+
             android:textSize="14sp"
             app:layout_constraintStart_toEndOf="@id/text_date"
             app:layout_constraintTop_toTopOf="@id/text_month"
             tools:text="FRIDAY" />
-<!--        weekday="@{viewModel.event.eventTime}"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_start_end_time"
@@ -99,15 +105,16 @@
 
             <TextView
                 android:id="@+id/text_start_time"
+                time="@{viewModel.event.startTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:fontFamily="@font/roboto"
+
                 android:textColor="@color/black_54_alpha"
                 app:layout_constraintStart_toEndOf="@id/divider_date"
                 app:layout_constraintTop_toTopOf="@id/divider_date"
                 tools:text="18:00" />
-<!--            time="@{viewModel.event.startTime}"-->
 
             <TextView
                 android:id="@+id/divider_time"
@@ -121,15 +128,16 @@
                 app:layout_constraintTop_toTopOf="@id/divider_date" />
 
             <TextView
+                time="@{viewModel.event.endTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:fontFamily="@font/roboto"
+
                 android:textColor="@color/black_54_alpha"
                 app:layout_constraintStart_toEndOf="@id/divider_time"
                 app:layout_constraintTop_toTopOf="@id/divider_date"
                 tools:text="19:00" />
-<!--            time="@{viewModel.event.endTime}"-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -147,11 +155,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:text="@{viewModel.event.city}"
             app:layout_constraintBottom_toBottomOf="@id/image_location"
             app:layout_constraintStart_toEndOf="@id/image_location"
             app:layout_constraintTop_toTopOf="@id/image_location"
             tools:text="Taipei Zoo" />
-<!--        android:text="@{viewModel.event.city}"-->
 
 
         <ImageView
@@ -180,11 +188,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            android:text="@{viewModel.event.description}"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/text_attenddes"
             app:layout_constraintTop_toBottomOf="@id/text_attenddes"
             tools:text="Gogo Zooooooooooooo LETS gooooooooooooo check out some animals" />
-<!--        android:text="@{viewModel.event.description}"-->
 
         <View
             android:id="@+id/divider_button"

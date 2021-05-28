@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.calendar.eventdetail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,9 @@ class EventDetailFragment : Fragment(){
 
         val binding = FragmentEventDetailBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
+
+        Log.d("check_accepted_event","viewModel.event = ${viewModel.event}")
+
 
         if(viewModel.event.startTime.equals(-1)){
             binding.layoutStartEndTime.visibility = View.GONE

@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/textView_event_title"
                     app:layout_constraintTop_toBottomOf="@id/textView_event_title"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="4dp"
                     android:text="@{event.city}" />
 
                 <TextView
@@ -131,8 +131,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@id/textView_event_city"
-                    app:layout_constraintTop_toBottomOf="@id/textView_member"
-                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_city"
+                    android:layout_marginTop="4dp"
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
                     time="@{event.startTime}"/>
 
@@ -152,6 +152,7 @@
                     app:layout_constraintTop_toTopOf="@id/textView_start_time"
                     app:layout_constraintStart_toEndOf="@id/textView_dash"
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
+                    android:hint="@string/reminder_invalid_time"
                     time="@{event.endTime}"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
