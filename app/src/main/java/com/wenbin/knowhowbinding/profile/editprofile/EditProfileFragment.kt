@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.AdapterView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,7 +16,6 @@ import androidx.lifecycle.Observer
 import com.google.android.material.chip.Chip
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
 
 
@@ -33,31 +32,89 @@ class EditProfileFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        // Setup chip group for tag selection
-        val chipGroup = binding.chipGroup
-        chipGroup.isSingleSelection = false
-        val types = KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
+        // Setup chip group for TalentedSubjects chip selection
+        val chipGroupTalented = binding.chipGroupTalentedSubjects
+        chipGroupTalented.isSingleSelection = false
+        val typesTalented = KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
 
-        for (type in types) {
-            val chip = LayoutInflater.from(requireContext()).inflate(R.layout.chip_layout, chipGroup, false) as Chip
+        for (type in typesTalented) {
+            val chip = LayoutInflater.from(requireContext()).inflate(R.layout.chip_layout, chipGroupTalented, false) as Chip
             chip.text = type
 
             chip.setOnCheckedChangeListener { c, isChecked ->
                 if (isChecked) {
                     // Check if the list already contains the tag, if not then add to list
-                    if (viewModel.itemList.contains(c.text.toString())) {
+                    if (viewModel.talentedList.contains(c.text.toString())) {
                         Logger.d(getString(R.string.logger_already_added))
                     } else {
-                        viewModel.setTags(c.text.toString(),false)
+                        viewModel.setTalented(c.text.toString(),false)
                     }
 
                     // Remove tag from list when uncheck
                 } else {
-                    viewModel.setTags(c.text.toString(),true)
+                    viewModel.setTalented(c.text.toString(),true)
                 }
             }
-            chipGroup.addView(chip)
+            chipGroupTalented.addView(chip)
         }
+
+        // Setup chip group for interestedSubjects chip selection
+        val chipGroupInterested = binding.chipGroupInterestedSubject
+        chipGroupInterested.isSingleSelection = false
+        val typesInterested = KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
+
+        for (type in typesInterested) {
+            val chip = LayoutInflater.from(requireContext()).inflate(R.layout.chip_layout, chipGroupInterested, false) as Chip
+            chip.text = type
+
+            chip.setOnCheckedChangeListener { c, isChecked ->
+                if (isChecked) {
+                    // Check if the list already contains the tag, if not then add to list
+                    if (viewModel.talentedList.contains(c.text.toString())) {
+                        Logger.d(getString(R.string.logger_already_added))
+                    } else {
+                        viewModel.setInterested(c.text.toString(),false)
+                    }
+
+                    // Remove tag from list when uncheck
+                } else {
+                    viewModel.setInterested(c.text.toString(),true)
+                }
+            }
+            chipGroupInterested.addView(chip)
+        }
+
+        // Setup Radio button---Gender
+        binding.radioGender.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radio_male -> viewModel.setGender("Male")
+                R.id.radio_female -> viewModel.setGender("Female")
+            }
+        }
+
+        // Setup Spinner for city
+        binding.spinnerCity.onItemSelectedListener = object :
+                AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+            override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+            ) {
+                if (parent != null) {
+                    val selectedType = parent.selectedItem.toString()
+                    Log.d("Spinner_type","position = $position")
+                    Log.d("Spinner_type","id = $id")
+
+                    viewModel.setCity(selectedType)
+                }
+            }
+        }
+
+
+
 
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{

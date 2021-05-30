@@ -8,13 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.chip.Chip
 import com.wenbin.knowhowbinding.MainActivity
+import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
-import com.wenbin.knowhowbinding.profile.editprofile.EditProfileViewModel
 
 
 class ProfileFragment  : Fragment() {
@@ -65,10 +66,33 @@ class ProfileFragment  : Fragment() {
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("ProfilePage", "userInfo = $it")
+            setupLayout(it)
+
         })
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("個人頁面")
         }
         return binding.root
+    }
+
+    private fun setupLayout(user: User) {
+        val chipGroupTalented = binding.chipGroupTalentedSubjects
+        val genres = user.talentedSubjects
+
+        for (genre in genres) {
+            val chip = Chip(context, null, R.attr.CustomChipChoice)
+            chip.text = genre
+            chipGroupTalented.addView(chip)
+        }
+
+        val chipGroupInterested = binding.chipGroupInterestedSubjects
+        val interestedList = user.interestedSubjects
+
+        for (genre in interestedList) {
+            val chip = Chip(context, null, R.attr.CustomChipChoice)
+            chip.text = genre
+            chipGroupInterested.addView(chip)
+        }
+
     }
 }

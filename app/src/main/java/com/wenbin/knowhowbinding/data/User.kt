@@ -23,9 +23,9 @@ data class User(
 
         var identity: String = "",
 
-        val talentedSubjects: String = "",
+        val talentedSubjects: List<String> = listOf(),
 
-        val interestedSubjects: String = "",
+        val interestedSubjects: List<String> = listOf(),
 
         val introduction: String = ""
 //        val comment : Comment

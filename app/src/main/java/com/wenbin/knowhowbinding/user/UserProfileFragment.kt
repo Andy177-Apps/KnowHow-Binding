@@ -86,13 +86,22 @@ class UserProfileFragment: Fragment() {
     }
 
     private fun setupLayout(user: User) {
-        val chipGroup = binding.chipGroupTalentedSubjects
-        val genres = user.tag
+        val chipGroupTalented = binding.chipGroupTalentedSubjects
+        val genres = user.talentedSubjects
 
         for (genre in genres) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
-            chipGroup.addView(chip)
+            chipGroupTalented.addView(chip)
+        }
+
+        val chipGroupInterested = binding.chipGroupInterestedSubject
+        val interestedList = user.interestedSubjects
+
+        for (genre in interestedList) {
+            val chip = Chip(context, null, R.attr.CustomChipChoice)
+            chip.text = genre
+            chipGroupInterested.addView(chip)
         }
 
         binding.buttonMessage.setOnClickListener {

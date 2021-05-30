@@ -127,44 +127,41 @@
             android:layout_marginStart="16dp"
             />
 
-        <TextView
-            android:id="@+id/textView_talentedSubjects"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_talentedSubjects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{viewModel.userInfo.talentedSubjects}"
-            app:layout_constraintTop_toBottomOf="@+id/textView_talentedSubjects_title"
+            android:orientation="horizontal"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toEndOf="@id/textView_talentedSubjects_title"
-            />
+            app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
+            app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
+        </com.google.android.material.chip.ChipGroup>
 
         <TextView
             android:id="@+id/textView_interestedSubjects_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="感興趣的東西"
-            app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects"
+            app:layout_constraintStart_toStartOf="@id/chipGroup_talentedSubjects"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup_talentedSubjects"
             android:layout_marginTop="16dp"
             />
-
-        <TextView
-            android:id="@+id/textView_interestedSubjects"
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup_interestedSubjects"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:text="@{viewModel.userInfo.interestedSubjects}"
-            app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects_title"
+            android:orientation="horizontal"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects"
-            />
+            app:layout_constraintStart_toStartOf="@id/textView_interestedSubjects_title"
+            app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects_title">
+        </com.google.android.material.chip.ChipGroup>
 
-        <!--        -->
         <TextView
             android:id="@+id/textView_introduction_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="自我介紹"
-            app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects"
+            app:layout_constraintTop_toBottomOf="@id/chipGroup_interestedSubjects"
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp"

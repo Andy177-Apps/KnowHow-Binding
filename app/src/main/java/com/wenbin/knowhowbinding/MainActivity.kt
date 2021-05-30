@@ -140,4 +140,6 @@ class MainActivity : AppCompatActivity() {
     fun hideToolBar() {
         binding.myToolbar.visibility = View.GONE
     }
+
+
 }

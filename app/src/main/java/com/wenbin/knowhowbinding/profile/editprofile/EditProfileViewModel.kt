@@ -34,11 +34,29 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     val introduction = MutableLiveData<String>()
 
-    val itemList: MutableList<String> = ArrayList()
+    val talentedList: MutableList<String> = ArrayList()
+    val interestedList: MutableList<String> = ArrayList()
 
-    private var _selectedTags = MutableLiveData<List<String>>()
-    val selectedTags : LiveData<List<String>>
-        get() = _selectedTags
+
+    //Consequence for selected chip talentedSubjects
+    private var _selectedTalented = MutableLiveData<List<String>>()
+    val selectedTalented : LiveData<List<String>>
+        get() = _selectedTalented
+
+    //Consequence for selected chip interestedSubjects
+    private var _selectedInterested = MutableLiveData<List<String>>()
+    val selectedInterested : LiveData<List<String>>
+        get() = _selectedInterested
+
+    //Variables for editable component
+    private var _selectedGender = MutableLiveData<String>()
+    val selectedGender : LiveData<String>
+        get() = _selectedGender
+
+    //Consequence for selected city
+    private var _selectedCity = MutableLiveData<String>()
+    val selectedCity : LiveData<String>
+        get() = _selectedCity
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -151,10 +169,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                 id = UserManager.user.id,
                 name = UserManager.user.name,
                 email = UserManager.user.email,
+                introduction = introduction.value.toString(),
+                city = selectedCity.value.toString(),
+                gender = selectedGender.value.toString(),
                 identity = identity.value.toString(),
-                talentedSubjects = talentedSubjects.value.toString(),
-                interestedSubjects = interestedSubjects.value.toString(),
-                introduction = introduction.value.toString()
+                talentedSubjects = talentedList,
+                interestedSubjects = interestedList
         )
     }
 
@@ -171,13 +191,31 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         _leave.value = isNeedRefresh
     }
 
-    fun setTags(tag: String, checked: Boolean) {
+    fun setTalented(tag: String, checked: Boolean) {
         if (checked) {
-            itemList.remove(tag)
-            _selectedTags.value = itemList
+            talentedList.remove(tag)
+            _selectedTalented.value = talentedList
         } else {
-            itemList.add(tag)
-            _selectedTags.value = itemList
+            talentedList.add(tag)
+            _selectedTalented.value = talentedList
         }
+    }
+
+    fun setInterested(tag: String, checked: Boolean) {
+        if (checked) {
+            interestedList.remove(tag)
+            _selectedInterested.value = interestedList
+        } else {
+            interestedList.add(tag)
+            _selectedInterested.value = interestedList
+        }
+    }
+
+    fun setGender(gender: String) {
+        _selectedGender.value = gender
+    }
+
+    fun setCity(selectedType: String) {
+        _selectedCity.value = selectedType
     }
 }
