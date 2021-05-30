@@ -20,6 +20,13 @@ data class ChatRoom(
 ): Parcelable
 
 @Parcelize
+data class UserInfo(
+        var userEmail : String = "",
+        var userName : String = "",
+        var userImage : String = ""
+): Parcelable
+
+@Parcelize
 data class Message(
         var id: String = "",
         var senderName : String = "",
@@ -34,9 +41,3 @@ data class Message(
     val showTime = sdf.format(createdTime)
 }
 
-@Parcelize
-data class UserInfo(
-        var userEmail : String = "",
-        var userName : String = "",
-        var userImage : String = ""
-): Parcelable

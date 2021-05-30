@@ -48,9 +48,6 @@ class NotifyAdapter (val viewModel: NotifyViewModel) : ListAdapter<Event, Recycl
                     KnowHowBindingApplication.instance.setWork(event.eventTime, getStartTimeEventContent(event).toString())
                 }
             }
-
-
-
             binding.executePendingBindings()
         }
 

@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.login.UserManager
 
 
 class HomeFragment : Fragment() {
@@ -25,6 +27,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        Log.d("userEmail", UserManager.user.email)
 //         Navigating to Post Article Fragment.
         viewModel.navigateToPostArticle.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             it?.let {

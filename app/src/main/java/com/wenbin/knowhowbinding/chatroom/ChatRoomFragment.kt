@@ -34,10 +34,14 @@ class ChatRoomFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        var adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{ it ->
+        val adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{ it ->
+            Log.d("check_userInfo", "it = $it")
+            Log.d("check_userInfo", "it.attendeesInfo[0].userEmail = ${it.attendeesInfo[0].userEmail}")
+            Log.d("check_userInfo", "it.message!!.senderName = ${it.message!!.senderName}")
+            Log.d("check_userInfo", "it.attendeesInfo[0].userName = ${it.attendeesInfo[0].userName}")
 
             findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(
-                    it.attendeesInfo[0].userEmail, it.message!!.senderName))
+                    it.attendeesInfo[0].userEmail, it.attendeesInfo[0].userName))
         })
         binding.recyclerView.adapter = adapter
 
@@ -85,12 +89,14 @@ class ChatRoomFragment  : Fragment() {
                 viewModel.createFilteredChatRooms(filteredChatRoom)
             }
         })
+
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("聊天紀錄")
         }
         return binding.root
     }
 
+    // Exclude owner information from attendees in ChatRoom documents.
     private fun excludeMyInfo (attendees : List<UserInfo>): List<UserInfo> {
         return attendees.filter {
             it.userEmail != UserManager.user.email

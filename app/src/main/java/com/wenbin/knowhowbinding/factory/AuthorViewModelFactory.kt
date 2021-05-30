@@ -6,6 +6,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.postarticle.PostArticleViewModel
 
+@Suppress("UNCHECKED_CAST")
 class AuthorViewModelFactory(
         private val repository: KnowHowBindingRepository,
         private val author: User?

@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
+import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource
 
@@ -70,6 +71,14 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
 
     override suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean> {
         return KnowHowBindingRemoteDataSource.declineEvent(event, userEmail)
+    }
+
+    override suspend fun postChatRoom(chatRoom: ChatRoom): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.postChatRoom(chatRoom)
+    }
+
+    override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.postUserToFollow(userEmail, user)
     }
 
 }

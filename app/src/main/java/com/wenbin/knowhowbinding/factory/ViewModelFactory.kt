@@ -14,6 +14,7 @@ import com.wenbin.knowhowbinding.profile.ProfileViewModel
 import com.wenbin.knowhowbinding.profile.editprofile.EditProfileViewModel
 import com.wenbin.knowhowbinding.search.SearchViewModel
 
+@Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
     private val knowHowBindingRepository: KnowHowBindingRepository
 ) : ViewModelProvider.NewInstanceFactory() {

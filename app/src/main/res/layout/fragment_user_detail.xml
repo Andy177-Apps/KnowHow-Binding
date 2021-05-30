@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16sp"
             android:fontFamily="@font/roboto"
-            android:text="Wenbin"
+            android:text="@{viewModel.userInfo.name}"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
@@ -243,6 +243,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraint_layout_message"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

@@ -3,10 +3,9 @@ package com.wenbin.knowhowbinding.ext
 import androidx.fragment.app.Fragment
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.data.Event
-import com.wenbin.knowhowbinding.factory.CreateEventViewModelFactory
-import com.wenbin.knowhowbinding.factory.EventViewModelFactory
-import com.wenbin.knowhowbinding.factory.MessageViewModelFactory
-import com.wenbin.knowhowbinding.factory.ViewModelFactory
+import com.wenbin.knowhowbinding.data.User
+import com.wenbin.knowhowbinding.factory.*
+import com.wenbin.knowhowbinding.user.UserProfileViewModel
 
 /**
  * Extension functions for Fragment.
@@ -33,4 +32,9 @@ fun Fragment.getVmFactory(selectedDate: Long): CreateEventViewModelFactory {
 fun Fragment.getVmFactory(event: Event) : EventViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
     return EventViewModelFactory(repository, event)
+}
+
+fun Fragment.getVmFactory(userEmail: String) : UserProfileViewModelFactory {
+    val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
+    return UserProfileViewModelFactory(repository, userEmail)
 }

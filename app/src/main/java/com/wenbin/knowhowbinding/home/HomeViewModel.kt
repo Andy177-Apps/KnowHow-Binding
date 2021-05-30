@@ -63,6 +63,8 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
 
     init {
         getArticlesResult()
+
+        Log.d("checkArticles","articles.value in ViewModel = ${articles.value}")
 //        practiceMVVMfun()
         autoLogin("wenbin")
     }
@@ -82,6 +84,7 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     }
 
     private fun getArticlesResult() {
+        Log.d("checkArticles","fun getArticlesResult is used in ViewModel.")
 
         coroutineScope.launch {
 

@@ -19,7 +19,9 @@ class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener
         fun bind (item : ChatRoom) {
             binding.chatRoom = item
 //             Chat room has been filtered, the attendee info only holds the other user's info
-            val friendInfo = item.attendeesInfo.first()
+            Log.d("wenbin", " item.attendeesInfo = ${item.attendeesInfo}")
+
+            val friendInfo = item.attendeesInfo.component1()
             Log.d("wenbin", " friendInfo = $friendInfo")
             binding.textViewObjectName.text = friendInfo.userName
             binding.imageUrl = friendInfo.userImage

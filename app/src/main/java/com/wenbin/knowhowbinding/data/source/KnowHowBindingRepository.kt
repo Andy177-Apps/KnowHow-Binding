@@ -34,4 +34,11 @@ interface KnowHowBindingRepository {
     suspend fun acceptEvent(event: Event, userEmail: String, userName: String): Result<Boolean>
 
     suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean>
+
+    suspend fun postChatRoom(chatRoom: ChatRoom): Result<Boolean>
+
+    suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean>
+
+
+
 }

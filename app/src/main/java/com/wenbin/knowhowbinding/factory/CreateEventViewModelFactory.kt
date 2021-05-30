@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.calendar.createevent.CreateEventViewModel
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 
+@Suppress("UNCHECKED_CAST")
 class CreateEventViewModelFactory(
     private val repository: KnowHowBindingRepository,
     private val selectedDate: Long

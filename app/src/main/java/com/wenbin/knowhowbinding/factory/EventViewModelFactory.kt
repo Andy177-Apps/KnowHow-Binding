@@ -7,6 +7,7 @@ import com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailViewModel
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 
+@Suppress("UNCHECKED_CAST")
 class EventViewModelFactory(
     private val repository: KnowHowBindingRepository,
     private val event: Event

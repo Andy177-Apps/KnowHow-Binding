@@ -89,8 +89,12 @@
         android:id="@+id/userProfileFragment"
         android:name="com.wenbin.knowhowbinding.user.UserProfileFragment"
         android:label="UserProfileFragment"
-        tools:layout="@layout/fragment_user_detail"
+        tools:layout="@layout/fragment_user_detail">
+    <argument
+        android:name="userEmail"
+        app:argType="string"
         />
+    </fragment>
 
     <fragment
         android:id="@+id/editProfileFragment"
@@ -121,10 +125,10 @@
         app:popUpToInclusive="true" />
 
     <action android:id="@+id/navigate_to_profile_fragment" app:destination="@id/profileFragment"
-        app:popUpTo="@id/navigation"
+
         app:popUpToInclusive="true"
         />
-
+<!--    app:popUpTo="@id/navigation"-->
 
     <action android:id="@+id/navigate_to_post_article_fragment" app:destination="@id/postArticleFragment"        />
     <action android:id="@+id/navigate_to_my_article_fragment" app:destination="@id/myArticleFragment"        />
@@ -134,7 +138,7 @@
     <action android:id="@+id/navigate_to_edit_profile" app:destination="@id/editProfileFragment"        />
     <action android:id="@+id/navigate_to_notify_fragment" app:destination="@id/notifyFragment"        />
     <action android:id="@+id/navigate_to_event_detail_fragment" app:destination="@id/eventDetailFragment"        />
-
+    <action android:id="@+id/navigate_to_user_profile_fragment" app:destination="@id/userProfileFragment"        />
 
 
 </navigation>

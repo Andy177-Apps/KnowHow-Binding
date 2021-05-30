@@ -115,6 +115,49 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         return liveData
     }
 
+    override suspend fun postChatRoom(chatRoom: ChatRoom): Result<Boolean> = suspendCoroutine { continuation ->
+        val chatRooms = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
+        val document = chatRooms.document()
+
+        chatRoom.id = document.id
+        chatRoom.latestTime = Calendar.getInstance().timeInMillis
+
+        chatRooms
+                .whereIn("attendees", listOf(chatRoom.attendees, chatRoom.attendees.reversed()))
+                .get()
+                .addOnSuccessListener { result ->
+                    //這是在 ChatRoomList 創造與那個人的 document，如果沒有那個 document 才創建，有的話就不創了
+                    if (result.isEmpty) {
+                        document
+                                .set(chatRoom)
+                                .addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        Logger.i("Chatroom: $chatRoom")
+
+                                        continuation.resume(Result.Success(true))
+                                    } else {
+                                        task.exception?.let {
+
+                                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                            continuation.resume(Result.Error(it))
+                                            return@addOnCompleteListener
+                                        }
+                                        continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
+                                    }
+                                }
+                    } else {
+                        for (myDocument in result) {
+                            Logger.d("Already initialized")
+                        }
+                    }
+                }
+
+    }
+
+    override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun postMessage(emails: List<String>,
                                      message: Message
     ): Result<Boolean> = suspendCoroutine { continuation ->
