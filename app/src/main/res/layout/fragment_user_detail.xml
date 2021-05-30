@@ -289,22 +289,6 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
             app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="chip1"
-                android:theme="@style/Platform.MaterialComponents.Light" />
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="chip2"
-                android:theme="@style/Platform.MaterialComponents.Light" />
         </com.google.android.material.chip.ChipGroup>
 
         <TextView

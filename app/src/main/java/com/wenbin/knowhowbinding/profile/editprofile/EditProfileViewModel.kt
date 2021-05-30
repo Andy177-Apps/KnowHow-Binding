@@ -19,6 +19,8 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
+
+
     var _userInfo = MutableLiveData<User>()
 
     val userInfo: LiveData<User>
@@ -31,6 +33,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     val interestedSubjects = MutableLiveData<String>()
 
     val introduction = MutableLiveData<String>()
+
+    val itemList: MutableList<String> = ArrayList()
+
+    private var _selectedTags = MutableLiveData<List<String>>()
+    val selectedTags : LiveData<List<String>>
+        get() = _selectedTags
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -161,5 +169,15 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     private fun leave(isNeedRefresh: Boolean = false) {
         _leave.value = isNeedRefresh
+    }
+
+    fun setTags(tag: String, checked: Boolean) {
+        if (checked) {
+            itemList.remove(tag)
+            _selectedTags.value = itemList
+        } else {
+            itemList.add(tag)
+            _selectedTags.value = itemList
+        }
     }
 }

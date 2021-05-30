@@ -74,13 +74,52 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView_identity_title" />
 
             <TextView
+                android:id="@+id/text_edit_profile_title_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="@string/gender"
+                android:textColor="@color/black_36_alpha"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/editText_identity"
+                app:layout_constraintTop_toBottomOf="@id/editText_identity" />
+
+            <RadioGroup
+                android:id="@+id/radio_gender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="4dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/text_edit_profile_title_gender"
+                app:layout_constraintTop_toBottomOf="@id/text_edit_profile_title_gender">
+
+                <RadioButton
+                    android:id="@+id/radio_male"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/male"
+                    android:textColor="@color/black_54_alpha" />
+
+                <RadioButton
+                    android:id="@+id/radio_female"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/female"
+                    android:textColor="@color/black_54_alpha" />
+
+            </RadioGroup>
+
+            <TextView
                 android:id="@+id/textView_city_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="縣市"
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
-                app:layout_constraintTop_toBottomOf="@+id/editText_identity" />
+                app:layout_constraintTop_toBottomOf="@+id/radio_gender" />
 
             <Spinner
                 android:id="@+id/spinner"
@@ -100,19 +139,33 @@
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
                 app:layout_constraintTop_toBottomOf="@+id/spinner" />
 
-            <EditText
-                android:id="@+id/editText_talentedSubjects"
-                android:layout_width="wrap_content"
+            <HorizontalScrollView
+                android:id="@+id/scroll_chip"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:background="@color/grey_edit_text_bg"
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
 
-                android:ems="10"
-                android:gravity="start|top"
-                android:inputType="textMultiLine"
-                android:text="@={viewModel.talentedSubjects}"
-                app:layout_constraintStart_toStartOf="@id/textView_identity_title"
-                app:layout_constraintTop_toBottomOf="@+id/textView_talentedSubjects_title" />
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:chipSpacingVertical="2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
+
+                </com.google.android.material.chip.ChipGroup>
+
+            </HorizontalScrollView>
+
 
             <TextView
                 android:id="@+id/textView_interestedSubjects_title"
@@ -121,7 +174,7 @@
                 android:layout_marginTop="16dp"
                 android:text="感興趣的東西"
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
-                app:layout_constraintTop_toBottomOf="@+id/editText_talentedSubjects" />
+                app:layout_constraintTop_toBottomOf="@+id/scroll_chip" />
 
             <EditText
                 android:id="@+id/editText_interestedSubjects"
