@@ -39,4 +39,8 @@ interface KnowHowBindingDataSource {
 
     suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean>
 
+    suspend fun removeUserFromFollow(userEmail: String, user: User): Result<Boolean>
+
+    suspend fun getUserArticle(userEmail: String): Result<List<Article>>
+
 }

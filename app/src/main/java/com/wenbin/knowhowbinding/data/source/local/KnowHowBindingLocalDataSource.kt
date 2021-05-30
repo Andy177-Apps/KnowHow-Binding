@@ -89,6 +89,14 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
+    override suspend fun removeUserFromFollow(userEmail: String, user: User): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getUserArticle(userEmail: String): Result<List<Article>> {
+        TODO("Not yet implemented")
+    }
+
 
     override suspend fun createTestedData(): Result<List<Article>> {
         var defaultData = mutableListOf<Article>()

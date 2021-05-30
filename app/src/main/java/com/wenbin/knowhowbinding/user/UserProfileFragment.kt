@@ -14,11 +14,10 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailFragmentArgs
-import com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailViewModel
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentUserDetailBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.login.UserManager
 
 class UserProfileFragment: Fragment() {
     private lateinit var binding: FragmentUserDetailBinding
@@ -40,6 +39,8 @@ class UserProfileFragment: Fragment() {
 
         var firstTimeEntry = true
 
+
+
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("check_userInfo", "accepted userInfo = $it")
 
@@ -47,6 +48,24 @@ class UserProfileFragment: Fragment() {
                 setupLayout(it)
                 firstTimeEntry = false
             }
+            // Show the count of articles of the user.
+            viewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
+                Log.d("check_userArticles", "userArticles = $list")
+                binding.textPosts.text = list.size.toString()
+            })
+
+            // follow
+            viewModel.myInfo.observe(viewLifecycleOwner, Observer { my ->
+
+                if (my.followingEmail.contains(it.email)) {
+                    showFollowButton(false)
+                    setupFollowButton(true, it)
+                } else {
+                    showFollowButton(true)
+                    setupFollowButton(false, it)
+                }
+
+            })
         })
         return binding.root
     }
@@ -67,6 +86,33 @@ class UserProfileFragment: Fragment() {
                 findNavController().navigate(NavigationDirections.navigateToMessageFragment(user.email, user.name))
             }, 3000)
         }
+    }
 
+    private fun showFollowButton(show: Boolean) {
+        if (show) {
+            binding.buttonFollow.visibility = View.VISIBLE
+            binding.buttonUnfollow.visibility = View.GONE
+        } else {
+            binding.buttonFollow.visibility = View.GONE
+            binding.buttonUnfollow.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setupFollowButton(contains: Boolean, user: User) {
+        if (contains) {
+            binding.buttonUnfollow.setOnClickListener {
+                showFollowButton(true)
+                viewModel.removeUserFromFollow(UserManager.user.email, user)
+                viewModel.getMyUserInfo(UserManager.user.email)
+                viewModel.getUser(viewModel.selectedUserEmail)
+            }
+        } else {
+            binding.buttonFollow.setOnClickListener {
+                showFollowButton(false)
+                viewModel.postUserToFollow(UserManager.user.email, user)
+                viewModel.getMyUserInfo(UserManager.user.email)
+                viewModel.getUser(viewModel.selectedUserEmail)
+            }
+        }
     }
 }

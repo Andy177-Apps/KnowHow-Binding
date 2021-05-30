@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource
 
@@ -79,6 +78,14 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
 
     override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> {
         return KnowHowBindingRemoteDataSource.postUserToFollow(userEmail, user)
+    }
+
+    override suspend fun removeUserFromFollow(userEmail: String, user: User): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.removeUserFromFollow(userEmail, user)
+    }
+
+    override suspend fun getUserArticle(userEmail: String): Result<List<Article>> {
+        return KnowHowBindingRemoteDataSource.getUserArticle(userEmail)
     }
 
 }

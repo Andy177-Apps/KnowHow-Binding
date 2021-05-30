@@ -14,6 +14,7 @@ import java.util.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
+
 object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     private const val PATH_ARTICLES = "articles"
@@ -154,8 +155,71 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     }
 
-    override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> {
-        TODO("Not yet implemented")
+    override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> = suspendCoroutine { continuation ->
+
+        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
+
+        users.document(userEmail).collection("followList").document(user.email)
+                .set(user)
+                .addOnSuccessListener {
+                    Logger.d("DocumentSnapshot added with ID: $users")
+                }
+                .addOnFailureListener { e ->
+                    Logger.w("Error adding document $e")
+                }
+        users.document(user.email).update("followedBy", FieldValue.arrayUnion(userEmail))
+        users.document(userEmail).update("followingEmail", FieldValue.arrayUnion(user.email))
+        users.document(userEmail).update("followingName", FieldValue.arrayUnion(user.name))
+    }
+
+    override suspend fun removeUserFromFollow(userEmail: String, user: User): Result<Boolean> = suspendCoroutine { continuation ->
+        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
+
+        users.document(userEmail).collection("followList").document(user.email)
+                .delete()
+                .addOnSuccessListener {
+                    Logger.d("DocumentSnapshot added with ID: ${users}")
+                }
+                .addOnFailureListener { e ->
+                    Logger.w("Error adding document $e")
+                }
+        users.document(user.email).update("followedBy", FieldValue.arrayRemove(userEmail))
+        users.document(userEmail).update("followingEmail", FieldValue.arrayRemove(user.email))
+        users.document(userEmail).update("followingName", FieldValue.arrayRemove(user.name))
+    }
+
+    override suspend fun getUserArticle(userEmail: String): Result<List<Article>>  = suspendCoroutine { continuation ->
+        Log.d("check_userArticles", "getUserArticle in DataSource is used.")
+
+        val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+
+        articles
+//                .whereEqualTo("creatorEmail", userEmail)
+                .whereEqualTo("author.email", userEmail)
+//                .orderBy("author").whereEqualTo("email", userEmail)
+//                .whereGreaterThanOrEqualTo("author",userEmail)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Article>()
+                        task.result?.forEach { document ->
+                            Logger.d(document.id + " => " + document.data)
+
+                            val article = document.toObject(Article::class.java)
+                            list.add(article)
+                        }
+
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
+                    }
+
+                }
     }
 
     override suspend fun postMessage(emails: List<String>,
@@ -423,7 +487,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     Logger.d(document.id + " => " + document.data)
 
                     val event = document.toObject(Event::class.java)
-                    Log.d("check_event","event = $event")
+                    Log.d("check_event", "event = $event")
 
                     list.add(event)
                 }
@@ -438,7 +502,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
 
                 liveData.value = list
-                Log.d("check_liveevents","liveData.value = ${liveData.value}")
+                Log.d("check_liveevents", "liveData.value = ${liveData.value}")
 
             }
 
@@ -446,9 +510,9 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     }
 
     override suspend fun acceptEvent(
-        event: Event,
-        userEmail: String,
-        userName: String
+            event: Event,
+            userEmail: String,
+            userName: String
     ): Result<Boolean> = suspendCoroutine { continuation ->
         val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
         val document = events.document(event.id)

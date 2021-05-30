@@ -8,7 +8,6 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
-import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource.getUser
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import com.wenbin.knowhowbinding.util.Logger
@@ -32,6 +31,11 @@ userEmail: String):ViewModel() {
 
     val myInfo: LiveData<User>
         get() = _myInfo
+
+    private val _userArticles = MutableLiveData<List<Article>>()
+
+    val userArticles: LiveData<List<Article>>
+        get() = _userArticles
 
     private val _leave = MutableLiveData<Boolean>()
 
@@ -66,7 +70,8 @@ userEmail: String):ViewModel() {
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
         getUser(selectedUserEmail)
-
+        getMyUserInfo(UserManager.user.email)
+        getUserArticle(selectedUserEmail)
     }
 
     private var doneProgressCount = 3
@@ -131,7 +136,7 @@ userEmail: String):ViewModel() {
     }
 
 
-    private fun getUser(userEmail: String) {
+    fun getUser(userEmail: String) {
 
         coroutineScope.launch {
 
@@ -201,20 +206,20 @@ userEmail: String):ViewModel() {
         coroutineScope.launch {
 
             when (val result = repository.postUserToFollow(userEmail, user)) {
-                is kotlin.Result.Success -> {
+                is Result.Success -> {
                     _error.value = null
                     leave(true)
                 }
-                is kotlin.Result.Fail -> {
+                is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
                 }
-                is kotlin.Result.Error -> {
+                is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = MeTuApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -227,20 +232,20 @@ userEmail: String):ViewModel() {
         coroutineScope.launch {
 
             when (val result = repository.removeUserFromFollow(userEmail, user)) {
-                is kotlin.Result.Success -> {
+                is Result.Success -> {
                     _error.value = null
                     leave(true)
                 }
-                is kotlin.Result.Fail -> {
+                is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
                 }
-                is kotlin.Result.Error -> {
+                is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = MeTuApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -248,37 +253,36 @@ userEmail: String):ViewModel() {
 
     }
 
-    private fun getMyArticle(userEmail: String) {
+    private fun getUserArticle(userEmail: String) {
+        Log.d("check_userArticles", "getUserArticle is used.")
 
         coroutineScope.launch {
 
-            val result = repository.getMyArticle(userEmail)
+            val result = repository.getUserArticle(userEmail)
+            Log.d("check_userArticles", "result = ${result}")
 
-            _myArticles.value = when (result) {
-                is kotlin.Result.Success -> {
+            _userArticles.value = when (result) {
+                is Result.Success -> {
                     _error.value = null
                     doneProgress()
                     result.data
                 }
-                is kotlin.Result.Fail -> {
+                is Result.Fail -> {
                     _error.value = result.error
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
-                is kotlin.Result.Error -> {
+                is Result.Error -> {
                     _error.value = result.exception.toString()
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
                 else -> {
-                    _error.value = MeTuApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
             }
         }
-
     }
-
-
 }
