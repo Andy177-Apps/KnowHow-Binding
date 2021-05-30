@@ -4,17 +4,51 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.wenbin.knowhowbinding.KnowHowBindingApplication
+import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
+import com.wenbin.knowhowbinding.data.Result
+import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.network.LoadApiStatus
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class MyArticleViewModel : ViewModel() {
+class MyArticleViewModel(private val repository: KnowHowBindingRepository,
+                         userEmail: String) : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
 
     val articles: LiveData<List<Article>>
         get() = _articles
 
+    // status: The internal MutableLiveData that stores the status of the most recent request
+    private val _status = MutableLiveData<LoadApiStatus>()
+
+    val status: LiveData<LoadApiStatus>
+        get() = _status
+
+    // error: The internal MutableLiveData that stores the error of the most recent request
+    private val _error = MutableLiveData<String>()
+
+    val error: LiveData<String>
+        get() = _error
+
+    // Create a Coroutine scope using a job to be able to cancel when needed
+    private var viewModelJob = Job()
+
+    // the Coroutine runs using the Main (UI) dispatcher
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
+    }
+
     init {
 //        createTestedData()
+        getUserArticle(userEmail)
     }
 
     private fun createTestedData(){
@@ -42,5 +76,38 @@ class MyArticleViewModel : ViewModel() {
         Log.d("DefaultData", "Frist Data = $defaultData")
         _articles.value = defaultData
         Log.d("Wenbin", "_articles.value = $_articles.value")
+    }
+
+
+    private fun getUserArticle(userEmail: String) {
+        Log.d("check_userArticles", "getUserArticle is used.")
+
+        coroutineScope.launch {
+
+            val result = repository.getUserArticle(userEmail)
+            Log.d("check_userArticles", "result = $result")
+
+            _articles.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+        }
     }
 }

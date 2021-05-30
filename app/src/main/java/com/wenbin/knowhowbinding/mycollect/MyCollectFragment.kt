@@ -29,7 +29,7 @@ class MyCollectFragment  : Fragment() {
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("我的收藏")
-            (activity as MainActivity).coverToolBarandBottomNav()
+            (activity as MainActivity).coverBottomNav()
         }
         return binding.root
     }

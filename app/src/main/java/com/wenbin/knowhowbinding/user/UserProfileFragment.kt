@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
+import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.User
@@ -67,6 +68,20 @@ class UserProfileFragment: Fragment() {
 
             })
         })
+
+
+        // Navigating to My Article Fragment.
+        viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
+            it?.let {
+                findNavController().navigate(UserProfileFragmentDirections.navigateToMyArticleFragment(it))
+                viewModel.onMyArticleNavigated()
+            }
+        })
+
+        if (activity is MainActivity) {
+            (activity as MainActivity).coverBottomNav()
+            (activity as MainActivity).hideToolBar()
+        }
         return binding.root
     }
 

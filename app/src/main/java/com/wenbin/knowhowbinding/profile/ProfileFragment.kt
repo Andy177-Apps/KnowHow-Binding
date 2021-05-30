@@ -42,7 +42,7 @@ class ProfileFragment  : Fragment() {
         // Navigating to My Article Fragment.
         viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
             it?.let {
-                findNavController().navigate(ProfileFragmentDirections.navigateToMyArticleFragment())
+                findNavController().navigate(ProfileFragmentDirections.navigateToMyArticleFragment(UserManager.user.email))
                 viewModel.onMyArticleNavigated()
             }
         })

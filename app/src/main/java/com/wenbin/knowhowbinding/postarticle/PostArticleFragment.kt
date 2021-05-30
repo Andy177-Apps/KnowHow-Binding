@@ -5,16 +5,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentPostarticleBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.home.HomeViewModel
 
 class PostArticleFragment : Fragment(){
     private lateinit var binding : FragmentPostarticleBinding
@@ -43,7 +39,7 @@ class PostArticleFragment : Fragment(){
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("發文")
-            (activity as MainActivity).coverToolBarandBottomNav()
+            (activity as MainActivity).coverBottomNav()
         }
 //
         return binding.root

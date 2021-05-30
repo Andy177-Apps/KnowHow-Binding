@@ -40,6 +40,11 @@ class PostArticleViewModel(
     val article : LiveData<Article>
         get() = _article
 
+    private val _leave = MutableLiveData<Boolean>()
+
+    val leave: LiveData<Boolean>
+        get() = _leave
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -65,6 +70,8 @@ class PostArticleViewModel(
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
+                    leave(true)
+
                 }
                 is Result.Fail -> {
                     _error.value = result.error
@@ -119,4 +126,9 @@ class PostArticleViewModel(
                 }
 
     }
+
+    fun leave(needRefresh: Boolean = false) {
+        _leave.value = needRefresh
+    }
+
 }

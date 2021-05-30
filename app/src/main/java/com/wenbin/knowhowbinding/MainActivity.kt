@@ -131,10 +131,13 @@ class MainActivity : AppCompatActivity() {
     fun resetToolBar(title: String){
         binding.textViewToolBarTitle.text = title
         binding.bottomNavView.visibility = View.VISIBLE
-
     }
 
-    fun coverToolBarandBottomNav() {
+    fun coverBottomNav() {
         binding.bottomNavView.visibility = View.GONE
+    }
+
+    fun hideToolBar() {
+        binding.myToolbar.visibility = View.GONE
     }
 }

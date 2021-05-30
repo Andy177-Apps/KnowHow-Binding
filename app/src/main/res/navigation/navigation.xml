@@ -45,7 +45,11 @@
         android:id="@+id/myArticleFragment"
         android:name="com.wenbin.knowhowbinding.myarticle.MyArticleFragment"
         android:label="MyArticleFragment"
-        tools:layout="@layout/fragment_myarticle"/>
+        tools:layout="@layout/fragment_myarticle">
+    <argument
+        android:name="userEmail"
+        app:argType="string"/>
+    </fragment>
 
     <fragment
         android:id="@+id/myCollectFragment"

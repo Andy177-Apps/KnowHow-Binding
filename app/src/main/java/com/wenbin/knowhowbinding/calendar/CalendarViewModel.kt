@@ -118,8 +118,13 @@ class CalendarViewModel(
     }
 
     fun createdDailyEvent (toTimeStamp: Long) {
+        Log.d("test", "toTimeStamp = ${toTimeStamp}")
+
+        Log.d("test", "liveEvents.value = ${liveEvents.value}")
         selectedLiveEvent.value = liveEvents.value.sortByTimeStamp(toTimeStamp)
         _navigationToCreateEventDialogFragment.value = toTimeStamp
+        Log.d("test", "selectedLiveEvent.value = ${selectedLiveEvent.value}")
+
     }
 
     private fun todayDate() {

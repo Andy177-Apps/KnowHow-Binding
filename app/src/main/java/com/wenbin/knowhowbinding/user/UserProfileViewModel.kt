@@ -37,6 +37,12 @@ userEmail: String):ViewModel() {
     val userArticles: LiveData<List<Article>>
         get() = _userArticles
 
+    // Handle navigation to order detail
+    private val _navigateToMyArticle = MutableLiveData<String>()
+
+    val navigateToMyArticle: LiveData<String>
+        get() = _navigateToMyArticle
+
     private val _leave = MutableLiveData<Boolean>()
 
     val leave: LiveData<Boolean>
@@ -285,4 +291,13 @@ userEmail: String):ViewModel() {
             }
         }
     }
+
+    fun navigateToMyArticle(userEmail: String) {
+        _navigateToMyArticle.value = userEmail
+    }
+
+    fun onMyArticleNavigated() {
+        _navigateToMyArticle.value = null
+    }
+
 }

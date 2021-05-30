@@ -93,7 +93,7 @@ class CalendarFragment : Fragment() {
                 // Create a sorted list of event based on the current date
                 viewModel.createdDailyEvent(selectedDate)
 
-                Logger.d("$selectedDate")
+                Logger.d("selectedDate = $selectedDate")
             }
         }
 
