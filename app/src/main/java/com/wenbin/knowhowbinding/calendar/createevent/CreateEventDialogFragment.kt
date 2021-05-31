@@ -106,12 +106,11 @@ class CreateEventDialogFragment : DialogFragment() {
         })
 
         viewModel.followingName.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "followingEmail = $it")
+            Log.d("wenbin", "followingName = $it")
             binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(it)
         })
 
-//        binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(
-//                KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_attendees))
+//        binding.spinnerOtherUser.adapter = viewModel.followingName.value?.let { CreateEventFollowingSpinnerAdapter(it) }
 
 
         // Set Invitation

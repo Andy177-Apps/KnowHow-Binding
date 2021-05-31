@@ -186,6 +186,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         update("followingEmail", FieldValue.arrayUnion(user.email))
                         updateUserInfo.
                         update("followingName", FieldValue.arrayUnion(user.name))
+                        updateUserInfo.
+                        update("following", FieldValue.arrayUnion(Following(userEmail = user.email, userName = user.name)))
 
                     }
                 }

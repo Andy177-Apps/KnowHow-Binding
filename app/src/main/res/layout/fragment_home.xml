@@ -21,11 +21,10 @@
             android:layout_height="56dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:onClick="@{() -> viewModel.navigateToPostArticle()}"
-
-            app:srcCompat="@drawable/outline_create_black_24dp" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/vector__1_" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"

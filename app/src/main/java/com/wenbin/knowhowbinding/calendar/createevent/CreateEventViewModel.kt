@@ -106,7 +106,7 @@ class CreateEventViewModel(
 
     // Get the user information in the first place.
     private fun getUser(userEmail: String) {
-
+        Log.d("check_userInfo" ,"getUser is used")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
@@ -192,7 +192,7 @@ class CreateEventViewModel(
 
     fun setInvitation(selectedFollowing: Int) {
         if (selectedFollowing !=0 ){
-            _invitation.value = userInfo.value?.followingEmail?.get(selectedFollowing-1)
+            _invitation.value = userInfo.value?.following?.get(selectedFollowing-1)?.userEmail
         }
     }
 

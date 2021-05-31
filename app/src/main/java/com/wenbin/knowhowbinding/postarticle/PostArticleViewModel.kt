@@ -26,18 +26,30 @@ import java.util.*
 class PostArticleViewModel(
         private val repository: KnowHowBindingRepository
 ) : ViewModel() {
-    var title : String? = null
+    var title: String? = null
     var category: String? = null
-    var content : String? = null
+    var content: String? = null
 
-    private val _article = MutableLiveData<Article>().apply {
-        value = Article(
-                author = User(UserManager.user.id,
-                        UserManager.user.name, email = UserManager.user.email)
-        )
-    }
+    private val _article = MutableLiveData<Article>()
+//            .apply {
+//        value = Article(
+//                author = User(UserManager.user.id,
+//                        UserManager.user.name,
+//                        email = UserManager.user.email,
+//                        image = UserManager.user.image),
+//
+//        )
+//
+//    }
 
-    val article : LiveData<Article>
+    var articleType = MutableLiveData<String>()
+    var articleCity = MutableLiveData<String>()
+    var articleFind = MutableLiveData<String>()
+    var articleGive = MutableLiveData<String>()
+    var articleContent = MutableLiveData<String>()
+
+
+    val article: LiveData<Article>
         get() = _article
 
     private val _leave = MutableLiveData<Boolean>()
@@ -62,6 +74,23 @@ class PostArticleViewModel(
 
     //the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
+    fun getArticle(): Article {
+        return Article(
+                id = "",
+                createdTime = 0,
+                author = User(UserManager.user.id,
+                        UserManager.user.name,
+                        email = UserManager.user.email,
+                        image = UserManager.user.image),
+                type = articleType.value.toString(),
+                city = articleCity.value.toString(),
+                find = articleFind.value.toString(),
+                give = articleGive.value.toString(),
+                content = articleContent.value.toString()
+        )
+    }
+
 
     fun publish(article: Article) {
         coroutineScope.launch {
@@ -88,6 +117,7 @@ class PostArticleViewModel(
             }
         }
     }
+
     fun addData() {
         var newTitle = title
         var newCategory = category

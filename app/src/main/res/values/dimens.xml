@@ -21,10 +21,13 @@
     <dimen name="item_chatRoom_text_name_size">20dp</dimen>
     <dimen name="item_chatRoom_text_message_size">18dp</dimen>
     <dimen name="item_chatRoom_text_time_size">16dp</dimen>
-
     <dimen name="item_chatRoom_constraint_layout_start">92dp</dimen>
     <dimen name="item_chatRoom_constraint_layout_top">20dp</dimen>
 
+    <!-- Post Article Page -->
+    <dimen name="btn_width">312dp</dimen>
+    <dimen name="btn_height">56dp</dimen>
+    <dimen name="btn_text_size">20dp</dimen>
 
 
 

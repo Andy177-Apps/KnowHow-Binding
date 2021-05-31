@@ -31,7 +31,7 @@ class PostArticleFragment : Fragment(){
         binding.viewModel = viewModel
 
         binding.buttonSendArticle.setOnClickListener {
-            viewModel.publish(viewModel.article.value!!)
+            viewModel.publish(viewModel.getArticle())
             findNavController().navigate(PostArticleFragmentDirections.navigateToHomeFragment())
             Log.d("Wenbin", "onClicked")
         }

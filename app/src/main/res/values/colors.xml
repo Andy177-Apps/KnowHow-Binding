@@ -24,6 +24,11 @@
     <color name="silver_03">#DADDDF</color>
     <color name="yellow_06">#FFE376</color>
 
+    <!-- System -->
+    <color name="colorPrimaryDark">#FFC100</color>
+    <color name="colorAccent">#FFC100</color>
+    <color name="translucent_80">#cc000000</color>
+    <color name="transparent">#00000000</color>
 
 
     <!-- Type -->
