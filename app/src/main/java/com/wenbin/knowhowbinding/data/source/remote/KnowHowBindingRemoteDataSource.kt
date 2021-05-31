@@ -243,6 +243,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         update("followingEmail", FieldValue.arrayRemove(user.email))
                         updateUserInfo.
                         update("followingName", FieldValue.arrayRemove(user.name))
+                        updateUserInfo.
+                        update("following", FieldValue.arrayUnion(Following(userEmail = user.email, userName = user.name)))
 
                     }
                 }

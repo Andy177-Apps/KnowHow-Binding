@@ -30,6 +30,11 @@ class PostArticleViewModel(
     var category: String? = null
     var content: String? = null
 
+    private val _userInfo = MutableLiveData<User>()
+
+    val userInfo: LiveData<User>
+        get() = _userInfo
+
     private val _article = MutableLiveData<Article>()
 //            .apply {
 //        value = Article(
@@ -75,14 +80,20 @@ class PostArticleViewModel(
     //the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
+    init {
+        getUser(UserManager.user.email)
+    }
     fun getArticle(): Article {
+        Log.d("check_article", "UserManager.user.image = ${UserManager.user.image}")
         return Article(
+
                 id = "",
                 createdTime = 0,
-                author = User(UserManager.user.id,
-                        UserManager.user.name,
+                author = User(
+                        id = _userInfo.value!!.id,
+                        name = _userInfo.value!!.name,
                         email = UserManager.user.email,
-                        image = UserManager.user.image),
+                        image = _userInfo.value!!.image),
                 type = articleType.value.toString(),
                 city = articleCity.value.toString(),
                 find = articleFind.value.toString(),
@@ -90,7 +101,6 @@ class PostArticleViewModel(
                 content = articleContent.value.toString()
         )
     }
-
 
     fun publish(article: Article) {
         coroutineScope.launch {
@@ -159,6 +169,39 @@ class PostArticleViewModel(
 
     fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
+    }
+
+    fun getUser(userEmail: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getUser(userEmail)
+
+            _userInfo.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+        }
     }
 
 }
