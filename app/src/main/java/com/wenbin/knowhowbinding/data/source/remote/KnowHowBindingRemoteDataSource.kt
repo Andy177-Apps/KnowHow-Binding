@@ -155,37 +155,112 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     }
 
-    override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> = suspendCoroutine { continuation ->
+    override suspend fun postUserToFollow(userOwnerEmail: String, user: User): Result<Boolean> = suspendCoroutine { continuation ->
 
-        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
+//        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
+//
+//        users.document(userOwnerEmail).collection("followList").document(user.email)
+//                .set(user)
+//                .addOnSuccessListener {
+//                    Logger.d("DocumentSnapshot added with ID: $users")
+//                }
+//                .addOnFailureListener { e ->
+//                    Logger.w("Error adding document $e")
+//                }
+//        users.document(user.email).update("followedBy", FieldValue.arrayUnion(userOwnerEmail))
+//        users.document(userOwnerEmail).update("followingEmail", FieldValue.arrayUnion(user.email))
+//        users.document(userOwnerEmail).update("followingName", FieldValue.arrayUnion(user.name))
 
-        users.document(userEmail).collection("followList").document(user.email)
-                .set(user)
-                .addOnSuccessListener {
-                    Logger.d("DocumentSnapshot added with ID: $users")
+        val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
+        Log.d("RemoteupdateUser", "user.email = ${user.email}")
+
+        db
+                .whereEqualTo("email", userOwnerEmail)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //發出邀請
+                        val updateUserInfo = db.document(document.id)
+                        // Set the "isCapital" field of the city 'DC'
+                        updateUserInfo.
+                        update("followingEmail", FieldValue.arrayUnion(user.email))
+                        updateUserInfo.
+                        update("followingName", FieldValue.arrayUnion(user.name))
+
+                    }
                 }
-                .addOnFailureListener { e ->
-                    Logger.w("Error adding document $e")
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
                 }
-        users.document(user.email).update("followedBy", FieldValue.arrayUnion(userEmail))
-        users.document(userEmail).update("followingEmail", FieldValue.arrayUnion(user.email))
-        users.document(userEmail).update("followingName", FieldValue.arrayUnion(user.name))
+
+        db
+                .whereEqualTo("email", user.email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //發出邀請
+                        val updateUserInfo = db.document(document.id)
+                        // Set the "isCapital" field of the city 'DC'
+                        updateUserInfo.
+                        update("followedBy", FieldValue.arrayUnion(userOwnerEmail))
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
+                }
+
     }
 
-    override suspend fun removeUserFromFollow(userEmail: String, user: User): Result<Boolean> = suspendCoroutine { continuation ->
-        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
+    override suspend fun removeUserFromFollow(userOwnerEmail: String, user: User): Result<Boolean> = suspendCoroutine { continuation ->
+//        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
+//
+//        users.document(userOwnerEmail).collection("followList").document(user.email)
+//                .delete()
+//                .addOnSuccessListener {
+//                    Logger.d("DocumentSnapshot added with ID: ${users}")
+//                }
+//                .addOnFailureListener { e ->
+//                    Logger.w("Error adding document $e")
+//                }
+//        users.document(user.email).update("followedBy", FieldValue.arrayRemove(userOwnerEmail))
+//        users.document(userOwnerEmail).update("followingEmail", FieldValue.arrayRemove(user.email))
+//        users.document(userOwnerEmail).update("followingName", FieldValue.arrayRemove(user.name))
 
-        users.document(userEmail).collection("followList").document(user.email)
-                .delete()
-                .addOnSuccessListener {
-                    Logger.d("DocumentSnapshot added with ID: ${users}")
+        val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
+        Log.d("RemoteupdateUser", "user.email = ${user.email}")
+
+        db
+                .whereEqualTo("email", userOwnerEmail)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //發出邀請
+                        val updateUserInfo = db.document(document.id)
+                        // Set the "isCapital" field of the city 'DC'
+                        updateUserInfo.
+                        update("followingEmail", FieldValue.arrayRemove(user.email))
+                        updateUserInfo.
+                        update("followingName", FieldValue.arrayRemove(user.name))
+
+                    }
                 }
-                .addOnFailureListener { e ->
-                    Logger.w("Error adding document $e")
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
                 }
-        users.document(user.email).update("followedBy", FieldValue.arrayRemove(userEmail))
-        users.document(userEmail).update("followingEmail", FieldValue.arrayRemove(user.email))
-        users.document(userEmail).update("followingName", FieldValue.arrayRemove(user.name))
+
+        db
+                .whereEqualTo("email", user.email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        val updateUserInfo = db.document(document.id)
+                        updateUserInfo.
+                        update("followedBy", FieldValue.arrayRemove(userOwnerEmail))
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
+                }
     }
 
     override suspend fun getUserArticle(userEmail: String): Result<List<Article>>  = suspendCoroutine { continuation ->

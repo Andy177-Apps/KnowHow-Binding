@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
@@ -26,6 +27,10 @@ class HomeFragment : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        viewModel.articles.observe(viewLifecycleOwner, Observer {
+            Log.d("wenbin", "articles = $it")
+        })
 
         Log.d("userEmail", UserManager.user.email)
 //         Navigating to Post Article Fragment.

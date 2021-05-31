@@ -19,6 +19,14 @@
     <color name="pinkish">#EF6F6C</color>
     <color name="colorShadow">#B4000000</color>
 
+    <!-- Type -->
+    <color name="study">#00369E</color>
+    <color name="findTeacher">#025A10</color>
+    <color name="findStudent">#FFC700</color>
+    <color name="skill">#940000</color>
+
+    <!-- Text -->
+    <color name="text_07">#6E7882</color>
 
     <!-- Gray Series -->
     <color name="gray_light">#EEEEEE</color>
@@ -28,6 +36,11 @@
     <color name="gray_cccccc">#cccccc</color>
     <color name="gray_f0f0f0">#f0f0f0</color>
     <color name="gray_f5f5f5">#f5f5f5</color>
+    <color name="lightGrey_02">#ADB4BB</color>
+    <color name="dark_01">#191E24</color>
+
+
+
 
 
     <!-- Black Series -->

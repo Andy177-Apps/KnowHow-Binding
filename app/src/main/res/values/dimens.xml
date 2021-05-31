@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- item_article -->
+    <dimen name="item_article_text_title">12sp</dimen>
+    <dimen name="item_article_text_content">12sp</dimen>
+    <dimen name="item_article_text_name">16sp</dimen>
+    <dimen name="item_article_text_identify">14sp</dimen>
+    <dimen name="item_article_text_bookmark_size">20dp</dimen>
+
+
+
 
     <!-- Dialog Padding -->
     <dimen name="dialog_padding">10dp</dimen>

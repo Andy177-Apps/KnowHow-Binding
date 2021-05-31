@@ -88,6 +88,10 @@ fun bindTime(textView: TextView, time: Long?) {
     time?.let { textView.text = TimeUtil.stampToTime(time) }
 }
 
+@BindingAdapter("ago")
+fun bindAgo(textView: TextView, time:Long?){
+    time?.let { textView.text = TimeUtil.stampToAgo(time) }
+}
 
 //@BindingAdapter("ShowLatestTime")
 //fun bindLatestTime(textView: TextView, time : Long?) {

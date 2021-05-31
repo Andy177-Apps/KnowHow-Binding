@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.util
 
+import com.github.marlonlom.utilities.timeago.TimeAgo
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -93,5 +94,7 @@ object TimeUtil {
         return simpleDateFormat.format(Date(time))
     }
 
-
+    fun stampToAgo(time: Long): String {
+        return TimeAgo.using(time)
+    }
 }

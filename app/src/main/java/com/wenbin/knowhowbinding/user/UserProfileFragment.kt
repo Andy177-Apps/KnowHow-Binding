@@ -43,7 +43,7 @@ class UserProfileFragment: Fragment() {
 
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("check_userInfo", "accepted userInfo = $it")
+            Log.d("check_follow", "accepted userInfo = $it")
 
             if (firstTimeEntry) {
                 setupLayout(it)
@@ -58,6 +58,7 @@ class UserProfileFragment: Fragment() {
             // follow
             viewModel.myInfo.observe(viewLifecycleOwner, Observer { my ->
 
+                Log.d("check_follow", "myInfo = $my")
                 if (my.followingEmail.contains(it.email)) {
                     showFollowButton(false)
                     setupFollowButton(true, it)
@@ -112,11 +113,18 @@ class UserProfileFragment: Fragment() {
         }
     }
 
-    private fun showFollowButton(show: Boolean) {
-        if (show) {
+    private fun showFollowButton(showFollow: Boolean) {
+        // show -> true, show buttonFollow
+        // show -> false, show buttonUnfollow
+
+        if (showFollow) {
+            Log.d("check_follow", "Line121")
+
             binding.buttonFollow.visibility = View.VISIBLE
             binding.buttonUnfollow.visibility = View.GONE
         } else {
+            Log.d("check_follow", "Line126")
+
             binding.buttonFollow.visibility = View.GONE
             binding.buttonUnfollow.visibility = View.VISIBLE
         }
@@ -125,17 +133,23 @@ class UserProfileFragment: Fragment() {
     private fun setupFollowButton(contains: Boolean, user: User) {
         if (contains) {
             binding.buttonUnfollow.setOnClickListener {
+                Log.d("check_follow", "Line136")
                 showFollowButton(true)
+                Log.d("check_follow", "Line138")
+
                 viewModel.removeUserFromFollow(UserManager.user.email, user)
-                viewModel.getMyUserInfo(UserManager.user.email)
                 viewModel.getUser(viewModel.selectedUserEmail)
+                viewModel.getMyUserInfo(UserManager.user.email)
             }
         } else {
             binding.buttonFollow.setOnClickListener {
+                Log.d("check_follow", "Line146")
                 showFollowButton(false)
+                Log.d("check_follow", "Line148")
+
                 viewModel.postUserToFollow(UserManager.user.email, user)
-                viewModel.getMyUserInfo(UserManager.user.email)
                 viewModel.getUser(viewModel.selectedUserEmail)
+                viewModel.getMyUserInfo(UserManager.user.email)
             }
         }
     }

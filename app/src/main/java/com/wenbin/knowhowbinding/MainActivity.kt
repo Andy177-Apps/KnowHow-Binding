@@ -2,6 +2,8 @@ package com.wenbin.knowhowbinding
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
@@ -109,6 +111,31 @@ class MainActivity : AppCompatActivity() {
         setupBottomNav()
         setupNavController ()
     }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater: MenuInflater = menuInflater
+        inflater.inflate(R.menu.toolbar_menu, menu)
+
+        viewModel.currentFragmentType.observe(this, androidx.lifecycle.Observer { type ->
+            type?.let {
+                val profileModeMenu = menu.findItem(R.id.item_profile_mode)
+                profileModeMenu.isVisible = when (it) {
+                    CurrentFragmentType.PROFILE -> {
+                        profileModeMenu.title = getString(R.string.menu_item_title_edit)
+                        true
+                    }
+                    CurrentFragmentType.EDITPROFILE -> {
+                        profileModeMenu.title = getString(R.string.menu_item_title_save)
+                        true
+                    }
+                    else -> false
+                }
+                viewModel.saveIsPressed.value = profileModeMenu.isVisible
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

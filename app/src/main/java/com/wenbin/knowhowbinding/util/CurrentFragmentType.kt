@@ -8,5 +8,7 @@ enum class CurrentFragmentType(val value: String) {
     CALENDAR(getString(R.string.calendar)),
     CHATROOM(getString(R.string.chatroom)),
     PROFILE(getString(R.string.profile)),
-    SEARCH(getString(R.string.search))
+    SEARCH(getString(R.string.search)),
+    EDITPROFILE("Profile"),
+
 }
