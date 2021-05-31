@@ -47,7 +47,8 @@
             android:layout_width="0dp"
             android:layout_height="56dp"
             android:background="@drawable/bg_edittext"
-            android:textColor="@color/lightGrey_02"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey_02"
             android:layout_marginTop="16dp"
             android:ems="10"
             android:inputType="text"
@@ -72,7 +73,8 @@
             android:hint="提供"
             android:inputType="text"
             android:text="@={viewModel.articleGive}"
-            android:textColor="@color/lightGrey_02"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey_02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/editText_articleCity"
             app:layout_constraintTop_toBottomOf="@id/spinner_category" />
@@ -125,7 +127,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/bg_edittext"
-            android:textColor="@color/lightGrey_02"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey_02"
             app:layout_constraintTop_toBottomOf="@id/editText_articleGive"
             android:layout_marginTop="16dp"
             />
@@ -156,7 +159,8 @@
             app:layout_constraintTop_toBottomOf="@id/editText_articleFind"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_edittext"
-            android:textColor="@color/lightGrey_02"
+            android:textColor="@color/black"
+            android:textColorHint="@color/lightGrey_02"
             />
 
 

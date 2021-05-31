@@ -85,8 +85,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_author_image"
                 imageUrl="@{article.author.image}"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/item_article_author_image_size"
+                android:layout_height="@dimen/item_article_author_image_size"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginTop="16dp"
@@ -97,7 +97,7 @@
             <TextView
                 android:id="@+id/textView_author_name"
                 android:layout_width="82dp"
-                android:layout_height="20dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/noto_sans"
                 android:hint="Wenbin"
@@ -111,7 +111,7 @@
             <TextView
                 android:id="@+id/textView_author_identity"
                 android:layout_width="wrap_content"
-                android:layout_height="15dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/noto_sans"
                 android:hint="Wenbin"
@@ -275,8 +275,8 @@
 
         <ImageView
             android:id="@+id/imageView_bookmark"
-            android:layout_width="@dimen/item_article_text_bookmark_size"
-            android:layout_height="@dimen/item_article_text_bookmark_size"
+            android:layout_width="@dimen/item_article_text_bookmark_height"
+            android:layout_height="@dimen/item_article_text_bookmark_height"
             android:layout_marginEnd="50dp"
             android:layout_marginBottom="12.7dp"
             app:layout_constraintBottom_toBottomOf="parent"

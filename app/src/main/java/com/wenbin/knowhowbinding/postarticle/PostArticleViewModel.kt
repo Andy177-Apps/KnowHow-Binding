@@ -83,6 +83,7 @@ class PostArticleViewModel(
     init {
         getUser(UserManager.user.email)
     }
+
     fun getArticle(): Article {
         Log.d("check_article", "UserManager.user.image = ${UserManager.user.image}")
         return Article(
@@ -93,7 +94,8 @@ class PostArticleViewModel(
                         id = _userInfo.value!!.id,
                         name = _userInfo.value!!.name,
                         email = UserManager.user.email,
-                        image = _userInfo.value!!.image),
+                        image = _userInfo.value!!.image,
+                        identity = _userInfo.value!!.identity),
                 type = articleType.value.toString(),
                 city = articleCity.value.toString(),
                 find = articleFind.value.toString(),
