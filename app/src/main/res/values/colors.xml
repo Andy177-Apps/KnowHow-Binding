@@ -18,6 +18,7 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="pinkish">#EF6F6C</color>
     <color name="colorShadow">#B4000000</color>
+    <color name="light_yellow">#FFF7D7</color>
 
     <!-- General -->
     <color name="background">#E5E5E5</color>

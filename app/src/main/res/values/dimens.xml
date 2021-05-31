@@ -7,7 +7,6 @@
     <dimen name="item_article_text_content">20sp</dimen>
     <dimen name="item_article_text_identify">20sp</dimen>
     <dimen name="item_article_author_image_size">60sp</dimen>
-
     <dimen name="item_article_text_bookmark_height">20dp</dimen>
 
     <!-- item message -->
@@ -31,6 +30,10 @@
     <dimen name="btn_height">56dp</dimen>
     <dimen name="btn_text_size">20dp</dimen>
 
+    <!-- User Detail Page -->
+    <dimen name="user_detail_text_title">22sp</dimen>
+    <dimen name="user_detail_text_content">20sp</dimen>
+    <dimen name="user_detail_chip_margin_top">8dp</dimen>
 
 
     <!-- Dialog Padding -->

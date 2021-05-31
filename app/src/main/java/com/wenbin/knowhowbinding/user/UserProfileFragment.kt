@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.user
 
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentUserDetailBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class UserProfileFragment: Fragment() {
     private lateinit var binding: FragmentUserDetailBinding
@@ -45,6 +47,7 @@ class UserProfileFragment: Fragment() {
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("check_follow", "accepted userInfo = $it")
 
+            Log.d("check_follow", "viewModel.userInfo.image = ${viewModel.userInfo.value!!.image}")
             if (firstTimeEntry) {
                 setupLayout(it)
                 firstTimeEntry = false
@@ -54,6 +57,7 @@ class UserProfileFragment: Fragment() {
                 Log.d("check_userArticles", "userArticles = $list")
                 binding.textPosts.text = list.size.toString()
             })
+
 
             // follow
             viewModel.myInfo.observe(viewLifecycleOwner, Observer { my ->
@@ -99,6 +103,7 @@ class UserProfileFragment: Fragment() {
         for (genre in genres) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
+            chip.textSize = 20F
             chipGroupTalented.addView(chip)
         }
 
@@ -108,6 +113,7 @@ class UserProfileFragment: Fragment() {
         for (genre in interestedList) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
+            chip.textSize = 20F
             chipGroupInterested.addView(chip)
         }
 
