@@ -86,6 +86,12 @@ class UserProfileFragment: Fragment() {
         return binding.root
     }
 
+    override fun onDestroyView() {
+        if (activity is MainActivity) {
+            (activity as MainActivity).recoverToolBarandBottomNav()
+        }
+        super.onDestroyView()
+    }
     private fun setupLayout(user: User) {
         val chipGroupTalented = binding.chipGroupTalentedSubjects
         val genres = user.talentedSubjects

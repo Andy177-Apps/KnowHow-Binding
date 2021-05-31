@@ -28,7 +28,7 @@
             android:textFontWeight="400"
             android:textColor="@color/dark_01"
             android:text="@{message.text}"
-
+            android:hint="1"
             />
 
         <TextView

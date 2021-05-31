@@ -183,5 +183,10 @@ class MainActivity : AppCompatActivity() {
         binding.myToolbar.visibility = View.GONE
     }
 
+    fun recoverToolBarandBottomNav() {
+        binding.bottomNavView.visibility = View.VISIBLE
+        binding.myToolbar.visibility = View.VISIBLE
+    }
+
 
 }

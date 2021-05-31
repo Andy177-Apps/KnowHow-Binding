@@ -14,6 +14,17 @@
     <dimen name="item_message_time_margin">4dp</dimen>
     <dimen name="item_message_time_size">14sp</dimen>
 
+    <!-- item chatRoom -->
+    <dimen name="item_chatRoom_image_margin">14dp</dimen>
+    <dimen name="item_chatRoom_image_margin_start">16dp</dimen>
+    <dimen name="item_chatRoom_time_margin_end">8dp</dimen>
+    <dimen name="item_chatRoom_text_name_size">20dp</dimen>
+    <dimen name="item_chatRoom_text_message_size">18dp</dimen>
+    <dimen name="item_chatRoom_text_time_size">16dp</dimen>
+
+    <dimen name="item_chatRoom_constraint_layout_start">92dp</dimen>
+    <dimen name="item_chatRoom_constraint_layout_top">20dp</dimen>
+
 
 
 
