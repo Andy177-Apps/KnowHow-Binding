@@ -2,6 +2,7 @@ package com.wenbin.knowhowbinding
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +16,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
@@ -107,6 +109,19 @@ class MainActivity : AppCompatActivity() {
         setupBottomNav()
         setupNavController ()
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.item_profile_mode -> {
+                when (item.title.toString().toLowerCase(Locale.ROOT)) {
+                    "save" -> viewModel.saveIsPressed.value = true
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+
     /**
      * Set up [BottomNavigationView]
      */

@@ -178,6 +178,16 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         )
     }
 
+    fun checkIfComplete(): Boolean {
+
+        return !(introduction.value == null ||
+                selectedCity.value == null ||
+                selectedGender.value == null ||
+                selectedTalented.value == null ||
+                selectedInterested.value == null
+                )
+    }
+
 
     fun navigateToProfilePage() {
         _navigateToProfilePage.value = true

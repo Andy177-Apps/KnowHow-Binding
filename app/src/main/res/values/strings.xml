@@ -11,6 +11,7 @@
     <string name="gender">Gender</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
+    <string name="reminder_finish_user_info">Finishing the info would help when pairing</string>
     <string name="logger_already_added">Has Been Added</string>
     <string name="reminder_invalid_time">Please select a valid time</string>
     <string name="you_shall_not_pass">You Shall Not Pass</string>

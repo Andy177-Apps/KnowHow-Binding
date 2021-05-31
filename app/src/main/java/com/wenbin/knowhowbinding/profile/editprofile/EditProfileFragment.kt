@@ -6,16 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentEditprofileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.chip.Chip
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
-import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.*
 import com.wenbin.knowhowbinding.util.Logger
 
 
@@ -31,6 +31,9 @@ class EditProfileFragment : Fragment() {
         binding = FragmentEditprofileBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        // Call mainViewModel to observe if the save button is pressed
+        val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         // Setup chip group for TalentedSubjects chip selection
         val chipGroupTalented = binding.chipGroupTalentedSubjects
@@ -113,6 +116,18 @@ class EditProfileFragment : Fragment() {
             }
         }
 
+        // Observer for save button, when pressed send update user info (With empty handel)
+        mainViewModel.saveIsPressed.observe(viewLifecycleOwner, Observer {
+            if (it) {
+//                if (viewModel.checkIfComplete()) {
+                    viewModel.updateUser(viewModel.getUser())
+                    findNavController().navigate(NavigationDirections.navigateToProfileFragment())
+                    mainViewModel.saveIsPressed.value = false
+//                } else {
+//                    Toast.makeText(KnowHowBindingApplication.appContext, getString(R.string.reminder_finish_user_info), Toast.LENGTH_SHORT).show()
+//                }
+            }
+        })
 
 
 
@@ -122,7 +137,7 @@ class EditProfileFragment : Fragment() {
                 val observeIdentity = viewModel.getUser()
                 Log.d("EditPage", "observeIdentity = $observeIdentity")
 
-                viewModel.updateUser(viewModel.getUser())
+                viewModel.updateUser(observeIdentity)
                 findNavController().navigate(EditProfileFragmentDirections.navigateToProfileFragment())
                 viewModel.onProfilePageNavigated()
             }

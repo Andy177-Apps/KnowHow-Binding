@@ -422,6 +422,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         updateUserInfo.
                         update("identity", user.identity,
                                 "talentedSubjects", user.talentedSubjects,
+                                "city", user.city,
                                 "interestedSubjects", user.interestedSubjects,
                                 "introduction", user.introduction)
                     }

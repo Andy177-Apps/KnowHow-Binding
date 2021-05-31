@@ -9,4 +9,8 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
 
     // Record current fragment to support data binding
     val currentFragmentType = MutableLiveData<CurrentFragmentType>()
+
+    // Save button in edit page is pressed.
+    val saveIsPressed = MutableLiveData<Boolean>()
+
 }
