@@ -91,7 +91,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_goneMarginTop="16dp"
                 tools:srcCompat="@drawable/outline_person_outline_black_24dp"
-
                 />
 
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.data.Message
 import com.wenbin.knowhowbinding.databinding.FragmentMessageBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
@@ -45,6 +46,11 @@ class MessageFragment : Fragment() {
             viewModel.sendMessage(myUserEmail, friendUserEmail)
             viewModel.textSend.value = ""
         }
+
+        if (activity is MainActivity) {
+            (activity as MainActivity).resetToolBar(viewModel.currentChattingName)
+        }
+
         return binding.root
     }
 

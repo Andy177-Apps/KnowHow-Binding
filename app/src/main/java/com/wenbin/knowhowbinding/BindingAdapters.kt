@@ -16,6 +16,9 @@ import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
 import com.wenbin.knowhowbinding.profile.ProfileCommentAdapter
 import com.wenbin.knowhowbinding.search.SearchAdapter
 import com.wenbin.knowhowbinding.util.TimeUtil
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.time.ExperimentalTime
 
 @BindingAdapter("imageUrl")
 fun bindImage (imgView: ImageView, imgUrl : String) {
@@ -93,6 +96,13 @@ fun bindAgo(textView: TextView, time:Long?){
     time?.let { textView.text = TimeUtil.stampToAgo(time) }
 }
 
+@ExperimentalTime
+@BindingAdapter("timeToHrMin")
+fun bindTimeToHrMin(text: TextView, time : Long?){
+    time?.let {
+        text.text = "${SimpleDateFormat("HH:mm").format(time)}"
+    }
+}
 //@BindingAdapter("ShowLatestTime")
 //fun bindLatestTime(textView: TextView, time : Long?) {
 //    time?.let {  textView.text = TimeUtil.stampTo }

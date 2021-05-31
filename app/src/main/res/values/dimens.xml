@@ -8,6 +8,12 @@
     <dimen name="item_article_text_identify">14sp</dimen>
     <dimen name="item_article_text_bookmark_size">20dp</dimen>
 
+    <!-- item message -->
+    <dimen name="item_message_text_size">16sp</dimen>
+    <dimen name="item_message_padding">4dp</dimen>
+    <dimen name="item_message_time_margin">4dp</dimen>
+    <dimen name="item_message_time_size">14sp</dimen>
+
 
 
 

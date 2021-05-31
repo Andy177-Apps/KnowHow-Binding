@@ -8,6 +8,7 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.Message
 import com.wenbin.knowhowbinding.data.Result
+import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
@@ -22,6 +23,11 @@ class MessageViewModel(
         userEmail : String,
         userName : String
 ) : ViewModel() {
+
+    private val _userInfo = MutableLiveData<User>()
+
+    val userInfo: LiveData<User>
+        get() = _userInfo
 
     val currentChattingUser = userEmail
 
@@ -68,10 +74,9 @@ class MessageViewModel(
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
+        getUser(userEmail)
         getLiveMessages(getUserEmails(UserManager.user.email, currentChattingUser))
     }
-
 
     private fun postMessage(userEmails: List<String>, message: Message) {
 
@@ -126,4 +131,38 @@ class MessageViewModel(
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
     }
+
+    fun getUser(userEmail: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getUser(userEmail)
+
+            _userInfo.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+        }
+    }
+
 }

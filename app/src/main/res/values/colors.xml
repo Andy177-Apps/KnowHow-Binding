@@ -19,6 +19,13 @@
     <color name="pinkish">#EF6F6C</color>
     <color name="colorShadow">#B4000000</color>
 
+    <!-- General -->
+    <color name="background">#E5E5E5</color>
+    <color name="silver_03">#DADDDF</color>
+    <color name="yellow_06">#FFE376</color>
+
+
+
     <!-- Type -->
     <color name="study">#00369E</color>
     <color name="findTeacher">#025A10</color>
@@ -38,10 +45,6 @@
     <color name="gray_f5f5f5">#f5f5f5</color>
     <color name="lightGrey_02">#ADB4BB</color>
     <color name="dark_01">#191E24</color>
-
-
-
-
 
     <!-- Black Series -->
     <color name="black">#000000</color>
