@@ -32,8 +32,29 @@
 
     <!-- User Detail Page -->
     <dimen name="user_detail_text_title">22sp</dimen>
-    <dimen name="user_detail_text_content">20sp</dimen>
+    <dimen name="user_detail_text_content">22sp</dimen>
     <dimen name="user_detail_chip_margin_top">8dp</dimen>
+
+    <!-- Profile Page -->
+    <dimen name="profile_text_name_title">22sp</dimen>
+    <dimen name="profile_text_identity_title">20sp</dimen>
+    <dimen name="profile_text_btn_edit">20sp</dimen>
+
+    <dimen name="profile_btn_edit_width">110sp</dimen>
+    <dimen name="profile_btn_edit_height">36sp</dimen>
+
+    <dimen name="profile_text_title">22sp</dimen>
+    <dimen name="profile_text_content">22sp</dimen>
+    <dimen name="profile_chip_margin_top">8dp</dimen>
+    <dimen name="profile_circle_image_margin_top">16dp</dimen>
+    <dimen name="profile_textView_name_margin_top">6dp</dimen>
+    <dimen name="profile_textView_share_navigate_margin_top">10dp</dimen>
+    <dimen name="profile_textView_first_item_margin_top">33dp</dimen>
+    <dimen name="profile_textView_interval_item_margin_top">17dp</dimen>
+    <dimen name="profile_textView_first_item_margin_start">16dp</dimen>
+
+
+
 
 
     <!-- Dialog Padding -->

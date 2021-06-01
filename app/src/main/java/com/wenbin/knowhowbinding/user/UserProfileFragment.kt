@@ -13,6 +13,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
+import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
@@ -97,13 +98,14 @@ class UserProfileFragment: Fragment() {
         super.onDestroyView()
     }
     private fun setupLayout(user: User) {
+        val chipTextSize = 20F
         val chipGroupTalented = binding.chipGroupTalentedSubjects
         val genres = user.talentedSubjects
 
         for (genre in genres) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
-            chip.textSize = 20F
+            chip.textSize = chipTextSize
             chipGroupTalented.addView(chip)
         }
 
@@ -113,7 +115,7 @@ class UserProfileFragment: Fragment() {
         for (genre in interestedList) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
-            chip.textSize = 20F
+            chip.textSize = chipTextSize
             chipGroupInterested.addView(chip)
         }
 

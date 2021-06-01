@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="imageUrl"
+            type="String" />
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.user.UserProfileViewModel" />
@@ -45,7 +47,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_user_avatar"
                 app:srcCompat="@drawable/avatar_1"
-                android:layout_width="160dp"
+
+            android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_marginTop="110dp"
                 app:civ_border_color="@color/light_yellow"
@@ -296,8 +299,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="擅長"
-                android:fontFamily="@font/noto_sans"
                 android:textSize="@dimen/user_detail_text_title"
+                android:fontFamily="@font/noto_sans"
                 android:textColor="@color/dark_01"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_button" />

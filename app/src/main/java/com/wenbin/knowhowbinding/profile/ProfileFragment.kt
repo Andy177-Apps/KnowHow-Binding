@@ -76,12 +76,15 @@ class ProfileFragment  : Fragment() {
     }
 
     private fun setupLayout(user: User) {
+        val chipTextSize = 20F
+
         val chipGroupTalented = binding.chipGroupTalentedSubjects
         val genres = user.talentedSubjects
 
         for (genre in genres) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
+            chip.textSize = chipTextSize
             chipGroupTalented.addView(chip)
         }
 
@@ -91,6 +94,7 @@ class ProfileFragment  : Fragment() {
         for (genre in interestedList) {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
+            chip.textSize = chipTextSize
             chipGroupInterested.addView(chip)
         }
 
