@@ -119,13 +119,15 @@ class EditProfileFragment : Fragment() {
         // Observer for save button, when pressed send update user info (With empty handel)
         mainViewModel.saveIsPressed.observe(viewLifecycleOwner, Observer {
             if (it) {
-//                if (viewModel.checkIfComplete()) {
-                    viewModel.updateUser(viewModel.getUser())
+                if (viewModel.checkIfComplete()) {
+                    val user = viewModel.getUser()
+                    Log.d("check_user", "user = $user")
+                    viewModel.updateUser(user)
                     findNavController().navigate(NavigationDirections.navigateToProfileFragment())
                     mainViewModel.saveIsPressed.value = false
-//                } else {
-//                    Toast.makeText(KnowHowBindingApplication.appContext, getString(R.string.reminder_finish_user_info), Toast.LENGTH_SHORT).show()
-//                }
+                } else {
+                    Toast.makeText(KnowHowBindingApplication.appContext, getString(R.string.reminder_finish_user_info), Toast.LENGTH_SHORT).show()
+                }
             }
         })
 

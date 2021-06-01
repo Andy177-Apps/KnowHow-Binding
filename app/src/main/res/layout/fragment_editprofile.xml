@@ -28,6 +28,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:visibility="gone"
                     android:id="@+id/imageView_author_photo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -37,39 +38,63 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_goneMarginTop="16dp"
                     app:srcCompat="@drawable/outline_person_outline_black_24dp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_user_avatar"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="@dimen/profile_circle_image_margin_top"
+                    android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
+                    android:visibility="visible"
+                    app:civ_border_color="@color/light_yellow"
+                    app:civ_border_width="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+
+                    tools:src="@drawable/avatar_1" />
 
                 <TextView
                     android:id="@+id/textView_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="Eren"
+                    android:hint="Wenbin"
+                    android:textColorHint="@color/black"
+                    android:text="@{viewModel.userInfo.name}"
                     android:textColor="@color/black"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/profile_text_name_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView_author_photo" />
+                    app:layout_constraintTop_toBottomOf="@id/image_user_avatar" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+
                 android:id="@+id/textView_identity_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="身份/職位"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="500"
+                android:textSize="@dimen/profile_text_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/constraint_layout_avatar" />
 
             <EditText
                 android:id="@+id/editText_identity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_edittext"
+                android:textColor="@color/black"
+                android:textColorHint="@color/lightGrey_02"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:background="@color/grey_edit_text_bg"
                 android:inputType="text"
                 android:text="@={viewModel.identity}"
+
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
                 app:layout_constraintTop_toBottomOf="@+id/textView_identity_title" />
 
@@ -78,11 +103,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/roboto"
                 android:text="@string/gender"
-                android:textColor="@color/black_36_alpha"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="500"
+                android:textSize="@dimen/profile_text_title"
                 app:layout_constraintStart_toStartOf="@id/editText_identity"
                 app:layout_constraintTop_toBottomOf="@id/editText_identity" />
 
@@ -118,6 +143,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="縣市"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="500"
+                android:textSize="@dimen/profile_text_title"
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
                 app:layout_constraintTop_toBottomOf="@+id/radio_gender" />
 
@@ -135,7 +164,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="拿手項目"
+                android:text="擅長"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="500"
+                android:textSize="@dimen/profile_text_title"
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
                 app:layout_constraintTop_toBottomOf="@+id/spinner_city" />
 
@@ -172,7 +205,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="感興趣的東西"
+                android:text="想學"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="500"
+                android:textSize="@dimen/profile_text_title"
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
                 app:layout_constraintTop_toBottomOf="@+id/scroll_chip_talentedSubjects" />
 
@@ -209,16 +246,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="自我介紹"
+                android:fontFamily="@font/noto_sans"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="500"
+                android:textSize="@dimen/profile_text_title"
                 app:layout_constraintStart_toStartOf="@id/textView_identity_title"
                 app:layout_constraintTop_toBottomOf="@+id/scroll_chip_interestedSubject" />
 
             <EditText
                 android:id="@+id/editTextTextMultiLine_introduction"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
+                android:background="@drawable/bg_edittext"
+                android:textColor="@color/black"
+                android:textColorHint="@color/lightGrey_02"
                 android:layout_marginTop="16dp"
                 android:ems="10"
-                android:background="@color/grey_edit_text_bg"
 
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
@@ -229,16 +272,23 @@
 
             <TextView
                 android:id="@+id/textView_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:background="@color/dark_01"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_introduction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="48dp"
+                android:textSize="@dimen/btn_text_size"
+                android:textFontWeight="400"
+                android:fontFamily="@font/noto_sans"
+                android:gravity="center"
+                android:onClick="@{() -> viewModel.navigateToProfilePage()}"
+                android:layout_marginTop="24dp"
                 android:text="儲存"
-                android:textSize="24dp"
-                        android:onClick="@{() -> viewModel.navigateToProfilePage()}"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

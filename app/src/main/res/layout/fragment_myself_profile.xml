@@ -11,7 +11,9 @@
             name="viewModel"
             type="com.wenbin.knowhowbinding.profile.ProfileViewModel" />
     </data>
-
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +30,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-
             tools:src="@drawable/avatar_1" />
 
         <TextView
@@ -62,6 +63,20 @@
             />
 
         <TextView
+            android:id="@+id/text_user_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/dark_01"
+            android:textSize="16sp"
+            android:text="@{viewModel.userInfo.gender}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView_identity" />
+<!--        android:text="@string/male"-->
+
+        <TextView
             android:id="@+id/textView_share_navigate"
             android:layout_width="@dimen/profile_btn_edit_width"
             android:layout_height="@dimen/profile_btn_edit_height"
@@ -74,20 +89,11 @@
             android:layout_marginTop="@dimen/profile_textView_share_navigate_margin_top"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_name"
+            app:layout_constraintTop_toBottomOf="@id/text_user_gender"
             />
 
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </androidx.core.widget.NestedScrollView>
 
         <TextView
             android:id="@+id/textView_talentedSubjects_title"
@@ -95,8 +101,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/profile_textView_first_item_margin_start"
             android:layout_marginTop="@dimen/profile_textView_first_item_margin_top"
-            android:fontFamily="@font/noto_sans"
             android:text="擅長"
+            android:fontFamily="@font/noto_sans"
             android:textColor="@color/dark_01"
             android:textFontWeight="500"
             android:textSize="@dimen/profile_text_title"
@@ -179,7 +185,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            android:hint="這裡是自我介紹的內容"
+            android:hint='目前還沒有您的自我介紹喔，趕快點"編輯"來編輯您的各資訊吧！'
             android:fontFamily="@font/noto_sans"
             android:text="@{viewModel.userInfo.introduction}"
             android:textSize="@dimen/profile_text_content"
@@ -271,4 +277,6 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 </layout>
