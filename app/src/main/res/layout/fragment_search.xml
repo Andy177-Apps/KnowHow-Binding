@@ -13,7 +13,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
+        <com.wenbin.knowhowbinding.MyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
         <EditText
             android:id="@+id/editText_search"
             android:layout_width="0dp"
@@ -154,7 +156,6 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
-
             android:background="#cccccc"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
