@@ -2,12 +2,14 @@
 <resources>
 
     <!-- item_article -->
-    <dimen name="item_article_text_name">24sp</dimen>
-    <dimen name="item_article_text_title">20sp</dimen>
-    <dimen name="item_article_text_content">20sp</dimen>
-    <dimen name="item_article_text_identify">20sp</dimen>
-    <dimen name="item_article_author_image_size">60sp</dimen>
+    <dimen name="item_article_text_name">14sp</dimen>
+    <dimen name="item_article_text_title">12sp</dimen>
+    <dimen name="item_article_text_content">12sp</dimen>
+    <dimen name="item_article_text_identify">12sp</dimen>
+    <dimen name="item_article_author_image_size">40sp</dimen>
     <dimen name="item_article_text_bookmark_height">20dp</dimen>
+    <dimen name="recyclerView_layout_marginHorizontal">8dp</dimen>
+    <dimen name="item_article_text_margin_top">4dp</dimen>
 
     <!-- item message -->
     <dimen name="item_message_text_size">16sp</dimen>

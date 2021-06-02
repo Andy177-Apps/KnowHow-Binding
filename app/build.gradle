@@ -129,5 +129,8 @@ dependencies {
     implementation "androidx.work:work-runtime-ktx:$work_version"
     implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
 
+    // Lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
+
 
 }

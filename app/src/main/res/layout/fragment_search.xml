@@ -13,9 +13,11 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.wenbin.knowhowbinding.MyView
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+
         <EditText
             android:id="@+id/editText_search"
             android:layout_width="0dp"
@@ -150,6 +152,16 @@
             app:layout_constraintTop_toTopOf="@id/textView_years"
             app:srcCompat="@drawable/outline_south_black_24dp" />
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/textView_years"
+            app:lottie_rawRes="@raw/signin_1"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true" />
+        <!--        app:lottie_fileName="hello_world.json"-->
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             GetArticle="@{viewModel.articles}"
@@ -157,6 +169,7 @@
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
             android:background="#cccccc"
+            android:visibility="gone"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textView_years" />

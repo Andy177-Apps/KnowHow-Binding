@@ -25,7 +25,7 @@ class MyView : View {
         val color1 = KnowHowBindingApplication.appContext.applicationContext.getColor(R.color.color1)
         val colorEnd = KnowHowBindingApplication.appContext.applicationContext.getColor(R.color.colorEnd)
         val paint = Paint()
-        val backGradient: LinearGradient = LinearGradient(0F, 0F, 180F, 0F, intArrayOf(colorStart, color1, colorEnd), null, Shader.TileMode.CLAMP)
+        val backGradient: LinearGradient = LinearGradient(0F, 0F, measuredWidth.toFloat(), 0F, intArrayOf(colorStart, color1, colorEnd), null, Shader.TileMode.CLAMP)
         //        LinearGradient backGradient = new LinearGradient(0, 0, 0, height, new int[]{colorStart, color1 ,colorEnd}, null, Shader.TileMode.CLAMP);
         paint.shader = backGradient
         canvas.drawRect(0f, 0f, width.toFloat(), height.toFloat(), paint)

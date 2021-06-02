@@ -29,6 +29,7 @@
     <string name="detail">Detail</string>
     <string name="menu_item_title_edit">EDIT</string>
     <string name="menu_item_title_save">SAVE</string>
+    <string name="show_less">Show Less</string>
 
     <string-array name="category_array">
         <item>交換技能</item>

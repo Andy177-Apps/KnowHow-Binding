@@ -39,9 +39,9 @@
     <color name="skill">#940000</color>
 
     <!-- Gradient -->
-    <color name="colorStart">#00369E</color>
-    <color name="color1">#025A10</color>
-    <color name="colorEnd">#FFC700</color>
+    <color name="colorStart">#7B61FF</color>
+    <color name="color1">#32BF95</color>
+    <color name="colorEnd">#326BBF</color>
 
 
     <!-- Text -->

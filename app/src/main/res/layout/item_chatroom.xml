@@ -20,6 +20,8 @@
         android:id="@+id/constraint_layout_chat_room"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
         android:background="#F9F9FA">
 
         <androidx.cardview.widget.CardView

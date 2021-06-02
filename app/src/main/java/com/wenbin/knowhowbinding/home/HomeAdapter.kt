@@ -1,6 +1,8 @@
 package com.wenbin.knowhowbinding.home
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
@@ -20,6 +22,7 @@ class HomeAdapter : ListAdapter<Article,
         fun bind (item : Article) {
             binding.article = item
             binding.constraintLayoutUserInformation.setOnClickListener {
+                Log.d("check_clicked", "binding.textViewDescription is clicked")
 
                 item.author?.let {
                     if (item.author.email == UserManager.user.email) {
@@ -30,6 +33,17 @@ class HomeAdapter : ListAdapter<Article,
                         onClick(binding.constraintLayoutUserInformation)
                     }
                 }
+            }
+
+            // Show and hide content of article
+            binding.textViewDescription.setOnClickListener {
+                binding.textViewDescription.isSingleLine = false
+                binding.buttonCollapse.visibility = View.VISIBLE
+            }
+
+            binding.buttonCollapse.setOnClickListener {
+                binding.textViewDescription.isSingleLine = true
+                binding.buttonCollapse.visibility = View.GONE
             }
 
             binding.executePendingBindings()
