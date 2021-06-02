@@ -31,6 +31,20 @@
     <string name="menu_item_title_save">SAVE</string>
     <string name="show_less">Show Less</string>
 
+
+    <!-- Drawer -->
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">我的文章</string>
+    <string name="menu_gallery">收藏文章y</string>
+    <string name="menu_slideshow">我的追蹤</string>
+
+
     <string-array name="category_array">
         <item>交換技能</item>
         <item>找學生</item>

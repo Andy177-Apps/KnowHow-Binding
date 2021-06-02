@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
     <!-- item_article -->
     <dimen name="item_article_text_name">14sp</dimen>
     <dimen name="item_article_text_title">12sp</dimen>
@@ -40,15 +47,15 @@
     <dimen name="user_detail_chip_margin_top">8dp</dimen>
 
     <!-- Profile Page -->
-    <dimen name="profile_text_name_title">22sp</dimen>
-    <dimen name="profile_text_identity_title">20sp</dimen>
-    <dimen name="profile_text_btn_edit">20sp</dimen>
+    <dimen name="profile_text_name_title">16sp</dimen>
+    <dimen name="profile_text_identity_title">12sp</dimen>
+    <dimen name="profile_text_btn_edit">12sp</dimen>
 
     <dimen name="profile_btn_edit_width">110sp</dimen>
     <dimen name="profile_btn_edit_height">36sp</dimen>
 
-    <dimen name="profile_text_title">22sp</dimen>
-    <dimen name="profile_text_content">22sp</dimen>
+    <dimen name="profile_text_title">16sp</dimen>
+    <dimen name="profile_text_content">14sp</dimen>
     <dimen name="profile_chip_margin_top">8dp</dimen>
     <dimen name="profile_circle_image_margin_top">16dp</dimen>
     <dimen name="profile_textView_name_margin_top">6dp</dimen>
@@ -56,6 +63,7 @@
     <dimen name="profile_textView_first_item_margin_top">33dp</dimen>
     <dimen name="profile_textView_interval_item_margin_top">17dp</dimen>
     <dimen name="profile_textView_first_item_margin_start">16dp</dimen>
+
 
 
 
