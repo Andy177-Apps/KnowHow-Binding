@@ -96,4 +96,12 @@
         <item>JLPT</item>
     </string-array>
 
+
+    <!-- Home Fragment -->
+    <string name="pager_title_all">全部</string>
+    <string name="pager_study_group">讀書會</string>
+    <string name="pager_find_tutor">找老師</string>
+    <string name="pager_find_student">找學生</string>
+    <string name="pager_skill_exchange">技能交換</string>
+
 </resources>

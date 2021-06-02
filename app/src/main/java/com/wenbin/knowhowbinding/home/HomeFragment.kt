@@ -44,9 +44,16 @@ class HomeFragment : Fragment() {
         var adapter = HomeAdapter()
         binding.recyclerView.adapter = adapter
 
-        if (activity is MainActivity) {
-            (activity as MainActivity).resetToolBar("文章列表")
-        }
+//        if (activity is MainActivity) {
+//            (activity as MainActivity).hideToolBar()
+//        }
         return binding.root
     }
+
+//    override fun onDestroyView() {
+//        if (activity is MainActivity) {
+//            (activity as MainActivity).recoverToolBarandBottomNav()
+//        }
+//        super.onDestroyView()
+//    }
 }

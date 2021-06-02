@@ -29,9 +29,9 @@ class MainActivity : AppCompatActivity() {
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
-            R.id.navigation_home -> {
+            R.id.navigation_article -> {
 
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToHomeFragment())
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToArticleFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_search -> {

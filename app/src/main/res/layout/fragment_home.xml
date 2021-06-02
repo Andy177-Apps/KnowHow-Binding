@@ -15,7 +15,6 @@
         android:background="#cccccc"
         >
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/imageView"
             android:layout_width="56dp"

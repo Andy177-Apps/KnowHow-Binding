@@ -3,7 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@+id/homeFragment">
+    app:startDestination="@+id/articleFragment">
+
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.wenbin.knowhowbinding.home.ArticleFragment"
+        android:label="ArticleFragment"
+        tools:layout="@layout/fragment_article"
+        />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.wenbin.knowhowbinding.home.HomeFragment"
@@ -112,6 +120,10 @@
         android:label="NotifyFragment"
         tools:layout="@layout/fragment_notify"/>
 
+    <action android:id="@+id/navigate_to_article_fragment" app:destination="@id/articleFragment"
+        app:popUpTo="@+id/navigation"
+        app:popUpToInclusive="true" />
+
     <action android:id="@+id/navigate_to_home_fragment" app:destination="@id/homeFragment"
         app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
@@ -143,6 +155,7 @@
     <action android:id="@+id/navigate_to_notify_fragment" app:destination="@id/notifyFragment"        />
     <action android:id="@+id/navigate_to_event_detail_fragment" app:destination="@id/eventDetailFragment"        />
     <action android:id="@+id/navigate_to_user_profile_fragment" app:destination="@id/userProfileFragment"        />
+
 
 
 </navigation>
