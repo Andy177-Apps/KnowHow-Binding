@@ -10,9 +10,11 @@
     <dimen name="item_article_text_bookmark_height">20dp</dimen>
     <dimen name="recyclerView_layout_marginHorizontal">8dp</dimen>
     <dimen name="item_article_text_margin_top">4dp</dimen>
+    <dimen name="item_image_margin_end">4dp</dimen>
 
     <!-- item message -->
-    <dimen name="item_message_text_size">16sp</dimen>
+    <dimen name="item_message_text_size">14sp</dimen>
+    <dimen name="item_message_text_margin_vertical">8sp</dimen>
     <dimen name="item_message_padding">4dp</dimen>
     <dimen name="item_message_time_margin">4dp</dimen>
     <dimen name="item_message_time_size">14sp</dimen>

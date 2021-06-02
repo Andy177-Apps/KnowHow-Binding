@@ -20,7 +20,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="@dimen/item_message_text_margin_vertical"
+            android:layout_marginTop="@dimen/item_message_text_margin_vertical"
+            app:layout_constraintTop_toTopOf="parent"
             android:padding="8dp"
             android:background="@color/yellow_06"
             android:fontFamily="@font/roboto"
@@ -30,7 +32,6 @@
             android:text="@{message.text}"
             android:hint="1"
             />
-
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"

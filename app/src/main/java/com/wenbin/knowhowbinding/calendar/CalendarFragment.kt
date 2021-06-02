@@ -185,7 +185,6 @@ class CalendarFragment : Fragment() {
         fab_create_event.visibility = View.VISIBLE
         fab_notification.visibility = View.VISIBLE
 
-
         when (fabLayout_create_event.y){
             resources.getDimension(R.dimen.standard_0) -> fabLayout_create_event.visibility = View.INVISIBLE
             else -> fabLayout_create_event.visibility = View.VISIBLE
