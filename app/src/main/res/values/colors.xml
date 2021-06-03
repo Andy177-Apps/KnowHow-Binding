@@ -31,8 +31,14 @@
     <color name="translucent_80">#cc000000</color>
     <color name="transparent">#00000000</color>
 
+    <!-- Theme Coleo -->
+    <color name="primary">#64b5f6</color>
+    <color name="primaryLight">#9be7ff</color>
+    <color name="primaryDark">#2286c3</color>
 
-
+    <color name="secondary">#81d3f9</color>
+    <color name="secondaryLight">#b5ffff</color>
+    <color name="secondaryDark">#4ba2c6</color>
 
     <!-- Type -->
     <color name="study">#00369E</color>

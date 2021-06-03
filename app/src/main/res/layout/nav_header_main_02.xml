@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="@dimen/nav_header_height"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/side_nav_bar"
@@ -15,10 +16,11 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:scaleType="centerCrop"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="16dp"
 android:visibility="gone"
         android:contentDescription="@string/nav_header_desc"
@@ -29,11 +31,10 @@ android:visibility="gone"
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_user_avatar"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="@dimen/nav_header_image_size"
+        android:layout_height="@dimen/nav_header_image_size"
+        android:layout_marginTop="@dimen/nav_header_image_margin_top"
 
-        android:layout_marginTop="@dimen/profile_circle_image_margin_top"
         android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
         android:visibility="visible"
         app:civ_border_color="@color/light_yellow"
@@ -45,17 +46,27 @@ android:visibility="gone"
 
 
     <TextView
+        android:id="@+id/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:textColor="@color/dark_01"
         android:text="@string/nav_header_title"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        android:textSize="28sp"
+        app:layout_constraintTop_toBottomOf="@+id/image_user_avatar"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/dark_01"
+        android:layout_marginTop="8dp"
+
+        android:gravity="center_horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/name"
         android:text="@string/nav_header_subtitle" />
-</LinearLayout>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

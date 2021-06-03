@@ -11,10 +11,16 @@ import androidx.appcompat.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
@@ -26,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
 
 
@@ -80,15 +87,21 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        val navView: NavigationView = findViewById(R.id.nav_view)
+        val navController = findNavController(R.id.myNavHostFragment)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(setOf(
+            R.id.articleFragment, R.id.myArticleFragment, R.id.myCollectFragment, R.id.editProfileFragment, R.id.searchFragment), drawerLayout)
+        //下面這是讓你有左上角那三槓的
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        //下面這個是讓你可以導航到 Drawer 的其他頁面去的
+        navView.setupWithNavController(navController)
 
-
-
-
-
-
+        // Drawer and ToolBar End
 
         var db = FirebaseFirestore.getInstance()
-
 
         //隨時監聽整份 collectionPath 變化
         db.collection("Friends")
@@ -123,6 +136,11 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNav()
         setupNavController ()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.myNavHostFragment)
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

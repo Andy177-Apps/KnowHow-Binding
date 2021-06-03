@@ -11,32 +11,29 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.KnowDrawer.AppBarOverlay">
 
-    >
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.KnowDrawer.PopupOverlay"
             >
-<!--            app:popupTheme="@style/Theme.KnowDrawer.PopupOverlay"-->
+
             <TextView
                 android:id="@+id/textView_ToolBar_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="#3f3a3a"
-                android:textStyle="normal"
                 android:gravity="center_horizontal"
                 android:text="textView"
-                />
+                android:textColor="#3f3a3a"
+                android:textSize="20sp"
+                android:textStyle="normal" />
 
         </androidx.appcompat.widget.Toolbar>
     </com.google.android.material.appbar.AppBarLayout>
 
 
     <include layout="@layout/content_main" />
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

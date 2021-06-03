@@ -35,14 +35,16 @@
     <!-- Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">Wenbin Yeh</string>
+    <string name="nav_header_subtitle">leo55576@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">我的文章</string>
-    <string name="menu_gallery">收藏文章y</string>
-    <string name="menu_slideshow">我的追蹤</string>
+    <!-- Drawer item name-->
+    <string name="menu_my_article">我的文章</string>
+    <string name="menu_my_collection">收藏文章</string>
+    <string name="menu_followers">粉絲</string>
+    <string name="menu_following">追蹤中</string>
 
 
     <string-array name="category_array">

@@ -4,14 +4,28 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
+
         <item
-            android:id="@+id/nav_home"
-            android:title="@string/menu_home" />
+            android:id="@+id/articleFragment"
+            android:visible="false"
+            android:title="Head" />
+
         <item
-            android:id="@+id/nav_gallery"
-            android:title="@string/menu_gallery" />
+            android:id="@+id/myArticleFragment"
+            android:icon="@drawable/outline_history_edu_black_48"
+            android:title="@string/menu_my_article" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/myCollectFragment"
+            android:icon="@drawable/outline_collections_bookmark_black_48"
+            android:title="@string/menu_my_collection" />
+        <item
+            android:id="@+id/editProfileFragment"
+            android:icon="@drawable/outline_favorite_black_48"
+            android:title="@string/menu_followers" />
+
+        <item
+            android:id="@+id/searchFragment"
+            android:icon="@drawable/outline_loyalty_black_48"
+            android:title="@string/menu_following" />
     </group>
 </menu>
