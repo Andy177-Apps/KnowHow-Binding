@@ -16,6 +16,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.ActivityLoginBinding
 
 
@@ -57,11 +58,20 @@ class LoginActivity : AppCompatActivity() {
         Log.d("knowGoogleSignIn", "updatedCurrentUser = $currentUser")
         Log.d("knowGoogleSignIn", "updateUI(currentUser) = ${updateUI(currentUser)})")
         currentUser?.let {
-            moveMainActivity()
+            moveMainActivity(it)
         }
     }
 
-    private fun moveMainActivity() {
+    private fun moveMainActivity(user: FirebaseUser) {
+        val currentUser = User(
+            id = user.uid,
+            image = user.photoUrl.toString(),
+            name = user.displayName.toString(),
+            email = user.email.toString()
+        )
+
+        UserManager.user = currentUser
+
     }
 
     // [START onactivityresult]

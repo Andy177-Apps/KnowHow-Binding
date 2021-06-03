@@ -88,4 +88,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.getUserArticle(userEmail)
     }
 
+    override suspend fun postUser(user: User): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.postUser(user)
+    }
+
 }

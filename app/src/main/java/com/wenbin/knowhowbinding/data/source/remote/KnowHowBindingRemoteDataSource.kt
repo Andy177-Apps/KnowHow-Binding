@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.data.source.remote
 
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.firestore.FieldValue
@@ -299,6 +300,33 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     }
 
                 }
+    }
+
+    override suspend fun postUser(user: User): Result<Boolean> = suspendCoroutine { continuation ->
+        val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
+        val document = db.document(user.id)
+
+        db.whereEqualTo("email", user.email)
+            .get()
+            .addOnSuccessListener { documents ->
+                Log.d("postUser","Already initialized")
+            }
+            .addOnFailureListener { exception ->
+                document
+                    .set(user)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "DocumentSnapshot successfully written!")
+                        Logger.i("User: $user")
+                        continuation.resume(Result.Success(true))
+                    }
+                    .addOnFailureListener { e ->
+                             Log.w(TAG, "Error writing document", e)
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
+                        continuation.resume(Result.Error(e))
+                    }
+                continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+
+            }
     }
 
     override suspend fun postMessage(emails: List<String>,

@@ -43,4 +43,6 @@ interface KnowHowBindingDataSource {
 
     suspend fun getUserArticle(userEmail: String): Result<List<Article>>
 
+    suspend fun postUser(user: User): Result<Boolean>
+
 }
