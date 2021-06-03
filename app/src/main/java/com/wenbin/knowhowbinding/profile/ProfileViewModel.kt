@@ -26,7 +26,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         get() = _comment
 
     // Information supposed to demonstrate in UI
-    private val _userInfo = MutableLiveData<User>()
+    private val _userInfo = MutableLiveData<User>(User())
 
     val userInfo: LiveData<User>
         get() = _userInfo

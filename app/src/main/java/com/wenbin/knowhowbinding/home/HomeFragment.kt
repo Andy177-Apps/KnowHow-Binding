@@ -13,6 +13,7 @@ import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.network.LoadApiStatus
 
 
 class HomeFragment : Fragment() {
@@ -44,6 +45,17 @@ class HomeFragment : Fragment() {
         var adapter = HomeAdapter()
         binding.recyclerView.adapter = adapter
 
+        // Lottie
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                LoadApiStatus.LOADING -> {
+                    binding.animationView.visibility = View.VISIBLE
+                }
+                LoadApiStatus.DONE, LoadApiStatus.ERROR -> {
+                    binding.animationView.visibility = View.GONE
+                }
+            }
+        })
 //        if (activity is MainActivity) {
 //            (activity as MainActivity).hideToolBar()
 //        }

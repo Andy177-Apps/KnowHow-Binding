@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="imageUrl"
             type="String" />
+
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.user.UserProfileViewModel" />
@@ -40,23 +42,22 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/avatar_1"
-                />
+                app:srcCompat="@drawable/avatar_1" />
 
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_user_avatar"
-                android:src="@drawable/avatar_1"
-            android:layout_width="160dp"
+                imageUrl="@{viewModel.userInfo.image}"
+                android:layout_width="160dp"
                 android:layout_height="160dp"
                 android:layout_marginTop="110dp"
+                android:src="@drawable/avatar_1"
                 app:civ_border_color="@color/light_yellow"
                 app:civ_border_width="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@drawable/avatar_1" />
-<!--            imageUrl="@{viewModel.userInfo.image}"-->
 
 
             <TextView
@@ -80,12 +81,12 @@
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="@{viewModel.userInfo.identity}"
-                tools:text="建築師"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/textView_user_name" />
+                app:layout_constraintTop_toBottomOf="@id/textView_user_name"
+                tools:text="建築師" />
 
             <TextView
                 android:id="@+id/text_user_gender"
@@ -297,10 +298,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="擅長"
-                android:textSize="@dimen/user_detail_text_title"
                 android:fontFamily="@font/noto_sans"
+                android:text="擅長"
                 android:textColor="@color/dark_01"
+                android:textSize="@dimen/user_detail_text_title"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_button" />
 
@@ -318,10 +319,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="想學"
                 android:fontFamily="@font/noto_sans"
-                android:textSize="@dimen/user_detail_text_title"
+                android:text="想學"
                 android:textColor="@color/dark_01"
+                android:textSize="@dimen/user_detail_text_title"
                 app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
                 app:layout_constraintTop_toBottomOf="@id/chipGroup_talentedSubjects"
 
@@ -341,10 +342,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="介紹"
                 android:fontFamily="@font/noto_sans"
-                android:textSize="@dimen/user_detail_text_title"
+                android:text="介紹"
                 android:textColor="@color/dark_01"
+                android:textSize="@dimen/user_detail_text_title"
 
                 app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
                 app:layout_constraintTop_toBottomOf="@id/chipGroup_interestedSubject" />
@@ -355,15 +356,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                tools:text="自我介紹欄位"
                 android:fontFamily="@font/noto_sans"
-                android:textSize="@dimen/user_detail_text_content"
-                android:textColorHint="@color/text_07"
                 android:text="@{viewModel.userInfo.introduction}"
+                android:textColorHint="@color/text_07"
+                android:textSize="@dimen/user_detail_text_content"
                 app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
                 app:layout_constraintTop_toBottomOf="@id/textView_about_user_title"
+                tools:text="自我介紹欄位"
 
                 />
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:theme="@style/ProgressTheme"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_background" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

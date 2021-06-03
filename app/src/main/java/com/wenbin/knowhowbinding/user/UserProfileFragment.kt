@@ -21,6 +21,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentUserDetailBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.network.LoadApiStatus
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class UserProfileFragment: Fragment() {
@@ -75,6 +76,17 @@ class UserProfileFragment: Fragment() {
             })
         })
 
+        // Progress Bar
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                LoadApiStatus.LOADING -> {
+                    binding.progress.visibility = View.VISIBLE
+                }
+                LoadApiStatus.DONE, LoadApiStatus.ERROR -> {
+                    binding.progress.visibility = View.GONE
+                }
+            }
+        })
 
         // Navigating to My Article Fragment.
         viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{

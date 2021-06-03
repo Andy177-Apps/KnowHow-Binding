@@ -16,6 +16,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.network.LoadApiStatus
 
 
 class ProfileFragment  : Fragment() {
@@ -61,6 +62,18 @@ class ProfileFragment  : Fragment() {
             it?.let {
                 findNavController().navigate(ProfileFragmentDirections.navigateToEditProfile())
                 viewModel.onEditProfileNavigated()
+            }
+        })
+
+        // Progress Bar
+        viewModel.status.observe(viewLifecycleOwner, Observer {
+            when (it) {
+                LoadApiStatus.LOADING -> {
+                    binding.progress.visibility = View.VISIBLE
+                }
+                LoadApiStatus.DONE, LoadApiStatus.ERROR -> {
+                    binding.progress.visibility = View.GONE
+                }
             }
         })
 

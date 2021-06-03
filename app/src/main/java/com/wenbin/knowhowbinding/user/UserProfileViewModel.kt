@@ -22,7 +22,9 @@ userEmail: String):ViewModel() {
     val selectedUserEmail = userEmail
 
 
-    private val _userInfo = MutableLiveData<User>()
+    private val _userInfo = MutableLiveData<User>(User(
+//        image = ""
+    ))
 
     val userInfo: LiveData<User>
         get() = _userInfo
@@ -75,6 +77,7 @@ userEmail: String):ViewModel() {
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
+        _status.value = LoadApiStatus.LOADING
         getUser(selectedUserEmail)
         getMyUserInfo(UserManager.user.email)
         getUserArticle(selectedUserEmail)
@@ -143,6 +146,7 @@ userEmail: String):ViewModel() {
 
 
     fun getUser(userEmail: String) {
+        Log.d("check_follow", "getUser is used.")
 
         coroutineScope.launch {
 
@@ -260,7 +264,6 @@ userEmail: String):ViewModel() {
     }
 
     private fun getUserArticle(userEmail: String) {
-        Log.d("check_userArticles", "getUserArticle is used.")
 
         coroutineScope.launch {
 
