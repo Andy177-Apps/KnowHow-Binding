@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding
 
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.wenbin.knowhowbinding.calendar.CalendarAdapter
+import com.wenbin.knowhowbinding.calendar.ImagesRecyclerViewAdapter
 import com.wenbin.knowhowbinding.chatroom.ChatRoomAdapter
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.home.HomeAdapter
@@ -60,6 +62,19 @@ fun bindRecyclerViewWithEvent(recyclerView: RecyclerView, data : List<Event>?) {
         recyclerView.adapter.apply {
             when (this) {
                 is CalendarAdapter -> submitList(it)
+            }
+        }
+    }
+}
+
+@BindingAdapter("listImage")
+fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
+    Log.d("checkImage", "child data = $data")
+
+    data?.let {
+        recyclerView.adapter.apply {
+            when (this) {
+                is ImagesRecyclerViewAdapter -> submitList(it)
             }
         }
     }

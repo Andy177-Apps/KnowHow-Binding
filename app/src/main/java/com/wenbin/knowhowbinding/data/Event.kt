@@ -14,6 +14,7 @@ data class Event (
     var createdTime : Long = 0L,
     var attendees : List<String> = listOf(""),
     var attendeesName : List<String> = listOf(""),
+    var attendeesImage : List<String> = listOf(""),
     val tag  : String = "",
     val eventTime : Long = -1L,
     var startTime : Long = -1L,

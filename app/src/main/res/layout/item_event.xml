@@ -176,7 +176,22 @@
                     app:civ_border_width="4dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_end_time" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView_end_time"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView_avatar"
+                    listImage="@{event.attendeesImage}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="horizontal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView_event_title"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_end_time"
+                    android:background="@color/purple_500"
+                    />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>

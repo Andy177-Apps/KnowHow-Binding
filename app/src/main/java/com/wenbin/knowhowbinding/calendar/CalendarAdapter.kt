@@ -11,6 +11,7 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.databinding.ItemEventBinding
+import kotlinx.android.synthetic.main.item_event.view.*
 
 class CalendarAdapter : ListAdapter<Event,
         CalendarAdapter.ViewHolder>(DiffCallback) {
@@ -36,6 +37,11 @@ class CalendarAdapter : ListAdapter<Event,
                 binding.textAttendee2.text = item.attendeesName.last()
             }
             binding.textDetail.text = item.description
+
+            // Nested RecyclerView - Child Adapter
+            val imagesRecyclerViewAdapter = ImagesRecyclerViewAdapter()
+            itemView.recyclerView_avatar.adapter = imagesRecyclerViewAdapter
+
             binding.executePendingBindings()
         }
         companion object {
