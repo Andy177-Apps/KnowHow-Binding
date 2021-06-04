@@ -139,5 +139,6 @@ dependencies {
     // Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
-
+    // Coordinatorlayout
+    implementation "androidx.coordinatorlayout:coordinatorlayout:1.1.0"
 }

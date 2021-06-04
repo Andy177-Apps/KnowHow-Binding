@@ -38,6 +38,11 @@
     <dimen name="item_chatRoom_constraint_layout_start">92dp</dimen>
     <dimen name="item_chatRoom_constraint_layout_top">20dp</dimen>
 
+    <!-- item calendar -->
+    <dimen name="attendees_image_size">21dp</dimen>
+    <dimen name="attendees_image_margin_top">7dp</dimen>
+
+
     <!-- Post Article Page -->
     <dimen name="btn_width">312dp</dimen>
     <dimen name="btn_height">56dp</dimen>

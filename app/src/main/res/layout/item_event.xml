@@ -94,25 +94,33 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                >
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/textView_event_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginStart="96dp"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="12dp"
-                    android:text="@{event.title}" />
+                    android:hint="event.title"
+                    android:text="@{event.title}"
+                    android:textColor="@color/dark_01"
+                    android:textSize="14sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/textView_event_city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_title"
                     android:layout_marginTop="4dp"
-                    android:text="@{event.city}" />
+                    android:hint="event.city"
+                    android:text="@{event.city}"
+                    android:textColor="@color/lightGrey_02"
+                    android:textSize="12sp"
+                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_title" />
 
                 <TextView
                     android:id="@+id/textView_member"
@@ -129,32 +137,46 @@
 
                 <TextView
                     android:id="@+id/textView_start_time"
+                    time="@{event.startTime}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@id/textView_event_city"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_city"
                     android:layout_marginTop="4dp"
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
-                    time="@{event.startTime}"/>
+                    app:layout_constraintStart_toStartOf="@id/textView_event_city"
+                    app:layout_constraintTop_toBottomOf="@id/textView_event_city" />
 
                 <TextView
                     android:id="@+id/textView_dash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toEndOf="@id/textView_start_time"
-                    app:layout_constraintTop_toTopOf="@id/textView_start_time"
+                    android:text="-"
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
-                    android:text="-" />
+                    app:layout_constraintStart_toEndOf="@id/textView_start_time"
+                    app:layout_constraintTop_toTopOf="@id/textView_start_time" />
 
                 <TextView
                     android:id="@+id/textView_end_time"
+                    time="@{event.endTime}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/textView_start_time"
-                    app:layout_constraintStart_toEndOf="@id/textView_dash"
-                    android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
                     android:hint="@string/reminder_invalid_time"
-                    time="@{event.endTime}"/>
+                    android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
+                    app:layout_constraintStart_toEndOf="@id/textView_dash"
+                    app:layout_constraintTop_toTopOf="@id/textView_start_time" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/image_user_avatar"
+                    android:layout_width="@dimen/attendees_image_size"
+                    android:layout_height="@dimen/attendees_image_size"
+                    android:layout_marginTop="@dimen/attendees_image_margin_top"
+                    android:layout_marginBottom="2dp"
+                    android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
+                    android:visibility="visible"
+                    app:civ_border_color="@color/light_yellow"
+                    app:civ_border_width="4dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView_event_title"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_end_time" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
@@ -167,7 +189,7 @@
             android:layout_marginTop="88dp"
             android:background="@drawable/bg_botton_corner"
             android:paddingBottom="16dp"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@id/cardView_event"
             app:layout_constraintStart_toStartOf="@id/cardView_event"
             app:layout_constraintTop_toTopOf="parent">

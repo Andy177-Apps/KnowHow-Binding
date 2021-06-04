@@ -31,6 +31,7 @@
     <string name="menu_item_title_edit">EDIT</string>
     <string name="menu_item_title_save">SAVE</string>
     <string name="show_less">Show Less</string>
+    <string name="currently_vacant">Currently Vacant</string>
 
 
     <!-- Drawer -->
