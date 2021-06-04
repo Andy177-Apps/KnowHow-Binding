@@ -41,11 +41,16 @@
     <color name="secondaryDark">#4ba2c6</color>
 
     <!-- Type -->
-    <color name="study">#00369E</color>
+    <color name="study_group">#00369E</color>
     <color name="findTeacher">#025A10</color>
     <color name="findStudent">#FFC700</color>
     <color name="skill">#940000</color>
 
+    <!-- Type Transparency-->
+    <color name="transparency_study_group">#5900369E</color>
+    <color name="transparency_findTeacher">#59025A10</color>
+    <color name="transparency_findStudent">#59FFC700</color>
+    <color name="transparency_skill">#59940000</color>
     <!-- Gradient -->
     <color name="colorStart">#7B61FF</color>
     <color name="color1">#32BF95</color>

@@ -38,6 +38,10 @@
     <dimen name="item_chatRoom_constraint_layout_start">92dp</dimen>
     <dimen name="item_chatRoom_constraint_layout_top">20dp</dimen>
 
+    <!-- item__event -->
+    <dimen name="item_event_text_time_size">12sp</dimen>
+
+
     <!-- item_avatar_event -->
     <dimen name="item_avatar_circle_view_size">21dp</dimen>
 

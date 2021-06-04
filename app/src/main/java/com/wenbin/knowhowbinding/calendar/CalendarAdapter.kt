@@ -25,10 +25,10 @@ class CalendarAdapter : ListAdapter<Event,
             binding.cardViewEvent.setOnClickListener {
 
                 Log.d("checkcard","cardView is clicked")
-                if (binding.layoutScheduleDetail.visibility == View.INVISIBLE) {
+                if (binding.layoutScheduleDetail.visibility == View.GONE) {
                     binding.layoutScheduleDetail.visibility = View.VISIBLE
                 } else {
-                    binding.layoutScheduleDetail.visibility = View.INVISIBLE
+                    binding.layoutScheduleDetail.visibility = View.GONE
                 }
             }
 

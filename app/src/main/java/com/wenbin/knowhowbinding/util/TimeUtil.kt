@@ -32,7 +32,7 @@ object TimeUtil {
     }
 
     @JvmStatic
-    fun stampToDay(time : Long): String {
+    fun stampToDayInt(time : Long): String {
         val simpleDateFormat = SimpleDateFormat("dd")
         return simpleDateFormat.format(Date(time))
     }

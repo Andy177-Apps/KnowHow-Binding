@@ -12,17 +12,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp">
+        >
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_user_avatar"
             imageUrl="@{attendeesImage}"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="4dp"
             android:layout_width="@dimen/item_avatar_circle_view_size"
             android:layout_height="@dimen/item_avatar_circle_view_size"
-            android:src="@drawable/avatar_1"
-            app:civ_border_color="@color/light_yellow"
-            app:civ_border_width="4dp"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/avatar_1" />
  </androidx.constraintlayout.widget.ConstraintLayout>

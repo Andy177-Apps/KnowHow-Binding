@@ -6,14 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
@@ -76,7 +73,10 @@ class CalendarFragment : Fragment() {
                 it.forEach {event ->
                     val year = TimeUtil.stampToYear(event.eventTime).toInt()
                     val month = TimeUtil.stampToMothInt(event.eventTime).toInt()
-                    val day = TimeUtil.stampToDay(event.eventTime).toInt()
+                    val day = TimeUtil.stampToDayInt(event.eventTime).toInt()
+                    Log.d("checkDateFormat", "month = $month")
+                    Log.d("checkDateFormat", "day = $day")
+
                     addDotDecoration(year, month, day)
                 }
                 viewModel.createdDailyEvent(TimeUtil.dateToStamp(localDate.toString(), Locale.TAIWAN))
@@ -160,6 +160,9 @@ class CalendarFragment : Fragment() {
     // Set fab
     @RequiresApi(Build.VERSION_CODES.O)
     private fun showFABMenu() {
+        text_notification_title.visibility = View.VISIBLE
+        text_create_event_title.visibility = View.VISIBLE
+
         when (fabLayout_create_event.y){
             resources.getDimension(R.dimen.standard_0) -> fabLayout_create_event.visibility = View.INVISIBLE
             else -> fabLayout_create_event.visibility = View.VISIBLE
@@ -184,6 +187,8 @@ class CalendarFragment : Fragment() {
 
         fab_create_event.visibility = View.VISIBLE
         fab_notification.visibility = View.VISIBLE
+        text_notification_title.visibility = View.INVISIBLE
+        text_create_event_title.visibility = View.INVISIBLE
 
         when (fabLayout_create_event.y){
             resources.getDimension(R.dimen.standard_0) -> fabLayout_create_event.visibility = View.INVISIBLE

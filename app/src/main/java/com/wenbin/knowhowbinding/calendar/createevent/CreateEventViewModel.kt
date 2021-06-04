@@ -154,7 +154,8 @@ class CreateEventViewModel(
                 eventTime = eventTime.value ?: -1,
                 startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
                 endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
-                invitation = listOf(_invitation.value) as List<String>
+                invitation = listOf(_invitation.value) as List<String>,
+            attendeesImage = listOf(userInfo.value!!.image)
         )
     }
 

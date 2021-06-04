@@ -134,6 +134,8 @@ class CreateEventDialogFragment : DialogFragment() {
 
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer { it ->
+            Log.d("wenbin", "got user = $it")
+
             Log.d("wenbin", "got user following = ${it.following}")
 
             // Get userEmail list from list of following

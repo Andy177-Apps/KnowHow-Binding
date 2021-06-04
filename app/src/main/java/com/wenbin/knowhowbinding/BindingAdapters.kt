@@ -19,7 +19,6 @@ import com.wenbin.knowhowbinding.profile.ProfileCommentAdapter
 import com.wenbin.knowhowbinding.search.SearchAdapter
 import com.wenbin.knowhowbinding.util.TimeUtil
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.time.ExperimentalTime
 
 @BindingAdapter("imageUrl")
@@ -96,9 +95,19 @@ fun bindMonth(textView: TextView, time: Long?) {
     time?.let { textView.text = TimeUtil.stampToMonth(time) }
 }
 
+@BindingAdapter("monthInt")
+fun bindMonthInt(textView: TextView, time: Long?) {
+    time?.let { textView.text = TimeUtil.stampToMothInt(time) }
+}
+
 @BindingAdapter("day")
 fun bindDay(textView: TextView, time: Long?) {
     time?.let { textView.text = TimeUtil.stampToDayOfMonth(time) }
+}
+
+@BindingAdapter("dayInt")
+fun bindDayInt(textView: TextView, time: Long?) {
+    time?.let { textView.text = TimeUtil.stampToDayInt(time) }
 }
 
 @BindingAdapter("time")

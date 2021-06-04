@@ -13,10 +13,15 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        >
 
         <androidx.cardview.widget.CardView
+
             android:id="@+id/cardView_event"
+            android:background='@{event.tag.equals("交換技能") ? @drawable/bar_round_corner_change_skill : event.tag.equals("找學生") ? @drawable/bar_round_corner_find_student : event.tag.equals("找老師") ? @drawable/bar_round_corner_find_teacher : @drawable/bar_round_corner_study_group}'
+
             android:layout_width="match_parent"
             android:layout_height="108dp"
             app:cardCornerRadius="8dp"
@@ -25,12 +30,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             >
+            <View
+                android:id="@+id/view_type_bar"
+                android:visibility="gone"
+                android:layout_width="2.5dp"
+                android:layout_height="42.74dp"
+                android:layout_marginTop="17dp"
+                android:background='@{event.tag.equals("交換技能") ? @drawable/bg_event_card_category_change_skill : event.tag.equals("找學生") ? @drawable/bg_event_card_category_find_student : event.tag.equals("找老師") ? @drawable/bg_event_card_category_find_teacher : @drawable/bg_event_card_category_study_group}'
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_category_background"
+                android:visibility="gone"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                android:background='@{event.tag.equals("交換技能") ? @drawable/bg_event_card_category_change_skill : event.tag.equals("找學生") ? @drawable/bg_event_card_category_find_student : event.tag.equals("找老師") ? @drawable/bg_event_card_category_find_teacher : @drawable/bg_event_card_category_read_group}'>
+                android:background='@{event.tag.equals("交換技能") ? @drawable/bg_event_card_category_change_skill : event.tag.equals("找學生") ? @drawable/bg_event_card_category_find_student : event.tag.equals("找老師") ? @drawable/bg_event_card_category_find_teacher : @drawable/bg_event_card_category_study_group}'>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="wrap_content"
@@ -101,83 +117,120 @@
                     android:id="@+id/textView_event_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="96dp"
-                    android:layout_marginTop="12dp"
-                    android:hint="event.title"
-                    android:text="@{event.title}"
-                    android:textColor="@color/dark_01"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="13.5dp"
+                    android:fontFamily="@font/roboto"
+                    android:textFontWeight="400"
                     android:textSize="14sp"
+                    android:textColor="@color/dark_01"
+                    android:hint="textView_event_title"
+                    android:text="@{event.title}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textView_event_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:hint="event.city"
-                    android:text="@{event.city}"
-                    android:textColor="@color/lightGrey_02"
-                    android:textSize="12sp"
-                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_title" />
+                <ImageView
+                    android:id="@+id/imageView_watch_later"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="90dp"
+                    android:layout_marginTop="7dp"
+                    app:layout_constraintTop_toTopOf="@+id/textView_event_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_event_title"
+                    app:srcCompat="@drawable/outline_watch_later_black_48"
+
+
+                    />
 
                 <TextView
-                    android:id="@+id/textView_member"
+                    android:id="@+id/textView_all_day"
+                    android:text="All Day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="Wenbin, Scolley"
-                    android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_city" />
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="@dimen/item_event_text_time_size"
+                    android:textColor="@color/dark_01"
 
+                    android:visibility="@{event.startTime == -1L ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintStart_toEndOf="@+id/imageView_watch_later"
+                    app:layout_constraintTop_toTopOf="@id/imageView_watch_later"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView_watch_later"
+                    />
 
                 <TextView
                     android:id="@+id/textView_start_time"
                     time="@{event.startTime}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/roboto"
+                    android:textSize="@dimen/item_event_text_time_size"
+                    android:layout_marginStart="5dp"
+                    android:textColor="@color/dark_01"
+
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
-                    app:layout_constraintStart_toStartOf="@id/textView_event_city"
-                    app:layout_constraintTop_toBottomOf="@id/textView_event_city" />
+                    app:layout_constraintStart_toEndOf="@+id/imageView_watch_later"
+                    app:layout_constraintTop_toTopOf="@id/imageView_watch_later"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView_watch_later"
+                    />
 
                 <TextView
                     android:id="@+id/textView_dash"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="-"
+                    android:textColor="@color/dark_01"
+
+                    android:fontFamily="@font/roboto"
+                    android:textSize="@dimen/item_event_text_time_size"
+
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@id/textView_start_time"
-                    app:layout_constraintTop_toTopOf="@id/textView_start_time" />
+                    app:layout_constraintTop_toTopOf="@id/imageView_watch_later"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView_watch_later"
+                    />
 
                 <TextView
                     android:id="@+id/textView_end_time"
                     time="@{event.endTime}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/dark_01"
+
+                    android:textSize="@dimen/item_event_text_time_size"
+
                     android:hint="@string/reminder_invalid_time"
                     android:visibility="@{event.startTime == -1L ? View.GONE : View.VISIBLE}"
                     app:layout_constraintStart_toEndOf="@id/textView_dash"
-                    app:layout_constraintTop_toTopOf="@id/textView_start_time" />
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/image_user_avatar"
-                    android:layout_width="@dimen/attendees_image_size"
-                    android:layout_height="@dimen/attendees_image_size"
-                    android:layout_marginTop="@dimen/attendees_image_margin_top"
-                    android:layout_marginBottom="2dp"
-                    android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
-                    android:visibility="visible"
-                    app:civ_border_color="@color/light_yellow"
-                    app:civ_border_width="4dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_end_time"
+                    app:layout_constraintTop_toTopOf="@id/imageView_watch_later"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView_watch_later"
                     />
+
+                <ImageView
+                    android:id="@+id/imageView_map"
+                    android:layout_width="10dp"
+                    android:layout_height="13.33dp"
+                    android:layout_marginTop="7dp"
+                    app:srcCompat="@drawable/outline_room_black_48"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_event_title"
+                    app:layout_constraintStart_toStartOf="@+id/textView_event_title"
+                    />
+
+                <TextView
+                    android:id="@+id/textView_event_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="event.city"
+                    android:text="@{event.city}"
+                    android:layout_marginStart="7dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/dark_01"
+                    android:textSize="@dimen/item_event_text_time_size"
+                    app:layout_constraintStart_toEndOf="@id/imageView_map"
+                    app:layout_constraintTop_toTopOf="@+id/imageView_map"
+                    />
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView_avatar"
@@ -187,10 +240,64 @@
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="13.5dp"
                     app:layout_constraintStart_toStartOf="@+id/textView_event_title"
-                    app:layout_constraintTop_toBottomOf="@+id/textView_end_time"
-                    android:background="@color/purple_500"
                     />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipEvent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:clickable="false"
+                    android:text="@{event.tag}"
+                    android:textSize="@dimen/item_article_text_name"
+                    android:textColor="@color/white"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:chipBackgroundColor='@{event.tag.equals("讀書會") ? @color/study_group : event.tag.equals("找老師") ? @color/findTeacher : event.tag.equals("找學生") ? @color/findStudent : @color/skill}'
+                    app:chipSpacingVertical="2dp"
+                    app:layout_constraintStart_toStartOf="@+id/imageView_watch_later"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+
+                <TextView
+                    android:id="@+id/textView_date_month"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:hint="06"
+                    app:layout_constraintEnd_toStartOf="@+id/textView_slash"
+                    app:layout_constraintTop_toTopOf="@+id/textView_date_day"
+                    monthInt="@{event.eventTime}"
+                    />
+
+                <TextView
+                    android:id="@+id/textView_slash"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:text="/"
+                    app:layout_constraintEnd_toStartOf="@+id/textView_date_day"
+                    app:layout_constraintTop_toTopOf="@+id/textView_date_day"
+                    />
+
+                <TextView
+                    android:id="@+id/textView_date_day"
+                    android:hint="04"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toTopOf="@+id/textView_event_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_event_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
+                    dayInt="@{event.eventTime}"
+
+                    />
+
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -200,20 +307,18 @@
             android:id="@+id/layout_schedule_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="4dp"
-            android:layout_marginTop="88dp"
             android:background="@drawable/bg_botton_corner"
             android:paddingBottom="16dp"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/cardView_event"
-            app:layout_constraintStart_toStartOf="@id/cardView_event"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/cardView_event"
+            tools:layout_editor_absoluteX="16dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_attendee"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -269,7 +374,6 @@
                 android:id="@+id/layout_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layout_attendee">
@@ -279,9 +383,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
+                    android:layout_marginTop="14dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/detail"
-                    android:textColor="@color/black_36_alpha"
+                    android:textColor="@color/dark_01"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -289,22 +394,22 @@
                     android:id="@+id/divider_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="79dp"
+                    android:layout_marginStart="7dp"
                     android:fontFamily="@font/roboto"
                     android:text="@string/colon"
-                    android:textColor="@color/black_36_alpha"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textColor="@color/dark_01"
+                    app:layout_constraintStart_toEndOf="@id/title_detail"
                     app:layout_constraintTop_toTopOf="@id/title_detail" />
 
                 <TextView
                     android:id="@+id/text_detail"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="14dp"
+                    android:layout_marginStart="7dp"
                     android:layout_marginEnd="8dp"
                     android:fontFamily="@font/roboto"
                     android:text="@{event.description}"
-                    android:textColor="@color/black_36_alpha"
+                    android:textColor="@color/dark_01"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/divider_detail"
                     app:layout_constraintTop_toTopOf="@id/title_detail"
