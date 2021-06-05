@@ -310,28 +310,69 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun postUser(user: User): Result<Boolean> = suspendCoroutine { continuation ->
         val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
         val document = db.document(user.id)
+        Log.d("checkUser", "user in DataSource = $user")
+        Log.d("checkUser", "user.id in DataSource = ${user.id}")
+        Log.d("checkUser", "user.email in DataSource = ${user.email}")
 
         db.whereEqualTo("email", user.email)
             .get()
-            .addOnSuccessListener { documents ->
-                Log.d("postUser","Already initialized")
+            .addOnSuccessListener {  documents ->
+                Log.d("documents"," Already initialized")
+                Log.d("documents", "documents = ${documents.isEmpty}}")
+
+                for (document in documents) {
+                    Log.d("documents", "Received in DataSource = ${document.id} => ${document.data}")
+                }
+                if (documents.isEmpty) {
+                    document
+                        .set(user)
+                        .addOnSuccessListener {
+                            Log.d(TAG, "DocumentSnapshot successfully written!")
+                            Log.d("checkUser", "User in addOnSuccessListener = $user")
+
+                            Logger.i("User: $user")
+//                            continuation.resume(Result.Success(true))
+                        }
+                        .addOnFailureListener { e ->
+                            Log.w(TAG, "Error writing document", e)
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
+//                            continuation.resume(Result.Error(e))
+                        }
+//                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                }
             }
             .addOnFailureListener { exception ->
-                document
-                    .set(user)
-                    .addOnSuccessListener {
-                        Log.d(TAG, "DocumentSnapshot successfully written!")
-                        Logger.i("User: $user")
-                        continuation.resume(Result.Success(true))
-                    }
-                    .addOnFailureListener { e ->
-                             Log.w(TAG, "Error writing document", e)
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
-                        continuation.resume(Result.Error(e))
-                    }
-                continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
-
+                Log.w("documents", "Error getting documents: ", exception)
             }
+
+//        db.whereEqualTo("email", user.email)
+//            .get()
+//            .addOnSuccessListener { documents ->
+//                Log.d("postUser","Already initialized")
+//                for (document in documents) {
+//                    Log.d("checkUser", "in DataSource ： ${document.id} => ${document.data}")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.d("postUser","Yet initialized")
+//
+//                document
+//                    .set(user)
+//                    .addOnSuccessListener {
+//                        Log.d(TAG, "DocumentSnapshot successfully written!")
+//                        Log.d("checkUser", "User in addOnSuccessListener = $user")
+//
+//                        Logger.i("User: $user")
+//                        continuation.resume(Result.Success(true))
+//                    }
+//                    .addOnFailureListener { e ->
+//                             Log.w(TAG, "Error writing document", e)
+//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
+//                        continuation.resume(Result.Error(e))
+//                    }
+//                continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+//
+//            }
     }
 
     override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> = suspendCoroutine { continuation ->

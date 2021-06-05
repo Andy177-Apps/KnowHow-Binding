@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.MainViewModel
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.User
@@ -70,22 +71,42 @@ class LoginActivity : AppCompatActivity() {
 
         viewModel.firebaseUser.observe(this, Observer {
             Log.d("check_googleSign", "firebaseUser = $it")
-
+            it?.let {
+                moveMainActivity(it)
+            }
         })
+
+        binding.button2.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+        }
+
     }
 
 
 
     private fun moveMainActivity(user: FirebaseUser) {
+        Log.d("checkUser", "fun moveMainActivity is used.")
+
+        val intent = Intent(this, MainActivity::class.java)
+
         val currentUser = User(
             id = user.uid,
             image = user.photoUrl.toString(),
             name = user.displayName.toString(),
             email = user.email.toString()
         )
+        Log.d("checkUser", "currentUser = $currentUser")
 
         UserManager.user = currentUser
+        Log.d("checkUser", "UserManager.user = ${UserManager.user}")
 
+        viewModel.postUser(currentUser)
+
+        startActivity(intent)
+        overridePendingTransition(R.anim.fragment_fade_enter, R.anim.fragment_fade_exit)
+        finish()
     }
 
     // [START onactivityresult]
