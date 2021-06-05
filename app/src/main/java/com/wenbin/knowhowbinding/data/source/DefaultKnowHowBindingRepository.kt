@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource
 
@@ -90,6 +91,10 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
 
     override suspend fun postUser(user: User): Result<Boolean> {
         return KnowHowBindingRemoteDataSource.postUser(user)
+    }
+
+    override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> {
+        return KnowHowBindingRemoteDataSource.firebaseAuthWithGoogle(idToken)
     }
 
 }

@@ -44,7 +44,6 @@
                     android:layout_marginTop="16dp"
                     android:background="@color/white"
                     app:mcv_selectionColor="@color/primary"
-                    app:mcv_arrowColor="@color/purple_500"
                     app:mcv_headerTextAppearance="@style/CalendarWidgetHeader"
                     app:mcv_weekDayTextAppearance="@style/CalendarWidgetweekDay"
                     app:mcv_dateTextAppearance="@style/CalendarWidgetDate"

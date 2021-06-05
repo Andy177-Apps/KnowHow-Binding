@@ -3,6 +3,7 @@ package com.wenbin.knowhowbinding.data.source.local
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
 
@@ -98,6 +99,10 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
     }
 
     override suspend fun postUser(user: User): Result<Boolean> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> {
         TODO("Not yet implemented")
     }
 

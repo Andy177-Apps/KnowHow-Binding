@@ -3,13 +3,18 @@ package com.wenbin.knowhowbinding.data.source.remote
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
+import com.wenbin.knowhowbinding.login.LoginActivity
 import com.wenbin.knowhowbinding.util.Logger
 import java.util.*
 import kotlin.coroutines.resume
@@ -327,6 +332,34 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
 
             }
+    }
+
+    override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> = suspendCoroutine { continuation ->
+        Log.d("check_googleSign", "firebaseAuthWithGoogle in DataSource is used.")
+        Log.d("check_googleSign", "idToken = $idToken")
+        val auth = Firebase.auth
+
+        val credential = GoogleAuthProvider.getCredential(idToken, null)
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(LoginActivity.TAG, "signInWithCredential:success")
+                    val user = auth.currentUser
+                    user?.let {
+                        continuation.resume(Result.Success(it))
+                    }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(LoginActivity.TAG, "signInWithCredential:failure", task.exception)
+                    task.exception?.let {
+                        continuation.resume(Result.Error(it))
+                        return@addOnCompleteListener
+                    }
+                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                }
+            }
+
     }
 
     override suspend fun postMessage(emails: List<String>,

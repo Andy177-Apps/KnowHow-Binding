@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
+import com.google.firebase.auth.FirebaseUser
 import com.wenbin.knowhowbinding.data.*
 
 interface KnowHowBindingDataSource {
@@ -44,5 +45,8 @@ interface KnowHowBindingDataSource {
     suspend fun getUserArticle(userEmail: String): Result<List<Article>>
 
     suspend fun postUser(user: User): Result<Boolean>
+
+    suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser>
+
 
 }

@@ -3,8 +3,10 @@ package com.wenbin.knowhowbinding.login
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -15,15 +17,32 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.wenbin.knowhowbinding.MainViewModel
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.ActivityLoginBinding
+import com.wenbin.knowhowbinding.ext.getVmFactory
 
 
 class LoginActivity : AppCompatActivity() {
+    val viewModel by viewModels<LoginViewModel> { getVmFactory() }
+
     private lateinit var binding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
+
+    override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        Log.d("knowGoogleSignIn", "currentUser = $currentUser")
+        updateUI(currentUser)
+        Log.d("knowGoogleSignIn", "updatedCurrentUser = $currentUser")
+        Log.d("knowGoogleSignIn", "updateUI(currentUser) = ${updateUI(currentUser)})")
+        currentUser?.let {
+            moveMainActivity(it)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,23 +63,18 @@ class LoginActivity : AppCompatActivity() {
 
         signInButton.setOnClickListener {
             Log.d("knowGoogleSignIn", "auth = $auth")
+            Log.d("check_googleSign", "signInButton in Activity is clicked.")
+            viewModel.firebaseAuthWithGoogle("12356789")
             signIn()
         }
 
+        viewModel.firebaseUser.observe(this, Observer {
+            Log.d("check_googleSign", "firebaseUser = $it")
+
+        })
     }
 
-    override fun onStart() {
-        super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        Log.d("knowGoogleSignIn", "currentUser = $currentUser")
-        updateUI(currentUser)
-        Log.d("knowGoogleSignIn", "updatedCurrentUser = $currentUser")
-        Log.d("knowGoogleSignIn", "updateUI(currentUser) = ${updateUI(currentUser)})")
-        currentUser?.let {
-            moveMainActivity(it)
-        }
-    }
+
 
     private fun moveMainActivity(user: FirebaseUser) {
         val currentUser = User(
@@ -87,7 +101,9 @@ class LoginActivity : AppCompatActivity() {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-                firebaseAuthWithGoogle(account.idToken!!)
+//                firebaseAuthWithGoogle(account.idToken!!)
+                viewModel.firebaseAuthWithGoogle(account.idToken!!)
+                updateUI(viewModel.firebaseUser.value)
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e)
@@ -127,7 +143,7 @@ private fun signIn() {
     private fun updateUI(user: FirebaseUser?) {}
 
     companion object {
-        private const val TAG = "GoogleActivity"
+        const val TAG = "GoogleActivity"
         private const val RC_SIGN_IN = 9001
     }
 }
