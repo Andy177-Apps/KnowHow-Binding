@@ -156,10 +156,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textView_years"
-            app:lottie_rawRes="@raw/signin_1"
             app:lottie_autoPlay="true"
             app:lottie_loop="true" />
-        <!--        app:lottie_fileName="hello_world.json"-->
+<!--        app:lottie_rawRes="@raw/welcome"-->
+
+        <!--        app:lotie_fileName="hello_world.json"-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
