@@ -37,16 +37,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/avatar_1" />
 
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_menu_camera"
-            tools:layout_editor_absoluteX="215dp"
-            tools:layout_editor_absoluteY="110dp"
-            app:layout_constraintEnd_toEndOf="@+id/image_user_avatar"
-            app:layout_constraintBottom_toBottomOf="@+id/image_user_avatar"
-            />
+
 
         <TextView
             android:id="@+id/textView_name"

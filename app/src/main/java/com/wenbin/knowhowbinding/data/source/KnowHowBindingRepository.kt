@@ -48,5 +48,6 @@ interface KnowHowBindingRepository {
 
     suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser>
 
+    suspend fun getImageUri(filePath: String): Result<String>
 
 }

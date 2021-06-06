@@ -78,6 +78,7 @@
     <dimen name="profile_textView_interval_item_margin_top">17dp</dimen>
     <dimen name="profile_textView_first_item_margin_start">16dp</dimen>
 
+    <dimen name="edit_btn_upload_image_size">25dp</dimen>
 
 
 

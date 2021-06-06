@@ -19,8 +19,6 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
-
-
     var _userInfo = MutableLiveData<User>()
 
     val userInfo: LiveData<User>
@@ -33,10 +31,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     val interestedSubjects = MutableLiveData<String>()
 
     val introduction = MutableLiveData<String>()
+//    private var imageUrlPath = MutableLiveData<String>()
 
     val talentedList: MutableList<String> = ArrayList()
     val interestedList: MutableList<String> = ArrayList()
 
+    var imageUrlPath : String = ""
 
     //Consequence for selected chip talentedSubjects
     private var _selectedTalented = MutableLiveData<List<String>>()
@@ -165,17 +165,61 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     }
 
     fun getUser(): User {
+        Log.d("checkUpdateImage", "enter getUser() $imageUrlPath")
+
         return User(
                 id = UserManager.user.id,
                 name = UserManager.user.name,
                 email = UserManager.user.email,
-                introduction = introduction.value.toString(),
+                introduction = introduction?.value?.toString() ?: userInfo.value!!.introduction,
                 city = selectedCity.value.toString(),
                 gender = selectedGender.value.toString(),
                 identity = identity.value.toString(),
                 talentedSubjects = talentedList,
-                interestedSubjects = interestedList
+                interestedSubjects = interestedList,
+                image = imageUrlPath
+
         )
+    }
+
+    fun getImageUri(filePath: String) {
+
+        coroutineScope.launch {
+
+            Log.d("checkUpdateImage", "original imageUrlPath is $imageUrlPath")
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getImageUri(filePath)
+
+            imageUrlPath = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    ""
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    ""
+                }
+//                is Result.Loading -> {
+//                    "loading"
+//                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    ""
+                }
+            }
+            Log.d("checkUpdateImage", "updated imageUrlPath is $imageUrlPath")
+            _refreshStatus.value = false
+        }
     }
 
     fun checkIfComplete(): Boolean {

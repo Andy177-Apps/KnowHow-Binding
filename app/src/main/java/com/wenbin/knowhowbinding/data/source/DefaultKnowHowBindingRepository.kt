@@ -97,4 +97,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.firebaseAuthWithGoogle(idToken)
     }
 
+    override suspend fun getImageUri(filePath: String): Result<String> {
+        return KnowHowBindingRemoteDataSource.getImageUri(filePath)
+    }
+
 }

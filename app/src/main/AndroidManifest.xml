@@ -2,6 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.wenbin.knowhowbinding">
 
+    <!-- NET access permission -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- INTERNET -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- UPLOAD / DOWNLOAD -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 允許 API 存取以網頁為基礎的服務 (web-based services) -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
     <application
         android:usesCleartextTraffic="true"
         android:name=".KnowHowBindingApplication"

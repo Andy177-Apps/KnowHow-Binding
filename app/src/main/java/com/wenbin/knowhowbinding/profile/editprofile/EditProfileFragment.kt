@@ -1,5 +1,8 @@
 package com.wenbin.knowhowbinding.profile.editprofile
 
+import android.app.Activity
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,9 +17,17 @@ import com.wenbin.knowhowbinding.databinding.FragmentEditprofileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.chip.Chip
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.wenbin.knowhowbinding.*
+import com.wenbin.knowhowbinding.ext.checkPermission
+import com.wenbin.knowhowbinding.ext.getLocalImg
 import com.wenbin.knowhowbinding.util.Logger
+import com.wenbin.knowhowbinding.util.PICK_IMAGE
+import com.wenbin.knowhowbinding.util.REQUEST_EXTERNAL_STORAGE
 
 
 class EditProfileFragment : Fragment() {
@@ -31,6 +42,59 @@ class EditProfileFragment : Fragment() {
         binding = FragmentEditprofileBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
+            Log.d("checkElvis", "userInfo = $it")
+            Log.d("checkElvis", "userInfo.introduction = ${it.introduction}")
+        })
+        viewModel.introduction.observe(viewLifecycleOwner, Observer {
+            Log.d("checkElvis", "viewModel.introduction = $it")
+        })
+
+        Log.d("checkElvis", "viewModel.introduction = ${viewModel.introduction.value}")
+
+        binding.imageViewUpdateAvatar.setOnClickListener {
+            Log.d("checkUpdateImage", "imageViewUpdateAvatar is clicked")
+            checkPermission()
+        }
+        // Firebase Storage //
+
+        // 設置雲存儲
+        // 訪問 Cloud Storage 存儲FirebaseStorage第一步是創建FirebaseStorage的實例：
+        val storage = Firebase.storage
+
+        // Points to the root reference
+        // 取得它的參考
+        val storageRef = storage.reference
+
+        // Points to "images"
+        // 指向資料夾 images
+        var imagesRef = storageRef.child("images")
+
+        // Points to "images/space.jpg"
+        // Note that you can use variables to create child values
+        val fileName = "space.jpg"
+        // 指向 imagesRef 的資料夾：images 裡面的檔案：fileName i.e "space.jpg"
+        val spaceRef = imagesRef.child(fileName)
+
+        // File path is "images/space.jpg"
+        // 該檔案後面加 .path 可以叫出它的檔案路徑
+        val path = spaceRef.path
+
+        // File name is "space.jpg"
+        // 該檔案後面加 .path 可以叫出它的檔案名稱
+        val name = spaceRef.name
+
+        // Points to "images"
+        // 該檔案後面加 .path 可以叫出儲存它的資料夾的名稱，像這邊就是 image
+        imagesRef = spaceRef.parent!!
+
+        //  End  //
+
+        // Image //
+
+
+        // Image //
 
         // Call mainViewModel to observe if the save button is pressed
         val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
@@ -117,29 +181,33 @@ class EditProfileFragment : Fragment() {
         }
 
         // Observer for save button, when pressed send update user info (With empty handel)
-        mainViewModel.saveIsPressed.observe(viewLifecycleOwner, Observer {
-            if (it) {
-                if (viewModel.checkIfComplete()) {
-                    val user = viewModel.getUser()
-                    Log.d("check_user", "user = $user")
-                    viewModel.updateUser(user)
-                    findNavController().navigate(NavigationDirections.navigateToProfileFragment())
-                    mainViewModel.saveIsPressed.value = false
-                } else {
-                    Toast.makeText(KnowHowBindingApplication.appContext, getString(R.string.reminder_finish_user_info), Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
+        // 進入頁面之後這個 fun 就會被啟動，有點不太穩定，我先暫時註解掉，先用下面的
+//        mainViewModel.saveIsPressed.observe(viewLifecycleOwner, Observer {
+//            Log.d("checkBtn", "mainViewModel.saveIsPressed is used")
+//            if (it) {
+//                if (viewModel.checkIfComplete()) {
+//                    val user = viewModel.getUser()
+//                    Log.d("check_user", "user = $user")
+//                    viewModel.updateUser(user)
+//                    findNavController().navigate(NavigationDirections.navigateToProfileFragment())
+//                    mainViewModel.saveIsPressed.value = false
+//                } else {
+//                    Toast.makeText(KnowHowBindingApplication.appContext, getString(R.string.reminder_finish_user_info), Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
 
 
 
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{
+            Log.d("checkBtn", "viewModel.navigateToProfilePage is used")
             it?.let {
                 val observeIdentity = viewModel.getUser()
                 Log.d("EditPage", "observeIdentity = $observeIdentity")
 
                 viewModel.updateUser(observeIdentity)
+
                 findNavController().navigate(EditProfileFragmentDirections.navigateToProfileFragment())
                 viewModel.onProfilePageNavigated()
             }
@@ -154,5 +222,44 @@ class EditProfileFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        when (requestCode) {
+            REQUEST_EXTERNAL_STORAGE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getLocalImg(this)
+                } else {
+                    Toast.makeText(this.context, R.string.do_nothing, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                PICK_IMAGE -> {
+                    val filePath = ImagePicker.getFilePath(data) ?: ""
+
+                    if (filePath.isNotEmpty()) {
+
+                        Log.d("checkImage", "filePath = $filePath")
+                        Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
+                        Glide.with(this.requireContext()).load(filePath).into(binding.imageUserAvatar)
+
+                        // Update file to Firebase Storage.
+                        viewModel.getImageUri(filePath)
+                    } else {
+                        Toast.makeText(this.requireContext(), R.string.load_img_fail, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this.requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this.requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+        }
     }
 }
