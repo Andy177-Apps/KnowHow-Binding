@@ -20,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KnowHowBinding">
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +31,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".login.LoginActivity">
+        <activity android:name=".splash.SplashActivity">
 
         </activity>
     </application>

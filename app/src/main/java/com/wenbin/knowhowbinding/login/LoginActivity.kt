@@ -23,6 +23,7 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.ActivityLoginBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.splash.SplashActivity
 
 
 class LoginActivity : AppCompatActivity() {
@@ -89,7 +90,7 @@ class LoginActivity : AppCompatActivity() {
     private fun moveMainActivity(user: FirebaseUser) {
         Log.d("checkUser", "fun moveMainActivity is used.")
 
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, SplashActivity::class.java)
 
         val currentUser = User(
             id = user.uid,

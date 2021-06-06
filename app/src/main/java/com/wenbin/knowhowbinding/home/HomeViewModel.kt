@@ -32,6 +32,11 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     val user: LiveData<User>
         get() = _user
 
+    private val _userInfo = MutableLiveData<User>()
+
+    val userInfo: LiveData<User>
+        get() = _userInfo
+
     private val _navigateToPostArticle = MutableLiveData<Boolean>()
 
     val navigateToPostArticle: LiveData<Boolean>
@@ -63,13 +68,17 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
 
     init {
         getArticlesResult()
+        getUser(UserManager.user.email)
+
         Log.d("checkArticles","articles.value in ViewModel = ${articles.value}")
 //        practiceMVVMfun()
-        autoLogin("wenbin")
+        // When I am not connected to Google sign mechanism, use the following function to create a simulated user information.
+//        autoLogin("wenbin")
     }
-
-    fun getSpecificArticle(type: String) {
-
+    fun checkIfInfoComplete(): Boolean {
+        val userInfo = userInfo.value
+        return (userInfo?.interestedSubjects.isNullOrEmpty() &&
+                userInfo?.talentedSubjects.isNullOrEmpty())
     }
 
         fun navigateToPostArticle() {
@@ -177,4 +186,37 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
         Log.d("wenbin", "UserManager.user = ${UserManager.user}")
     }
 
+    private fun getUser(userEmail: String) {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getUser(userEmail)
+
+            _userInfo.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
 }

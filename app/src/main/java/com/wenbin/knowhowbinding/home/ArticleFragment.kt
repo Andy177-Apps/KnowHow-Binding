@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.wenbin.knowhowbinding.MainActivity
+import com.wenbin.knowhowbinding.MainViewModel
 import com.wenbin.knowhowbinding.databinding.FragmentArticleBinding
 
 class ArticleFragment: Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

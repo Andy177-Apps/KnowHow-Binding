@@ -120,6 +120,12 @@
         android:label="NotifyFragment"
         tools:layout="@layout/fragment_notify"/>
 
+    <dialog
+        android:id="@+id/freshUserDialogFragment"
+        android:name="com.wenbin.knowhowbinding.freshuser.FreshUserDialogFragment"
+        android:label="FreshUserDialogFragment"
+        tools:layout="@layout/dialog_fresh_user"/>
+
     <action android:id="@+id/navigate_to_article_fragment" app:destination="@id/articleFragment"
         app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
@@ -155,6 +161,7 @@
     <action android:id="@+id/navigate_to_notify_fragment" app:destination="@id/notifyFragment"        />
     <action android:id="@+id/navigate_to_event_detail_fragment" app:destination="@id/eventDetailFragment"        />
     <action android:id="@+id/navigate_to_user_profile_fragment" app:destination="@id/userProfileFragment"        />
+    <action android:id="@+id/navigate_to_fresh_user_dialog" app:destination="@id/freshUserDialogFragment"        />
 
 
 

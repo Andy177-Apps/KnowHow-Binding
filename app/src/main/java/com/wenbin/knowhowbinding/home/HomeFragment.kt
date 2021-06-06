@@ -5,13 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
-import com.wenbin.knowhowbinding.MainActivity
-import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.*
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
@@ -23,6 +23,7 @@ class HomeFragment(val type: String) : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,6 +32,20 @@ class HomeFragment(val type: String) : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        val mainViewModel = ViewModelProvider(this@HomeFragment.requireActivity()).get(MainViewModel::class.java)
+
+        viewModel.userInfo.observe(viewLifecycleOwner, Observer {
+            Log.d("HomePage", "userInfo = $it")
+            if (viewModel.checkIfInfoComplete()) {
+                if (mainViewModel.noticed.value == false) {
+                    findNavController().navigate(NavigationDirections.navigateToFreshUserDialog())
+                    mainViewModel.noticed.value = true
+                } else {
+                    Toast.makeText(this@HomeFragment.requireActivity(), getString(R.string.reminder_user_info), Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Log.d("wenbin", "articles = $it")

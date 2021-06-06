@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">KnowHowBinding</string>
     <string name="sign_in_with_google">Sign In With Google</string>
-
+    <string name="welcome">歡迎！</string>
+    <string name="btn_go">編輯去！</string>
+    <string name="btn_maybe_later">先逛逛 App ~~</string>
+    <string name="reminder_user_info">記得編輯資訊讓更多人認識你唷!</string>
+    <string name="reminder_new_member_bold">現在就去編輯個人資訊</string>
+    <string name="reminder_new_member">\" 讓更多人認識您！也讓您擁有更好的體驗！\"</string>
     <string name="calendar">月曆</string>
     <string name="chatroom">訊息</string>
     <string name="profile">Profile</string>
