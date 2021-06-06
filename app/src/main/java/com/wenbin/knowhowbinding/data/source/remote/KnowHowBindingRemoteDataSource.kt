@@ -67,12 +67,12 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         continuation.resume(Result.Error(it))
                     }
             }
-//                .addOnProgressListener { taskSnapshot ->
-//                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-//                    if (progress < 100) {
-//                        continuation.resume(Result.Loading)
-//                    }
-//            }
+                .addOnProgressListener { taskSnapshot ->
+                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+                    if (progress < 100) {
+//                        continuation.resume(Result.Progress(progress))
+                    }
+            }
         }
 
     override suspend fun login(id: String): Result<User> {

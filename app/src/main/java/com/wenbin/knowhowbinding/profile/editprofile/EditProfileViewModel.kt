@@ -31,7 +31,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     val interestedSubjects = MutableLiveData<String>()
 
     val introduction = MutableLiveData<String>()
-//    private var imageUrlPath = MutableLiveData<String>()
+//    private var imageUrlPathLiveData = MutableLiveData<String>()
 
     val talentedList: MutableList<String> = ArrayList()
     val interestedList: MutableList<String> = ArrayList()
@@ -178,7 +178,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                 talentedSubjects = talentedList,
                 interestedSubjects = interestedList,
                 image = imageUrlPath
-
         )
     }
 

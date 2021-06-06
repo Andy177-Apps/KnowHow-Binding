@@ -10,14 +10,14 @@ class ArticleAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
 
     override fun getItem(position: Int): Fragment {
 
-        return when (position) {
-            0 -> HomeFragment()
-            1 -> HomeFragment()
-            2 -> HomeFragment()
-            3 -> HomeFragment()
+        return HomeFragment(when(position) {
+            0 -> KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)
+            1 -> KnowHowBindingApplication.appContext.getString(R.string.pager_skill_exchange)
+            2 -> KnowHowBindingApplication.appContext.getString(R.string.pager_find_student)
+            3 -> KnowHowBindingApplication.appContext.getString(R.string.pager_find_tutor)
 
-            else -> HomeFragment()
-        }
+            else -> KnowHowBindingApplication.appContext.getString(R.string.pager_study_group)
+        })
     }
 
     override fun getCount(): Int {
@@ -27,10 +27,9 @@ class ArticleAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
             0 -> KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)
-            1 -> KnowHowBindingApplication.appContext.getString(R.string.pager_find_student)
-            2 -> KnowHowBindingApplication.appContext.getString(R.string.pager_find_tutor)
-            3 -> KnowHowBindingApplication.appContext.getString(R.string.pager_skill_exchange)
-
+            1 -> KnowHowBindingApplication.appContext.getString(R.string.pager_skill_exchange)
+            2 -> KnowHowBindingApplication.appContext.getString(R.string.pager_find_student)
+            3 -> KnowHowBindingApplication.appContext.getString(R.string.pager_find_tutor)
             else -> KnowHowBindingApplication.appContext.getString(R.string.pager_study_group)
         }
     }

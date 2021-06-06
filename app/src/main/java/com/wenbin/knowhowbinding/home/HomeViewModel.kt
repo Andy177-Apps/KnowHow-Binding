@@ -68,7 +68,11 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
         autoLogin("wenbin")
     }
 
-    fun navigateToPostArticle() {
+    fun getSpecificArticle(type: String) {
+
+    }
+
+        fun navigateToPostArticle() {
         _navigateToPostArticle.value = true
     }
 
