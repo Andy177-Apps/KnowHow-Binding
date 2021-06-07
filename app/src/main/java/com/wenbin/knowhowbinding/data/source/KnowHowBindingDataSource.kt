@@ -50,4 +50,6 @@ interface KnowHowBindingDataSource {
 
     suspend fun getImageUri(filePath: String): Result<String>
 
+    suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean>
+
 }

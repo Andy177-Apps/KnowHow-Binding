@@ -30,8 +30,8 @@ class SearchFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        var adapter = HomeAdapter()
-        binding.recyclerView.adapter = adapter
+//        var adapter = HomeAdapter(viewModel)
+//        binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("搜尋文章")

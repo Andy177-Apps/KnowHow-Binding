@@ -101,4 +101,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.getImageUri(filePath)
     }
 
+    override suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.saveArticle(article, userEmail)
+    }
+
 }

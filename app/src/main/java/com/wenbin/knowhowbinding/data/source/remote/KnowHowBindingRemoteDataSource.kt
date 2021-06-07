@@ -75,6 +75,47 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
             }
         }
 
+    override suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean>  =
+        suspendCoroutine { continuation ->
+        Log.d("saveArticle", "fun saveArticle in DataSource is used")
+
+            val db = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+
+            db
+                .whereEqualTo("id", article.id)
+                .whereArrayContains("saveList","leo55576@gmail.com")
+                .get()
+                .addOnSuccessListener { documents ->
+
+                    if (documents.isEmpty) {
+                        Log.d("saveArticle", "documents is empty")
+                        db.document(article.id)
+                            .update("saveList",FieldValue.arrayUnion(userEmail))
+                    } else {
+                        for (document in documents) {
+                            Log.d("saveArticle", "${document.id} => ${document.data}")
+                        }
+                        db.document(article.id)
+                            .update("saveList",FieldValue.arrayRemove(userEmail))
+                    }
+
+//                    db.document(article.id)
+//                        .update("saveList",FieldValue.arrayUnion(userEmail))
+//                    Log.d("saveArticle", "article.id = ${article.id}")
+//                    Log.d("saveArticle", "userEmail = $userEmail")
+
+                    for (document in documents) {
+                        Log.d("saveArticle", "${document.id} => ${document.data}")
+                    }
+                    continuation.resume(Result.Success(true))
+
+                }
+                .addOnFailureListener { exception ->
+                    Log.w("saveArticle", "Error getting documents: ", exception)
+                    continuation.resume(Result.Error(exception))
+                }
+    }
+
     override suspend fun login(id: String): Result<User> {
         TODO("Not yet implemented")
     }

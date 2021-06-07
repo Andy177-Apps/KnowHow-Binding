@@ -60,7 +60,7 @@ class HomeFragment(val type: String) : Fragment() {
             }
         })
 
-        var adapter = HomeAdapter()
+        var adapter = HomeAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         //決定哪個分頁
@@ -92,6 +92,8 @@ class HomeFragment(val type: String) : Fragment() {
 //        if (activity is MainActivity) {
 //            (activity as MainActivity).hideToolBar()
 //        }
+
+
         return binding.root
     }
 

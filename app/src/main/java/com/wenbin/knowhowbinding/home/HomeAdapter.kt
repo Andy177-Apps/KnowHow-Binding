@@ -13,23 +13,28 @@ import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.databinding.ItemArticleBinding
 import com.wenbin.knowhowbinding.login.UserManager
 
-class HomeAdapter : ListAdapter<Article,
+class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
         HomeAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
         private var binding : ItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Article) {
+        fun bind (item : Article, viewModel: HomeViewModel) {
             binding.article = item
             // When bookmark icon is selected
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-//                viewModel.addArticlesToWishlist(article, UserManager.user.email)
+                Log.d("saveArticle", "imageViewBookmark is clicked")
+                viewModel.saveArticle(item, UserManager.user.email)
 
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
 
 //                viewModel.isChecked(bookmarkIcon.isSelected)
             }
+
+//            if (viewModel.articles.value?.get(0)?.saveList?.contains(UserManager.user.email) == true) {
+//                bookmarkIcon.isSelected = true
+//            }
 
             binding.constraintLayoutUserInformation.setOnClickListener {
                 Log.d("check_clicked", "binding.textViewDescription is clicked")
@@ -83,7 +88,7 @@ class HomeAdapter : ListAdapter<Article,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as Article)
+        holder.bind(getItem(position) as Article, viewModel)
     }
 
 }

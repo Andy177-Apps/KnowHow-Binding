@@ -42,6 +42,11 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     val navigateToPostArticle: LiveData<Boolean>
         get() = _navigateToPostArticle
 
+    private var _checked = MutableLiveData<Boolean>()
+
+    val checked: LiveData<Boolean>
+        get() = _checked
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -218,5 +223,34 @@ class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewMode
             }
             _refreshStatus.value = false
         }
+    }
+
+    fun saveArticle(article: Article, userEmail: String) {
+        coroutineScope.launch {
+            _status.value = LoadApiStatus.LOADING
+            when (val result = repository.saveArticle(article, userEmail)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                }
+            }
+        }
+    }
+
+    fun isChecked(value: Boolean) {
+        _checked.value = value
     }
 }
