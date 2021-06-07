@@ -119,7 +119,8 @@
                     android:textSize="@dimen/item_article_text_name"
                     android:textStyle="normal"
                     app:layout_constraintStart_toEndOf="@id/image_author_image"
-                    app:layout_constraintTop_toTopOf="@+id/image_author_image" />
+                    app:layout_constraintTop_toTopOf="@+id/image_author_image"
+                    />
 
                 <TextView
                     android:id="@+id/textView_author_identity"
@@ -133,7 +134,8 @@
                     android:textSize="@dimen/item_article_text_identify"
                     android:textStyle="normal"
                     app:layout_constraintBottom_toBottomOf="@+id/image_author_image"
-                    app:layout_constraintStart_toEndOf="@id/image_author_image" />
+                    app:layout_constraintStart_toEndOf="@id/image_author_image"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

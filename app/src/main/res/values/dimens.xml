@@ -49,6 +49,11 @@
     <dimen name="attendees_image_size">21dp</dimen>
     <dimen name="attendees_image_margin_top">7dp</dimen>
 
+    <!-- item following -->
+    <dimen name="item_following_circle_view_size">40dp</dimen>
+    <dimen name="item_following_name_size">14sp</dimen>
+    <dimen name="item_following_identify_size">12sp</dimen>
+
 
     <!-- Post Article Page -->
     <dimen name="btn_width">312dp</dimen>

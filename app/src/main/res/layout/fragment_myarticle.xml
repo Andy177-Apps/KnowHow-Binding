@@ -15,12 +15,14 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
+            android:background="@color/background"
+            app:GetArticle="@{viewModel.articles}"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:GetArticle="@{viewModel.articles}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

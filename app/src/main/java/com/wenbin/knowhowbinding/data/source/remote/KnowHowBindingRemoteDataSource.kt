@@ -83,7 +83,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
             db
                 .whereEqualTo("id", article.id)
-                .whereArrayContains("saveList","leo55576@gmail.com")
+                .whereArrayContains("saveList",userEmail)
                 .get()
                 .addOnSuccessListener { documents ->
 
@@ -432,6 +432,43 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                 }
         }
+
+    override suspend fun getSavedArticle(userEmail: String): Result<List<Article>> =
+        suspendCoroutine { continuation ->
+            Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
+
+            val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+
+            articles
+                .whereArrayContains("saveList", userEmail)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Article>()
+                        task.result?.forEach { document ->
+                            Logger.d(document.id + " => " + document.data)
+
+                            val article = document.toObject(Article::class.java)
+                            list.add(article)
+                        }
+
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(
+                            Result.Fail(
+                                KnowHowBindingApplication.appContext.getString(
+                                    R.string.you_shall_not_pass
+                                )
+                            )
+                        )
+                    }
+                }
+    }
 
     override suspend fun postUser(user: User): Result<Boolean> = suspendCoroutine { continuation ->
         val db = FirebaseFirestore.getInstance().collection(PATH_USERS)

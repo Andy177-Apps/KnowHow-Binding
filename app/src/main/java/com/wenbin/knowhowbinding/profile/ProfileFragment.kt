@@ -44,7 +44,7 @@ class ProfileFragment  : Fragment() {
         // Navigating to My Article Fragment.
         viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
             it?.let {
-                findNavController().navigate(ProfileFragmentDirections.navigateToMyArticleFragment(UserManager.user.email))
+                findNavController().navigate(ProfileFragmentDirections.navigateToMyArticleFragment())
                 viewModel.onMyArticleNavigated()
             }
         })

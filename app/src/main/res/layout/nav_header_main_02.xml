@@ -1,72 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="@dimen/nav_header_height"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/side_nav_bar"
-    android:gravity="bottom"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="16dp"
-android:visibility="gone"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
-        />
+    <data>
+        <variable
+            name="viewModel"
+            type="com.wenbin.knowhowbinding.MainViewModel" />
+    </data>
 
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_user_avatar"
-        android:layout_width="@dimen/nav_header_image_size"
-        android:layout_height="@dimen/nav_header_image_size"
-        android:layout_marginTop="@dimen/nav_header_image_margin_top"
-
-        android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
-        android:visibility="visible"
-        app:civ_border_color="@color/light_yellow"
-        app:civ_border_width="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
-
-
-    <TextView
-        android:id="@+id/name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="12dp"
-        android:textSize="28sp"
-        app:layout_constraintTop_toBottomOf="@+id/image_user_avatar"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_height="@dimen/nav_header_height"
+        android:background="@drawable/side_nav_bar"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:scaleType="centerCrop"
+            android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        android:gravity="center_horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        android:text="@string/nav_header_subtitle" />
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_user_avatar"
+            android:layout_width="@dimen/nav_header_image_size"
+            android:layout_height="@dimen/nav_header_image_size"
+            android:layout_marginTop="@dimen/nav_header_image_margin_top"
+            imageUrl="@{viewModel.userInfo.image}"
+            android:visibility="visible"
+            app:civ_border_color="@color/light_yellow"
+            app:civ_border_width="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="@{viewModel.userInfo.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="28sp"
+            app:layout_constraintTop_toBottomOf="@+id/image_user_avatar" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{viewModel.userInfo.email}"
+            android:gravity="center_horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

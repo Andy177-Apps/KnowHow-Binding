@@ -18,11 +18,7 @@ import com.wenbin.knowhowbinding.user.UserProfileViewModel
 class MyArticleFragment : Fragment() {
     private lateinit var binding : FragmentMyarticleBinding
 
-    private val viewModel by viewModels<MyArticleViewModel> {
-        getVmFactory(
-                MyArticleFragmentArgs.fromBundle(requireArguments()).userEmail
-        )
-    }
+    private val viewModel by viewModels<MyArticleViewModel> { getVmFactory()}
 
 
 //    private val viewModel : MyArticleViewModel by lazy {
@@ -39,9 +35,9 @@ class MyArticleFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            Log.d("check_articles", "articles = $it")
+            Log.d("MyArticleFragment", "articles in Fragment = $it")
         })
-        var adapter = MyArticleAdapter()
+        var adapter = MyArticleAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

@@ -9,14 +9,14 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MyArticleViewModel(private val repository: KnowHowBindingRepository,
-                         userEmail: String) : ViewModel() {
+class MyArticleViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
 
@@ -48,7 +48,7 @@ class MyArticleViewModel(private val repository: KnowHowBindingRepository,
 
     init {
 //        createTestedData()
-        getUserArticle(userEmail)
+        getUserArticle(UserManager.user.email)
     }
 
     private fun createTestedData(){
@@ -80,12 +80,12 @@ class MyArticleViewModel(private val repository: KnowHowBindingRepository,
 
 
     private fun getUserArticle(userEmail: String) {
-        Log.d("check_userArticles", "getUserArticle is used.")
+        Log.d("MyArticleFragment", "getUserArticle is used.")
 
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Log.d("check_userArticles", "result = $result")
+            Log.d("MyArticleFragment", "result = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {
@@ -106,6 +106,31 @@ class MyArticleViewModel(private val repository: KnowHowBindingRepository,
                     _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
+                }
+            }
+        }
+    }
+
+    fun saveArticle(article: Article, userEmail: String) {
+        coroutineScope.launch {
+            _status.value = LoadApiStatus.LOADING
+            when (val result = repository.saveArticle(article, userEmail)) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
                 }
             }
         }

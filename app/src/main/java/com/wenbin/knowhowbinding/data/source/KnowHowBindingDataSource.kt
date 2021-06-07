@@ -44,6 +44,8 @@ interface KnowHowBindingDataSource {
 
     suspend fun getUserArticle(userEmail: String): Result<List<Article>>
 
+    suspend fun getSavedArticle(userEmail: String): Result<List<Article>>
+
     suspend fun postUser(user: User): Result<Boolean>
 
     suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser>

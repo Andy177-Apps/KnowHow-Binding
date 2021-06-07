@@ -98,6 +98,10 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
+    override suspend fun getSavedArticle(userEmail: String): Result<List<Article>> {
+        TODO("Not yet implemented")
+    }
+
     override suspend fun postUser(user: User): Result<Boolean> {
         TODO("Not yet implemented")
     }

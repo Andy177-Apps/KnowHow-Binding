@@ -2,10 +2,7 @@ package com.wenbin.knowhowbinding
 
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
+import android.view.*
 import androidx.appcompat.widget.Toolbar
 
 import androidx.activity.viewModels
@@ -24,14 +21,16 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
+import com.wenbin.knowhowbinding.databinding.NavHeaderMain02Binding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var    binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
 
@@ -77,11 +76,44 @@ class MainActivity : AppCompatActivity() {
         false
     }
 
+//    //Setup drawer navigation destination
+//    private val onDrawerItemSelectedListener = NavigationView.OnNavigationItemSelectedListener { item ->
+//        when (item.itemId) {
+//            R.id.myArticleFragment -> {
+//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToMyArticleFragment())
+//                return@OnNavigationItemSelectedListener true
+//            }
+//            R.id.myCollectFragment -> {
+//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToMyCollectFragment())
+//                return@OnNavigationItemSelectedListener true
+//            }
+//            R.id.editProfileFragment -> {
+//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToEditProfile())
+//                return@OnNavigationItemSelectedListener true
+//            }
+//            R.id.searchFragment-> {
+//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToSearchFragment())
+//                return@OnNavigationItemSelectedListener true
+//            }
+//        }
+//        false
+//    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+//        binding.navView.setNavigationItemSelectedListener(onDrawerItemSelectedListener)
+
+        // Set up header of drawer ui using data binding
+        val bindingNavHeader = NavHeaderMain02Binding.inflate(
+            LayoutInflater.from(this), binding.navView, false
+        )
+
+        bindingNavHeader.lifecycleOwner = this
+        bindingNavHeader.viewModel = viewModel
+        binding.navView.addHeaderView(bindingNavHeader.root)
 
         // Drawer and ToolBar
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -134,6 +166,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
+//        viewModel.setUpUser(UserManager.user)
+
+        viewModel.userInfo.observe(this, androidx.lifecycle.Observer {
+            Log.d("checkHeader", "userInfo = $it")
+        })
         setupBottomNav()
         setupNavController ()
     }

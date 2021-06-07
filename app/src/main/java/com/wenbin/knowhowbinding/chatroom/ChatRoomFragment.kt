@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.MainActivity
+import com.wenbin.knowhowbinding.calendar.CalendarViewModel
 import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.UserInfo

@@ -82,6 +82,7 @@ class HomeFragment (val type: String) : Fragment() {
                             if (
                                 item.author.name.contains(searchEditText) ||
                                 item.author.identity.contains(searchEditText) ||
+                                item.city.contains(searchEditText) ||
                                 item.find.contains(searchEditText) ||
                                 item.give.contains(searchEditText) ||
                                 item.content.contains(searchEditText)
@@ -100,6 +101,7 @@ class HomeFragment (val type: String) : Fragment() {
                                 if (
                                     item.author.name.contains(searchEditText) ||
                                     item.author.identity.contains(searchEditText) ||
+                                    item.city.contains(searchEditText) ||
                                     item.find.contains(searchEditText) ||
                                     item.give.contains(searchEditText) ||
                                     item.content.contains(searchEditText)
