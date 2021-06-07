@@ -21,6 +21,16 @@ class HomeAdapter : ListAdapter<Article,
     ) : RecyclerView.ViewHolder(binding.root){
         fun bind (item : Article) {
             binding.article = item
+            // When bookmark icon is selected
+            val bookmarkIcon = binding.imageViewBookmark
+            binding.imageViewBookmark.setOnClickListener {
+//                viewModel.addArticlesToWishlist(article, UserManager.user.email)
+
+                bookmarkIcon.isSelected = !bookmarkIcon.isSelected
+
+//                viewModel.isChecked(bookmarkIcon.isSelected)
+            }
+
             binding.constraintLayoutUserInformation.setOnClickListener {
                 Log.d("check_clicked", "binding.textViewDescription is clicked")
 

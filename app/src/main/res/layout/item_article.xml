@@ -329,7 +329,7 @@
                 android:layout_marginTop="@dimen/item_article_text_margin_top"
                 app:layout_constraintStart_toStartOf="@id/constraint_layout_user_information"
                 app:layout_constraintTop_toBottomOf="@+id/button_collapse"
-                app:srcCompat="@drawable/outline_bookmark_border_black_24" />
+                app:srcCompat="@drawable/bookmark_state" />
 
             <TextView
                 android:id="@+id/button_collapse"

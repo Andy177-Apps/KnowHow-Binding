@@ -120,8 +120,11 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         }
 
     override suspend fun getArticles(): Result<List<Article>> = suspendCoroutine { continuation ->
+        Log.d("wembin", "getArticles is used")
+
         FirebaseFirestore.getInstance()
             .collection(PATH_ARTICLES)
+//            .whereEqualTo("author.id","leo555")
             .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
             .get()
             .addOnCompleteListener { task ->
@@ -134,6 +137,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                         list.add(article)
                     }
+                    Log.d("wembin", "list = $list")
                     continuation.resume(Result.Success(list))
                 } else {
                     task.exception?.let {
