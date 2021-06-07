@@ -38,7 +38,7 @@ class ChatRoomFragment  : Fragment() {
         val adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{ it ->
             Log.d("check_userInfo", "it = $it")
             Log.d("check_userInfo", "it.attendeesInfo[0].userEmail = ${it.attendeesInfo[0].userEmail}")
-            Log.d("check_userInfo", "it.message!!.senderName = ${it.message!!.senderName}")
+//            Log.d("check_userInfo", "it.message!!.senderName = ${it.message!!.senderName}")
             Log.d("check_userInfo", "it.attendeesInfo[0].userName = ${it.attendeesInfo[0].userName}")
 
             findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(

@@ -50,10 +50,16 @@ class UserProfileFragment: Fragment() {
             Log.d("check_follow", "accepted userInfo = $it")
 
             Log.d("check_follow", "viewModel.userInfo.image = ${viewModel.userInfo.value!!.image}")
-            if (firstTimeEntry) {
-                setupLayout(it)
-                firstTimeEntry = false
+            if (it.email != "") {
+                Log.d("check_follow", "accepted userInfo in first if determine = $it")
+
+                if (firstTimeEntry) {
+                    Log.d("check_follow", "accepted userInfo in second if determine = $it")
+                    setupLayout(it)
+                    firstTimeEntry = false
+                }
             }
+
             // Show the count of articles of the user.
             viewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
                 Log.d("check_userArticles", "userArticles = $list")
@@ -133,9 +139,15 @@ class UserProfileFragment: Fragment() {
 
         binding.buttonMessage.setOnClickListener {
             viewModel.postChatRoom(viewModel.createChatRoom())
-            Handler(Looper.getMainLooper()).postDelayed({
-                findNavController().navigate(NavigationDirections.navigateToMessageFragment(user.email, user.name))
-            }, 3000)
+            Log.d("check_follow", "buttonMessage is clicked")
+
+            Log.d("check_follow", "user.email= ${user.email}")
+
+            if (!user.email.isNullOrEmpty()){
+                    Handler(Looper.getMainLooper()).postDelayed({
+                    findNavController().navigate(NavigationDirections.navigateToMessageFragment(user.email, user.name))
+                }, 3000)
+                }
         }
     }
 
