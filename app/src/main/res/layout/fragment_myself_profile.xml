@@ -206,30 +206,30 @@
             android:id="@+id/textView_myArticles"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
+            android:fontFamily="@font/noto_sans"
             android:onClick="@{() -> viewModel.navigateToMyArticle()}"
             android:text="我的文章"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
-            android:textSize="@dimen/profile_text_title"
-            android:fontFamily="@font/noto_sans"
             android:textColor="@color/dark_01"
-                app:layout_constraintTop_toBottomOf="@+id/textView_introduction_content"
-            />
+            android:textSize="@dimen/profile_text_title"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
+            app:layout_constraintTop_toBottomOf="@+id/textView_introduction_content" />
 
         <TextView
             android:id="@+id/textView_storage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
+            android:autoLink="all"
+            android:fontFamily="@font/noto_sans"
             android:onClick="@{() -> viewModel.navigateToMyCollect()}"
             android:text="我的收藏"
-            android:textSize="@dimen/profile_text_title"
-            android:fontFamily="@font/noto_sans"
             android:textColor="@color/dark_01"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
+            android:textSize="@dimen/profile_text_title"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@+id/textView_myArticles"
-            android:autoLink="all"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/textView_myArticles" />
 
         <!--        -->
         <TextView
