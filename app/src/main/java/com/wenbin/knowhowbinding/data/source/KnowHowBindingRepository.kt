@@ -55,4 +55,7 @@ interface KnowHowBindingRepository {
     suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean>
 
     suspend fun getFollowing(userEmail: String): Result<List<User>>
+
+    suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>>
+
 }

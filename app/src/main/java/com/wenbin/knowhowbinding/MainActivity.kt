@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.articleFragment, R.id.myArticleFragment, R.id.myCollectFragment, R.id.followingFragment, R.id.followingFragment), drawerLayout)
+            R.id.articleFragment, R.id.myArticleFragment, R.id.myCollectFragment, R.id.followedByFragment, R.id.followingFragment), drawerLayout)
         //下面這是讓你有左上角那三槓的
         setupActionBarWithNavController(navController, appBarConfiguration)
         //下面這個是讓你可以導航到 Drawer 的其他頁面去的

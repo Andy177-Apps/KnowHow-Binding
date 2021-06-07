@@ -113,4 +113,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.getFollowing(userEmail)
     }
 
+    override suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>> {
+        return KnowHowBindingRemoteDataSource.getFollowedBy(userEmailList)
+    }
+
 }

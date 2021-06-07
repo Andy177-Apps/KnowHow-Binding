@@ -1,4 +1,4 @@
-package com.wenbin.knowhowbinding.following
+package com.wenbin.knowhowbinding.followedby
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.ItemFollowingBinding
 
-class FollowingAdapter(private val onClickListener: OnClickListener) :
-        ListAdapter<User, FollowingAdapter.UserViewHolder>(DiffCallback){
+class FollowedByAdapter(private val onClickListener: OnClickListener) :
+        ListAdapter<User, FollowedByAdapter.UserViewHolder>(DiffCallback){
 
     class UserViewHolder(private var binding: ItemFollowingBinding) :
     RecyclerView.ViewHolder(binding.root) {

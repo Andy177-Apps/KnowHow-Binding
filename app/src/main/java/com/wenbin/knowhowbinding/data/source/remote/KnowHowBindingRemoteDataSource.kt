@@ -152,6 +152,46 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 }
         }
 
+    override suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>> =
+        suspendCoroutine { continuation ->
+            Log.d("MyCollectFragment", "getFollowedBy in DataSource is used.")
+            Log.d("MyCollectFragment", "userEmailList = $userEmailList")
+
+            val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
+
+            if (!userEmailList.isNullOrEmpty()){
+                followings
+                    .whereIn("email", userEmailList)
+                    .get()
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val list = mutableListOf<User>()
+                            task.result?.forEach { document ->
+                                Logger.d(document.id + " => " + document.data)
+
+                                val following = document.toObject(User::class.java)
+                                list.add(following)
+                            }
+
+                            continuation.resume(Result.Success(list))
+                        } else {
+                            task.exception?.let {
+                                Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                continuation.resume(Result.Error(it))
+                                return@addOnCompleteListener
+                            }
+                            continuation.resume(
+                                Result.Fail(
+                                    KnowHowBindingApplication.appContext.getString(
+                                        R.string.you_shall_not_pass
+                                    )
+                                )
+                            )
+                        }
+                    }
+            }
+        }
+
     override suspend fun login(id: String): Result<User> {
         TODO("Not yet implemented")
     }

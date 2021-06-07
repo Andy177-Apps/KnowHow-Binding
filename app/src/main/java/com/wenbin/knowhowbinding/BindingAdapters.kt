@@ -12,6 +12,7 @@ import com.wenbin.knowhowbinding.calendar.CalendarAdapter
 import com.wenbin.knowhowbinding.calendar.ImagesRecyclerViewAdapter
 import com.wenbin.knowhowbinding.chatroom.ChatRoomAdapter
 import com.wenbin.knowhowbinding.data.*
+import com.wenbin.knowhowbinding.followedby.FollowedByAdapter
 import com.wenbin.knowhowbinding.following.FollowingAdapter
 import com.wenbin.knowhowbinding.home.HomeAdapter
 import com.wenbin.knowhowbinding.myarticle.MyArticleAdapter
@@ -88,6 +89,7 @@ fun BindUserInfoRecyclerView(recyclerView: RecyclerView, data : List<User>?) {
         recyclerView.adapter.apply {
             when (this) {
                 is FollowingAdapter -> submitList(it)
+                is FollowedByAdapter -> submitList(it)
             }
         }
     }

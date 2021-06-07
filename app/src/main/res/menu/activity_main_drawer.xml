@@ -19,7 +19,7 @@
             android:icon="@drawable/outline_collections_bookmark_black_48"
             android:title="@string/menu_my_collection" />
         <item
-            android:id="@+id/editProfileFragment"
+            android:id="@+id/followedByFragment"
             android:icon="@drawable/outline_favorite_black_48"
             android:title="@string/menu_followers" />
 

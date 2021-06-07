@@ -1,5 +1,6 @@
-package com.wenbin.knowhowbinding.following
+package com.wenbin.knowhowbinding.followedby
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,12 +16,18 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class FollowingViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
+
+class FollowedByViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _userInfo = MutableLiveData<List<User>>()
 
     val userInfo: LiveData<List<User>>
         get() = _userInfo
+
+    private val _appOwenerUser = MutableLiveData<User>()
+
+    val appOwenerUser: LiveData<User>
+        get() = _appOwenerUser
 
     // Handle navigation to user profile
     private val _navigateToUserProfile = MutableLiveData<User>()
@@ -53,16 +60,52 @@ class FollowingViewModel(private val repository: KnowHowBindingRepository) : Vie
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        getFollowing(UserManager.user.email)
+        Log.d("checkFollowedBy", "UserManager.user.followedBy = ${UserManager.user.followedBy}")
+        getUser(UserManager.user.email)
     }
 
-    private fun getFollowing(userEmail: String) {
+    private fun getUser(userEmail: String) {
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            val result = repository.getFollowing(userEmail)
+            val result = repository.getUser(userEmail)
+
+            _appOwenerUser.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
+            _refreshStatus.value = false
+        }
+    }
+
+    fun getFollowedBy(userEmailList: List<String>) {
+        Log.d("checkFollowedBy", "getFollowedBy is used.")
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getFollowedBy(userEmailList)
 
             _userInfo.value = when (result) {
                 is Result.Success -> {
