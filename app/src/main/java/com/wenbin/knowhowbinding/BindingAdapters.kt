@@ -12,6 +12,7 @@ import com.wenbin.knowhowbinding.calendar.CalendarAdapter
 import com.wenbin.knowhowbinding.calendar.ImagesRecyclerViewAdapter
 import com.wenbin.knowhowbinding.chatroom.ChatRoomAdapter
 import com.wenbin.knowhowbinding.data.*
+import com.wenbin.knowhowbinding.following.FollowingAdapter
 import com.wenbin.knowhowbinding.home.HomeAdapter
 import com.wenbin.knowhowbinding.myarticle.MyArticleAdapter
 import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
@@ -78,6 +79,20 @@ fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
         }
     }
 }
+
+@BindingAdapter("listUserInfo")
+fun BindUserInfoRecyclerView(recyclerView: RecyclerView, data : List<User>?) {
+    Log.d("checkFollowing", "child data = $data")
+
+    data?.let {
+        recyclerView.adapter.apply {
+            when (this) {
+                is FollowingAdapter -> submitList(it)
+            }
+        }
+    }
+}
+
 
 @BindingAdapter("ShowComment")
 fun bindRecyclerViewWithComment(recyclerView: RecyclerView, data : List<Comment>?) {

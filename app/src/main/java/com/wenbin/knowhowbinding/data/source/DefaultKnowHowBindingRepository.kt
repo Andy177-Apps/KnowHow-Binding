@@ -109,4 +109,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.saveArticle(article, userEmail)
     }
 
+    override suspend fun getFollowing(userEmail: String): Result<List<User>> {
+        return KnowHowBindingRemoteDataSource.getFollowing(userEmail)
+    }
+
 }

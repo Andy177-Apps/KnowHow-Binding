@@ -24,7 +24,7 @@
             android:title="@string/menu_followers" />
 
         <item
-            android:id="@+id/searchFragment"
+            android:id="@+id/followingFragment"
             android:icon="@drawable/outline_loyalty_black_48"
             android:title="@string/menu_following" />
     </group>

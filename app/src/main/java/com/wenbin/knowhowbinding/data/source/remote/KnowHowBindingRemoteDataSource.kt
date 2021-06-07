@@ -3,7 +3,6 @@ package com.wenbin.knowhowbinding.data.source.remote
 import android.content.ContentValues.TAG
 import android.net.Uri
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
@@ -115,6 +114,43 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     continuation.resume(Result.Error(exception))
                 }
     }
+
+    override suspend fun getFollowing(userEmail: String): Result<List<User>> =
+        suspendCoroutine { continuation ->
+            Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
+
+            val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
+
+            followings
+                .whereArrayContains("followedBy", userEmail)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<User>()
+                        task.result?.forEach { document ->
+                            Logger.d(document.id + " => " + document.data)
+
+                            val following = document.toObject(User::class.java)
+                            list.add(following)
+                        }
+
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(
+                            Result.Fail(
+                                KnowHowBindingApplication.appContext.getString(
+                                    R.string.you_shall_not_pass
+                                )
+                            )
+                        )
+                    }
+                }
+        }
 
     override suspend fun login(id: String): Result<User> {
         TODO("Not yet implemented")
