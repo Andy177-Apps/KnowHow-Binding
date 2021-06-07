@@ -43,11 +43,11 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToArticleFragment())
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.navigation_search -> {
-
-                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToSearchFragment())
-                return@OnNavigationItemSelectedListener true
-            }
+//            R.id.navigation_search -> {
+//
+//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToSearchFragment())
+//                return@OnNavigationItemSelectedListener true
+//            }
             R.id.navigation_calendar -> {
 
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCalendarFragment())

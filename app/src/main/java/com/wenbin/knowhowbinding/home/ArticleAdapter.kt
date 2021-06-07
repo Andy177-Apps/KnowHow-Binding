@@ -8,6 +8,9 @@ import com.wenbin.knowhowbinding.R
 
 class ArticleAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
+    override fun toString(): String {
+        return super.toString()
+    }
     override fun getItem(position: Int): Fragment {
 
         return HomeFragment(when(position) {

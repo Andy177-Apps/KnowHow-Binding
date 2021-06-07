@@ -13,16 +13,20 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.*
 import com.wenbin.knowhowbinding.data.Article
+import com.wenbin.knowhowbinding.databinding.FragmentArticleBinding
 import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import java.util.*
 
 
-class HomeFragment(val type: String) : Fragment() {
+class HomeFragment (val type: String) : Fragment() {
     private lateinit var binding : FragmentHomeBinding
+    private lateinit var bindingArticle: FragmentArticleBinding
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
+    private val articleViewModel by viewModels<ArticleViewModel>({ requireParentFragment()})
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,6 +36,8 @@ class HomeFragment(val type: String) : Fragment() {
         binding = FragmentHomeBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+//        bindingArticle = FragmentArticleBinding.bind
 
         val mainViewModel = ViewModelProvider(this@HomeFragment.requireActivity()).get(MainViewModel::class.java)
 
@@ -65,6 +71,55 @@ class HomeFragment(val type: String) : Fragment() {
 
         //決定哪個分頁
         viewModel.articles.observe(viewLifecycleOwner, Observer {
+            Log.d("checkType", "type = $type")
+
+            articleViewModel.searchEditText.observe(viewLifecycleOwner, Observer { searchEditText->
+                Log.d("checkSearch", "searchEditText in HomeFragment= $searchEditText")
+                if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
+                    val resultList = mutableListOf<Article>()
+                    for (item in it) {
+                        item.author?.let {
+                            if (
+                                item.author.name.contains(searchEditText) ||
+                                item.author.identity.contains(searchEditText) ||
+                                item.find.contains(searchEditText) ||
+                                item.give.contains(searchEditText) ||
+                                item.content.contains(searchEditText)
+                            ) {
+                                resultList.add(item)
+                            }
+                        }
+                    }
+                    adapter.submitList(resultList)
+
+                } else {
+                    it?.let {
+                        val resultList = mutableListOf<Article>()
+                        for (item in it) {
+                            item.author?.let {
+                                if (
+                                    item.author.name.contains(searchEditText) ||
+                                    item.author.identity.contains(searchEditText) ||
+                                    item.find.contains(searchEditText) ||
+                                    item.give.contains(searchEditText) ||
+                                    item.content.contains(searchEditText)
+                                ) {
+                                    resultList.add(item)
+                                }
+                            }
+                        }
+                        adapter.submitList(resultList.filter { Article ->
+                            Article.type == type
+                        })
+                    }
+                }
+            })
+
+
+
+
+
+            // Original
             if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
                 adapter.submitList(it)
             } else {

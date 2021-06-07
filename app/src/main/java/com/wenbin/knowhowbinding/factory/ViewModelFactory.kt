@@ -7,6 +7,7 @@ import com.wenbin.knowhowbinding.calendar.CalendarViewModel
 import com.wenbin.knowhowbinding.calendar.createevent.CreateEventViewModel
 import com.wenbin.knowhowbinding.chatroom.ChatRoomViewModel
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
+import com.wenbin.knowhowbinding.home.ArticleViewModel
 import com.wenbin.knowhowbinding.home.HomeViewModel
 import com.wenbin.knowhowbinding.login.LoginViewModel
 import com.wenbin.knowhowbinding.notify.NotifyViewModel
@@ -52,6 +53,9 @@ class ViewModelFactory constructor(
 
                 isAssignableFrom(LoginViewModel::class.java) ->
                     LoginViewModel(knowHowBindingRepository)
+
+                isAssignableFrom(ArticleViewModel::class.java) ->
+                    ArticleViewModel(knowHowBindingRepository)
 
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

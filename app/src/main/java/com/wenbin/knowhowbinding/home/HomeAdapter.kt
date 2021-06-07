@@ -32,6 +32,8 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
 //                viewModel.isChecked(bookmarkIcon.isSelected)
             }
 
+            bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
+
 //            if (viewModel.articles.value?.get(0)?.saveList?.contains(UserManager.user.email) == true) {
 //                bookmarkIcon.isSelected = true
 //            }

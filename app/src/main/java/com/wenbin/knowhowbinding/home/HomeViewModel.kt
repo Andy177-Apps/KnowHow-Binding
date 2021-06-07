@@ -20,7 +20,9 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 
-class HomeViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
+class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
+
+    val  searchEditText = MutableLiveData<String>()
 
     private val _articles = MutableLiveData<List<Article>>()
 
