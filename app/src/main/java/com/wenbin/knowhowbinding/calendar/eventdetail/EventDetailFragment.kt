@@ -47,7 +47,8 @@ class EventDetailFragment : Fragment(){
         }
 
         binding.buttonAccept.setOnClickListener {
-            viewModel.acceptEvent(viewModel.event, UserManager.user.email, UserManager.user.name)
+            Log.d("bug", "UserManager.user.image = ${UserManager.user.image}")
+            viewModel.acceptEvent(viewModel.event, UserManager.user.email, UserManager.user.name, UserManager.user.image)
             findNavController().navigate(NavigationDirections.navigateToNotifyFragment())
         }
 

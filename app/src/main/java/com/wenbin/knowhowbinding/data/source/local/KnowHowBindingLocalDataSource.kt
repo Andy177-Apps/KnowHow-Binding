@@ -73,7 +73,8 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
     override suspend fun acceptEvent(
         event: Event,
         userEmail: String,
-        userName: String
+        userName: String,
+        userImage: String
     ): Result<Boolean> {
         TODO("Not yet implemented")
     }

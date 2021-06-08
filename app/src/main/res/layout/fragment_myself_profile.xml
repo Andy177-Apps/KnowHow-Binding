@@ -46,7 +46,7 @@
             android:layout_marginTop="@dimen/profile_textView_name_margin_top"
             android:layout_marginStart="123.5dp"
             android:layout_marginEnd="188.5dp"
-            android:text="Eren"
+            android:text="@{viewModel.userInfo.name}"
             android:textColor="@color/black"
             android:textSize="@dimen/profile_text_name_title"
             app:layout_constraintTop_toBottomOf="@id/image_user_avatar"

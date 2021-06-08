@@ -208,7 +208,9 @@ class EditProfileFragment : Fragment() {
 
                 viewModel.updateUser(observeIdentity)
 
-                findNavController().navigate(EditProfileFragmentDirections.navigateToProfileFragment())
+//                findNavController().navigate(EditProfileFragmentDirections.navigateToProfileFragment())
+                Toast.makeText(this.context, "資料儲存成功！", Toast.LENGTH_SHORT).show()
+
                 viewModel.onProfilePageNavigated()
             }
         })

@@ -44,7 +44,7 @@ class PostArticleFragment : Fragment(){
             val article = viewModel.getArticle()
             viewModel.publish(article)
             Log.d("check_article", "article = $article")
-            findNavController().navigate(PostArticleFragmentDirections.navigateToHomeFragment())
+            findNavController().navigate(PostArticleFragmentDirections.navigateToArticleFragment())
             Log.d("Wenbin", "onClicked")
         }
 

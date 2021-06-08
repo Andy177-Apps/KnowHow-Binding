@@ -979,8 +979,9 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun acceptEvent(
         event: Event,
         userEmail: String,
-        userName: String
-    ): Result<Boolean> = suspendCoroutine { continuation ->
+        userName: String,
+        userImage: String
+        ): Result<Boolean> = suspendCoroutine { continuation ->
         val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
         val document = events.document(event.id)
         var success = 0
@@ -1059,6 +1060,30 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                 }
             }
+        document
+                .update("attendeesImage", FieldValue.arrayUnion(userImage))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Logger.i("Post: $event")
+
+                        success++
+
+                        if (success == 3) {
+                            continuation.resume(Result.Success(true))
+                        } else {
+                            Logger.i("Still got work to do")
+                        }
+
+                    } else {
+                        task.exception?.let {
+
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
+                    }
+                }
     }
 
     override suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean> =

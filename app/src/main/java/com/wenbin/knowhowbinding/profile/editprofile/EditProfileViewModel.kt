@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
-    var _userInfo = MutableLiveData<User>()
+    var _userInfo = MutableLiveData<User>(User())
 
     val userInfo: LiveData<User>
         get() = _userInfo

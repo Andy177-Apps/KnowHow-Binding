@@ -32,7 +32,7 @@ interface KnowHowBindingDataSource {
 
     fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>>
 
-    suspend fun acceptEvent(event: Event, userEmail: String, userName: String): Result<Boolean>
+    suspend fun acceptEvent(event: Event, userEmail: String, userName: String, userImage: String): Result<Boolean>
 
     suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean>
 

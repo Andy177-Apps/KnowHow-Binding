@@ -64,9 +64,10 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
     override suspend fun acceptEvent(
         event: Event,
         userEmail: String,
-        userName: String
+        userName: String,
+        userImage: String
     ): Result<Boolean> {
-        return KnowHowBindingRemoteDataSource.acceptEvent(event, userEmail, userName)
+        return KnowHowBindingRemoteDataSource.acceptEvent(event, userEmail, userName, userImage)
     }
 
     override suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean> {

@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.notify
 
 import android.text.SpannableStringBuilder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.text.bold
@@ -40,7 +41,9 @@ class NotifyAdapter (val viewModel: NotifyViewModel) : ListAdapter<Event, Recycl
             }
 
             binding.buttonAccept.setOnClickListener {
-                viewModel.acceptEvent(event, UserManager.user.email, UserManager.user.name)
+                Log.d("bug", "UserManager.user.image = ${UserManager.user.image}")
+
+                viewModel.acceptEvent(event, UserManager.user.email, UserManager.user.name, UserManager.user.image)
 
                 if (event.startTime == -1L) {
                     KnowHowBindingApplication.instance.setWork(event.eventTime, getFullTimeEventContent(event).toString())

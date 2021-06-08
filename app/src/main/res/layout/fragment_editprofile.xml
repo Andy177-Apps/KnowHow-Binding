@@ -44,7 +44,8 @@
                     android:layout_width="160dp"
                     android:layout_height="160dp"
                     android:layout_marginTop="@dimen/profile_circle_image_margin_top"
-                    android:src="@drawable/t01kgus2cd7_u01nm9bv938_b26c5256f267_512"
+                    imageUrl="@{viewModel.userInfo.image}"
+
                     android:visibility="visible"
                     app:civ_border_color="@color/light_yellow"
                     app:civ_border_width="4dp"

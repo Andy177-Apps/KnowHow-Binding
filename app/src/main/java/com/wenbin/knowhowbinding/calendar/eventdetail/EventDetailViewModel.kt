@@ -77,12 +77,12 @@ class EventDetailViewModel(private val repository: KnowHowBindingRepository, eve
         }
     }
 
-    fun acceptEvent (event: Event, userEmail: String, userName: String) {
+    fun acceptEvent (event: Event, userEmail: String, userName: String, userImage: String) {
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
-            when (val result = repository.acceptEvent(event, userEmail, userName)) {
+            when (val result = repository.acceptEvent(event, userEmail, userName, userImage)) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
