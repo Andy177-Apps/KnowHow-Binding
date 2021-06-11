@@ -22,6 +22,7 @@ import com.wenbin.knowhowbinding.databinding.FragmentUserDetailBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class UserProfileFragment: Fragment() {
@@ -109,8 +110,8 @@ class UserProfileFragment: Fragment() {
 //                binding.layoutInformation.visibility = View.GONE
 //            }
 //        }
-
         if (activity is MainActivity) {
+            Log.d("wenbin" , "user fun is used.")
             (activity as MainActivity).coverBottomNav()
             (activity as MainActivity).hideToolBar()
         }

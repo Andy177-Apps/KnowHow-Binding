@@ -28,6 +28,7 @@ import com.wenbin.knowhowbinding.databinding.NavHeaderMain02Binding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
@@ -261,19 +262,26 @@ class MainActivity : AppCompatActivity() {
     fun resetToolBar(title: String){
         binding.textViewToolBarTitle.text = title
         binding.bottomNavView.visibility = View.VISIBLE
+        textView_ToolBar_title.text = title
     }
 
     fun coverBottomNav() {
         binding.bottomNavView.visibility = View.GONE
+        Log.d("checkfunction", "fun coverBottomNav is used.")
+        bottomNavView_content.visibility = View.GONE
     }
 
     fun hideToolBar() {
         binding.myToolbar.visibility = View.GONE
+        toolbar.visibility = View.GONE
     }
 
     fun recoverToolBarandBottomNav() {
         binding.bottomNavView.visibility = View.VISIBLE
         binding.myToolbar.visibility = View.VISIBLE
+        bottomNavView_content.visibility = View.VISIBLE
+        toolbar.visibility = View.VISIBLE
+
     }
 
 

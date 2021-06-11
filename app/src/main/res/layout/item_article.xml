@@ -241,7 +241,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/noto_sans"
-
                 android:hint="Taipei"
                 android:text="@{article.find}"
                 android:textColor="@color/dark_01"

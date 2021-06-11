@@ -53,6 +53,9 @@ class CalendarFragment : Fragment() {
         var adapter = CalendarAdapter()
         binding.recyclerView.adapter = adapter
 
+        viewModel.selectedLiveEvent.observe(viewLifecycleOwner, Observer {
+            Log.d("checkImage", "selectedLiveEvent = $it")
+        })
         // Set Indecator of current date
         widget.setSelectedDate(localDate)
 

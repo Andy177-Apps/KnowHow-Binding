@@ -74,6 +74,7 @@ fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
 
     data?.let {
         recyclerView.adapter.apply {
+            Log.d("this", "this = $this")
             when (this) {
                 is ImagesRecyclerViewAdapter -> submitList(it)
             }

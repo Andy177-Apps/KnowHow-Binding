@@ -60,6 +60,7 @@
             android:id="@+id/bottomNavView"
             android:layout_width="0dp"
             android:layout_height="56dp"
+            android:visibility="gone"
             android:background="@color/white"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"

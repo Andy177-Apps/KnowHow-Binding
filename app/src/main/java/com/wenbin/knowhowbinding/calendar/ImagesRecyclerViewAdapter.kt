@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.calendar
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -15,6 +16,7 @@ class ImagesRecyclerViewAdapter() : ListAdapter<String,
         private var binding : ItemAvatarEventBinding
     ) : RecyclerView.ViewHolder (binding.root){
         fun bind (item : String) {
+            Log.d("chekcChild", "item = $item")
             binding.attendeesImage = item
             binding.executePendingBindings()
         }
