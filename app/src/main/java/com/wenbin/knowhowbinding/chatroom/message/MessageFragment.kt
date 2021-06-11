@@ -41,7 +41,7 @@ class MessageFragment : Fragment() {
             adapter.submitList(it)
         })
 
-        binding.buttonSendMessage.setOnClickListener {
+        binding.imageViewSend.setOnClickListener {
 
             viewModel.sendMessage(myUserEmail, friendUserEmail)
             viewModel.textSend.value = ""
@@ -49,9 +49,17 @@ class MessageFragment : Fragment() {
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar(viewModel.currentChattingName)
+            (activity as MainActivity).coverBottomNav()
         }
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        if (activity is MainActivity) {
+            (activity as MainActivity).recoverToolBarandBottomNav()
+        }
+        super.onDestroyView()
     }
 
     private fun formMessage() : Message {

@@ -36,13 +36,29 @@
 
             <ImageView
                 android:id="@+id/imageView_avatar"
+                android:visibility="gone"
                 imageUrl="@{imageUrl}"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:layout_marginStart="@dimen/item_chatRoom_image_margin_start"
                 android:layout_marginTop="@dimen/item_chatRoom_image_margin"
                 android:layout_marginBottom="@dimen/item_chatRoom_image_margin"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_other_side_image"
+                imageUrl="@{imageUrl}"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_marginStart="@dimen/item_chatRoom_image_margin_start"
+                android:layout_marginTop="@dimen/item_chatRoom_image_margin"
+                android:layout_marginBottom="@dimen/item_chatRoom_image_margin"
+                tools:srcCompat="@tools:sample/avatars"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"

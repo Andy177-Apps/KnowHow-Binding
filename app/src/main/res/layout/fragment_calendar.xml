@@ -15,7 +15,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/white">
 
         <CalendarView
             android:id="@+id/calendarView"
@@ -42,7 +42,7 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_height="333dp"
                     android:layout_marginTop="16dp"
-                    android:background="@color/white"
+                    android:background="@drawable/bg_all_round_r8"
                     app:mcv_selectionColor="@color/primary"
                     app:mcv_headerTextAppearance="@style/CalendarWidgetHeader"
                     app:mcv_weekDayTextAppearance="@style/CalendarWidgetweekDay"
@@ -75,7 +75,9 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:rippleColor="@color/colorMyType" />
+            app:backgroundTint="@color/primaryDark"
+
+            />
 
         <ImageView
             android:id="@+id/fab_custom_pic"
@@ -133,7 +135,7 @@
                 android:id="@+id/fab_notification"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                app:backgroundTint="@color/colorMyType"
+                app:backgroundTint="@color/primaryDark"
                 app:elevation="0dp"
                 app:fabCustomSize="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -176,7 +178,7 @@
                 android:id="@+id/fab_create_event"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                app:backgroundTint="@color/colorMyType"
+                app:backgroundTint="@color/primaryDark"
                 app:elevation="0dp"
                 app:fabCustomSize="45dp"
                 app:layout_constraintBottom_toBottomOf="parent"

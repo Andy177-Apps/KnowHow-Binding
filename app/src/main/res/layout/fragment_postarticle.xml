@@ -71,7 +71,7 @@
             android:background="@drawable/bg_edittext"
             android:ems="10"
             android:hint="提供"
-            android:inputType="text"
+            android:inputType="textMultiLine"
             android:text="@={viewModel.articleGive}"
             android:textColor="@color/black"
             android:textColorHint="@color/lightGrey_02"

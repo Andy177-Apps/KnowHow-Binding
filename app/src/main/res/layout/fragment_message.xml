@@ -11,34 +11,66 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/background"
+        >
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:background="@color/background"
             android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/button_send_message"
+            app:layout_constraintBottom_toTopOf="@id/editTextTextMultiLine_chatBox"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            />
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="4dp"
             />
 
         <EditText
             android:id="@+id/editTextTextMultiLine_chatBox"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/button_send_message"
-            app:layout_constraintTop_toTopOf="@id/button_send_message"
+            android:layout_height="48dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="4dp"
             android:ems="10"
+            android:gravity="start|center_vertical"
             android:hint="@string/indicator_message"
+            android:inputType="textMultiLine"
             android:text="@={viewModel.textSend}"
-            android:gravity="start|top"
-            android:inputType="textMultiLine" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/imageView_send"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/imageView_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/editTextTextMultiLine_chatBox"
+            app:srcCompat="@drawable/ic_baseline_send_24"
+            android:background="@color/white"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextTextMultiLine_chatBox"
+            />
 
         <Button
             android:id="@+id/button_send_message"
+            android:visibility="gone"
             android:layout_width="72dp"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -46,15 +78,7 @@
             android:text="Send"
             android:textSize="12sp"/>
 
-        <ImageView
-            android:id="@+id/imageView_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:srcCompat="@drawable/outline_send_black_24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

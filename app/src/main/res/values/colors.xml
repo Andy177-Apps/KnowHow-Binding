@@ -13,7 +13,6 @@
     <color name="grey_edit_text_bg">#EEEEEE</color>
     <color name="green_chat_bg">#00EC00</color>
     <color name="colorPrimary">#FFE561</color>
-    <color name="colorMyType">#7EBD97</color>
     <color name="red">#FF9689</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="pinkish">#EF6F6C</color>
@@ -26,7 +25,7 @@
     <color name="yellow_06">#FFE376</color>
 
     <!-- System -->
-    <color name="colorPrimaryDark">#FFC100</color>
+    <color name="colorPrimaryDark">#2286c3</color>
     <color name="colorAccent">#00369E</color>
     <color name="translucent_80">#cc000000</color>
     <color name="transparent">#00000000</color>
@@ -35,6 +34,8 @@
     <color name="primary">#64b5f6</color>
     <color name="primaryLight">#9be7ff</color>
     <color name="primaryDark">#2286c3</color>
+    <color name="transparency_primary">#1A64b5f6</color>
+
 
     <color name="secondary">#81d3f9</color>
     <color name="secondaryLight">#b5ffff</color>

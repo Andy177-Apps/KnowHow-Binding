@@ -11,7 +11,7 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageView
@@ -55,9 +55,10 @@
             android:id="@+id/textView_other_side_body"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="@dimen/item_message_textview_max_width"
             android:layout_marginStart="8dp"
             android:padding="8dp"
-            android:background="@color/white"
+            android:background="@drawable/bg_item_message_other_side"
             android:text="@{message.text}"
             android:layout_marginBottom="@dimen/item_message_text_margin_vertical"
             android:layout_marginTop="@dimen/item_message_text_margin_vertical"

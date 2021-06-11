@@ -27,6 +27,9 @@
     <dimen name="item_message_padding">4dp</dimen>
     <dimen name="item_message_time_margin">4dp</dimen>
     <dimen name="item_message_time_size">14sp</dimen>
+    <dimen name="item_message_round_radius">8dp</dimen>
+    <dimen name="item_message_textview_max_width">233dp</dimen>
+
 
     <!-- item chatRoom -->
     <dimen name="item_chatRoom_image_margin">14dp</dimen>
@@ -76,7 +79,7 @@
     <dimen name="profile_text_title">16sp</dimen>
     <dimen name="profile_text_content">14sp</dimen>
     <dimen name="profile_chip_margin_top">8dp</dimen>
-    <dimen name="profile_circle_image_margin_top">16dp</dimen>
+    <dimen name="profile_circle_image_margin_top">110dp</dimen>
     <dimen name="profile_textView_name_margin_top">6dp</dimen>
     <dimen name="profile_textView_share_navigate_margin_top">10dp</dimen>
     <dimen name="profile_textView_first_item_margin_top">33dp</dimen>
@@ -91,6 +94,11 @@
 
     <!-- Dialog Padding -->
     <dimen name="dialog_padding">10dp</dimen>
+    <dimen name="dialog_edittext_height">48dp</dimen>
+    <dimen name="dialog_margin_top">16dp</dimen>
+    <dimen name="dialog_time_period_padding">8dp</dimen>
+
+
 
     <!-- General -->
     <dimen name="elevation_all">4dp</dimen>

@@ -3,6 +3,7 @@ package com.wenbin.knowhowbinding
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import androidx.appcompat.widget.Toolbar
 
 import androidx.activity.viewModels
@@ -105,6 +106,17 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 //        binding.navView.setNavigationItemSelectedListener(onDrawerItemSelectedListener)
+
+        // Test crash for Crashlytics
+//        val crashButton = Button(this)
+//        crashButton.text = "Crash!"
+//        crashButton.setOnClickListener {
+//            throw RuntimeException("Test Crash") // Force a crash
+//        }
+//
+//        addContentView(crashButton, ViewGroup.LayoutParams(
+//            ViewGroup.LayoutParams.MATCH_PARENT,
+//            ViewGroup.LayoutParams.WRAP_CONTENT))
 
         // Set up header of drawer ui using data binding
         val bindingNavHeader = NavHeaderMain02Binding.inflate(

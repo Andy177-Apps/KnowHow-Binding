@@ -115,6 +115,7 @@ class UserProfileFragment: Fragment() {
         }
         super.onDestroyView()
     }
+
     private fun setupLayout(user: User) {
         val chipTextSize = 20F
         val chipGroupTalented = binding.chipGroupTalentedSubjects

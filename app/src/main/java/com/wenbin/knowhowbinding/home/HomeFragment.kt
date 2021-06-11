@@ -137,12 +137,12 @@ class HomeFragment (val type: String) : Fragment() {
         viewModel.status.observe(viewLifecycleOwner, Observer {
             when (it) {
                 LoadApiStatus.LOADING -> {
-//                    binding.animationView.visibility = View.VISIBLE
-                    binding.progressBar.visibility = View.VISIBLE
+                    binding.animationView.visibility = View.VISIBLE
+//                    binding.progressBar.visibility = View.VISIBLE
                 }
                 LoadApiStatus.DONE, LoadApiStatus.ERROR -> {
-//                    binding.animationView.visibility = View.GONE
-                    binding.progressBar.visibility = View.INVISIBLE
+                    binding.animationView.visibility = View.INVISIBLE
+//                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         })
