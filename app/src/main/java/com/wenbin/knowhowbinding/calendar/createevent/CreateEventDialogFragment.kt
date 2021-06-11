@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDialogFragment
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -22,7 +23,7 @@ import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.main.dialog_create_event.view.*
 
 
-class CreateEventDialogFragment : DialogFragment() {
+class CreateEventDialogFragment : AppCompatDialogFragment() {
     private val timePickerTypeStart = 0X01
     private val timePickerTypeEnd = 0x02
 

@@ -86,7 +86,7 @@
                 <TextView
                     android:id="@+id/textView_show_latested_message"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="20dp"
                     android:layout_marginEnd="-4dp"
                     android:fontFamily="@font/noto_sans"
                     android:hint="您好，我有興趣了解一下，謝謝"

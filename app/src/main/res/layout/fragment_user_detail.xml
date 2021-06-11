@@ -20,7 +20,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/background">
+
 
             <ImageView
                 android:id="@+id/imageView_background"
@@ -33,51 +35,11 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/istockphoto_1005276578_640x640" />
 
-            <ImageView
-                android:id="@+id/imageView_user_avatar"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="110dp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/avatar_1" />
-
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/image_user_avatar"
-                imageUrl="@{viewModel.userInfo.image}"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_marginTop="110dp"
-                android:src="@drawable/avatar_1"
-                app:civ_border_color="@color/light_yellow"
-                app:civ_border_width="4dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/avatar_1" />
-
-
-            <TextView
-                android:id="@+id/textView_user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16sp"
-                android:fontFamily="@font/roboto"
-                android:text="@{viewModel.userInfo.name}"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/image_user_avatar" />
-
             <TextView
                 android:id="@+id/text_user_identity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
                 android:text="@{viewModel.userInfo.identity}"
@@ -94,6 +56,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
+                android:visibility="gone"
+
                 android:text="male"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -101,273 +65,547 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_user_identity" />
 
-            <LinearLayout
-                android:id="@+id/layout_follow"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/user_state"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                app:layout_constraintTop_toBottomOf="@id/imageView_background">
+                android:layout_marginTop="-80dp"
+                android:background="@drawable/bg_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/image_user_avatar"
+                tools:layout_editor_absoluteX="16dp">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:weightSum="3">
+                <TextView
+                    android:id="@+id/textView_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="45dp"
+                    android:fontFamily="@font/roboto"
+                    android:hint="葉文彬"
+                    android:text="@{viewModel.userInfo.name}"
+                    android:textColor="@color/dark_01"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/text_following"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:text="@{viewModel.userInfo.followingEmail == null ? String.valueOf(0) : String.valueOf(viewModel.userInfo.followingEmail.size()) }"
-                        android:textStyle="bold"
-                        android:textColor="@color/primaryDark"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="3" />
+                <LinearLayout
+                    android:id="@+id/layout_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="16dp"
+                    android:orientation="horizontal"
+                    android:weightSum="3"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_user_name">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center_horizontal"
-                        android:text="Following"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_following"
-                        tools:text="Following" />
+                        android:orientation="vertical"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/text_following"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="@{viewModel.userInfo.followingEmail == null ? String.valueOf(0) : String.valueOf(viewModel.userInfo.followingEmail.size()) }"
+                            android:textColor="@color/primaryDark"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="3" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Following"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_following"
+                            tools:text="Following" />
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:id="@+id/text_follow_by"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:text="@{viewModel.userInfo.followedBy == null ? String.valueOf(0) : String.valueOf(viewModel.userInfo.followedBy.size())}"
-                        android:textStyle="bold"
-                        android:textColor="@color/primaryDark"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center_horizontal"
-                        android:text="Followers"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_follow_by" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:orientation="vertical"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:id="@+id/text_follow_by"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text="@{viewModel.userInfo.followedBy == null ? String.valueOf(0) : String.valueOf(viewModel.userInfo.followedBy.size())}"
+                            android:textColor="@color/primaryDark"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="3" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Followers"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_follow_by" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:onClick="@{() -> viewModel.navigateToMyArticle(viewModel.selectedUserEmail)}"
-                    android:orientation="vertical"
-                    android:weightSum="3">
-
-                    <TextView
-                        android:id="@+id/text_posts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:text=""
-                        android:textColor="@color/primaryDark"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="3" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center_horizontal"
-                        android:text="Posts"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/text_posts" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                        android:onClick="@{() -> viewModel.navigateToMyArticle(viewModel.selectedUserEmail)}"
+                        android:orientation="vertical"
+                        android:weightSum="3">
 
-            <View
-                android:id="@+id/divider_follow"
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginHorizontal="24dp"
-                android:layout_marginTop="16dp"
-                android:background="@color/green_chat_bg"
-                app:layout_constraintTop_toBottomOf="@id/layout_follow" />
+                        <TextView
+                            android:id="@+id/text_posts"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:text=""
+                            android:textColor="@color/primaryDark"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="3" />
 
-            <LinearLayout
-                android:id="@+id/layout_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:text="Posts"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/text_posts" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/divider_follow"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginHorizontal="24dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/green_chat_bg"
+                    app:layout_constraintTop_toBottomOf="@id/layout_follow" />
+
+                <LinearLayout
+                    android:id="@+id/layout_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal"
+                    android:weightSum="2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/divider_follow">
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+
+                        android:weightSum="2">
+
+                        <Button
+                            android:id="@+id/button_follow"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_colored_round_corner"
+                            android:text="Follow"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/button_unfollow"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_colored_stroke_round_corner"
+                            android:text="Unfollow"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.0" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/constraint_layout_message"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:weightSum="2">
+
+                        <Button
+                            android:id="@+id/button_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_marginHorizontal="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_colored_round_corner"
+                            android:text="Message"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/image_user_avatar"
+                imageUrl="@{viewModel.userInfo.image}"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_marginBottom="-10dp"
+                android:src="@drawable/avatar_1"
+                app:civ_border_color="@color/light_yellow"
+                app:civ_border_width="4dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/divider_follow">
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_background"
+                tools:src="@drawable/avatar_1" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:weightSum="2">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_user_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_state"
+                android:background="@drawable/bg_edittext"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                >
+                <TextView
+                    android:id="@+id/title_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/identity"
+                    android:textSize="@dimen/user_detail_text_title"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/dark_01"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <Button
-                        android:id="@+id/button_follow"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/bg_colored_round_corner"
-                        android:text="Follow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/divider_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:textSize="@dimen/user_detail_text_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/colon"
+                    android:textColor="@color/dark_01"
+                    app:layout_constraintStart_toEndOf="@id/title_detail"
+                    app:layout_constraintTop_toTopOf="@id/title_detail" />
 
-                    <Button
-                        android:id="@+id/button_unfollow"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/bg_colored_stroke_round_corner"
-                        android:text="Unfollow"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView_user_name_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.userInfo.identity}"
+                    android:hint="建築師"
+                    android:textSize="@dimen/user_detail_text_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_01"
+                    android:layout_marginStart="@dimen/user_detail_margin_start"
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    app:layout_constraintStart_toEndOf="@id/divider_detail"
+                    app:layout_constraintTop_toTopOf="@id/title_detail"
+                    />
+                <!--                identity-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraint_layout_message"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:weightSum="2">
+                <TextView
+                    android:id="@+id/title_identity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/gender"
+                    android:textSize="@dimen/user_detail_text_title"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/dark_01"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/title_detail"
+                    />
 
-                    <Button
-                        android:id="@+id/button_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginHorizontal="8dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/bg_colored_round_corner"
-                        android:text="Message"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/divider_identity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:textSize="@dimen/user_detail_text_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/colon"
+                    android:textColor="@color/dark_01"
+                    app:layout_constraintStart_toEndOf="@id/title_identity"
+                    app:layout_constraintTop_toTopOf="@id/title_identity" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/textView_identity_content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="male"
+                    android:textSize="@dimen/user_detail_text_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/dark_01"
+                    android:layout_marginStart="@dimen/user_detail_margin_start"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/roboto"
+                    app:layout_constraintStart_toEndOf="@id/divider_identity"
+                    app:layout_constraintTop_toTopOf="@id/title_identity"
+                    />
+
+                <TextView
+                    android:id="@+id/textView_talentedSubjects_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="擅長"
+                    android:fontFamily="@font/noto_sans"
+                    android:textColor="@color/dark_01"
+                    android:textSize="@dimen/user_detail_text_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView_identity_content"
+                    />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup_talentedSubjects"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:textAppearance="@style/WhiteBoldText"
+                    android:layout_marginStart="@dimen/user_detail_chip_margin_start"
+                    app:layout_constraintStart_toEndOf="@+id/textView_talentedSubjects_title"
+                    app:layout_constraintTop_toTopOf="@+id/textView_talentedSubjects_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_talentedSubjects_title"
+                    ></com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/textView_interestedSubject_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="想學"
+                    android:textColor="@color/dark_01"
+                    android:textSize="@dimen/user_detail_text_title"
+                    app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
+                    app:layout_constraintTop_toBottomOf="@id/chipGroup_talentedSubjects"
+
+                    />
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/chipGroup_interestedSubject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginStart="@dimen/user_detail_chip_margin_start"
+                    app:layout_constraintStart_toEndOf="@+id/textView_interestedSubject_title"
+                    app:layout_constraintTop_toTopOf="@+id/textView_interestedSubject_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView_interestedSubject_title"
+
+
+                    ></com.google.android.material.chip.ChipGroup>
+
+                <TextView
+                    android:id="@+id/textView_about_user_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="介紹"
+                    android:textColor="@color/dark_01"
+                    android:textSize="@dimen/user_detail_text_title"
+                    app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
+                    app:layout_constraintTop_toBottomOf="@id/textView_interestedSubject_title" />
+
+
+                <TextView
+                    android:id="@+id/textView_about_user"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/noto_sans"
+                    android:text="@{viewModel.userInfo.introduction}"
+                    android:textColorHint="@color/text_07"
+                    android:textSize="@dimen/user_detail_text_content"
+                    app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
+                    app:layout_constraintTop_toBottomOf="@id/textView_about_user_title"
+                    tools:text="自我介紹欄位"
+
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textView_talentedSubjects_title"
-                android:layout_width="wrap_content"
+                android:id="@+id/textView_information"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/noto_sans"
-                android:text="擅長"
+                android:text="個人資訊"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layout_button" />
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/user_state"
+                tools:layout_editor_absoluteX="16dp" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup_talentedSubjects"
+            <ImageView
+                android:id="@+id/imageView_information"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/user_detail_chip_margin_top"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
-                app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title"></com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:id="@+id/textView_interestedSubject_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/noto_sans"
-                android:text="想學"
-                android:textColor="@color/dark_01"
-                android:textSize="@dimen/user_detail_text_title"
-                app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
-                app:layout_constraintTop_toBottomOf="@id/chipGroup_talentedSubjects"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="@+id/textView_information"
+                app:layout_constraintTop_toTopOf="@+id/textView_information"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_information"
+                app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24"
+                tools:layout_editor_absoluteY="515dp"
 
                 />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup_interestedSubject"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/user_detail_chip_margin_top"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
-                app:layout_constraintTop_toBottomOf="@+id/textView_interestedSubject_title"></com.google.android.material.chip.ChipGroup>
 
-            <TextView
-                android:id="@+id/textView_about_user_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/noto_sans"
-                android:text="介紹"
-                android:textColor="@color/dark_01"
-                android:textSize="@dimen/user_detail_text_title"
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:id="@+id/layout_information"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="16dp"-->
+<!--                android:background="@drawable/bg_botton_corner"-->
 
-                app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
-                app:layout_constraintTop_toBottomOf="@id/chipGroup_interestedSubject" />
+<!--                android:visibility="gone"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/textView_information"-->
+<!--                tools:layout_editor_absoluteX="16dp">-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/title_detail"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/identity"-->
+<!--                    android:textColor="@color/dark_01"-->
+<!--                    android:textSize="@dimen/user_detail_text_content"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/divider_detail"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="7dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/colon"-->
+<!--                    android:textColor="@color/dark_01"-->
+<!--                    android:textSize="@dimen/user_detail_text_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/title_detail"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/title_detail" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textView_user_name_layout"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="7dp"-->
+
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:hint="建築師"-->
+<!--                    android:text="@{viewModel.userInfo.identity}"-->
+<!--                    android:textColor="@color/dark_01"-->
+<!--                    android:textSize="@dimen/user_detail_text_content"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/divider_detail"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/title_detail" />-->
+<!--                &lt;!&ndash;                identity&ndash;&gt;-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/title_identity"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="16dp"-->
+<!--                    android:layout_marginTop="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/gender"-->
+<!--                    android:textColor="@color/dark_01"-->
+<!--                    android:textSize="@dimen/user_detail_text_content"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/title_detail" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/divider_identity"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="7dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:text="@string/colon"-->
+<!--                    android:textColor="@color/dark_01"-->
+<!--                    android:textSize="@dimen/user_detail_text_content"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/title_identity"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/title_identity" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/textView_identity_content"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="7dp"-->
+<!--                    android:layout_marginEnd="8dp"-->
+<!--                    android:fontFamily="@font/roboto"-->
+<!--                    android:hint="葉文彬"-->
+<!--                    android:text="male"-->
+<!--                    android:textColor="@color/dark_01"-->
+<!--                    android:textSize="@dimen/user_detail_text_content"-->
+<!--                    android:textStyle="bold"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/divider_identity"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/title_identity" />-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-            <TextView
-                android:id="@+id/textView_about_user"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/noto_sans"
-                android:text="@{viewModel.userInfo.introduction}"
-                android:textColorHint="@color/text_07"
-                android:textSize="@dimen/user_detail_text_content"
-                app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
-                app:layout_constraintTop_toBottomOf="@id/textView_about_user_title"
-                tools:text="自我介紹欄位"
-
-                />
 
             <ProgressBar
                 android:id="@+id/progress"
@@ -378,6 +616,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imageView_background" />
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

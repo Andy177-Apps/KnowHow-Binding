@@ -14,7 +14,7 @@
     <string name="you_know_nothing">You know nothing</string>
     <string name="start_a_new_conversation">Start a new conversation</string>
     <string name="indicator_message">輸入訊息</string>
-    <string name="gender">Gender</string>
+    <string name="gender">性別</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="reminder_finish_user_info">Finishing the info would help when pairing</string>
@@ -33,6 +33,8 @@
     <string name="member">Member</string>
     <string name="colon">:</string>
     <string name="detail">Detail</string>
+    <string name="identity">身分</string>
+
     <string name="menu_item_title_edit">EDIT</string>
     <string name="menu_item_title_save">SAVE</string>
     <string name="show_less">Show Less</string>

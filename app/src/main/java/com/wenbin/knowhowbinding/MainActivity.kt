@@ -22,16 +22,19 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
+import com.wenbin.knowhowbinding.databinding.AppBarMainBinding
+import com.wenbin.knowhowbinding.databinding.ContentMainBinding
 import com.wenbin.knowhowbinding.databinding.NavHeaderMain02Binding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
+import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     val viewModel by viewModels<MainViewModel> { getVmFactory() }
 
-    private lateinit var    binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
 
@@ -105,6 +108,8 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+
 //        binding.navView.setNavigationItemSelectedListener(onDrawerItemSelectedListener)
 
         // Test crash for Crashlytics
@@ -236,6 +241,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setupBottomNav() {
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
+        bottomNavView_content.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
 
     }
 

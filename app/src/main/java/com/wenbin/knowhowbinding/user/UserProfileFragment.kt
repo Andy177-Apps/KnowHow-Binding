@@ -102,6 +102,14 @@ class UserProfileFragment: Fragment() {
             }
         })
 
+//        binding.imageViewInformation.setOnClickListener {
+//            if (binding.layoutInformation.visibility == View.GONE) {
+//                binding.layoutInformation.visibility = View.VISIBLE
+//            } else {
+//                binding.layoutInformation.visibility = View.GONE
+//            }
+//        }
+
         if (activity is MainActivity) {
             (activity as MainActivity).coverBottomNav()
             (activity as MainActivity).hideToolBar()
@@ -117,7 +125,7 @@ class UserProfileFragment: Fragment() {
     }
 
     private fun setupLayout(user: User) {
-        val chipTextSize = 20F
+        val chipTextSize = 12F
         val chipGroupTalented = binding.chipGroupTalentedSubjects
         val genres = user.talentedSubjects
 
@@ -125,6 +133,8 @@ class UserProfileFragment: Fragment() {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
             chip.textSize = chipTextSize
+            chip.setTextAppearanceResource(R.style.WhiteBoldText)
+            chip.setChipBackgroundColorResource(R.color.primaryDark)
             chipGroupTalented.addView(chip)
         }
 
@@ -135,6 +145,8 @@ class UserProfileFragment: Fragment() {
             val chip = Chip(context, null, R.attr.CustomChipChoice)
             chip.text = genre
             chip.textSize = chipTextSize
+            chip.setTextAppearanceResource(R.style.WhiteBoldText)
+            chip.setChipBackgroundColorResource(R.color.primaryDark)
             chipGroupInterested.addView(chip)
         }
 
