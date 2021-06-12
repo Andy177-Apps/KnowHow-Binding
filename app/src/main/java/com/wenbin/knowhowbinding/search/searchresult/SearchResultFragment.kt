@@ -7,12 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentSearchResultBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.following.FollowingAdapter
-import androidx.lifecycle.Observer
 
 
 class SearchResultFragment: Fragment() {
@@ -25,14 +25,20 @@ class SearchResultFragment: Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentSearchResultBinding.inflate(layoutInflater, container,false)
+        binding = FragmentSearchResultBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
         val searchResultAdapter = SearchResultAdapter(SearchResultAdapter.OnClickListener {
             viewModel.navigateToUserProfile(it)
         })
+
         binding.recyclerView.adapter = searchResultAdapter
+        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerView.setHasFixedSize(true)
+
+        binding.recyclerView.layoutManager = layoutManager
+
 
         viewModel.navigateToUserProfile.observe(viewLifecycleOwner, Observer {
             it?.let {

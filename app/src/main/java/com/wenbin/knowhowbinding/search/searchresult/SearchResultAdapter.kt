@@ -13,7 +13,7 @@ class SearchResultAdapter(private val onClickListener: OnClickListener) :
 
     class UserViewHolder(private var binding: ItemSearchResultBinding) :
             RecyclerView.ViewHolder(binding.root) {
-        fun bind(user : User) {
+        fun bind(user: User) {
             binding.user = user
             binding.executePendingBindings()
         }
@@ -39,6 +39,9 @@ class SearchResultAdapter(private val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(user)
         }
+        val layoutParams = holder.itemView.layoutParams
+        layoutParams.height = 200 + (position % 4) * 200
+        holder.itemView.layoutParams = layoutParams
         holder.bind(user)
     }
 
