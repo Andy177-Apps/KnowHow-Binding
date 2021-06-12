@@ -16,6 +16,7 @@ import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.MultiSpinnerListener
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.DialogCreateEventBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
@@ -43,27 +44,48 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        // Multiple
-        val listArray1 = listOf<String>("123", "456", "789")
-
+        // Multiple Spinner for followingName
+//        var listArray1 = listOf<String>("123", "456", "789")
         val listArray0: MutableList<KeyPairBoolData> = ArrayList()
 
-        for (i in listArray1.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listArray1[i]
-            h.isSelected = false
-            listArray0.add(h)
-        }
+        viewModel.followingName.observe(viewLifecycleOwner, Observer {
+            Log.d("wenbin", "followingName = $it")
+            binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(it)
+            it?.let {
+                for (i in it.indices) {
+                    val h = KeyPairBoolData()
+                    h.id = (i + 1).toLong()
+                    h.name = it[i]
+                    h.isSelected = false
+                    listArray0.add(h)
+                }
+            }
+            Log.d("MultipleSpinner", "Updated listArray0 = $listArray0")
 
-        binding.multipleItemSelectionSpinner.setSearchHint("Select your mood")
-        binding.multipleItemSelectionSpinner.setClearText("Close & Clear")
+        })
+
+        Log.d("MultipleSpinner", "listArray0 in line 67= $listArray0")
+
+        binding.multipleItemSelectionSpinner.isSearchEnabled = true
+        binding.multipleItemSelectionSpinner.setSearchHint("搜尋好友")
+        binding.multipleItemSelectionSpinner.setClearText("關閉 & 清除")
+        binding.multipleItemSelectionSpinner.setEmptyTitle("沒有選擇任何人喔!")
         binding.multipleItemSelectionSpinner.setItems(listArray0, MultiSpinnerListener { items ->
+            val list = mutableListOf<String>()
+
             for (i in items.indices) {
                 if (items[i].isSelected) {
                     Log.d("MultipleSpinner", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                    list.add(items[i].name)
                 }
             }
+
+            Log.d("MultipleSpinner", "final list in line 83 =$list")
+            viewModel.setMultipleInvitation(list)
+        })
+
+        viewModel.multipleInvitation.observe(viewLifecycleOwner, Observer {
+            Log.d("MultipleSpinner", "multipleInvitation = $it")
         })
 
         val calendar = Calendar.getInstance()
@@ -130,10 +152,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             Log.d("wenbin", "createEventViewModel type = $it")
         })
 
-        viewModel.followingName.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "followingName = $it")
-            binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(it)
-        })
+
 
 //        binding.spinnerOtherUser.adapter = viewModel.followingName.value?.let { CreateEventFollowingSpinnerAdapter(it) }
 

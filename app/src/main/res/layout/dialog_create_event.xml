@@ -265,7 +265,7 @@
                         android:layout_height="@dimen/dialog_edittext_height"
                         android:background="@drawable/bg_edittext"
                         android:layout_margin="10dp"
-                        app:hintText="Multi Item Selection"
+                        app:hintText="勾選想要邀請的名單"
                         app:layout_constraintTop_toBottomOf="@+id/editText_description"/>
 
                     <TextView

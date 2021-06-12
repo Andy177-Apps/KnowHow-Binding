@@ -18,6 +18,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.absoluteValue
 
 class CreateEventViewModel(
         private val repository: KnowHowBindingRepository,
@@ -64,6 +65,11 @@ class CreateEventViewModel(
 
     val invitation: LiveData<String>
         get() = _invitation
+
+    private val _multipleInvitation = MutableLiveData<List<String>>()
+
+    val multipleInvitation: LiveData<List<String>>
+        get() = _multipleInvitation
 
     val date = TimeUtil.stampToDate(selectedDate)
 
@@ -195,6 +201,31 @@ class CreateEventViewModel(
         if (selectedFollowing !=0 ){
             _invitation.value = userInfo.value?.following?.get(selectedFollowing-1)?.userEmail
         }
+    }
+
+    fun setMultipleInvitation(selectedFollowing: List<String>) {
+        Log.d("MultipleSpinner", "setMultipleInvitation is used.")
+        Log.d("MultipleSpinner", "selectedFollowing = $selectedFollowing")
+
+        var listNumber = mutableListOf<Int>()
+
+        for ((i, item) in _userInfo.value!!.followingName.withIndex()) {
+            if (selectedFollowing.contains(item)) {
+                println(i)
+                println(item)
+                listNumber.add(i)
+            }
+        }
+
+        Log.d("MultipleSpinner", "Final listNumber = $listNumber")
+
+        var listEmail = mutableListOf<String>()
+
+        for (item in listNumber) {
+            listEmail.add(_userInfo.value!!.following[item].userEmail)
+        }
+        Log.d("MultipleSpinner", "Final listEmail = $listEmail")
+        _multipleInvitation.value = listEmail
     }
 
     private fun setInitialTime() {
