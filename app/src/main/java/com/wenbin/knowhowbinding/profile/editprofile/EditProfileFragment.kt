@@ -26,6 +26,7 @@ import com.wenbin.knowhowbinding.*
 import com.wenbin.knowhowbinding.ext.checkPermission
 import com.wenbin.knowhowbinding.ext.getLocalImg
 import com.wenbin.knowhowbinding.util.Logger
+import com.wenbin.knowhowbinding.util.PICK_BACKGROUND_IMAGE
 import com.wenbin.knowhowbinding.util.PICK_IMAGE
 import com.wenbin.knowhowbinding.util.REQUEST_EXTERNAL_STORAGE
 
@@ -56,6 +57,11 @@ class EditProfileFragment : Fragment() {
         binding.imageViewUpdateAvatar.setOnClickListener {
             Log.d("checkUpdateImage", "imageViewUpdateAvatar is clicked")
             checkPermission()
+        }
+
+        binding.imageViewUpdateBg.setOnClickListener {
+            Log.d("checkUpdateImageBg", "imageViewUpdateBg is clicked")
+            updateBackground()
         }
         // Firebase Storage //
 
@@ -226,7 +232,16 @@ class EditProfileFragment : Fragment() {
         return binding.root
     }
 
+    private fun updateBackground() {
+        val intent = Intent()
+        intent.type = "image/*"
+        intent.action = Intent.ACTION_GET_CONTENT
+        startActivityForResult(intent, PICK_BACKGROUND_IMAGE)
+    }
+
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        Log.d("checkUpdateImageBg", "requestCode in fragment = $requestCode")
+
         when (requestCode) {
             REQUEST_EXTERNAL_STORAGE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -240,6 +255,7 @@ class EditProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.d("expand", "resultCode = $resultCode , requestCode = $requestCode")
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 PICK_IMAGE -> {
@@ -253,6 +269,22 @@ class EditProfileFragment : Fragment() {
 
                         // Update file to Firebase Storage.
                         viewModel.getImageUri(filePath)
+                    } else {
+                        Toast.makeText(this.requireContext(), R.string.load_img_fail, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                PICK_BACKGROUND_IMAGE -> {
+                    val filePath = ImagePicker.getFilePath(data) ?: ""
+
+                    if (filePath.isNotEmpty()) {
+
+                        Log.d("checkImage", "filePath = $filePath")
+                        Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
+                        Glide.with(this.requireContext()).load(filePath).into(binding.imageViewBackground)
+
+                        // Update file to Firebase Storage.
+                        viewModel.getBgImageUri(filePath)
                     } else {
                         Toast.makeText(this.requireContext(), R.string.load_img_fail, Toast.LENGTH_SHORT).show()
                     }

@@ -9,6 +9,7 @@ data class User(
         val name: String = "",
         val email: String = "",
         var image: String = "",
+        var bgImage: String = "",
         var city: String = "",
         var district: String = "",
         var gender: String = "",
