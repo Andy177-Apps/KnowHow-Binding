@@ -19,6 +19,7 @@ import com.wenbin.knowhowbinding.postarticle.PostArticleViewModel
 import com.wenbin.knowhowbinding.profile.ProfileViewModel
 import com.wenbin.knowhowbinding.profile.editprofile.EditProfileViewModel
 import com.wenbin.knowhowbinding.search.SearchViewModel
+import com.wenbin.knowhowbinding.search.searchresult.SearchResultViewModel
 
 @Suppress("UNCHECKED_CAST")
 class ViewModelFactory constructor(
@@ -73,6 +74,8 @@ class ViewModelFactory constructor(
                 isAssignableFrom(FollowedByViewModel::class.java) ->
                     FollowedByViewModel(knowHowBindingRepository)
 
+                isAssignableFrom(SearchResultViewModel::class.java) ->
+                    SearchResultViewModel(knowHowBindingRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

@@ -41,7 +41,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="@{user.name}"
                 app:layout_constraintStart_toEndOf="@id/image_user_avatar"
-                app:layout_constraintTop_toTopOf="@+id/image_author_image"
+                app:layout_constraintTop_toTopOf="@+id/image_user_avatar"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/item_article_text_name"
                 android:textStyle="normal"

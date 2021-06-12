@@ -127,6 +127,10 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
+    override suspend fun getAllUsers(): Result<List<User>> {
+        TODO("Not yet implemented")
+    }
+
 
     override suspend fun createTestedData(): Result<List<Article>> {
         var defaultData = mutableListOf<Article>()

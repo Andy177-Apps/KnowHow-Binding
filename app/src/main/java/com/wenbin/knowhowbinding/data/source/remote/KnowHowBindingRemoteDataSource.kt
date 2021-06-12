@@ -192,6 +192,34 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 }
             }
 
+    override suspend fun getAllUsers(): Result<List<User>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_USERS)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<User>()
+                        for (document in task.result!!) {
+                            Log.d("wembin", document.id + " => " + document.data)
+                            val user = document.toObject(User::class.java)
+                            list.add(user)
+                        }
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
+
+                            Log.w(
+                                    "Wenbin",
+                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                            )
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                    }
+                }
+    }
+
     override suspend fun login(id: String): Result<User> {
         TODO("Not yet implemented")
     }

@@ -133,6 +133,12 @@
         android:label="FollowedByFragment"
         tools:layout="@layout/fragment_followedby"/>
 
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.wenbin.knowhowbinding.search.searchresult.SearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/fragment_search_result"/>
+
     <action android:id="@+id/navigate_to_article_fragment" app:destination="@id/articleFragment"
         app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true" />
@@ -171,7 +177,7 @@
     <action android:id="@+id/navigate_to_fresh_user_dialog" app:destination="@id/freshUserDialogFragment"        />
     <action android:id="@+id/navigate_to_following_fragment" app:destination="@id/followingFragment"        />
     <action android:id="@+id/navigate_to_followed_by_fragment" app:destination="@id/followedByFragment"        />
-
+    <action android:id="@+id/navigate_to_search_result_fragment" app:destination="@id/searchResultFragment"        />
 
 
 
