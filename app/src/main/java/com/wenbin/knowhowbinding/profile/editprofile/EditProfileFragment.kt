@@ -233,10 +233,12 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun updateBackground() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(intent, PICK_BACKGROUND_IMAGE)
+        checkPermission(PICK_BACKGROUND_IMAGE)
+
+//        val intent = Intent()
+//        intent.type = "image/*"
+//        intent.action = Intent.ACTION_GET_CONTENT
+//        startActivityForResult(intent, PICK_BACKGROUND_IMAGE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
@@ -275,11 +277,14 @@ class EditProfileFragment : Fragment() {
                 }
 
                 PICK_BACKGROUND_IMAGE -> {
+                    Log.d("expand", "Entry PICK_BACKGROUND_IMAGE")
+
                     val filePath = ImagePicker.getFilePath(data) ?: ""
+                    Log.d("expand", "filePath = $filePath")
 
                     if (filePath.isNotEmpty()) {
 
-                        Log.d("checkImage", "filePath = $filePath")
+                        Log.d("checkBgImage", "BgfilePath = $filePath")
                         Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                         Glide.with(this.requireContext()).load(filePath).into(binding.imageViewBackground)
 

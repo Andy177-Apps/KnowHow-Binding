@@ -168,6 +168,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     fun getUser(): User {
         Log.d("checkUpdateImage", "enter getUser() $imageUrlPath")
+        Log.d("checkUpdateImage", "enter getUser() bgImageUrlPath = $bgImageUrlPath")
 
         return User(
                 id = UserManager.user.id,
@@ -179,8 +180,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                 identity = identity.value.toString(),
                 talentedSubjects = talentedList,
                 interestedSubjects = interestedList,
-                image = imageUrlPath,
-                bgImage = bgImageUrlPath
+                image = if (imageUrlPath != "") imageUrlPath else userInfo.value!!.image,
+                bgImage = if (bgImageUrlPath != "") {
+                    bgImageUrlPath
+                } else {
+                    userInfo.value!!.bgImage
+                }
         )
     }
 
@@ -259,7 +264,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Log.d("checkUpdateImage", "updated imageUrlPath is $imageUrlPath")
+            Log.d("checkUpdateBgImage", "updated bgImageUrlPath is $bgImageUrlPath")
             _refreshStatus.value = false
         }
     }

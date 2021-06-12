@@ -41,156 +41,156 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     private var storageRef = storage.reference
 
     override suspend fun getImageUri(filePath: String): Result<String> =
-        suspendCoroutine { continuation ->
+            suspendCoroutine { continuation ->
 
-            var file = Uri.fromFile(File(filePath))
-            val riversRef = storageRef.child("images/${file.lastPathSegment}")
-            val uploadTask = riversRef.putFile(file)
+                var file = Uri.fromFile(File(filePath))
+                val riversRef = storageRef.child("images/${file.lastPathSegment}")
+                val uploadTask = riversRef.putFile(file)
 
-            // Register observers to listen for when the download is done or if it fails
-            uploadTask.addOnFailureListener {
-                Log.d("checkStorage", "Error getting documents in DataSource:  ", it)
+                // Register observers to listen for when the download is done or if it fails
+                uploadTask.addOnFailureListener {
+                    Log.d("checkStorage", "Error getting documents in DataSource:  ", it)
 
-                continuation.resume(Result.Error(it))
-            }.addOnSuccessListener { taskSnapshot ->
-                val storagePath = taskSnapshot.metadata?.path as String
+                    continuation.resume(Result.Error(it))
+                }.addOnSuccessListener { taskSnapshot ->
+                    val storagePath = taskSnapshot.metadata?.path as String
 
-                // Immediately download
-                storageRef.child(storagePath)
-                    .downloadUrl
-                    .addOnSuccessListener {
-                        // Got the download URL for storagePath
-                        continuation.resume(Result.Success(it.toString()))
+                    // Immediately download
+                    storageRef.child(storagePath)
+                            .downloadUrl
+                            .addOnSuccessListener {
+                                // Got the download URL for storagePath
+                                continuation.resume(Result.Success(it.toString()))
 
-                    }.addOnFailureListener {
-                        continuation.resume(Result.Error(it))
-                    }
-            }
-                .addOnProgressListener { taskSnapshot ->
-                val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
-                    if (progress < 100) {
+                            }.addOnFailureListener {
+                                continuation.resume(Result.Error(it))
+                            }
+                }
+                        .addOnProgressListener { taskSnapshot ->
+                            val progress = (100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount).toInt()
+                            if (progress < 100) {
 //                        continuation.resume(Result.Progress(progress))
-                    }
-            }
-        }
-
-    override suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean>  =
-        suspendCoroutine { continuation ->
-        Log.d("saveArticle", "fun saveArticle in DataSource is used")
-
-            val db = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
-
-            db
-                .whereEqualTo("id", article.id)
-                .whereArrayContains("saveList",userEmail)
-                .get()
-                .addOnSuccessListener { documents ->
-
-                    if (documents.isEmpty) {
-                        Log.d("saveArticle", "documents is empty")
-                        db.document(article.id)
-                            .update("saveList",FieldValue.arrayUnion(userEmail))
-                    } else {
-                        for (document in documents) {
-                            Log.d("saveArticle", "${document.id} => ${document.data}")
+                            }
                         }
-                        db.document(article.id)
-                            .update("saveList",FieldValue.arrayRemove(userEmail))
-                    }
+            }
+
+    override suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean> =
+            suspendCoroutine { continuation ->
+                Log.d("saveArticle", "fun saveArticle in DataSource is used")
+
+                val db = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+
+                db
+                        .whereEqualTo("id", article.id)
+                        .whereArrayContains("saveList", userEmail)
+                        .get()
+                        .addOnSuccessListener { documents ->
+
+                            if (documents.isEmpty) {
+                                Log.d("saveArticle", "documents is empty")
+                                db.document(article.id)
+                                        .update("saveList", FieldValue.arrayUnion(userEmail))
+                            } else {
+                                for (document in documents) {
+                                    Log.d("saveArticle", "${document.id} => ${document.data}")
+                                }
+                                db.document(article.id)
+                                        .update("saveList", FieldValue.arrayRemove(userEmail))
+                            }
 
 //                    db.document(article.id)
 //                        .update("saveList",FieldValue.arrayUnion(userEmail))
 //                    Log.d("saveArticle", "article.id = ${article.id}")
 //                    Log.d("saveArticle", "userEmail = $userEmail")
 
-                    for (document in documents) {
-                        Log.d("saveArticle", "${document.id} => ${document.data}")
-                    }
-                    continuation.resume(Result.Success(true))
+                            for (document in documents) {
+                                Log.d("saveArticle", "${document.id} => ${document.data}")
+                            }
+                            continuation.resume(Result.Success(true))
 
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("saveArticle", "Error getting documents: ", exception)
-                    continuation.resume(Result.Error(exception))
-                }
-    }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("saveArticle", "Error getting documents: ", exception)
+                            continuation.resume(Result.Error(exception))
+                        }
+            }
 
     override suspend fun getFollowing(userEmail: String): Result<List<User>> =
-        suspendCoroutine { continuation ->
-            Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
+            suspendCoroutine { continuation ->
+                Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
 
-            val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
+                val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
 
-            followings
-                .whereArrayContains("followedBy", userEmail)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = mutableListOf<User>()
-                        task.result?.forEach { document ->
-                            Logger.d(document.id + " => " + document.data)
+                followings
+                        .whereArrayContains("followedBy", userEmail)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val list = mutableListOf<User>()
+                                task.result?.forEach { document ->
+                                    Logger.d(document.id + " => " + document.data)
 
-                            val following = document.toObject(User::class.java)
-                            list.add(following)
-                        }
+                                    val following = document.toObject(User::class.java)
+                                    list.add(following)
+                                }
 
-                        continuation.resume(Result.Success(list))
-                    } else {
-                        task.exception?.let {
-                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.appContext.getString(
-                                    R.string.you_shall_not_pass
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.appContext.getString(
+                                                        R.string.you_shall_not_pass
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
-        }
+                            }
+                        }
+            }
 
     override suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>> =
-        suspendCoroutine { continuation ->
-            Log.d("MyCollectFragment", "getFollowedBy in DataSource is used.")
-            Log.d("MyCollectFragment", "userEmailList = $userEmailList")
+            suspendCoroutine { continuation ->
+                Log.d("MyCollectFragment", "getFollowedBy in DataSource is used.")
+                Log.d("MyCollectFragment", "userEmailList = $userEmailList")
 
-            val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
+                val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
 
-            if (!userEmailList.isNullOrEmpty()){
-                followings
-                    .whereIn("email", userEmailList)
-                    .get()
-                    .addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val list = mutableListOf<User>()
-                            task.result?.forEach { document ->
-                                Logger.d(document.id + " => " + document.data)
+                if (!userEmailList.isNullOrEmpty()) {
+                    followings
+                            .whereIn("email", userEmailList)
+                            .get()
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val list = mutableListOf<User>()
+                                    task.result?.forEach { document ->
+                                        Logger.d(document.id + " => " + document.data)
 
-                                val following = document.toObject(User::class.java)
-                                list.add(following)
-                            }
+                                        val following = document.toObject(User::class.java)
+                                        list.add(following)
+                                    }
 
-                            continuation.resume(Result.Success(list))
-                        } else {
-                            task.exception?.let {
-                                Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                                continuation.resume(Result.Error(it))
-                                return@addOnCompleteListener
-                            }
-                            continuation.resume(
-                                Result.Fail(
-                                    KnowHowBindingApplication.appContext.getString(
-                                        R.string.you_shall_not_pass
+                                    continuation.resume(Result.Success(list))
+                                } else {
+                                    task.exception?.let {
+                                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                        continuation.resume(Result.Error(it))
+                                        return@addOnCompleteListener
+                                    }
+                                    continuation.resume(
+                                            Result.Fail(
+                                                    KnowHowBindingApplication.appContext.getString(
+                                                            R.string.you_shall_not_pass
+                                                    )
+                                            )
                                     )
-                                )
-                            )
-                        }
-                    }
+                                }
+                            }
+                }
             }
-        }
 
     override suspend fun login(id: String): Result<User> {
         TODO("Not yet implemented")
@@ -201,74 +201,74 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     }
 
     override suspend fun publish(article: Article): Result<Boolean> =
-        suspendCoroutine { continuation ->
-            val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
-            val document = articles.document()
+            suspendCoroutine { continuation ->
+                val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+                val document = articles.document()
 
-            article.id = document.id
-            article.createdTime = Calendar.getInstance().timeInMillis
+                article.id = document.id
+                article.createdTime = Calendar.getInstance().timeInMillis
 
-            document
-                .set(article)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.i("wenbin", "Publish: $article")
+                document
+                        .set(article)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.i("wenbin", "Publish: $article")
 
-                        continuation.resume(Result.Success(true))
-                    } else {
-                        task.exception?.let {
+                                continuation.resume(Result.Success(true))
+                            } else {
+                                task.exception?.let {
 
-                            Log.w(
-                                "wenbin",
-                                "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                            )
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.instance.getString(
-                                    R.string.you_know_nothing
+                                    Log.w(
+                                            "wenbin",
+                                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                                    )
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.instance.getString(
+                                                        R.string.you_know_nothing
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
-        }
+                            }
+                        }
+            }
 
     override suspend fun getArticles(): Result<List<Article>> = suspendCoroutine { continuation ->
         Log.d("wembin", "getArticles is used")
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_ARTICLES)
+                .collection(PATH_ARTICLES)
 //            .whereEqualTo("author.id","leo555")
-            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val list = mutableListOf<Article>()
-                    for (document in task.result!!) {
-                        Log.d("wembin", document.id + " => " + document.data)
-                        val article = document.toObject(Article::class.java)
-                        Log.d("wembin", "article_list = $article")
+                .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .get()
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val list = mutableListOf<Article>()
+                        for (document in task.result!!) {
+                            Log.d("wembin", document.id + " => " + document.data)
+                            val article = document.toObject(Article::class.java)
+                            Log.d("wembin", "article_list = $article")
 
-                        list.add(article)
-                    }
-                    Log.d("wembin", "list = $list")
-                    continuation.resume(Result.Success(list))
-                } else {
-                    task.exception?.let {
+                            list.add(article)
+                        }
+                        Log.d("wembin", "list = $list")
+                        continuation.resume(Result.Success(list))
+                    } else {
+                        task.exception?.let {
 
-                        Log.w(
-                            "Wenbin",
-                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                        )
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                            Log.w(
+                                    "Wenbin",
+                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                            )
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
                     }
-                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
                 }
-            }
     }
 
     override fun getLiveChatRooms(userEmail: String): MutableLiveData<List<ChatRoom>> {
@@ -276,79 +276,79 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         val liveData = MutableLiveData<List<ChatRoom>>()
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_CHATROOMLIST)
-            .orderBy("latestTime", Query.Direction.DESCENDING)
-            .whereArrayContains("attendees", userEmail)
-            .addSnapshotListener { snapshot, exception ->
-                Logger.i("add SnapshotListener detected")
+                .collection(PATH_CHATROOMLIST)
+                .orderBy("latestTime", Query.Direction.DESCENDING)
+                .whereArrayContains("attendees", userEmail)
+                .addSnapshotListener { snapshot, exception ->
+                    Logger.i("add SnapshotListener detected")
 
-                exception?.let {
-                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    exception?.let {
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    }
+
+                    val list = mutableListOf<ChatRoom>()
+                    snapshot?.forEach { document ->
+                        Logger.d(document.id + " => " + document.data)
+
+                        val chatRoom = document.toObject(ChatRoom::class.java)
+                        Log.d("wenbin", "chatRoom = $chatRoom")
+
+                        list.add(chatRoom)
+                    }
+                    liveData.value = list
+
                 }
-
-                val list = mutableListOf<ChatRoom>()
-                snapshot?.forEach { document ->
-                    Logger.d(document.id + " => " + document.data)
-
-                    val chatRoom = document.toObject(ChatRoom::class.java)
-                    Log.d("wenbin", "chatRoom = $chatRoom")
-
-                    list.add(chatRoom)
-                }
-                liveData.value = list
-
-            }
         return liveData
     }
 
     override suspend fun postChatRoom(chatRoom: ChatRoom): Result<Boolean> =
-        suspendCoroutine { continuation ->
-            val chatRooms = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
-            val document = chatRooms.document()
+            suspendCoroutine { continuation ->
+                val chatRooms = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
+                val document = chatRooms.document()
 
-            chatRoom.id = document.id
-            chatRoom.latestTime = Calendar.getInstance().timeInMillis
+                chatRoom.id = document.id
+                chatRoom.latestTime = Calendar.getInstance().timeInMillis
 
-            chatRooms
-                .whereIn("attendees", listOf(chatRoom.attendees, chatRoom.attendees.reversed()))
-                .get()
-                .addOnSuccessListener { result ->
-                    //這是在 ChatRoomList 創造與那個人的 document，如果沒有那個 document 才創建，有的話就不創了
-                    if (result.isEmpty) {
-                        document
-                            .set(chatRoom)
-                            .addOnCompleteListener { task ->
-                                if (task.isSuccessful) {
-                                    Logger.i("Chatroom: $chatRoom")
+                chatRooms
+                        .whereIn("attendees", listOf(chatRoom.attendees, chatRoom.attendees.reversed()))
+                        .get()
+                        .addOnSuccessListener { result ->
+                            //這是在 ChatRoomList 創造與那個人的 document，如果沒有那個 document 才創建，有的話就不創了
+                            if (result.isEmpty) {
+                                document
+                                        .set(chatRoom)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                Logger.i("Chatroom: $chatRoom")
 
-                                    continuation.resume(Result.Success(true))
-                                } else {
-                                    task.exception?.let {
+                                                continuation.resume(Result.Success(true))
+                                            } else {
+                                                task.exception?.let {
 
-                                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                                        continuation.resume(Result.Error(it))
-                                        return@addOnCompleteListener
-                                    }
-                                    continuation.resume(
-                                        Result.Fail(
-                                            KnowHowBindingApplication.appContext.getString(
-                                                R.string.you_shall_not_pass
-                                            )
-                                        )
-                                    )
+                                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                                    continuation.resume(Result.Error(it))
+                                                    return@addOnCompleteListener
+                                                }
+                                                continuation.resume(
+                                                        Result.Fail(
+                                                                KnowHowBindingApplication.appContext.getString(
+                                                                        R.string.you_shall_not_pass
+                                                                )
+                                                        )
+                                                )
+                                            }
+                                        }
+                            } else {
+                                for (myDocument in result) {
+                                    Logger.d("Already initialized")
                                 }
                             }
-                    } else {
-                        for (myDocument in result) {
-                            Logger.d("Already initialized")
                         }
-                    }
-                }
 
-        }
+            }
 
     override suspend fun postUserToFollow(userOwnerEmail: String, user: User): Result<Boolean> =
-        suspendCoroutine { continuation ->
+            suspendCoroutine { continuation ->
 
 //        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
 //
@@ -364,53 +364,53 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 //        users.document(userOwnerEmail).update("followingEmail", FieldValue.arrayUnion(user.email))
 //        users.document(userOwnerEmail).update("followingName", FieldValue.arrayUnion(user.name))
 
-            val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
-            Log.d("RemoteupdateUser", "user.email = ${user.email}")
+                val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
+                Log.d("RemoteupdateUser", "user.email = ${user.email}")
 
-            db
-                .whereEqualTo("email", userOwnerEmail)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        //發出邀請
-                        val updateUserInfo = db.document(document.id)
-                        // Set the "isCapital" field of the city 'DC'
-                        updateUserInfo.update("followingEmail", FieldValue.arrayUnion(user.email))
-                        updateUserInfo.update("followingName", FieldValue.arrayUnion(user.name))
-                        updateUserInfo.update(
-                            "following",
-                            FieldValue.arrayUnion(
-                                Following(
-                                    userEmail = user.email,
-                                    userName = user.name
+                db
+                        .whereEqualTo("email", userOwnerEmail)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                //發出邀請
+                                val updateUserInfo = db.document(document.id)
+                                // Set the "isCapital" field of the city 'DC'
+                                updateUserInfo.update("followingEmail", FieldValue.arrayUnion(user.email))
+                                updateUserInfo.update("followingName", FieldValue.arrayUnion(user.name))
+                                updateUserInfo.update(
+                                        "following",
+                                        FieldValue.arrayUnion(
+                                                Following(
+                                                        userEmail = user.email,
+                                                        userName = user.name
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("TAG", "Error getting documents: ", exception)
-                }
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("TAG", "Error getting documents: ", exception)
+                        }
 
-            db
-                .whereEqualTo("email", user.email)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        //發出邀請
-                        val updateUserInfo = db.document(document.id)
-                        // Set the "isCapital" field of the city 'DC'
-                        updateUserInfo.update("followedBy", FieldValue.arrayUnion(userOwnerEmail))
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("TAG", "Error getting documents: ", exception)
-                }
+                db
+                        .whereEqualTo("email", user.email)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                //發出邀請
+                                val updateUserInfo = db.document(document.id)
+                                // Set the "isCapital" field of the city 'DC'
+                                updateUserInfo.update("followedBy", FieldValue.arrayUnion(userOwnerEmail))
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("TAG", "Error getting documents: ", exception)
+                        }
 
-        }
+            }
 
     override suspend fun removeUserFromFollow(userOwnerEmail: String, user: User): Result<Boolean> =
-        suspendCoroutine { continuation ->
+            suspendCoroutine { continuation ->
 //        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
 //
 //        users.document(userOwnerEmail).collection("followList").document(user.email)
@@ -425,126 +425,126 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 //        users.document(userOwnerEmail).update("followingEmail", FieldValue.arrayRemove(user.email))
 //        users.document(userOwnerEmail).update("followingName", FieldValue.arrayRemove(user.name))
 
-            val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
-            Log.d("RemoteupdateUser", "user.email = ${user.email}")
+                val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
+                Log.d("RemoteupdateUser", "user.email = ${user.email}")
 
-            db
-                .whereEqualTo("email", userOwnerEmail)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        //發出邀請
-                        val updateUserInfo = db.document(document.id)
-                        // Set the "isCapital" field of the city 'DC'
-                        updateUserInfo.update("followingEmail", FieldValue.arrayRemove(user.email))
-                        updateUserInfo.update("followingName", FieldValue.arrayRemove(user.name))
-                        updateUserInfo.update(
-                            "following",
-                            FieldValue.arrayUnion(
-                                Following(
-                                    userEmail = user.email,
-                                    userName = user.name
+                db
+                        .whereEqualTo("email", userOwnerEmail)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                //發出邀請
+                                val updateUserInfo = db.document(document.id)
+                                // Set the "isCapital" field of the city 'DC'
+                                updateUserInfo.update("followingEmail", FieldValue.arrayRemove(user.email))
+                                updateUserInfo.update("followingName", FieldValue.arrayRemove(user.name))
+                                updateUserInfo.update(
+                                        "following",
+                                        FieldValue.arrayUnion(
+                                                Following(
+                                                        userEmail = user.email,
+                                                        userName = user.name
+                                                )
+                                        )
                                 )
-                            )
-                        )
 
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("TAG", "Error getting documents: ", exception)
-                }
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("TAG", "Error getting documents: ", exception)
+                        }
 
-            db
-                .whereEqualTo("email", user.email)
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        val updateUserInfo = db.document(document.id)
-                        updateUserInfo.update("followedBy", FieldValue.arrayRemove(userOwnerEmail))
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Log.w("TAG", "Error getting documents: ", exception)
-                }
-        }
+                db
+                        .whereEqualTo("email", user.email)
+                        .get()
+                        .addOnSuccessListener { documents ->
+                            for (document in documents) {
+                                val updateUserInfo = db.document(document.id)
+                                updateUserInfo.update("followedBy", FieldValue.arrayRemove(userOwnerEmail))
+                            }
+                        }
+                        .addOnFailureListener { exception ->
+                            Log.w("TAG", "Error getting documents: ", exception)
+                        }
+            }
 
     override suspend fun getUserArticle(userEmail: String): Result<List<Article>> =
-        suspendCoroutine { continuation ->
-            Log.d("check_userArticles", "getUserArticle in DataSource is used.")
+            suspendCoroutine { continuation ->
+                Log.d("check_userArticles", "getUserArticle in DataSource is used.")
 
-            val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+                val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
-            articles
+                articles
 //                .whereEqualTo("creatorEmail", userEmail)
-                .whereEqualTo("author.email", userEmail)
+                        .whereEqualTo("author.email", userEmail)
 //                .orderBy("author").whereEqualTo("email", userEmail)
 //                .whereGreaterThanOrEqualTo("author",userEmail)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = mutableListOf<Article>()
-                        task.result?.forEach { document ->
-                            Logger.d(document.id + " => " + document.data)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val list = mutableListOf<Article>()
+                                task.result?.forEach { document ->
+                                    Logger.d(document.id + " => " + document.data)
 
-                            val article = document.toObject(Article::class.java)
-                            list.add(article)
-                        }
+                                    val article = document.toObject(Article::class.java)
+                                    list.add(article)
+                                }
 
-                        continuation.resume(Result.Success(list))
-                    } else {
-                        task.exception?.let {
-                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.appContext.getString(
-                                    R.string.you_shall_not_pass
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.appContext.getString(
+                                                        R.string.you_shall_not_pass
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
+                            }
 
-                }
-        }
+                        }
+            }
 
     override suspend fun getSavedArticle(userEmail: String): Result<List<Article>> =
-        suspendCoroutine { continuation ->
-            Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
+            suspendCoroutine { continuation ->
+                Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
 
-            val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
+                val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
-            articles
-                .whereArrayContains("saveList", userEmail)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val list = mutableListOf<Article>()
-                        task.result?.forEach { document ->
-                            Logger.d(document.id + " => " + document.data)
+                articles
+                        .whereArrayContains("saveList", userEmail)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val list = mutableListOf<Article>()
+                                task.result?.forEach { document ->
+                                    Logger.d(document.id + " => " + document.data)
 
-                            val article = document.toObject(Article::class.java)
-                            list.add(article)
-                        }
+                                    val article = document.toObject(Article::class.java)
+                                    list.add(article)
+                                }
 
-                        continuation.resume(Result.Success(list))
-                    } else {
-                        task.exception?.let {
-                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.appContext.getString(
-                                    R.string.you_shall_not_pass
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.appContext.getString(
+                                                        R.string.you_shall_not_pass
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
-    }
+                            }
+                        }
+            }
 
     override suspend fun postUser(user: User): Result<Boolean> = suspendCoroutine { continuation ->
         val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
@@ -554,38 +554,38 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         Log.d("checkUser", "user.email in DataSource = ${user.email}")
 
         db.whereEqualTo("email", user.email)
-            .get()
-            .addOnSuccessListener { documents ->
-                Log.d("documents", " Already initialized")
-                Log.d("documents", "documents = ${documents.isEmpty}}")
+                .get()
+                .addOnSuccessListener { documents ->
+                    Log.d("documents", " Already initialized")
+                    Log.d("documents", "documents = ${documents.isEmpty}}")
 
-                for (document in documents) {
-                    Log.d(
-                        "documents",
-                        "Received in DataSource = ${document.id} => ${document.data}"
-                    )
-                }
-                if (documents.isEmpty) {
-                    document
-                        .set(user)
-                        .addOnSuccessListener {
-                            Log.d(TAG, "DocumentSnapshot successfully written!")
-                            Log.d("checkUser", "User in addOnSuccessListener = $user")
+                    for (document in documents) {
+                        Log.d(
+                                "documents",
+                                "Received in DataSource = ${document.id} => ${document.data}"
+                        )
+                    }
+                    if (documents.isEmpty) {
+                        document
+                                .set(user)
+                                .addOnSuccessListener {
+                                    Log.d(TAG, "DocumentSnapshot successfully written!")
+                                    Log.d("checkUser", "User in addOnSuccessListener = $user")
 
-                            Logger.i("User: $user")
+                                    Logger.i("User: $user")
 //                            continuation.resume(Result.Success(true))
-                        }
-                        .addOnFailureListener { e ->
-                            Log.w(TAG, "Error writing document", e)
-                            Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
+                                }
+                                .addOnFailureListener { e ->
+                                    Log.w(TAG, "Error writing document", e)
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
 //                            continuation.resume(Result.Error(e))
-                        }
+                                }
 //                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("documents", "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.w("documents", "Error getting documents: ", exception)
+                }
 
 //        db.whereEqualTo("email", user.email)
 //            .get()
@@ -618,171 +618,171 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     }
 
     override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> =
-        suspendCoroutine { continuation ->
-            Log.d("check_googleSign", "firebaseAuthWithGoogle in DataSource is used.")
-            Log.d("check_googleSign", "idToken = $idToken")
-            val auth = Firebase.auth
+            suspendCoroutine { continuation ->
+                Log.d("check_googleSign", "firebaseAuthWithGoogle in DataSource is used.")
+                Log.d("check_googleSign", "idToken = $idToken")
+                val auth = Firebase.auth
 
-            val credential = GoogleAuthProvider.getCredential(idToken, null)
-            auth.signInWithCredential(credential)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(LoginActivity.TAG, "signInWithCredential:success")
-                        val user = auth.currentUser
-                        user?.let {
-                            continuation.resume(Result.Success(it))
-                        }
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(LoginActivity.TAG, "signInWithCredential:failure", task.exception)
-                        task.exception?.let {
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.instance.getString(
-                                    R.string.you_know_nothing
+                val credential = GoogleAuthProvider.getCredential(idToken, null)
+                auth.signInWithCredential(credential)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(LoginActivity.TAG, "signInWithCredential:success")
+                                val user = auth.currentUser
+                                user?.let {
+                                    continuation.resume(Result.Success(it))
+                                }
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Log.w(LoginActivity.TAG, "signInWithCredential:failure", task.exception)
+                                task.exception?.let {
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.instance.getString(
+                                                        R.string.you_know_nothing
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
+                            }
+                        }
 
-        }
+            }
 
     override suspend fun postMessage(
-        emails: List<String>,
-        message: Message
+            emails: List<String>,
+            message: Message
     ): Result<Boolean> = suspendCoroutine { continuation ->
 
         val chat = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
         chat.whereIn("attendees", listOf(emails, emails.reversed()))
 //            .whereEqualTo("id", chatRoom.id)
-            .get()
-            .addOnSuccessListener { result ->
-                val documentId = chat.document(result.documents[0].id)
-                documentId
-                    //更新文檔的某些字段而不覆蓋整個文檔，請使用update()方法：
-                    .update(
-                        "latestTime", Calendar.getInstance().timeInMillis,
-                        "latestMessage", message.text
-                    )
-            }
-            // 用上 Storage 的 continueWithTask
-            .continueWithTask { task ->
-                if (!task.isSuccessful) {
-                    if (task.exception != null) {
-                        task.exception?.let {
-                            Log.d(
-                                "wenbin",
-                                "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                .get()
+                .addOnSuccessListener { result ->
+                    val documentId = chat.document(result.documents[0].id)
+                    documentId
+                            //更新文檔的某些字段而不覆蓋整個文檔，請使用update()方法：
+                            .update(
+                                    "latestTime", Calendar.getInstance().timeInMillis,
+                                    "latestMessage", message.text
                             )
-                            continuation.resume(Result.Error(it))
-                        }
-                    } else {
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.appContext.getString(
-                                    R.string.you_shall_not_pass
+                }
+                // 用上 Storage 的 continueWithTask
+                .continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        if (task.exception != null) {
+                            task.exception?.let {
+                                Log.d(
+                                        "wenbin",
+                                        "[${this::class.simpleName}] Error getting documents. ${it.message}"
                                 )
+                                continuation.resume(Result.Error(it))
+                            }
+                        } else {
+                            continuation.resume(
+                                    Result.Fail(
+                                            KnowHowBindingApplication.appContext.getString(
+                                                    R.string.you_shall_not_pass
+                                            )
+                                    )
                             )
-                        )
+                        }
+                    }
+                    task.result?.let {
+                        val documentId2 =
+                                chat.document(it.documents[0].id).collection("message").document()
+
+                        message.createdTime = Calendar.getInstance().timeInMillis
+                        message.id = documentId2.id
+
+                        chat.document(it.documents[0].id).collection("message").add(message)
                     }
                 }
-                task.result?.let {
-                    val documentId2 =
-                        chat.document(it.documents[0].id).collection("message").document()
+                .addOnCompleteListener { taskTwo ->
+                    if (taskTwo.isSuccessful) {
+                        Logger.i("ChatRoom: $message")
 
-                    message.createdTime = Calendar.getInstance().timeInMillis
-                    message.id = documentId2.id
-
-                    chat.document(it.documents[0].id).collection("message").add(message)
-                }
-            }
-            .addOnCompleteListener { taskTwo ->
-                if (taskTwo.isSuccessful) {
-                    Logger.i("ChatRoom: $message")
-
-                    continuation.resume(Result.Success(true))
-                } else {
-                    taskTwo.exception?.let {
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                        continuation.resume(Result.Success(true))
+                    } else {
+                        taskTwo.exception?.let {
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
                     }
-                    continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
-                }
 
-            }
+                }
     }
 
     override suspend fun postEvent(event: Event): Result<Boolean> =
-        suspendCoroutine { continuation ->
-            //先與 Firebase 的 collection 連動
-            val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
-            //再與 Firebase 的 document 連動，方法就是創造該 document
-            val document = events.document()
+            suspendCoroutine { continuation ->
+                //先與 Firebase 的 collection 連動
+                val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
+                //再與 Firebase 的 document 連動，方法就是創造該 document
+                val document = events.document()
 
-            event.id = document.id
-            event.createdTime = Calendar.getInstance().timeInMillis
+                event.id = document.id
+                event.createdTime = Calendar.getInstance().timeInMillis
 
-            document
-                .set(event)
+                document
+                        .set(event)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Log.i("wenbin", "Post: $event")
+
+                                continuation.resume(Result.Success(true))
+                            } else {
+                                task.exception?.let {
+
+                                    Log.w(
+                                            "wenbin",
+                                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                                    )
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.instance.getString(
+                                                        R.string.you_know_nothing
+                                                )
+                                        )
+                                )
+                            }
+                        }
+            }
+
+    override suspend fun getAllEvents(): Result<List<Event>> = suspendCoroutine { continuation ->
+        FirebaseFirestore.getInstance()
+                .collection(PATH_EVENTS)
+//            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
+                .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Log.i("wenbin", "Post: $event")
-
-                        continuation.resume(Result.Success(true))
+                        val list = mutableListOf<Event>()
+                        for (document in task.result!!) {
+                            Log.d("wembin", document.id + " => " + document.data)
+                            val event = document.toObject(Event::class.java)
+                            list.add(event)
+                        }
+                        continuation.resume(Result.Success(list))
                     } else {
                         task.exception?.let {
 
                             Log.w(
-                                "wenbin",
-                                "[${this::class.simpleName}] Error getting documents. ${it.message}"
+                                    "Wenbin",
+                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
                             )
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.instance.getString(
-                                    R.string.you_know_nothing
-                                )
-                            )
-                        )
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
                     }
                 }
-        }
-
-    override suspend fun getAllEvents(): Result<List<Event>> = suspendCoroutine { continuation ->
-        FirebaseFirestore.getInstance()
-            .collection(PATH_EVENTS)
-//            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
-            .get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val list = mutableListOf<Event>()
-                    for (document in task.result!!) {
-                        Log.d("wembin", document.id + " => " + document.data)
-                        val event = document.toObject(Event::class.java)
-                        list.add(event)
-                    }
-                    continuation.resume(Result.Success(list))
-                } else {
-                    task.exception?.let {
-
-                        Log.w(
-                            "Wenbin",
-                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                        )
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
-                    }
-                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
-                }
-            }
     }
 
     override fun getLiveEvents(): MutableLiveData<List<Event>> {
@@ -790,26 +790,26 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         val liveData = MutableLiveData<List<Event>>()
 
         FirebaseFirestore.getInstance()
-            .collection(PATH_EVENTS)
+                .collection(PATH_EVENTS)
 //            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
-            .addSnapshotListener { snapshot, exception ->
+                .addSnapshotListener { snapshot, exception ->
 
-                Logger.i("addSnapshotListener detect")
+                    Logger.i("addSnapshotListener detect")
 
-                exception?.let {
-                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    exception?.let {
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    }
+
+                    val list = mutableListOf<Event>()
+                    for (document in snapshot!!) {
+                        Logger.d(document.id + " =>>>> " + document.data)
+
+                        val event = document.toObject(Event::class.java)
+                        list.add(event)
+                    }
+
+                    liveData.value = list
                 }
-
-                val list = mutableListOf<Event>()
-                for (document in snapshot!!) {
-                    Logger.d(document.id + " =>>>> " + document.data)
-
-                    val event = document.toObject(Event::class.java)
-                    list.add(event)
-                }
-
-                liveData.value = list
-            }
         return liveData
     }
 
@@ -819,47 +819,47 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
         val chat = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
         chat.whereIn("attendees", listOf(emails, emails.reversed()))
-            .get()
-            .addOnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    task.exception?.let {
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        return@addOnCompleteListener
+                .get()
+                .addOnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            return@addOnCompleteListener
+                        }
+                    }
+
+                    task.result?.let {
+                        chat.document(it.documents[0].id)
+                                .collection(PATH_MESSAGE)
+                                .orderBy(KEY_CREATED_TIME)
+                                .addSnapshotListener { snapshot, exception ->
+                                    Logger.i("addSnapshotListener detect")
+
+                                    if (snapshot != null) {
+                                        Log.d("outbounder", "snapshot = ${snapshot.documents}")
+                                    } else {
+                                        Log.d("outbounder", "snapshot = null")
+                                    }
+
+
+                                    exception?.let {
+                                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    }
+
+                                    val list = mutableListOf<Message>()
+
+                                    for (document in snapshot!!) {
+                                        Logger.d(document.id + " => " + document.data)
+                                        Log.d("outbounder", "${document.data}")
+                                        val message = document.toObject(Message::class.java)
+                                        list.add(message)
+                                    }
+
+                                    liveData.value = list
+                                    Logger.w("liveData.value = ${liveData.value}")
+                                }
                     }
                 }
-
-                task.result?.let {
-                    chat.document(it.documents[0].id)
-                        .collection(PATH_MESSAGE)
-                        .orderBy(KEY_CREATED_TIME)
-                        .addSnapshotListener { snapshot, exception ->
-                            Logger.i("addSnapshotListener detect")
-
-                            if (snapshot != null) {
-                                Log.d("outbounder", "snapshot = ${snapshot.documents}")
-                            } else {
-                                Log.d("outbounder", "snapshot = null")
-                            }
-
-
-                            exception?.let {
-                                Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                            }
-
-                            val list = mutableListOf<Message>()
-
-                            for (document in snapshot!!) {
-                                Logger.d(document.id + " => " + document.data)
-                                Log.d("outbounder", "${document.data}")
-                                val message = document.toObject(Message::class.java)
-                                list.add(message)
-                            }
-
-                            liveData.value = list
-                            Logger.w("liveData.value = ${liveData.value}")
-                        }
-                }
-            }
         return liveData
     }
 
@@ -869,26 +869,29 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
         Log.d("RemoteupdateUser", "user.image = ${user.image}")
 
         db.collection(PATH_USERS)
-            .whereEqualTo("email", user.email)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    //發出邀請
-                    val updateUserInfo = db.collection(PATH_USERS).document(document.id)
-                    // Set the "isCapital" field of the city 'DC'
-                    updateUserInfo.update(
-                        "identity", user.identity,
-                        "talentedSubjects", user.talentedSubjects,
-                        "city", user.city,
-                        "interestedSubjects", user.interestedSubjects,
-                        "introduction", user.introduction,
-                        "image", user.image
-                    )
+                .whereEqualTo("email", user.email)
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //發出邀請
+                        val updateUserInfo = db.collection(PATH_USERS).document(document.id)
+                        // Set the "isCapital" field of the city 'DC'
+                        updateUserInfo.update(
+                                "identity", user.identity,
+
+                                "talentedSubjects", user.talentedSubjects,
+                                "city", user.city,
+                                "interestedSubjects", user.interestedSubjects,
+                                "introduction", user.introduction,
+                                "image", user.image,
+                                "bgImage", user.bgImage
+
+                        )
+                    }
                 }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("TAG", "Error getting documents: ", exception)
-            }
+                .addOnFailureListener { exception ->
+                    Log.w("TAG", "Error getting documents: ", exception)
+                }
 
 
         // 更新資料
@@ -903,61 +906,61 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     }
 
     override suspend fun getUser(userEmail: String): Result<User> =
-        suspendCoroutine { continuation ->
-            FirebaseFirestore.getInstance()
-                .collection(PATH_USERS)
-                .whereEqualTo("email", userEmail)
-                .get()
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        var list = User()
-                        for (document in task.result!!) {
-                            Logger.d(document.id + " => " + document.data)
+            suspendCoroutine { continuation ->
+                FirebaseFirestore.getInstance()
+                        .collection(PATH_USERS)
+                        .whereEqualTo("email", userEmail)
+                        .get()
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                var list = User()
+                                for (document in task.result!!) {
+                                    Logger.d(document.id + " => " + document.data)
 
-                            val user = document.toObject(User::class.java)
-                            list = user
-                        }
-                        continuation.resume(Result.Success(list))
-                    } else {
-                        task.exception?.let {
+                                    val user = document.toObject(User::class.java)
+                                    list = user
+                                }
+                                continuation.resume(Result.Success(list))
+                            } else {
+                                task.exception?.let {
 
-                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.instance.getString(
-                                    R.string.you_know_nothing
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.instance.getString(
+                                                        R.string.you_know_nothing
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
-        }
+                            }
+                        }
+            }
 
     override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {
         val liveData = MutableLiveData<List<Event>>()
         FirebaseFirestore.getInstance()
-            .collection(PATH_EVENTS)
-            .orderBy("createdTime", Query.Direction.DESCENDING)
-            .whereArrayContains("invitation", userEmail)
-            .addSnapshotListener { snapshot, exception ->
-                Logger.i("add SnapshotListener detected")
+                .collection(PATH_EVENTS)
+                .orderBy("createdTime", Query.Direction.DESCENDING)
+                .whereArrayContains("invitation", userEmail)
+                .addSnapshotListener { snapshot, exception ->
+                    Logger.i("add SnapshotListener detected")
 
-                exception?.let {
-                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                }
+                    exception?.let {
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    }
 
-                val list = mutableListOf<Event>()
-                snapshot?.forEach { document ->
-                    Logger.d(document.id + " => " + document.data)
+                    val list = mutableListOf<Event>()
+                    snapshot?.forEach { document ->
+                        Logger.d(document.id + " => " + document.data)
 
-                    val event = document.toObject(Event::class.java)
-                    Log.d("check_event", "event = $event")
+                        val event = document.toObject(Event::class.java)
+                        Log.d("check_event", "event = $event")
 
-                    list.add(event)
-                }
+                        list.add(event)
+                    }
 //                if (snapshot != null) {
 //                    for (document in snapshot) {
 //                        Logger.d(document.id + " => " + document.data)
@@ -968,98 +971,98 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 //                }
 
 
-                liveData.value = list
-                Log.d("check_liveevents", "liveData.value = ${liveData.value}")
+                    liveData.value = list
+                    Log.d("check_liveevents", "liveData.value = ${liveData.value}")
 
-            }
+                }
 
         return liveData
     }
 
     override suspend fun acceptEvent(
-        event: Event,
-        userEmail: String,
-        userName: String,
-        userImage: String
-        ): Result<Boolean> = suspendCoroutine { continuation ->
+            event: Event,
+            userEmail: String,
+            userName: String,
+            userImage: String
+    ): Result<Boolean> = suspendCoroutine { continuation ->
         val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
         val document = events.document(event.id)
         var success = 0
 
         document
-            .update("invitation", FieldValue.arrayRemove(userEmail))
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Logger.i("Post: $event")
+                .update("invitation", FieldValue.arrayRemove(userEmail))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Logger.i("Post: $event")
 
-                    success++
+                        success++
 
-                    if (success == 3) {
-                        continuation.resume(Result.Success(true))
+                        if (success == 3) {
+                            continuation.resume(Result.Success(true))
+                        } else {
+                            Logger.i("Still got work to do")
+                        }
+
                     } else {
-                        Logger.i("Still got work to do")
-                    }
+                        task.exception?.let {
 
-                } else {
-                    task.exception?.let {
-
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                     }
-                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                 }
-            }
 
         document
-            .update("attendees", FieldValue.arrayUnion(userEmail))
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Logger.i("Post: $event")
+                .update("attendees", FieldValue.arrayUnion(userEmail))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Logger.i("Post: $event")
 
-                    success++
+                        success++
 
-                    if (success == 3) {
-                        continuation.resume(Result.Success(true))
+                        if (success == 3) {
+                            continuation.resume(Result.Success(true))
+                        } else {
+                            Logger.i("Still got work to do")
+                        }
+
                     } else {
-                        Logger.i("Still got work to do")
-                    }
+                        task.exception?.let {
 
-                } else {
-                    task.exception?.let {
-
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                     }
-                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                 }
-            }
 
         document
-            .update("attendeesName", FieldValue.arrayUnion(userName))
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Logger.i("Post: $event")
+                .update("attendeesName", FieldValue.arrayUnion(userName))
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Logger.i("Post: $event")
 
-                    success++
+                        success++
 
-                    if (success == 3) {
-                        continuation.resume(Result.Success(true))
+                        if (success == 3) {
+                            continuation.resume(Result.Success(true))
+                        } else {
+                            Logger.i("Still got work to do")
+                        }
+
                     } else {
-                        Logger.i("Still got work to do")
-                    }
+                        task.exception?.let {
 
-                } else {
-                    task.exception?.let {
-
-                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                        continuation.resume(Result.Error(it))
-                        return@addOnCompleteListener
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                            continuation.resume(Result.Error(it))
+                            return@addOnCompleteListener
+                        }
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                     }
-                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
                 }
-            }
         document
                 .update("attendeesImage", FieldValue.arrayUnion(userImage))
                 .addOnCompleteListener { task ->
@@ -1087,34 +1090,34 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     }
 
     override suspend fun declineEvent(event: Event, userEmail: String): Result<Boolean> =
-        suspendCoroutine { continuation ->
-            val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
-            val document = events.document(event.id)
+            suspendCoroutine { continuation ->
+                val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
+                val document = events.document(event.id)
 
-            document
-                .update("invitation", FieldValue.arrayRemove(userEmail))
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Logger.i("Post: $event")
+                document
+                        .update("invitation", FieldValue.arrayRemove(userEmail))
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                Logger.i("Post: $event")
 
-                        continuation.resume(Result.Success(true))
-                    } else {
-                        task.exception?.let {
+                                continuation.resume(Result.Success(true))
+                            } else {
+                                task.exception?.let {
 
-                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
-                            continuation.resume(Result.Error(it))
-                            return@addOnCompleteListener
-                        }
-                        continuation.resume(
-                            Result.Fail(
-                                KnowHowBindingApplication.instance.getString(
-                                    R.string.you_shall_not_pass
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                                    continuation.resume(Result.Error(it))
+                                    return@addOnCompleteListener
+                                }
+                                continuation.resume(
+                                        Result.Fail(
+                                                KnowHowBindingApplication.instance.getString(
+                                                        R.string.you_shall_not_pass
+                                                )
+                                        )
                                 )
-                            )
-                        )
-                    }
-                }
-        }
+                            }
+                        }
+            }
 }
 
 

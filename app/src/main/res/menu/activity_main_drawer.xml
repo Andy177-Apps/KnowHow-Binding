@@ -27,5 +27,10 @@
             android:id="@+id/followingFragment"
             android:icon="@drawable/outline_loyalty_black_48"
             android:title="@string/menu_following" />
+
+        <item
+            android:id="@+id/searchFragment"
+            android:icon="@drawable/outline_loyalty_black_48"
+            android:title="搜尋" />
     </group>
 </menu>
