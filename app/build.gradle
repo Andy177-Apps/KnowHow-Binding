@@ -157,4 +157,7 @@ dependencies {
     // Crashlytics
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
+
+    // MultiSelectSpinner
+    implementation 'com.github.pratikbutani:MultiSelectSpinner:1.0.1'
 }

@@ -9,18 +9,19 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDialogFragment
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerListener
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.databinding.DialogCreateEventBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.util.TimeUtil
-import java.util.*
 import com.wenbin.knowhowbinding.util.Logger
+import com.wenbin.knowhowbinding.util.TimeUtil
 import kotlinx.android.synthetic.main.dialog_create_event.view.*
+import java.util.*
 
 
 class CreateEventDialogFragment : AppCompatDialogFragment() {
@@ -30,17 +31,40 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
     private lateinit var binding : DialogCreateEventBinding
 
     private val viewModel by viewModels<CreateEventViewModel> { getVmFactory(
-        CreateEventDialogFragmentArgs.fromBundle(requireArguments()).selectedDate
+            CreateEventDialogFragmentArgs.fromBundle(requireArguments()).selectedDate
     ) }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
         binding = DialogCreateEventBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        // Multiple
+        val listArray1 = listOf<String>("123", "456", "789")
+
+        val listArray0: MutableList<KeyPairBoolData> = ArrayList()
+
+        for (i in listArray1.indices) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = listArray1[i]
+            h.isSelected = false
+            listArray0.add(h)
+        }
+
+        binding.multipleItemSelectionSpinner.setSearchHint("Select your mood")
+        binding.multipleItemSelectionSpinner.setClearText("Close & Clear")
+        binding.multipleItemSelectionSpinner.setItems(listArray0, MultiSpinnerListener { items ->
+            for (i in items.indices) {
+                if (items[i].isSelected) {
+                    Log.d("MultipleSpinner", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                }
+            }
+        })
 
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -80,22 +104,22 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         }
 
         binding.spinnerCategory.adapter = CreateEventTypeSpinnerAdapter(
-            KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array))
+                KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array))
 
         binding.spinnerCategory.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
             override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
             ) {
                 if (parent != null) {
                     val selectedType = parent.selectedItem.toString()
-                    Log.d("Spinner_type","position = $position")
-                    Log.d("Spinner_type","id = $id")
+                    Log.d("Spinner_type", "position = $position")
+                    Log.d("Spinner_type", "id = $id")
 
                     viewModel.setType(selectedType)
                 }
@@ -126,8 +150,8 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                     id: Long
             ) {
                 if (parent != null) {
-                    Log.d("Spinner_Following","position = $position")
-                    Log.d("Spinner_Following","id = $id")
+                    Log.d("Spinner_Following", "position = $position")
+                    Log.d("Spinner_Following", "id = $id")
                     viewModel.setInvitation(position)
                 }
             }
@@ -167,7 +191,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         return binding.root
     }
 
-    private fun timeIntervalVisibility(condition : Boolean) {
+    private fun timeIntervalVisibility(condition: Boolean) {
         // When condtion == ture, it represent switch is open
         if (condition) {
             binding.textViewStartTime.visibility = View.GONE
@@ -195,11 +219,11 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                             viewModel.setEndTime(timeTimeStamp)
                         } else {
                             Toast.makeText(KnowHowBindingApplication.appContext,
-                            getString(R.string.reminder_invalid_time), Toast.LENGTH_SHORT).show()
+                                    getString(R.string.reminder_invalid_time), Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
             }
-        }, startHour, startMinute,true).show()
+        }, startHour, startMinute, true).show()
     }
 }

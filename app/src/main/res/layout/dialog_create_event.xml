@@ -102,8 +102,8 @@
                         android:id="@+id/spinner_category"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dialog_edittext_height"
-                        android:layout_marginTop="@dimen/dialog_margin_top"
                         android:background="@drawable/bg_edittext"
+                        android:layout_marginTop="@dimen/dialog_margin_top"
                         android:spinnerMode="dialog"
                         app:layout_constraintEnd_toEndOf="@+id/editText_title"
                         app:layout_constraintStart_toStartOf="@id/textView_category"
@@ -258,6 +258,15 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView_description_title" />
+
+                    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+                        android:id="@+id/multipleItemSelectionSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dialog_edittext_height"
+                        android:background="@drawable/bg_edittext"
+                        android:layout_margin="10dp"
+                        app:hintText="Multi Item Selection"
+                        app:layout_constraintTop_toBottomOf="@+id/editText_description"/>
 
                     <TextView
                         android:id="@+id/textView_other_user"
