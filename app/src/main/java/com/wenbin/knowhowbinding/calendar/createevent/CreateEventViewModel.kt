@@ -21,8 +21,8 @@ import kotlin.collections.ArrayList
 import kotlin.math.absoluteValue
 
 class CreateEventViewModel(
-        private val repository: KnowHowBindingRepository,
-        private val selectedDate: Long
+    private val repository: KnowHowBindingRepository,
+    private val selectedDate: Long
 ) : ViewModel() {
 
     val title = MutableLiveData<String>()
@@ -112,7 +112,7 @@ class CreateEventViewModel(
 
     // Get the user information in the first place.
     private fun getUser(userEmail: String) {
-        Log.d("check_userInfo" ,"getUser is used")
+        Log.d("check_userInfo", "getUser is used")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
@@ -136,7 +136,8 @@ class CreateEventViewModel(
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -149,18 +150,19 @@ class CreateEventViewModel(
     fun getEvent(): Event {
         //Where, id and createdTime are both assigned in fun postEvent at RemoteDataSource
         return Event(
-                city = city.value.toString(),
-                title = title.value.toString(),
-                description = description.value.toString(),
-                creatorName = "Wenbin",
-                creatorImage = "",
-                attendees = listOf("id one", "id two"),
-                attendeesName = listOf("person one", "person two"),
-                tag = type.value.toString(),
-                eventTime = eventTime.value ?: -1,
-                startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
-                endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
-                invitation = listOf(_invitation.value) as List<String>,
+            city = city.value.toString(),
+            title = title.value.toString(),
+            description = description.value.toString(),
+            creatorName = "Wenbin",
+            creatorImage = "",
+            attendees = listOf(UserManager.user.email),
+            attendeesName = listOf(UserManager.user.name),
+            tag = type.value.toString(),
+            eventTime = eventTime.value ?: -1,
+            startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
+            endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
+//            invitation = listOf(_multipleInvitation.value) as List<String>,
+            invitation = _multipleInvitation.value ?: listOf() ,
             attendeesImage = listOf(userInfo.value!!.image)
         )
     }
@@ -186,7 +188,8 @@ class CreateEventViewModel(
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -198,8 +201,8 @@ class CreateEventViewModel(
     }
 
     fun setInvitation(selectedFollowing: Int) {
-        if (selectedFollowing !=0 ){
-            _invitation.value = userInfo.value?.following?.get(selectedFollowing-1)?.userEmail
+        if (selectedFollowing != 0) {
+            _invitation.value = userInfo.value?.following?.get(selectedFollowing - 1)?.userEmail
         }
     }
 
