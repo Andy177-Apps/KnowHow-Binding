@@ -34,7 +34,7 @@ class SearchResultFragment: Fragment() {
         })
 
         binding.recyclerView.adapter = searchResultAdapter
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerView.setHasFixedSize(true)
 
         binding.recyclerView.layoutManager = layoutManager
