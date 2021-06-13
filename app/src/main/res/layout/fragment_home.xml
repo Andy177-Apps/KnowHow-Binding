@@ -39,14 +39,6 @@
             />
 <!--        app:GetArticle="@{viewModel.articles}"-->
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:lottie_rawRes="@raw/signin_1"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true" />
 
         <ProgressBar
             android:id="@+id/progress_bar"

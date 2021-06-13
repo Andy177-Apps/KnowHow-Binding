@@ -61,7 +61,7 @@
     <!-- Post Article Page -->
     <dimen name="btn_width">312dp</dimen>
     <dimen name="btn_height">56dp</dimen>
-    <dimen name="btn_text_size">20dp</dimen>
+    <dimen name="btn_text_size">20sp</dimen>
 
     <!-- User Detail Page -->
     <dimen name="user_detail_text_title">16sp</dimen>
@@ -92,6 +92,9 @@
     <dimen name="edit_btn_upload_image_size">25dp</dimen>
 
 
+    <!-- Search Page -->
+    <dimen name="search_spinner_width">36dp</dimen>
+    <dimen name="search_spinner_marginHorizontal">36dp</dimen>
 
 
 

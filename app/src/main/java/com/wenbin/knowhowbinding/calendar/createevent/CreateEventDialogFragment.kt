@@ -14,9 +14,10 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.MultiSpinnerListener
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch.LimitExceedListener
+import com.facebook.FacebookSdk.getApplicationContext
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.DialogCreateEventBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
@@ -32,13 +33,13 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
     private lateinit var binding : DialogCreateEventBinding
 
     private val viewModel by viewModels<CreateEventViewModel> { getVmFactory(
-            CreateEventDialogFragmentArgs.fromBundle(requireArguments()).selectedDate
+        CreateEventDialogFragmentArgs.fromBundle(requireArguments()).selectedDate
     ) }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         binding = DialogCreateEventBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -75,7 +76,10 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
 
             for (i in items.indices) {
                 if (items[i].isSelected) {
-                    Log.d("MultipleSpinner", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                    Log.d(
+                        "MultipleSpinner",
+                        i.toString() + " : " + items[i].name + " : " + items[i].isSelected
+                    )
                     list.add(items[i].name)
                 }
             }
@@ -84,9 +88,19 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             viewModel.setMultipleInvitation(list)
         })
 
+        //limit counts
+//        binding.multipleItemSelectionSpinner.setLimit(1, LimitExceedListener {
+//            Toast.makeText(
+//                KnowHowBindingApplication.appContext,
+//                "Limit exceed ", Toast.LENGTH_LONG
+//            ).show()
+//        })
+
         viewModel.multipleInvitation.observe(viewLifecycleOwner, Observer {
             Log.d("MultipleSpinner", "multipleInvitation = $it")
         })
+
+
 
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -126,17 +140,18 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         }
 
         binding.spinnerCategory.adapter = CreateEventTypeSpinnerAdapter(
-                KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array))
+            KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array)
+        )
 
         binding.spinnerCategory.onItemSelectedListener = object :
             AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
             override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
             ) {
                 if (parent != null) {
                     val selectedType = parent.selectedItem.toString()
@@ -163,10 +178,10 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }
             override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
             ) {
                 if (parent != null) {
                     Log.d("Spinner_Following", "position = $position")
@@ -237,8 +252,10 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                             Logger.i("$hour : $minute")
                             viewModel.setEndTime(timeTimeStamp)
                         } else {
-                            Toast.makeText(KnowHowBindingApplication.appContext,
-                                    getString(R.string.reminder_invalid_time), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                KnowHowBindingApplication.appContext,
+                                getString(R.string.reminder_invalid_time), Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }
