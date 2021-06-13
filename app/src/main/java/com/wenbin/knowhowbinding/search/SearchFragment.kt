@@ -43,7 +43,7 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
 
         //-- multipleItemSelectionSpinner_type
-        val listType = listOf<String>("找老師", "找學生")
+        val listType = KnowHowBindingApplication.instance.resources.getStringArray(R.array.search_type)
         val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
         for (i in listType.indices) {
             val h = KeyPairBoolData()

@@ -73,6 +73,11 @@
         <item>Czerny</item>
     </string-array>
 
+    <string-array name="search_type">
+        <item>找老師</item>
+        <item>找學生</item>
+    </string-array>
+
     <string-array name="city_array">
         <item>臺北市</item>
         <item>新北市</item>

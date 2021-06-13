@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentSearchResultBinding
+import com.wenbin.knowhowbinding.ext.excludeOwner
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.user.UserProfileFragmentArgs
 
@@ -35,7 +36,6 @@ class SearchResultFragment: Fragment() {
         val searchResultAdapter = SearchResultAdapter(SearchResultAdapter.OnClickListener {
             viewModel.navigateToUserProfile(it)
         })
-
         binding.recyclerView.adapter = searchResultAdapter
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerView.setHasFixedSize(true)
@@ -43,16 +43,25 @@ class SearchResultFragment: Fragment() {
         binding.recyclerView.layoutManager = layoutManager
 
 
+        viewModel.allUsers.observe(viewLifecycleOwner, Observer {
+            viewModel.createSortedList(it)
+        })
+
+        viewModel.usersWithMatch.observe(viewLifecycleOwner, Observer {
+            Log.d("checkSearchList", "usersWithMatch in fragment = $it")
+            val resultList = it.excludeOwner()
+            searchResultAdapter.submitList(resultList)
+        })
+
+
+
+
+
         viewModel.navigateToUserProfile.observe(viewLifecycleOwner, Observer {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToUserProfileFragment(it.email))
                 viewModel.onUserProfileNavigated()
             }
-        })
-
-        viewModel.allUsers.observe(viewLifecycleOwner, Observer {
-            Log.d("checkSearchResult", "allUsers = $it")
-            searchResultAdapter.submitList(it)
         })
 
         return binding.root

@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.search.searchresult
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,10 +15,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
+import com.wenbin.knowhowbinding.ext.sortByUserAnswer
 
 class SearchResultViewModel(private val repository: KnowHowBindingRepository, private val arguments: Answer) : ViewModel() {
 
-    val userAnswer = arguments
+    private val userAnswer = arguments
 
     private val _allUsers = MutableLiveData<List<User>>()
 
@@ -62,6 +64,7 @@ class SearchResultViewModel(private val repository: KnowHowBindingRepository, pr
 
     init {
         getAllUsers()
+        Log.d("checkSearchList", "userAnswer in viewModel = $userAnswer")
     }
 
     private fun getAllUsers() {
@@ -106,6 +109,6 @@ class SearchResultViewModel(private val repository: KnowHowBindingRepository, pr
     }
 
     fun createSortedList(users: List<User>) {
-        _usersWithMatch.value = users.sortByTraits(userAnswer)
+        _usersWithMatch.value = users.sortByUserAnswer(userAnswer)
     }
 }
