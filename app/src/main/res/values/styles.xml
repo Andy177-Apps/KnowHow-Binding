@@ -11,7 +11,7 @@
     </style>
 
     <style name="ProgressTheme" parent="Widget.AppCompat.ProgressBar">
-        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
     </style>
 
     <style name="CalendarWidgetHeader">

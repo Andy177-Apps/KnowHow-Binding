@@ -45,6 +45,7 @@ class SearchResultFragment: Fragment() {
 
         viewModel.allUsers.observe(viewLifecycleOwner, Observer {
             viewModel.createSortedList(it)
+//            searchResultAdapter.submitList(it)
         })
 
         viewModel.usersWithMatch.observe(viewLifecycleOwner, Observer {

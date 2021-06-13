@@ -42,13 +42,15 @@ class UserProfileFragment: Fragment() {
         binding = FragmentUserDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
+        val imageViewGender = binding.imageViewGender
         var firstTimeEntry = true
 
 
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("check_follow", "accepted userInfo = $it")
+
+            imageViewGender.isSelected = it.gender == "male"
 
             Log.d("check_follow", "viewModel.userInfo.image = ${viewModel.userInfo.value!!.image}")
             if (it.email != "") {
@@ -163,6 +165,19 @@ class UserProfileFragment: Fragment() {
                 }, 3000)
                 }
         }
+
+//        binding.imageViewChat.setOnClickListener {
+//            viewModel.postChatRoom(viewModel.createChatRoom())
+//            Log.d("check_follow", "buttonMessage is clicked")
+//
+//            Log.d("check_follow", "user.email= ${user.email}")
+//
+//            if (!user.email.isNullOrEmpty()){
+//                Handler(Looper.getMainLooper()).postDelayed({
+//                    findNavController().navigate(NavigationDirections.navigateToMessageFragment(user.email, user.name))
+//                }, 3000)
+//            }
+//        }
     }
 
     private fun showFollowButton(showFollow: Boolean) {
