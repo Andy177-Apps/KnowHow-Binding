@@ -8,20 +8,25 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.navigation.fragment.findNavController
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.MultiSpinnerListener
 import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.MainActivity
+import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.databinding.FragmentSearchBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class SearchFragment  : Fragment() {
-    private lateinit var binding : FragmentSearchBinding
+class SearchFragment : Fragment() {
+    private lateinit var binding: FragmentSearchBinding
     val viewModel by viewModels<SearchViewModel> { getVmFactory() }
 //
 //    private val viewModel : SearchViewModel by lazy {
@@ -57,7 +62,8 @@ class SearchFragment  : Fragment() {
             listArrayType,
             object : SingleSpinnerListener {
                 override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Log.d("CheckType", "Selected Item : " + selectedItem.name)
+                    Log.d("CheckSelected", "Type : " + selectedItem.name)
+                    viewModel.setupType(selectedItem.name)
                 }
 
                 override fun onClear() {
@@ -72,7 +78,8 @@ class SearchFragment  : Fragment() {
 
 
         //-- multipleItemSelectionSpinner_city Multiple
-        val listCity = KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
+        val listCity =
+            KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
         val listArrayCity: MutableList<KeyPairBoolData> = ArrayList()
 
         for (i in listCity.indices) {
@@ -104,7 +111,8 @@ class SearchFragment  : Fragment() {
                     }
                 }
 
-                Log.d("MultipleSpinner", "Final city list in line 67 =$list")
+                Log.d("CheckSelected", "Final city list in line 108 =$list")
+                viewModel.setupCity(list)
             })
 
         //-- multipleItemSelectionSpinner_gender
@@ -127,8 +135,8 @@ class SearchFragment  : Fragment() {
             listArrayGender,
             object : SingleSpinnerListener {
                 override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Log.d("CheckGender", "Selected Item : " + selectedItem.name)
-                    viewModel.selectSubjects(selectedItem.name)
+                    Log.d("CheckSelected", "Gender : " + selectedItem.name)
+                    viewModel.setupGender(selectedItem.name)
                 }
 
                 override fun onClear() {
@@ -142,7 +150,8 @@ class SearchFragment  : Fragment() {
             })
 
         //-- singleItemSelectionSpinner_category Single
-        val listCategory = KnowHowBindingApplication.instance.resources.getStringArray(R.array.major_category_array)
+        val listCategory =
+            KnowHowBindingApplication.instance.resources.getStringArray(R.array.major_category_array)
         val listArrayCategory: MutableList<KeyPairBoolData> = ArrayList()
         for (i in listCategory.indices) {
             val h = KeyPairBoolData()
@@ -158,10 +167,12 @@ class SearchFragment  : Fragment() {
         binding.singleItemSelectionSpinnerCategory.setSearchHint("選擇領域")
         binding.singleItemSelectionSpinnerCategory.setItems(
             listArrayCategory,
-             object : SingleSpinnerListener {
+            object : SingleSpinnerListener {
                 override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Log.d("CheckCategory", "Selected Item : " + selectedItem.name)
+                    Log.d("CheckSelected", "Categoryr : " + selectedItem.name)
+
                     viewModel.selectSubjects(selectedItem.name)
+                    viewModel.setupCategory(selectedItem.name)
                 }
 
                 override fun onClear() {
@@ -209,14 +220,52 @@ class SearchFragment  : Fragment() {
                         list.add(items[i].name)
                     }
                 }
-
-                Log.d("MultipleSpinner", "Final Subject list in line 151 =$list")
+                Log.d("CheckSelected", "Final Subject list in line 216 =$list")
+                viewModel.setupSubject(list)
             })
 
-        if (activity is MainActivity) {
-            (activity as MainActivity).resetToolBar("搜尋文章")
+        binding.textViewLook.setOnClickListener {
+            navigateToResult()
         }
+        // Observe
+        viewModel.selectedType.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("Checklivedata", "selectedType = $it")
+        })
+
+        viewModel.selectedCity.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("Checklivedata", "selectedCity = $it")
+        })
+
+        viewModel.selectedGender.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("Checklivedata", "selectedGender = $it")
+        })
+
+        viewModel.selectedCategory.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("Checklivedata", "selectedCategory = $it")
+        })
+
+        viewModel.selectedSubject.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+            Log.d("Checklivedata", "selectedSubject = $it")
+        })
+
+//        if (activity is MainActivity) {
+//            (activity as MainActivity).resetToolBar("搜尋文章")
+//        }
         return binding.root
+    }
+
+    private fun navigateToResult() {
+
+        val answer = Answer(
+            type = viewModel.selectedType.value ?: "",
+            city = viewModel.selectedCity.value ?: listOf<String>(),
+            gender = viewModel.selectedGender.value ?: "",
+            subject = viewModel.selectedSubject.value ?: listOf<String>()
+        )
+        Log.d("Checklivedata", "answer = $answer")
+
+//        findNavController().navigate(NavigationDirections.navigateToQuestionTwo())
+
     }
 }
 

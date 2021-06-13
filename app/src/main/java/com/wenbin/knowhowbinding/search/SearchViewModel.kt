@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
@@ -16,6 +17,32 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
+
+    private val _selectedType = MutableLiveData<String>()
+
+    val selectedType: LiveData<String>
+        get() = _selectedType
+
+    private val _selectedCity = MutableLiveData<List<String>>()
+
+    val selectedCity: LiveData<List<String>>
+        get() = _selectedCity
+
+    private val _selectedGender = MutableLiveData<String>()
+
+    val selectedGender: LiveData<String>
+        get() = _selectedGender
+
+    private val _selectedCategory = MutableLiveData<String>()
+
+    val selectedCategory: LiveData<String>
+        get() = _selectedCategory
+
+    private val _selectedSubject = MutableLiveData<List<String>>()
+
+    val selectedSubject: LiveData<List<String>>
+        get() = _selectedSubject
+
 
     private val _articles = MutableLiveData<List<Article>>()
 
@@ -93,8 +120,8 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
     fun selectSubjects(selectedItem: String) {
         Log.d("MultipleSpinner", "selectedItem = $selectedItem")
 
-        _listSubject.value = null
-        _listSubject.value = when (selectedItem) {
+        _listSubject.value = KnowHowBindingApplication.instance.resources.getStringArray(R.array.default_array)
+        val array: Array<String> = when (selectedItem) {
             "Language" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.language_array)
             "Curriculum" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.curriculum_array)
             "Music" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.music_array)
@@ -102,5 +129,30 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
             "Sport" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.sport_array)
             else -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.exam_array)
         }
+        Log.d("MultipleSpinner", "array = $array")
+
+        _listSubject.value = array
+
     }
+
+    fun setupType(type: String) {
+        _selectedType.value = type
+    }
+
+    fun setupCity(city: List<String>) {
+        _selectedCity.value = city
+    }
+
+    fun setupGender(gender: String) {
+        _selectedGender.value = gender
+    }
+
+    fun setupCategory(category: String) {
+        _selectedCategory.value = category
+    }
+
+    fun setupSubject(subject: List<String>) {
+        _selectedSubject.value = subject
+    }
+
 }

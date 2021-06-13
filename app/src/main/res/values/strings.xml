@@ -98,6 +98,10 @@
         <item>連江縣</item>
     </string-array>
 
+    <string-array name="default_array">
+
+    </string-array>
+
     <string-array name="all_tag_array">
         <item>English</item>
         <item>French</item>

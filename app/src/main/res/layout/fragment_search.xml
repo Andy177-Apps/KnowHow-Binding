@@ -98,7 +98,9 @@
 
 
         <TextView
-            android:id="@+id/textView_save"
+            android:id="@+id/textView_look"
+            android:clickable="true"
+
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height"
             android:background="@color/primaryDark"
@@ -115,7 +117,6 @@
             android:layout_marginTop="24dp"
             android:text="@string/go_result"
             />
-        <!--            android:onClick="@{() -> viewModel.navigateToProfilePage()}"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -137,7 +137,9 @@
         android:id="@+id/searchResultFragment"
         android:name="com.wenbin.knowhowbinding.search.searchresult.SearchResultFragment"
         android:label="SearchResultFragment"
-        tools:layout="@layout/fragment_search_result"/>
+        tools:layout="@layout/fragment_search_result">
+
+    </fragment>
 
     <action android:id="@+id/navigate_to_article_fragment" app:destination="@id/articleFragment"
         app:popUpTo="@+id/navigation"
