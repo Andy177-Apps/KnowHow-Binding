@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,12 +15,17 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class SearchViewModel (private val repository: KnowHowBindingRepository) : ViewModel() {
+class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
 
     val articles: LiveData<List<Article>>
         get() = _articles
+
+    private var _listSubject = MutableLiveData<Array<String>>()
+
+    val listSubject: LiveData<Array<String>>
+        get() = _listSubject
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -74,12 +80,27 @@ class SearchViewModel (private val repository: KnowHowBindingRepository) : ViewM
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value =
+                        KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
             }
             _refreshStatus.value = false
+        }
+    }
+
+    fun selectSubjects(selectedItem: String) {
+        Log.d("MultipleSpinner", "selectedItem = $selectedItem")
+
+        _listSubject.value = null
+        _listSubject.value = when (selectedItem) {
+            "Language" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.language_array)
+            "Curriculum" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.curriculum_array)
+            "Music" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.music_array)
+            "Art" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.art_array)
+            "Sport" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.sport_array)
+            else -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.exam_array)
         }
     }
 }

@@ -40,7 +40,7 @@
             android:layout_marginHorizontal="@dimen/search_spinner_marginHorizontal"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_edittext"
-            app:hintText="Single Selection Spinner"
+            app:hintText="想找學生還是老師？"
             app:layout_constraintTop_toBottomOf="@+id/title_select_subject"/>
 
         <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
@@ -62,19 +62,28 @@
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_edittext"
 
-            app:hintText="Single Selection Spinner"
+            app:hintText="是否有性別限制？"
             app:layout_constraintTop_toBottomOf="@+id/multipleItemSelectionSpinner_city"/>
+
+        <com.androidbuts.multispinnerfilter.SingleSpinnerSearch
+            android:id="@+id/singleItemSelectionSpinner_category"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/search_spinner_width"
+            android:layout_marginHorizontal="@dimen/search_spinner_marginHorizontal"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_edittext"
+            app:hintText="領域"
+            app:layout_constraintTop_toBottomOf="@+id/singleItemSelectionSpinner_gender"/>
 
         <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
             android:id="@+id/multipleItemSelectionSpinner_subject"
             android:layout_width="match_parent"
             android:layout_height="@dimen/search_spinner_width"
             android:layout_marginHorizontal="@dimen/search_spinner_marginHorizontal"
-
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_edittext"
-            app:hintText="勾選想要邀請的名單"
-            app:layout_constraintTop_toBottomOf="@+id/singleItemSelectionSpinner_gender"/>
+            app:hintText="科目"
+            app:layout_constraintTop_toBottomOf="@+id/singleItemSelectionSpinner_category"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/animation_view"

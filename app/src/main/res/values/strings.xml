@@ -124,7 +124,55 @@
         <item>JLPT</item>
     </string-array>
 
+    <string-array name="major_category_array">
+        <item>Language</item>
+        <item>Curriculum</item>
+        <item>Music</item>
+        <item>Art</item>
+        <item>Sport</item>
+        <item>Exam</item>
+    </string-array>
 
+    <string-array name="language_array">
+        <item>English</item>
+        <item>French</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>German</item>
+        <item>Spanish</item>
+    </string-array>
+
+    <string-array name="curriculum_array">
+        <item>Math</item>
+        <item>Physics</item>
+        <item>Chemistry</item>
+    </string-array>
+
+    <string-array name="music_array">
+        <item>Piano</item>
+        <item>Violin</item>
+        <item>Flute</item>
+        <item>Singing</item>
+    </string-array>
+
+    <string-array name="art_array">
+        <item>Sketch</item>
+        <item>Digital Painting</item>
+        <item>Oil Painting</item>
+    </string-array>
+
+    <string-array name="sport_array">
+        <item>Yoga</item>
+        <item>CrossFit</item>
+        <item>Swimming</item>
+    </string-array>
+
+    <string-array name="exam_array">
+        <item>TOIEC</item>
+        <item>TOFEL</item>
+        <item>IELTS</item>
+        <item>JLPT</item>
+    </string-array>
     <!-- Home Fragment -->
     <string name="pager_title_all">全部</string>
     <string name="pager_study_group">讀書會</string>
