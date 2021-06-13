@@ -74,8 +74,6 @@ class ViewModelFactory constructor(
                 isAssignableFrom(FollowedByViewModel::class.java) ->
                     FollowedByViewModel(knowHowBindingRepository)
 
-                isAssignableFrom(SearchResultViewModel::class.java) ->
-                    SearchResultViewModel(knowHowBindingRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

@@ -5,6 +5,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
+import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.factory.*
 import com.wenbin.knowhowbinding.util.REQUEST_EXTERNAL_STORAGE
@@ -41,6 +42,10 @@ fun Fragment.getVmFactory(userEmail: String) : UserProfileViewModelFactory {
     return UserProfileViewModelFactory(repository, userEmail)
 }
 
+fun Fragment.getVmFactory(answer: Answer) : SearchResultViewModelFactory {
+    val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
+    return SearchResultViewModelFactory(repository, answer)
+}
 
 fun Fragment.checkPermission() {
     val permission = ActivityCompat.checkSelfPermission(KnowHowBindingApplication.instance.applicationContext,

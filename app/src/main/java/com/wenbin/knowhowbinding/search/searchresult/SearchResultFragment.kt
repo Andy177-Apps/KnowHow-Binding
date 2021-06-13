@@ -13,12 +13,15 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentSearchResultBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.user.UserProfileFragmentArgs
 
 
 class SearchResultFragment: Fragment() {
     private lateinit var binding: FragmentSearchResultBinding
 
-    private val viewModel by viewModels<SearchResultViewModel> { getVmFactory()}
+    private val viewModel by viewModels<SearchResultViewModel> { getVmFactory(
+        SearchResultFragmentArgs.fromBundle(requireArguments()).selectedAnswers
+    )}
 
     override fun onCreateView(
             inflater: LayoutInflater,

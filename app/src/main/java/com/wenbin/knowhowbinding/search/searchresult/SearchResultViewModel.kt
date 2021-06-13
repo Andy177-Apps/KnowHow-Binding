@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
+import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.network.LoadApiStatus
@@ -14,12 +15,20 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
 
-class SearchResultViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
+class SearchResultViewModel(private val repository: KnowHowBindingRepository, private val arguments: Answer) : ViewModel() {
+
+    val userAnswer = arguments
 
     private val _allUsers = MutableLiveData<List<User>>()
 
     val allUsers: LiveData<List<User>>
         get() = _allUsers
+
+    // list of users after filtering
+    private val _usersWithMatch = MutableLiveData<List<User>>()
+
+    val usersWithMatch: LiveData<List<User>>
+        get() = _usersWithMatch
 
     // Handle navigation to user profile
     private val _navigateToUserProfile = MutableLiveData<User>()
@@ -94,5 +103,9 @@ class SearchResultViewModel(private val repository: KnowHowBindingRepository) : 
 
     fun onUserProfileNavigated() {
         _navigateToUserProfile.value = null
+    }
+
+    fun createSortedList(users: List<User>) {
+        _usersWithMatch.value = users.sortByTraits(userAnswer)
     }
 }

@@ -264,7 +264,7 @@ class SearchFragment : Fragment() {
         )
         Log.d("Checklivedata", "answer = $answer")
 
-//        findNavController().navigate(NavigationDirections.navigateToQuestionTwo())
+        findNavController().navigate(NavigationDirections.navigateToSearchResultFragment(answer))
 
     }
 }

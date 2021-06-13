@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@+id/searchFragment">
+    app:startDestination="@+id/articleFragment">
 
     <fragment
         android:id="@+id/articleFragment"
@@ -94,6 +94,16 @@
     </fragment>
 
     <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.wenbin.knowhowbinding.search.searchresult.SearchResultFragment"
+        android:label="SearchResultFragment"
+        tools:layout="@layout/fragment_search_result">
+        <argument
+            android:name="selectedAnswers"
+            app:argType="com.wenbin.knowhowbinding.data.Answer"/>
+    </fragment>
+
+    <fragment
         android:id="@+id/userProfileFragment"
         android:name="com.wenbin.knowhowbinding.user.UserProfileFragment"
         android:label="UserProfileFragment"
@@ -133,13 +143,7 @@
         android:label="FollowedByFragment"
         tools:layout="@layout/fragment_followedby"/>
 
-    <fragment
-        android:id="@+id/searchResultFragment"
-        android:name="com.wenbin.knowhowbinding.search.searchresult.SearchResultFragment"
-        android:label="SearchResultFragment"
-        tools:layout="@layout/fragment_search_result">
 
-    </fragment>
 
     <action android:id="@+id/navigate_to_article_fragment" app:destination="@id/articleFragment"
         app:popUpTo="@+id/navigation"
