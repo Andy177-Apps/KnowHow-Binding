@@ -7,7 +7,7 @@
 
         <item
             android:id="@+id/articleFragment"
-            android:visible="true"
+            android:visible="false"
             android:title="Head" />
 
         <item
@@ -31,6 +31,7 @@
         <item
             android:id="@+id/searchFragment"
             android:icon="@drawable/outline_loyalty_black_48"
+            android:visible="false"
             android:title="搜尋" />
     </group>
 </menu>

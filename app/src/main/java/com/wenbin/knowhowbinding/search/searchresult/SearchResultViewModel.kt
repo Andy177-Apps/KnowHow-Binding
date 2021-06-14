@@ -109,6 +109,7 @@ class SearchResultViewModel(private val repository: KnowHowBindingRepository, pr
     }
 
     fun createSortedList(users: List<User>) {
+        Log.d("checkSearchList", "allUsers in viewModel = $users")
         _usersWithMatch.value = users.sortByUserAnswer(userAnswer)
     }
 }

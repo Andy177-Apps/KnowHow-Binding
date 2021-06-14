@@ -62,6 +62,7 @@
     <color name="text_07">#6E7882</color>
 
     <!-- Gray Series -->
+    <color name="gray">#FAFBFC</color>
     <color name="gray_light">#EEEEEE</color>
     <color name="gray_646464">#646464</color>
     <color name="gray_888888">#888888</color>

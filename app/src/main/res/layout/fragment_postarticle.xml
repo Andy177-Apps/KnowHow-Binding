@@ -12,7 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/white">
 
         <Spinner
             android:id="@+id/spinner_category"
@@ -166,21 +166,22 @@
 
         <Button
             android:id="@+id/button_send_article"
-            android:layout_width="@dimen/btn_width"
+            android:layout_width="0dp"
             android:layout_height="@dimen/btn_height"
             android:background="@drawable/bg_all_round_corner_primarydark"
-
+            app:layout_constraintTop_toBottomOf="@+id/editText_articleContent"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="48dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginBottom="12dp"
             style="@style/CalendarWidgetDate"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:textSize="@dimen/btn_text_size"
             android:textFontWeight="400"
             android:fontFamily="@font/noto_sans"
-            android:text="送出文章"
-
+            android:text="發布文章"
+            android:layout_marginHorizontal="16dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

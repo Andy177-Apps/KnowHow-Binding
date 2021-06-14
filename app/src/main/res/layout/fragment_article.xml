@@ -11,26 +11,44 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:background="@drawable/bg_edittext_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="10dp"
+            />
+
         <EditText
             android:id="@+id/editText_search"
-            android:background="#FAFBFC"
-            android:layout_width="292dp"
+            android:background="@drawable/bg_edittext_gray"
+
+            android:layout_width="0dp"
             android:layout_height="36dp"
             android:ems="10"
             android:text="@={viewModel.searchEditText}"
             android:hint="Search"
             android:textSize="14sp"
             android:inputType="text"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintStart_toEndOf="@+id/imageView_search"
         />
 
         <ImageView
             android:id="@+id/imageView_search"
             android:layout_width="16dp"
             android:layout_height="16dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toStartOf="@+id/view"
             app:layout_constraintStart_toEndOf="@+id/editText_search"
             app:layout_constraintTop_toTopOf="@+id/editText_search"
             app:layout_constraintBottom_toBottomOf="@+id/editText_search"

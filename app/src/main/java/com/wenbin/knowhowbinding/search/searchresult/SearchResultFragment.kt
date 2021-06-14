@@ -44,6 +44,7 @@ class SearchResultFragment: Fragment() {
 
 
         viewModel.allUsers.observe(viewLifecycleOwner, Observer {
+            Log.d("checkSearchList", "allUsers in fragment = $it")
             viewModel.createSortedList(it)
 //            searchResultAdapter.submitList(it)
         })

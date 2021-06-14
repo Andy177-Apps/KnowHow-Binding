@@ -249,9 +249,9 @@ class SearchFragment : Fragment() {
             Log.d("Checklivedata", "selectedSubject = $it")
         })
 
-//        if (activity is MainActivity) {
-//            (activity as MainActivity).("搜尋文章")
-//        }
+        if (activity is MainActivity) {
+            (activity as MainActivity).resetToolBar("搜尋")
+        }
         return binding.root
     }
 

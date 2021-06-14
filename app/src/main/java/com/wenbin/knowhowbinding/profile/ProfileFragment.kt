@@ -72,7 +72,7 @@ class ProfileFragment  : Fragment() {
 //                if (ownerUser.identity == null) {
 //                    binding.textViewUserNameLayout.text = "尚未設定"
 //                }
-                resultList = it.recommendedUser(ownerUser)
+                resultList = it.recommendedUser(ownerUser).excludeOwner()
             }
             Log.d("checkRecommendedList", "Final resultList in fragment = $resultList")
 

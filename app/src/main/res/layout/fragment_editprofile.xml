@@ -14,7 +14,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
+        android:background="@color/white"
     android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -399,7 +399,7 @@
 
             <TextView
                 android:id="@+id/textView_save"
-                android:layout_width="@dimen/btn_width"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/btn_height"
                 android:background="@drawable/bg_all_round_corner_primarydark"
                 android:textColor="@color/white"
@@ -407,6 +407,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginBottom="48dp"
                 android:textSize="@dimen/btn_text_size"
                 android:textFontWeight="400"

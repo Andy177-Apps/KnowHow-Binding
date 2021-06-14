@@ -72,7 +72,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         Logger.i("------------------------------------")
 //        createTestedData()
         getUser(UserManager.user.email)
-        getAllUsers()
+//        getAllUsers()
 
     }
 

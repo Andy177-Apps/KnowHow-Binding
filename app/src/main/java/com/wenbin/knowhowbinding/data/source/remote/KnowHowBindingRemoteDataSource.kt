@@ -195,6 +195,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun getAllUsers(): Result<List<User>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_USERS)
+                .orderBy("name")
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -204,6 +205,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             val user = document.toObject(User::class.java)
                             list.add(user)
                         }
+                        Log.d("wembin", " list = $list")
                         continuation.resume(Result.Success(list))
                     } else {
                         task.exception?.let {

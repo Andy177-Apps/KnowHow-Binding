@@ -11,7 +11,7 @@
     <string name="chatroom">訊息</string>
     <string name="profile">Profile</string>
     <string name="search">搜尋文章</string>
-    <string name="select_subject">填入你的需求！</string>
+    <string name="select_subject">找尋合適的對象</string>
     <string name="go_result">看結果</string>
 
     <string name="you_know_nothing">You know nothing</string>
@@ -121,39 +121,42 @@
 
     </string-array>
 
-    <string-array name="all_tag_array">
-        <item>English</item>
-        <item>French</item>
-        <item>Japanese</item>
-        <item>Korean</item>
-        <item>German</item>
-        <item>Spanish</item>
-        <item>Math</item>
-        <item>Physics</item>
-        <item>Chemistry</item>
-        <item>Piano</item>
-        <item>Violin</item>
-        <item>Flute</item>
-        <item>Singing</item>
-        <item>Sketch</item>
-        <item>Digital Painting</item>
-        <item>Oil Painting</item>
-        <item>Yoga</item>
-        <item>CrossFit</item>
-        <item>Swimming</item>
-        <item>TOIEC</item>
-        <item>TOFEL</item>
-        <item>IELTS</item>
-        <item>JLPT</item>
-    </string-array>
+
 
     <string-array name="major_category_array">
-        <item>Language</item>
-        <item>Curriculum</item>
-        <item>Music</item>
-        <item>Art</item>
-        <item>Sport</item>
-        <item>Exam</item>
+        <item>高中</item>
+        <item>國中</item>
+        <item>語文</item>
+        <item>程式語言</item>
+        <item>音樂</item>
+        <item>藝術</item>
+        <item>運動</item>
+        <item>檢定考試</item>
+    </string-array>
+
+    <string-array name="high_school_array">
+        <item>高中國文</item>
+        <item>高中英文</item>
+        <item>高中數學</item>
+        <item>高中物理</item>
+        <item>高中化學</item>
+        <item>高中生物</item>
+        <item>高中歷史</item>
+        <item>高中地理</item>
+        <item>高中公民</item>
+        <item>高中地科</item>
+    </string-array>
+
+    <string-array name="secondary_array">
+        <item>國中國文</item>
+        <item>國中英文</item>
+        <item>國中數學</item>
+        <item>國中理化</item>
+        <item>國中生物</item>
+        <item>國中歷史</item>
+        <item>國中地理</item>
+        <item>國中公民</item>
+        <item>國中地科</item>
     </string-array>
 
     <string-array name="language_array">
@@ -165,29 +168,48 @@
         <item>Spanish</item>
     </string-array>
 
-    <string-array name="curriculum_array">
-        <item>Math</item>
-        <item>Physics</item>
-        <item>Chemistry</item>
+    <string-array name="programming_array">
+        <item>前端</item>
+        <item>後端</item>
+        <item>iOS</item>
+        <item>Android</item>
+        <item>Data</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>Python</item>
+        <item>Leetcode</item>
+        <item>Html css</item>
+        <item>Wordpress</item>
     </string-array>
 
     <string-array name="music_array">
-        <item>Piano</item>
-        <item>Violin</item>
-        <item>Flute</item>
-        <item>Singing</item>
+        <item>鋼琴</item>
+        <item>小提琴</item>
+        <item>吉他</item>
+        <item>烏克麗麗</item>
+        <item>口琴</item>
     </string-array>
 
     <string-array name="art_array">
-        <item>Sketch</item>
-        <item>Digital Painting</item>
-        <item>Oil Painting</item>
+        <item>素描</item>
+        <item>UI/UX</item>
+        <item>修圖</item>
+        <item>影片剪輯</item>
     </string-array>
 
     <string-array name="sport_array">
-        <item>Yoga</item>
+        <item>跑步</item>
+        <item>羽毛球</item>
+        <item>桌球</item>
+        <item>藍球</item>
+        <item>瑜珈</item>
+        <item>健力</item>
+        <item>健美</item>
+        <item>健體</item>
+        <item>游泳</item>
+        <item>潛水</item>
         <item>CrossFit</item>
-        <item>Swimming</item>
     </string-array>
 
     <string-array name="exam_array">
@@ -197,5 +219,72 @@
         <item>JLPT</item>
     </string-array>
 
+    <string-array name="all_tag_array">
+        <item>高中國文</item>
+        <item>高中英文</item>
+        <item>高中數學</item>
+        <item>高中物理</item>
+        <item>高中化學</item>
+        <item>高中生物</item>
+        <item>高中歷史</item>
+        <item>高中地理</item>
+        <item>高中公民</item>
+        <item>高中地科</item>
+        <item>國中國文</item>
+        <item>國中英文</item>
+        <item>國中數學</item>
+        <item>國中理化</item>
+        <item>國中生物</item>
+        <item>國中歷史</item>
+        <item>國中地理</item>
+        <item>國中公民</item>
+        <item>國中地科</item>
+        <item>English</item>
+        <item>French</item>
+        <item>Japanese</item>
+        <item>Korean</item>
+        <item>German</item>
+        <item>Spanish</item>
+        <item>前端</item>
+        <item>後端</item>
+        <item>iOS</item>
+        <item>Android</item>
+        <item>Data</item>
+        <item>C++</item>
+        <item>Java</item>
+        <item>JavaScript</item>
+        <item>Python</item>
+        <item>Leetcode</item>
+        <item>Html css</item>
+        <item>Wordpress</item>
+
+        <item>鋼琴</item>
+        <item>小提琴</item>
+        <item>吉他</item>
+        <item>烏克麗麗</item>
+        <item>口琴</item>
+
+        <item>素描</item>
+        <item>UI/UX</item>
+        <item>修圖</item>
+        <item>影片剪輯</item>
+
+        <item>跑步</item>
+        <item>羽毛球</item>
+        <item>桌球</item>
+        <item>藍球</item>
+        <item>瑜珈</item>
+        <item>健力</item>
+        <item>健美</item>
+        <item>健體</item>
+        <item>游泳</item>
+        <item>潛水</item>
+        <item>CrossFit</item>
+
+        <item>TOIEC</item>
+        <item>TOFEL</item>
+        <item>IELTS</item>
+        <item>JLPT</item>
+    </string-array>
 
 </resources>

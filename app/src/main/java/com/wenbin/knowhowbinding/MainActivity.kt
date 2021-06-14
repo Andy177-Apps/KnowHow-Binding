@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity() {
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToArticleFragment())
                 return@OnNavigationItemSelectedListener true
             }
-//            R.id.navigation_search -> {
-//
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToSearchFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
             R.id.navigation_calendar -> {
 
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToCalendarFragment())
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.navigation_search -> {
+
+                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToSearchFragment())
                 return@OnNavigationItemSelectedListener true
             }
             R.id.navigation_chatroom -> {
@@ -200,6 +200,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
+    // 這是設置右上角 ToolBar 裡面的 icon
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.toolbar_menu, menu)
@@ -209,12 +210,12 @@ class MainActivity : AppCompatActivity() {
                 val profileModeMenu = menu.findItem(R.id.item_profile_mode)
                 profileModeMenu.isVisible = when (it) {
                     CurrentFragmentType.PROFILE -> {
-                        profileModeMenu.title = getString(R.string.menu_item_title_edit)
-                        true
+//                        profileModeMenu.title = getString(R.string.menu_item_title_edit)
+                        false
                     }
                     CurrentFragmentType.EDITPROFILE -> {
-                        profileModeMenu.title = getString(R.string.menu_item_title_save)
-                        true
+//                        profileModeMenu.title = getString(R.string.menu_item_title_save)
+                        false
                     }
                     else -> false
                 }

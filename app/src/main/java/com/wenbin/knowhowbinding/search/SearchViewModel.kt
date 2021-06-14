@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
@@ -122,11 +121,13 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
 
         _listSubject.value = KnowHowBindingApplication.instance.resources.getStringArray(R.array.default_array)
         val array: Array<String> = when (selectedItem) {
-            "Language" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.language_array)
-            "Curriculum" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.curriculum_array)
-            "Music" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.music_array)
-            "Art" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.art_array)
-            "Sport" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.sport_array)
+            "高中" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.high_school_array)
+            "國中" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.secondary_array)
+            "語文" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.language_array)
+            "程式語言" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.programming_array)
+            "音樂" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.music_array)
+            "藝術" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.art_array)
+            "運動" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.sport_array)
             else -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.exam_array)
         }
         Log.d("MultipleSpinner", "array = $array")
