@@ -7,6 +7,8 @@
 
         <import type="com.wenbin.knowhowbinding.login.UserManager" />
 
+        <import type="android.view.View"/>
+
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.profile.ProfileViewModel" />
@@ -38,19 +40,19 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/istockphoto_1005276578_640x640" />
 
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_user_avatar"
+            imageUrl="@{viewModel.userInfo.image}"
             android:layout_width="@dimen/user_detail_avatar_size"
             android:layout_height="@dimen/user_detail_avatar_size"
-            android:layout_marginTop="16dp"
             android:layout_marginStart="16dp"
-            imageUrl="@{mainViewModel.userInfo.image}"
+            android:layout_marginTop="12dp"
             app:civ_border_color="@color/light_yellow"
             app:civ_border_width="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView_background"
             tools:src="@drawable/avatar_1" />
-
 
         <LinearLayout
             android:id="@+id/layout_follow"
@@ -214,7 +216,7 @@
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto"
                 android:hint="建築師"
-                android:text="@{viewModel.userInfo.identity}"
+                android:text='@{viewModel.userInfo.identity != null ? viewModel.userInfo.identity : "未編輯"}'
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_content"
                 app:layout_constraintBottom_toBottomOf="@+id/imageView_perm_identity"
@@ -272,7 +274,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="12dp"
                 android:orientation="horizontal"
                 android:weightSum="2"
@@ -358,6 +360,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_edittext"
+            android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/user_state">
 
             <TextView

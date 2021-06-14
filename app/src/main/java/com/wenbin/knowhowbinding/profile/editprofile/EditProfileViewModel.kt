@@ -57,7 +57,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     //Consequence for selected city
     private var _selectedCity = MutableLiveData<String>()
-    val selectedCity : LiveData<String>
+    private val selectedCity : LiveData<String>
         get() = _selectedCity
 
     // status: The internal MutableLiveData that stores the status of the most recent request
@@ -174,12 +174,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                 id = UserManager.user.id,
                 name = UserManager.user.name,
                 email = UserManager.user.email,
-                introduction = introduction?.value?.toString() ?: userInfo.value!!.introduction,
-                city = selectedCity.value.toString(),
-                gender = selectedGender.value.toString(),
-                identity = identity.value.toString(),
-                talentedSubjects = talentedList,
-                interestedSubjects = interestedList,
+                introduction = introduction.value?.toString() ?: userInfo.value!!.introduction,
+                city = selectedCity.value?.toString() ?: userInfo.value!!.city,
+                gender = selectedGender.value?.toString() ?: userInfo.value!!.gender,
+                identity = identity.value?.toString() ?: userInfo.value!!.identity,
+                talentedSubjects = selectedTalented.value ?: userInfo.value!!.talentedSubjects,
+                interestedSubjects = selectedInterested.value ?: userInfo.value!!.interestedSubjects,
                 image = if (imageUrlPath != "") imageUrlPath else userInfo.value!!.image,
                 bgImage = if (bgImageUrlPath != "") {
                     bgImageUrlPath
@@ -302,6 +302,10 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         }
     }
 
+    fun setTalented(list: List<String>) {
+        _selectedTalented.value = list
+    }
+
     fun setInterested(tag: String, checked: Boolean) {
         if (checked) {
             interestedList.remove(tag)
@@ -310,6 +314,10 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
             interestedList.add(tag)
             _selectedInterested.value = interestedList
         }
+    }
+
+    fun setInterested(list: List<String>) {
+        _selectedInterested.value = list
     }
 
     fun setGender(gender: String) {

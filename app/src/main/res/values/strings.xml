@@ -69,7 +69,8 @@
     <string name="load_img_fail">讀取圖片失敗</string>
     <string name="edit_profile">編輯個人資訊</string>
     <string name="edit_introduction_reminder">目前還沒有您的自我介紹喔，趕快點\"編輯個人資訊\"來編輯您的各資訊吧！</string>
-    <string name="recommended_title">您可能會喜歡</string>
+    <string name="recommended_title">為您推薦</string>
+    <string name="project_owner_name">葉文彬</string>
 
 
     <string-array name="category_array">

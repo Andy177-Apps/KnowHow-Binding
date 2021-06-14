@@ -10,9 +10,9 @@ data class User(
         val email: String = "",
         var image: String = "",
         var bgImage: String = "",
-        var city: String = "",
+        var city: String = "尚未設定",
         var district: String = "",
-        var gender: String = "",
+        var gender: String = "尚未公布",
         var tag: List<String> = listOf(),
         var experience: String = "",
         var joinedTime: Long = -1L,
@@ -22,7 +22,7 @@ data class User(
 
         var following: List<Following> = listOf(),
 
-        var identity: String = "",
+        var identity: String = "尚未設定",
 
         val talentedSubjects: List<String> = listOf(),
 

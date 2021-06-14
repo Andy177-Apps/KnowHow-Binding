@@ -45,9 +45,12 @@ class ProfileFragment  : Fragment() {
         binding.viewModel = viewModel
         viewModel.getAllUsers()
 
-
         val mainViewModel = ViewModelProvider(this.requireActivity()).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
+
+        mainViewModel.getUser(UserManager.user.email)
+        mainViewModel.getUserArticle(UserManager.user.email)
+
 
         var adapter = ProfileRecommendedAdapter(ProfileRecommendedAdapter.OnClickListener {
             viewModel.navigateToUserProfile(it)

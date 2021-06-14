@@ -17,6 +17,9 @@ import com.wenbin.knowhowbinding.databinding.FragmentEditprofileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerListener
+import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.chip.Chip
@@ -165,26 +168,134 @@ class EditProfileFragment : Fragment() {
             }
         }
 
-        // Setup Spinner for city
-        binding.spinnerCity.onItemSelectedListener = object :
-                AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-            }
-            override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-            ) {
-                if (parent != null) {
-                    val selectedType = parent.selectedItem.toString()
-                    Log.d("Spinner_type","position = $position")
-                    Log.d("Spinner_type","id = $id")
-
-                    viewModel.setCity(selectedType)
-                }
-            }
+        //-- multipleItemSelectionSpinner_type
+        val listType = KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
+        val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
+        for (i in listType.indices) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = listType[i]
+            h.isSelected = false
+            listArrayType.add(h)
         }
+
+        // Pass true If you want searchView above the list. Otherwise false. default = true.
+        binding.singleItemSelectionSpinnerCity.isSearchEnabled = true
+
+        // A text that will display in search hint.
+        binding.singleItemSelectionSpinnerCity.setSearchHint("搜尋居住的縣市")
+        binding.singleItemSelectionSpinnerCity.setItems(
+                listArrayType,
+                object : SingleSpinnerListener {
+                    override fun onItemsSelected(selectedItem: KeyPairBoolData) {
+                        Log.d("CheckSelected", "Type : " + selectedItem.name)
+                        viewModel.setCity(selectedItem.name)
+                    }
+
+                    override fun onClear() {
+                        Toast.makeText(
+                                KnowHowBindingApplication.appContext,
+                                "Cleared Selected Item",
+                                Toast.LENGTH_SHORT
+                        )
+                                .show()
+                    }
+                })
+
+        //-- multipleItemSelectionSpinner_subject_talentedSubjects
+        val listTalentedSubject =
+                KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
+        val listArrayTalentedSubject: MutableList<KeyPairBoolData> = ArrayList()
+
+        for (i in listTalentedSubject.indices) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = listTalentedSubject[i]
+            h.isSelected = false
+            listArrayTalentedSubject.add(h)
+        }
+
+        Log.d("MultipleSpinner", "Updated listArraySubject in line 130 = $listArrayTalentedSubject")
+
+        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.isSearchEnabled = true
+        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setSearchHint("選擇擅長的項目")
+        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setClearText("捨棄")
+        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setEmptyTitle("您還沒有選擇")
+        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setItems(
+                listArrayTalentedSubject,
+                MultiSpinnerListener { items ->
+                    val list = mutableListOf<String>()
+
+                    for (i in items.indices) {
+                        if (items[i].isSelected) {
+                            Log.d(
+                                    "MultipleSpinner",
+                                    i.toString() + " : " + items[i].name + " : " + items[i].isSelected
+                            )
+                            list.add(items[i].name)
+                        }
+                    }
+                    Log.d("CheckSelected", "Final Subject list in line 216 =$list")
+                    viewModel.setTalented(list)
+                })
+
+        //-- multipleItemSelectionSpinner_subject_interestedSubjects
+        val listInterestedSubject =
+                KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
+        val listArrayInterestedSubject: MutableList<KeyPairBoolData> = ArrayList()
+
+        for (i in listInterestedSubject.indices) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = listInterestedSubject[i]
+            h.isSelected = false
+            listArrayInterestedSubject.add(h)
+        }
+
+        Log.d("MultipleSpinner", "Updated listArraySubject in line 130 = $listArrayTalentedSubject")
+
+        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.isSearchEnabled = true
+        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setSearchHint("選擇有興趣的項目")
+        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setClearText("捨棄")
+        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setEmptyTitle("您還沒有選擇")
+        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setItems(
+                listArrayInterestedSubject,
+                MultiSpinnerListener { items ->
+                    val list = mutableListOf<String>()
+
+                    for (i in items.indices) {
+                        if (items[i].isSelected) {
+                            Log.d(
+                                    "MultipleSpinner",
+                                    i.toString() + " : " + items[i].name + " : " + items[i].isSelected
+                            )
+                            list.add(items[i].name)
+                        }
+                    }
+                    Log.d("CheckSelected", "Final Subject list in line 216 =$list")
+                    viewModel.setInterested(list)
+                })
+
+        // Setup Spinner for city
+//        binding.spinnerCity.onItemSelectedListener = object :
+//                AdapterView.OnItemSelectedListener {
+//            override fun onNothingSelected(parent: AdapterView<*>?) {
+//            }
+//            override fun onItemSelected(
+//                    parent: AdapterView<*>?,
+//                    view: View?,
+//                    position: Int,
+//                    id: Long
+//            ) {
+//                if (parent != null) {
+//                    val selectedType = parent.selectedItem.toString()
+//                    Log.d("Spinner_type","position = $position")
+//                    Log.d("Spinner_type","id = $id")
+//
+//                    viewModel.setCity(selectedType)
+//                }
+//            }
+//        }
 
         // Observer for save button, when pressed send update user info (With empty handel)
         // 進入頁面之後這個 fun 就會被啟動，有點不太穩定，我先暫時註解掉，先用下面的
@@ -203,8 +314,6 @@ class EditProfileFragment : Fragment() {
 //            }
 //        })
 
-
-
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{
             Log.d("checkBtn", "viewModel.navigateToProfilePage is used")
@@ -221,6 +330,7 @@ class EditProfileFragment : Fragment() {
             }
         })
 
+        // Observe
         viewModel.identity.observe(viewLifecycleOwner, Observer {
             Log.d("EditPage", "identity = $it")
         })

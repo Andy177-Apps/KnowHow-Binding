@@ -4,6 +4,7 @@
         android:topRightRadius="@dimen/item_message_round_radius"
         android:bottomRightRadius="@dimen/item_message_round_radius"
         android:bottomLeftRadius="@dimen/item_message_round_radius"
+        android:topLeftRadius="@dimen/item_message_small_round_radius"
         />
     <solid
         android:color="@color/white"/>

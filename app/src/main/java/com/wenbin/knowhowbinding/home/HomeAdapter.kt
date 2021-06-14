@@ -66,6 +66,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
                 binding.buttonCollapse.visibility = View.GONE
             }
 
+
             binding.executePendingBindings()
         }
         companion object {

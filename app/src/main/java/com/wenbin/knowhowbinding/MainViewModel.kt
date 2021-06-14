@@ -70,7 +70,7 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     // 一開始就一口氣把所有需要的該 App 使用者的資料都拿下來，像是個人文章或個人資訊
     // 之後若有需要的話就來跟 MainViewModel 要，這樣就不用每個葉面都自己重寫一次
     // 而且因為資料早就載下來的關係，可能頁面 loading 的時間還比較短
-    private fun getUser(userEmail: String) {
+    fun getUser(userEmail: String) {
 
         coroutineScope.launch {
 
@@ -104,7 +104,7 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
         }
     }
 
-    private fun getUserArticle(userEmail: String) {
+    fun getUserArticle(userEmail: String) {
         Log.d("MyArticleFragment", "getUserArticle is used.")
 
         coroutineScope.launch {
