@@ -8,13 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.wenbin.knowhowbinding.MainActivity
+import com.wenbin.knowhowbinding.MainViewModel
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
+import com.wenbin.knowhowbinding.ext.excludeOwner
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.ext.recommendedUser
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 
@@ -38,8 +42,31 @@ class ProfileFragment  : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        var adapter = ProfileCommentAdapter()
+        val mainViewModel = ViewModelProvider(this.requireActivity()).get(MainViewModel::class.java)
+        binding.mainViewModel = mainViewModel
+
+        var adapter = ProfileRecommendedAdapter()
         binding.recyclerView.adapter = adapter
+
+        mainViewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
+            Log.d("check_userArticles", "userArticles = $list")
+            binding.textPosts.text = list.size.toString()
+        })
+
+        // Filter recommended users
+
+        viewModel.allUsers.observe(viewLifecycleOwner, Observer {
+            Log.d("checkRecommendedList", "allUsers in fragment = $it")
+            var resultList = listOf<User>()
+
+            viewModel.userInfo.value?.let { ownerUser ->
+                resultList = it.recommendedUser(ownerUser)
+            }
+            Log.d("checkRecommendedList", "Final resultList in fragment = $resultList")
+
+            adapter.submitList(resultList)
+        })
+
 
         // Navigating to My Article Fragment.
         viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
@@ -101,7 +128,7 @@ class ProfileFragment  : Fragment() {
             chipGroupTalented.addView(chip)
         }
 
-        val chipGroupInterested = binding.chipGroupInterestedSubjects
+        val chipGroupInterested = binding.chipGroupInterestedSubject
         val interestedList = user.interestedSubjects
 
         for (genre in interestedList) {

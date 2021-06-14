@@ -61,3 +61,28 @@ fun List<User>?.sortByUserAnswer(answer : Answer) : List<User> {
 
     return resultList
 }
+
+
+fun List<User>?.recommendedUser(ownerUser: User) : List<User> {
+    val resultList = mutableListOf<User>()
+
+    this?.let {
+        for (user in this) {
+
+            for (talentedSubject in user.talentedSubjects) {
+                if (ownerUser.interestedSubjects.contains(talentedSubject)) {
+                    resultList.add(user)
+                }
+            }
+
+            for (interestedSubject in user.interestedSubjects) {
+                if (ownerUser.talentedSubjects.contains(interestedSubject)) {
+                    if (!resultList.contains(user)){
+                        resultList.add(user)
+                    }
+                }
+            }
+        }
+    }
+    return resultList
+}

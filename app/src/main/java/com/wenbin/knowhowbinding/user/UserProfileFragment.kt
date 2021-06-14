@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
@@ -83,6 +84,12 @@ class UserProfileFragment: Fragment() {
                 }
 
             })
+
+            if (activity is MainActivity) {
+                Log.d("wenbin" , "user fun is used.")
+                (activity as MainActivity).coverBottomNav()
+                    (activity as MainActivity).resetToolBar(it.name)
+            }
         })
 
         // Progress Bar
@@ -115,7 +122,10 @@ class UserProfileFragment: Fragment() {
         if (activity is MainActivity) {
             Log.d("wenbin" , "user fun is used.")
             (activity as MainActivity).coverBottomNav()
-            (activity as MainActivity).hideToolBar()
+            viewModel.userInfo.value?.let {
+                (activity as MainActivity).resetToolBar(it.name)
+                (activity as MainActivity).resetToolBar("個人頁面")
+            }
         }
         return binding.root
     }

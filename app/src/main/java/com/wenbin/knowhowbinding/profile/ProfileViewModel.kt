@@ -31,6 +31,11 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
     val userInfo: LiveData<User>
         get() = _userInfo
 
+    private val _allUsers = MutableLiveData<List<User>>()
+
+    val allUsers: LiveData<List<User>>
+        get() = _allUsers
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -61,6 +66,8 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         Logger.i("------------------------------------")
 //        createTestedData()
         getUser(UserManager.user.email)
+        getAllUsers()
+
     }
 
     private fun getUser(userEmail: String) {
@@ -94,6 +101,39 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
                 }
             }
             _refreshStatus.value = false
+        }
+    }
+
+    private fun getAllUsers() {
+
+        coroutineScope.launch {
+
+            _status.value = LoadApiStatus.LOADING
+
+            val result = repository.getAllUsers()
+
+            _allUsers.value = when (result) {
+                is Result.Success -> {
+                    _error.value = null
+                    _status.value = LoadApiStatus.DONE
+                    result.data
+                }
+                is Result.Fail -> {
+                    _error.value = result.error
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                is Result.Error -> {
+                    _error.value = result.exception.toString()
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+                else -> {
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _status.value = LoadApiStatus.ERROR
+                    null
+                }
+            }
         }
     }
 

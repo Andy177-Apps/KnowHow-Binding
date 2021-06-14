@@ -82,7 +82,7 @@
     <dimen name="profile_text_btn_edit">12sp</dimen>
 
     <dimen name="profile_btn_edit_width">110sp</dimen>
-    <dimen name="profile_btn_edit_height">36sp</dimen>
+    <dimen name="profile_btn_edit_height">36dp</dimen>
 
     <dimen name="profile_text_title">16sp</dimen>
     <dimen name="profile_text_content">14sp</dimen>
