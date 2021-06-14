@@ -154,7 +154,7 @@ class CreateEventViewModel(
             title = title.value.toString(),
             description = description.value.toString(),
             creatorName = "Wenbin",
-            creatorImage = "",
+            creatorImage = UserManager.user.image,
             attendees = listOf(UserManager.user.email),
             attendeesName = listOf(UserManager.user.name),
             tag = type.value.toString(),

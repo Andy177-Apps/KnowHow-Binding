@@ -32,11 +32,11 @@
                     android:id="@+id/image_creator"
                     android:layout_width="36dp"
                     android:layout_height="36dp"
+                    imageUrl="@{event.creatorImage}"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-<!--                imageUrl="@{event.creatorImage}"-->
 
 
                 <TextView
@@ -116,7 +116,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/btn_accept"
+                            android:text="@string/btn_yes"
                             android:textStyle="bold"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -138,7 +138,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/btn_decline"
+                            android:text="@string/btn_no"
                             android:textStyle="bold"
                             android:textColor="@color/red"
                             app:layout_constraintTop_toTopOf="parent"

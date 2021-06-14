@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.profile.editprofile
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -281,7 +282,11 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
 
     fun navigateToProfilePage() {
-        _navigateToProfilePage.value = true
+        if (bgImageUrlPath != "") {
+            _navigateToProfilePage.value = true
+        } else {
+            Toast.makeText(KnowHowBindingApplication.appContext, "照片上傳中請稍後再儲存", Toast.LENGTH_SHORT).show()
+        }
     }
 
     fun onProfilePageNavigated() {

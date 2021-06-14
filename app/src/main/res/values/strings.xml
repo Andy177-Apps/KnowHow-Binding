@@ -29,10 +29,10 @@
     <string name="btn_accept">ACCEPT</string>
     <string name="reminder_subject_max">You can only select 3 subject</string>
     <string name="btn_decline">DECLINE</string>
-    <string name="text_invitation">\ has sent an invitation of event: \</string>
-    <string name="btn_going">Going?</string>
-    <string name="btn_no">NO</string>
-    <string name="btn_yes">YES</string>
+    <string name="text_invitation">\ 像您提出一份約定邀請: \</string>
+    <string name="btn_going">是否接受邀請?</string>
+    <string name="btn_no">禮貌婉拒</string>
+    <string name="btn_yes">接受邀請</string>
     <string name="member">Member</string>
     <string name="colon">:</string>
     <string name="detail">Detail</string>

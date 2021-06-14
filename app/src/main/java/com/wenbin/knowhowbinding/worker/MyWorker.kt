@@ -32,7 +32,7 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineW
 
             // Create the notification to be shown
             val mBuilder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                Notification.Builder(appContext, "MeeTu")
+                Notification.Builder(appContext, "K.H.Binding")
                     .setSmallIcon(R.drawable.ic_notification)
                     .setColor(KnowHowBindingApplication.instance.applicationContext.getColor(R.color.colorPrimary))
                     .setContentTitle("Upcoming Appointment")
@@ -76,10 +76,10 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineW
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            val name = "MeeTu"
+            val name = "K.H.Binding"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("MeeTu", name, importance).apply {
-                description = "MeeT Tutor"
+            val channel = NotificationChannel("K.H.Binding", name, importance).apply {
+                description = "K.H.Binding"
             }
             val notificationManager: NotificationManager =
                 applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
