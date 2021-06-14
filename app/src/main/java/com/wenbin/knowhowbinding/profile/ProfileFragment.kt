@@ -68,6 +68,10 @@ class ProfileFragment  : Fragment() {
             var resultList = listOf<User>()
 
             viewModel.userInfo.value?.let { ownerUser ->
+                Log.d("checkOwnerUser", "OwnerUser in fragment = $ownerUser")
+//                if (ownerUser.identity == null) {
+//                    binding.textViewUserNameLayout.text = "尚未設定"
+//                }
                 resultList = it.recommendedUser(ownerUser)
             }
             Log.d("checkRecommendedList", "Final resultList in fragment = $resultList")

@@ -250,7 +250,7 @@ class SearchFragment : Fragment() {
         })
 
 //        if (activity is MainActivity) {
-//            (activity as MainActivity).resetToolBar("搜尋文章")
+//            (activity as MainActivity).("搜尋文章")
 //        }
         return binding.root
     }

@@ -215,7 +215,7 @@
                 android:layout_marginStart="@dimen/user_detail_margin_start"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto"
-                android:hint="建築師"
+                android:hint="未編輯"
                 android:text='@{viewModel.userInfo.identity != null ? viewModel.userInfo.identity : "未編輯"}'
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_content"
@@ -261,7 +261,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_detail_margin_start"
                 android:fontFamily="@font/roboto"
-                android:hint="@string/male"
+                android:hint="未編輯"
                 android:text="@{viewModel.userInfo.gender}"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_content"
@@ -271,8 +271,10 @@
 
             <LinearLayout
                 android:id="@+id/layout_button"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="12dp"
@@ -283,7 +285,7 @@
 
                 <TextView
                     android:id="@+id/textView_share_navigate"
-                    android:layout_width="300dp"
+                    android:layout_width="220dp"
                     android:layout_height="@dimen/profile_btn_edit_height"
                     android:background="@drawable/bg_all_round_corner_primarydark"
                     android:gravity="center"

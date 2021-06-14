@@ -146,7 +146,7 @@
                 android:layout_marginHorizontal="@dimen/edit_spinner_marginHorizontal"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_edittext"
-                app:hintText="城市"
+                app:hintText="願意教別人的項目"
                 android:layout_height="@dimen/edit_margin_top"
 
                 android:textAlignment="center"
@@ -158,7 +158,7 @@
                 android:layout_marginHorizontal="@dimen/edit_spinner_marginHorizontal"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_edittext"
-                app:hintText="城市"
+                app:hintText="想學的知識"
                 android:layout_height="@dimen/edit_margin_top"
                 android:textAlignment="center"
                 app:layout_constraintTop_toBottomOf="@+id/multipleItemSelectionSpinner_subject_talentedSubjects"/>
