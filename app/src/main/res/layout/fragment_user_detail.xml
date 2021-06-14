@@ -35,7 +35,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/istockphoto_1005276578_640x640" />
+                    imageUrl="@{viewModel.userInfo.bgImage}"
+                    tools:srcCompat="@drawable/istockphoto_1005276578_640x640" />
             </LinearLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -50,7 +51,8 @@
                 android:src="@drawable/avatar_1"
                 app:civ_border_color="@color/white"
                 app:civ_border_width="4dp"
-                tools:src="@drawable/avatar_1" />
+                tools:src="@drawable/avatar_1"
+                />
 
             <LinearLayout
                 android:id="@+id/layout_follow"
@@ -216,7 +218,6 @@
                     android:text="@{viewModel.userInfo.identity}"
                     android:hint="建築師"
                     android:textSize="@dimen/user_detail_text_content"
-                    android:textStyle="bold"
                     android:textColor="@color/dark_01"
                     android:layout_marginStart="@dimen/user_detail_margin_start"
                     android:layout_marginEnd="8dp"

@@ -23,273 +23,287 @@
         android:layout_height="match_parent"
         >
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_user_avatar"
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:layout_marginTop="@dimen/profile_circle_image_margin_top"
-            imageUrl="@{viewModel.userInfo.image}"
-            android:visibility="visible"
-            app:civ_border_color="@color/light_yellow"
-            app:civ_border_width="4dp"
+        <ImageView
+            android:id="@+id/imageView_background"
+            imageUrl="@{viewModel.userInfo.bgImage}"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/istockphoto_1005276578_640x640" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_user_avatar"
+            android:layout_width="@dimen/user_detail_avatar_size"
+            android:layout_height="@dimen/user_detail_avatar_size"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            imageUrl="@{viewModel.userInfo.image}"
+            app:civ_border_color="@color/light_yellow"
+            app:civ_border_width="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView_background"
             tools:src="@drawable/avatar_1" />
 
 
-
-        <TextView
-            android:id="@+id/textView_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_textView_name_margin_top"
-            android:layout_marginStart="123.5dp"
-            android:layout_marginEnd="188.5dp"
-            android:text="@{viewModel.userInfo.name}"
-            android:textColor="@color/black"
-            android:textSize="@dimen/profile_text_name_title"
-            app:layout_constraintTop_toBottomOf="@id/image_user_avatar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
-
-        <TextView
-            android:id="@+id/textView_identity"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@{viewModel.userInfo.identity}"
-            android:hint="大學生"
-            android:textSize="@dimen/profile_text_identity_title"
-            app:layout_constraintTop_toTopOf="@id/textView_name"
-            app:layout_constraintBottom_toBottomOf="@+id/textView_name"
-            app:layout_constraintStart_toEndOf="@id/textView_name"
-            android:layout_marginStart="4dp"
-            />
-
-        <TextView
-            android:id="@+id/text_user_gender"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:fontFamily="@font/roboto"
-            android:textColor="@color/dark_01"
-            android:textSize="16sp"
-            android:text="@{viewModel.userInfo.gender}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_identity" />
-<!--        android:text="@string/male"-->
-
-        <TextView
-            android:id="@+id/textView_share_navigate"
-            android:layout_width="@dimen/profile_btn_edit_width"
-            android:layout_height="@dimen/profile_btn_edit_height"
-            android:onClick="@{() -> viewModel.navigateToEditProfile()}"
-            android:text="編輯"
-            android:textSize="@dimen/profile_text_btn_edit"
-            android:gravity="center"
-            android:background="@color/dark_01"
-            android:textColor="@color/white"
-            android:layout_marginTop="@dimen/profile_textView_share_navigate_margin_top"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/text_user_gender"
-            />
-
-
-
-
-        <TextView
-            android:id="@+id/textView_talentedSubjects_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/profile_textView_first_item_margin_start"
-            android:layout_marginTop="@dimen/profile_textView_first_item_margin_top"
-            android:text="擅長"
-            android:fontFamily="@font/noto_sans"
-            android:textColor="@color/dark_01"
-            android:textFontWeight="500"
-            android:textSize="@dimen/profile_text_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_share_navigate" />
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup_talentedSubjects"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title"></com.google.android.material.chip.ChipGroup>
-
-        <TextView
-            android:id="@+id/textView_interestedSubjects_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            android:text="想學"
-            android:textSize="@dimen/profile_text_title"
-            android:fontFamily="@font/noto_sans"
-            android:textColor="@color/dark_01"
-            android:textFontWeight="500"
-            app:layout_constraintStart_toStartOf="@id/chipGroup_talentedSubjects"
-            app:layout_constraintTop_toBottomOf="@id/chipGroup_talentedSubjects" />
-
-
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroup_interestedSubjects"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="@id/textView_interestedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects_title"></com.google.android.material.chip.ChipGroup>
-
-        <ImageView
-            android:id="@+id/imageView_author_photo"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_name"
-            app:layout_goneMarginTop="16dp"
-            app:srcCompat="@drawable/outline_person_outline_black_24dp" />
-
-
-        <TextView
-            android:id="@+id/textView_send_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            android:text="發訊息"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageView_author_photo" />
-
-        <TextView
-            android:id="@+id/textView_about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            android:fontFamily="@font/noto_sans"
-            android:text="介紹"
-            android:textColor="@color/dark_01"
-            android:textFontWeight="500"
-            android:textSize="@dimen/profile_text_title"
-            app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@id/chipGroup_interestedSubjects" />
-
-        <TextView
-            android:id="@+id/textView_introduction_content"
+        <LinearLayout
+            android:id="@+id/layout_follow"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            android:hint='目前還沒有您的自我介紹喔，趕快點"編輯"來編輯您的各資訊吧！'
-            android:fontFamily="@font/noto_sans"
-            android:text="@{viewModel.userInfo.introduction}"
-            android:textSize="@dimen/profile_text_content"
-            android:textColorHint="@color/text_07"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="16dp"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="@+id/image_user_avatar"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toBottomOf="@id/textView_about" />
+            app:layout_constraintStart_toEndOf="@+id/image_user_avatar"
+            app:layout_constraintTop_toTopOf="@+id/image_user_avatar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/text_following"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@{viewModel.userInfo.followingEmail == null ? String.valueOf(0) : String.valueOf(viewModel.userInfo.followingEmail.size()) }"
+                    android:textColor="@color/primaryDark"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Following"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_following"
+                    tools:text="Following" />
 
 
-        <TextView
-            android:id="@+id/textView_myArticles"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            android:fontFamily="@font/noto_sans"
-            android:onClick="@{() -> viewModel.navigateToMyArticle()}"
-            android:text="我的文章"
-            android:textColor="@color/dark_01"
-            android:textSize="@dimen/profile_text_title"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@+id/textView_introduction_content" />
-
-        <TextView
-            android:id="@+id/textView_storage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/profile_textView_interval_item_margin_top"
-            android:autoLink="all"
-            android:fontFamily="@font/noto_sans"
-            android:onClick="@{() -> viewModel.navigateToMyCollect()}"
-            android:text="我的收藏"
-            android:textColor="@color/dark_01"
-            android:textSize="@dimen/profile_text_title"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@+id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@+id/textView_myArticles" />
-
-        <!--        -->
-        <TextView
-            android:id="@+id/textView_identity_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-
-            android:text="身份"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_about" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:weightSum="3">
+
+                <TextView
+                    android:id="@+id/text_follow_by"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@{viewModel.userInfo.followedBy == null ? String.valueOf(0) : String.valueOf(viewModel.userInfo.followedBy.size())}"
+                    android:textColor="@color/primaryDark"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Followers"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_follow_by" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <TextView
-            android:id="@+id/textView_introduction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginTop="16dp"
-            android:text="@{viewModel.userInfo.introduction}"
-            app:layout_constraintStart_toEndOf="@id/textView_talentedSubjects_title"
-            app:layout_constraintTop_toBottomOf="@+id/textView_introduction_title" />
-        <!--        -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:onClick="@{() -> viewModel.navigateToMyArticle(viewModel.selectedUserEmail)}"
+                android:orientation="vertical"
+                android:weightSum="3">
 
-        <TextView
-            android:id="@+id/textView_comment_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="32dp"
-            android:text="綜合評價"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_introduction" />
+                <TextView
+                    android:id="@+id/text_posts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text=""
+                    android:textColor="@color/primaryDark"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="3" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Posts"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_posts" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/user_state"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:visibility="gone"
-            app:ShowComment="@{viewModel.comment}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textView_comment_title" />
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_edittext"
+            app:layout_constraintTop_toBottomOf="@+id/image_user_avatar"
+            tools:layout_editor_absoluteX="16dp">
+
+            <TextView
+                android:id="@+id/textView_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18sp"
+                android:fontFamily="@font/roboto"
+                android:hint="葉文彬"
+                android:text="@{viewModel.userInfo.name}"
+                android:textColor="@color/dark_01"
+                android:textFontWeight="400"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageView_chat"
+                android:layout_width="@dimen/user_detail_icon_chat_size"
+                android:layout_height="@dimen/user_detail_icon_chat_size"
+                android:layout_marginStart="8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/textView_user_name"
+                app:layout_constraintStart_toEndOf="@+id/textView_user_name"
+                app:srcCompat="@drawable/outline_chat_bubble_outline_black_48" />
+
+            <ImageView
+                android:id="@+id/imageView_perm_identity"
+                android:layout_width="@dimen/user_detail_icon_size"
+                android:layout_height="@dimen/user_detail_icon_size"
+                android:layout_marginTop="@dimen/user_detail_icon_margin_top"
+                app:layout_constraintStart_toStartOf="@+id/textView_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/textView_user_name"
+                app:srcCompat="@drawable/outline_perm_identity_black_48" />
+
+            <TextView
+                android:id="@+id/textView_user_name_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_detail_margin_start"
+                android:layout_marginEnd="8dp"
+                android:fontFamily="@font/roboto"
+                android:hint="建築師"
+                android:text="@{viewModel.userInfo.identity}"
+                android:textColor="@color/dark_01"
+                android:textSize="@dimen/user_detail_text_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_perm_identity"
+                app:layout_constraintStart_toEndOf="@+id/imageView_perm_identity"
+                app:layout_constraintTop_toTopOf="@+id/imageView_perm_identity" />
+
+            <ImageView
+                android:id="@+id/imageView_location"
+                android:layout_width="@dimen/user_detail_icon_size"
+                android:layout_height="@dimen/user_detail_icon_size"
+                android:layout_marginTop="@dimen/user_detail_icon_margin_top"
+                app:layout_constraintStart_toStartOf="@+id/textView_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_perm_identity"
+                app:srcCompat="@drawable/outline_location_on_black_48" />
+
+            <TextView
+                android:id="@+id/textView_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_detail_margin_start"
+                android:fontFamily="@font/roboto"
+                android:hint="臺北市"
+                android:text="@{viewModel.userInfo.city}"
+                android:textColor="@color/dark_01"
+                android:textSize="@dimen/user_detail_text_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_location"
+                app:layout_constraintStart_toEndOf="@+id/imageView_location"
+                app:layout_constraintTop_toTopOf="@+id/imageView_location" />
+
+            <ImageView
+                android:id="@+id/imageView_gender"
+                android:layout_width="@dimen/user_detail_icon_size"
+                android:layout_height="@dimen/user_detail_icon_size"
+                android:layout_marginTop="@dimen/user_detail_icon_margin_top"
+                app:layout_constraintStart_toStartOf="@+id/textView_user_name"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_location"
+                app:srcCompat="@drawable/selector_gender" />
+
+            <TextView
+                android:id="@+id/textView_identity_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/user_detail_margin_start"
+                android:fontFamily="@font/roboto"
+                android:hint="@string/male"
+                android:text="@{viewModel.userInfo.gender}"
+                android:textColor="@color/dark_01"
+                android:textSize="@dimen/user_detail_text_content"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView_gender"
+                app:layout_constraintStart_toEndOf="@+id/imageView_gender"
+                app:layout_constraintTop_toTopOf="@+id/imageView_gender" />
+
+            <LinearLayout
+                android:id="@+id/layout_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView_gender">
+
+                <TextView
+                    android:id="@+id/textView_share_navigate"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/profile_btn_edit_height"
+                    android:layout_marginTop="@dimen/profile_textView_share_navigate_margin_top"
+                    android:background="@drawable/bg_all_round_corner_primarydark"
+                    android:gravity="center"
+                    android:onClick="@{() -> viewModel.navigateToEditProfile()}"
+                    android:text="@string/edit_profile"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/profile_text_btn_edit" />
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
         <ProgressBar
             android:id="@+id/progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:theme="@style/ProgressTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

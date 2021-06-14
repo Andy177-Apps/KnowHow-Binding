@@ -42,6 +42,9 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
                 Log.d("check_clicked", "binding.textViewDescription is clicked")
 
                 item.author?.let {
+                    Log.d("check_clicked", "item.author.email = ${item.author.email}")
+                    Log.d("check_clicked", "UserManager.user.email = ${UserManager.user.email}")
+
                     if (item.author.email == UserManager.user.email) {
                         Navigation.createNavigateOnClickListener(NavigationDirections.navigateToProfileFragment()).
                         onClick(binding.constraintLayoutUserInformation)

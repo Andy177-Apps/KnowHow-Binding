@@ -43,7 +43,6 @@
     <string name="show_less">Show Less</string>
     <string name="currently_vacant">Currently Vacant</string>
 
-
     <!-- Drawer -->
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -57,6 +56,19 @@
     <string name="menu_my_collection">收藏文章</string>
     <string name="menu_followers">粉絲</string>
     <string name="menu_following">追蹤中</string>
+
+    <!-- Home Fragment -->
+    <string name="pager_title_all">全部</string>
+    <string name="pager_study_group">讀書會</string>
+    <string name="pager_find_tutor">找老師</string>
+    <string name="pager_find_student">找學生</string>
+    <string name="pager_skill_exchange">交換技能</string>
+
+    <!-- Edit Profile Fragment -->
+    <string name="do_nothing">無權限無法做事!</string>
+    <string name="load_img_fail">讀取圖片失敗</string>
+    <string name="edit_profile">編輯個人資訊</string>
+    <string name="edit_introduction_reminder">目前還沒有您的自我介紹喔，趕快點\"編輯個人資訊\"來編輯您的各資訊吧！</string>
 
 
     <string-array name="category_array">
@@ -182,15 +194,6 @@
         <item>IELTS</item>
         <item>JLPT</item>
     </string-array>
-    <!-- Home Fragment -->
-    <string name="pager_title_all">全部</string>
-    <string name="pager_study_group">讀書會</string>
-    <string name="pager_find_tutor">找老師</string>
-    <string name="pager_find_student">找學生</string>
-    <string name="pager_skill_exchange">交換技能</string>
 
-    <!-- Edit Profile Fragment -->
-    <string name="do_nothing">無權限無法做事!</string>
-    <string name="load_img_fail">讀取圖片失敗</string>
 
 </resources>
