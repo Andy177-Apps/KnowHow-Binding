@@ -19,6 +19,7 @@ import com.wenbin.knowhowbinding.myarticle.MyArticleAdapter
 import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
 import com.wenbin.knowhowbinding.profile.ProfileCommentAdapter
 import com.wenbin.knowhowbinding.search.SearchAdapter
+import com.wenbin.knowhowbinding.user.article.UserArticleAdapter
 import com.wenbin.knowhowbinding.util.TimeUtil
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
@@ -46,6 +47,7 @@ fun bindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>
                 is MyArticleAdapter -> submitList(it)
                 is MyCollectAdapter -> submitList(it)
                 is SearchAdapter -> submitList(it)
+                is UserArticleAdapter -> submitList(it)
             }
         }
     }

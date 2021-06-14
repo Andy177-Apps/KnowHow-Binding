@@ -8,6 +8,7 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.factory.*
+import com.wenbin.knowhowbinding.user.article.UserArticleViewModel
 import com.wenbin.knowhowbinding.util.REQUEST_EXTERNAL_STORAGE
 
 /**

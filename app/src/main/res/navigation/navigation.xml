@@ -53,7 +53,8 @@
         android:id="@+id/myArticleFragment"
         android:name="com.wenbin.knowhowbinding.myarticle.MyArticleFragment"
         android:label="MyArticleFragment"
-        tools:layout="@layout/fragment_myarticle"/>
+        tools:layout="@layout/fragment_myarticle">
+    </fragment>
 
     <fragment
         android:id="@+id/myCollectFragment"
@@ -143,7 +144,15 @@
         android:label="FollowedByFragment"
         tools:layout="@layout/fragment_followedby"/>
 
-
+    <fragment
+        android:id="@+id/userArticleFragment"
+        android:name="com.wenbin.knowhowbinding.user.article.UserArticleFragment"
+        android:label="UserArticleFragment"
+        tools:layout="@layout/fragment_user_article">
+        <argument
+            android:name="userEmail"
+            app:argType="string" />
+    </fragment>
 
     <action android:id="@+id/navigate_to_article_fragment" app:destination="@id/articleFragment"
         app:popUpTo="@+id/navigation"
@@ -184,6 +193,7 @@
     <action android:id="@+id/navigate_to_following_fragment" app:destination="@id/followingFragment"        />
     <action android:id="@+id/navigate_to_followed_by_fragment" app:destination="@id/followedByFragment"        />
     <action android:id="@+id/navigate_to_search_result_fragment" app:destination="@id/searchResultFragment"        />
+    <action android:id="@+id/navigate_to_user_article_fragment" app:destination="@id/userArticleFragment"        />
 
 
 

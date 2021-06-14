@@ -107,11 +107,11 @@ class UserProfileFragment: Fragment() {
         // Navigating to My Article Fragment.
         viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
             it?.let {
-                findNavController().navigate(UserProfileFragmentDirections.navigateToMyArticleFragment())
+                findNavController().navigate(UserProfileFragmentDirections.navigateToUserArticleFragment(it))
+
                 viewModel.onMyArticleNavigated()
             }
         })
-
 //        binding.imageViewInformation.setOnClickListener {
 //            if (binding.layoutInformation.visibility == View.GONE) {
 //                binding.layoutInformation.visibility = View.VISIBLE
