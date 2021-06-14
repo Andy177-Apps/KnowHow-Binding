@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.User
-import com.wenbin.knowhowbinding.databinding.ItemCommentBinding
 import com.wenbin.knowhowbinding.databinding.ItemRecommendedUserBinding
+import com.wenbin.knowhowbinding.followedby.FollowedByAdapter
 
-class ProfileRecommendedAdapter : ListAdapter<User,
+class ProfileRecommendedAdapter(private val onClickListener: OnClickListener) : ListAdapter<User,
         ProfileRecommendedAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
@@ -44,7 +44,15 @@ class ProfileRecommendedAdapter : ListAdapter<User,
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position) as User)
+        val user = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClickListener.onClick(user)
+        }
+        holder.bind(user)
+    }
+
+    class OnClickListener(val clickListener: (user: User) -> Unit) {
+        fun onClick(user: User) = clickListener(user)
     }
 
 }

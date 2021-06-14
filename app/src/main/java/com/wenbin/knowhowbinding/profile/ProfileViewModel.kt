@@ -36,6 +36,12 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
     val allUsers: LiveData<List<User>>
         get() = _allUsers
 
+    // Handle navigation to user profile
+    private val _navigateToUserProfile = MutableLiveData<User>()
+
+    val navigateToUserProfile: LiveData<User>
+        get() = _navigateToUserProfile
+
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -104,7 +110,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         }
     }
 
-    private fun getAllUsers() {
+    fun getAllUsers() {
 
         coroutineScope.launch {
 
@@ -195,6 +201,14 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
 
     fun onEditProfileNavigated() {
         _navigateToEditProfile.value = null
+    }
+
+    fun navigateToUserProfile(user: User) {
+        _navigateToUserProfile.value = user
+    }
+
+    fun onUserProfileNavigated() {
+        _navigateToUserProfile.value = null
     }
 
 }

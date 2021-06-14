@@ -13,12 +13,14 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.MainViewModel
+import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.FragmentMyselfProfileBinding
 import com.wenbin.knowhowbinding.ext.excludeOwner
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.ext.recommendedUser
+import com.wenbin.knowhowbinding.followedby.FollowedByAdapter
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 
@@ -41,11 +43,15 @@ class ProfileFragment  : Fragment() {
         binding = FragmentMyselfProfileBinding.inflate(inflater)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+        viewModel.getAllUsers()
+
 
         val mainViewModel = ViewModelProvider(this.requireActivity()).get(MainViewModel::class.java)
         binding.mainViewModel = mainViewModel
 
-        var adapter = ProfileRecommendedAdapter()
+        var adapter = ProfileRecommendedAdapter(ProfileRecommendedAdapter.OnClickListener {
+            viewModel.navigateToUserProfile(it)
+        })
         binding.recyclerView.adapter = adapter
 
         mainViewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
@@ -54,7 +60,6 @@ class ProfileFragment  : Fragment() {
         })
 
         // Filter recommended users
-
         viewModel.allUsers.observe(viewLifecycleOwner, Observer {
             Log.d("checkRecommendedList", "allUsers in fragment = $it")
             var resultList = listOf<User>()
@@ -67,6 +72,21 @@ class ProfileFragment  : Fragment() {
             adapter.submitList(resultList)
         })
 
+        binding.imageViewExpand.setOnClickListener {
+            if (binding.layoutRecommended.visibility == View.GONE) {
+                binding.layoutRecommended.visibility = View.VISIBLE
+            } else {
+                binding.layoutRecommended.visibility = View.GONE
+            }
+        }
+
+        // Navigating to My UserProfile Fragment.
+        viewModel.navigateToUserProfile.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                findNavController().navigate(NavigationDirections.navigateToUserProfileFragment(it.email))
+                viewModel.onUserProfileNavigated()
+            }
+        })
 
         // Navigating to My Article Fragment.
         viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
