@@ -35,6 +35,7 @@ class SearchResultAdapter(private val onClickListener: OnClickListener) :
         return UserViewHolder(ItemSearchResultBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val user = getItem(position)
         holder.itemView.setOnClickListener {

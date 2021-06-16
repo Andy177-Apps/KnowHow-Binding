@@ -27,6 +27,7 @@ class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener
             binding.imageUrl = friendInfo.userImage
             binding.executePendingBindings()
         }
+
         companion object {
             fun from(parent: ViewGroup) : ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
