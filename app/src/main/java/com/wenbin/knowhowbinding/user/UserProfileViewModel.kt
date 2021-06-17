@@ -18,12 +18,11 @@ import kotlinx.coroutines.launch
 
 class UserProfileViewModel(private val repository: KnowHowBindingRepository,
 userEmail: String):ViewModel() {
-    //用 arguments 接收資料，再傳到這裡的 selectedUserEmail
+    // Use arguments to receive data, and then send it to the select User Email here
     val selectedUserEmail = userEmail
 
 
     private val _userInfo = MutableLiveData<User>(User(
-//        image = ""
     ))
 
     val userInfo: LiveData<User>
@@ -144,7 +143,6 @@ userEmail: String):ViewModel() {
         _leave.value = needRefresh
     }
 
-
     fun getUser(userEmail: String) {
         Log.d("check_follow", "getUser is used.")
 
@@ -178,8 +176,6 @@ userEmail: String):ViewModel() {
             }
         }
     }
-
-
 
     fun getMyUserInfo(userEmail: String) {
         coroutineScope.launch {

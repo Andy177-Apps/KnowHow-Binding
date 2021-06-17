@@ -29,14 +29,9 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
 
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
 
-//                viewModel.isChecked(bookmarkIcon.isSelected)
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
-
-//            if (viewModel.articles.value?.get(0)?.saveList?.contains(UserManager.user.email) == true) {
-//                bookmarkIcon.isSelected = true
-//            }
 
             binding.constraintLayoutUserInformation.setOnClickListener {
                 Log.d("check_clicked", "binding.textViewDescription is clicked")

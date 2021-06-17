@@ -29,7 +29,6 @@ data class User(
         val interestedSubjects: List<String> = listOf(),
 
         val introduction: String = ""
-//        val comment : Comment
 ) : Parcelable
 
 @Parcelize

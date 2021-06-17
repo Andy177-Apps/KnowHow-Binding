@@ -10,10 +10,6 @@ object TimeUtil {
      * This singleton converts timestamp to required format
      * Be advised the timestamp contains milliseconds
      */
-//    fun stampToAgo(time : Long) : String {
-//        return TimeAgo.using(time)
-//    }
-
     @JvmStatic
     fun stampToDate(time: Long): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")

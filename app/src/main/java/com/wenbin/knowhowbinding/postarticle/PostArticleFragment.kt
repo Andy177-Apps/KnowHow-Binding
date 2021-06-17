@@ -21,11 +21,6 @@ class PostArticleFragment : Fragment(){
     private lateinit var binding : FragmentPostarticleBinding
     val viewModel by viewModels<PostArticleViewModel> { getVmFactory() }
 
-//    private val viewModel : PostArticleViewModel by lazy {
-//        ViewModelProvider(this).get(PostArticleViewModel::class.java)
-//    }
-
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,8 +42,6 @@ class PostArticleFragment : Fragment(){
             findNavController().navigate(PostArticleFragmentDirections.navigateToArticleFragment())
             Log.d("Wenbin", "onClicked")
         }
-
-
 
         binding.spinnerCategory.adapter = PostArticleTypeSpinnerAdapter(
                 KnowHowBindingApplication.instance.resources.getStringArray(R.array.category_array))
@@ -77,8 +70,6 @@ class PostArticleFragment : Fragment(){
             (activity as MainActivity).resetToolBar("發文")
             (activity as MainActivity).coverBottomNav()
         }
-//
         return binding.root
-
     }
 }

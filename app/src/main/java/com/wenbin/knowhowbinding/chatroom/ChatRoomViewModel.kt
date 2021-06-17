@@ -15,8 +15,6 @@ import com.wenbin.knowhowbinding.login.UserManager
 
 class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
-//    var LiveChatRooms = MutableLiveData<List<ChatRoom>>()
-
     private val _filteredChatRooms = MutableLiveData<List<ChatRoom>>()
 
     val filteredChatRooms: LiveData<List<ChatRoom>>
@@ -36,7 +34,6 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
 
     val fakeMessages: LiveData<List<Message>>
         get() = _fakeMessages
-//    private val words = listOf<Words>(Words("請問這週改週三上ge課方便嗎？","2小時前"))
 
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -59,7 +56,6 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
         viewModelJob.cancel()
     }
 
-
     init {
         getAllLiveChatRoom(UserManager.user.email)
     }
@@ -73,42 +69,8 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
         _filteredChatRooms.value = filteredChatRoom
     }
 
-
     // test function
     fun changer(array: ArrayList<String>) {
         _testString.value = array
     }
-    // test function
-
-//    private fun getAllLiveChatRoom() {
-//        coroutineScope.launch {
-//            _status.value = LoadApiStatus.LOADING
-//
-//            val result = repository.getLiveChatRooms()
-//
-//            _updatedChatRooms.value = when (result) {
-//                is Result.Success -> {
-//                    _error.value = null
-//                    _status.value = LoadApiStatus.DONE
-//                    result.data
-//                }
-//                is Result.Fail -> {
-//                    _error.value = result.error
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//                is Result.Error-> {
-//                    _error.value = result.exception.toString()
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//                else -> {
-//                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
-//                    _status.value = LoadApiStatus.ERROR
-//                    null
-//                }
-//            }
-//            Log.d("wenbin", "_updatedChatRooms.value = ${_updatedChatRooms.value}")
-//        }
-//    }
 }

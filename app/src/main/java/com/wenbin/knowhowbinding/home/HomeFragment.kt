@@ -37,8 +37,6 @@ class HomeFragment (val type: String) : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-//        bindingArticle = FragmentArticleBinding.bind
-
         val mainViewModel = ViewModelProvider(this@HomeFragment.requireActivity()).get(MainViewModel::class.java)
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
@@ -58,7 +56,7 @@ class HomeFragment (val type: String) : Fragment() {
         })
 
         Log.d("userEmail", UserManager.user.email)
-//         Navigating to Post Article Fragment.
+        // Navigating to Post Article Fragment.
         viewModel.navigateToPostArticle.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             it?.let {
                 findNavController().navigate(HomeFragmentDirections.navigateToPostArticleFragment())
@@ -69,7 +67,7 @@ class HomeFragment (val type: String) : Fragment() {
         var adapter = HomeAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
-        //決定哪個分頁
+        // Determine fragment.
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Log.d("checkType", "type = $type")
 
@@ -117,10 +115,6 @@ class HomeFragment (val type: String) : Fragment() {
                 }
             })
 
-
-
-
-
             // Original
             if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
                 adapter.submitList(it)
@@ -133,7 +127,7 @@ class HomeFragment (val type: String) : Fragment() {
             }
         })
 
-        // Lottie
+        // ProgressBar
         viewModel.status.observe(viewLifecycleOwner, Observer {
             when (it) {
                 LoadApiStatus.LOADING -> {
@@ -144,18 +138,7 @@ class HomeFragment (val type: String) : Fragment() {
                 }
             }
         })
-//        if (activity is MainActivity) {
-//            (activity as MainActivity).hideToolBar()
-//        }
-
 
         return binding.root
     }
-
-//    override fun onDestroyView() {
-//        if (activity is MainActivity) {
-//            (activity as MainActivity).recoverToolBarandBottomNav()
-//        }
-//        super.onDestroyView()
-//    }
 }

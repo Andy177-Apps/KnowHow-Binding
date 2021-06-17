@@ -38,8 +38,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-
-
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.navigation_article -> {
@@ -66,63 +64,17 @@ class MainActivity : AppCompatActivity() {
 
                 findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment())
 
-//                when (viewModel.isLoggedIn) {
-//                    true -> {
-//                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToProfileFragment(viewModel.user.value))
-//                    }
-//                    false -> {
-//                        findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToLoginDialog())
-//                        return@OnNavigationItemSelectedListener false
-//                    }
-//                }
                 return@OnNavigationItemSelectedListener true
             }
         }
         false
     }
 
-//    //Setup drawer navigation destination
-//    private val onDrawerItemSelectedListener = NavigationView.OnNavigationItemSelectedListener { item ->
-//        when (item.itemId) {
-//            R.id.myArticleFragment -> {
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToMyArticleFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.myCollectFragment -> {
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToMyCollectFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.editProfileFragment -> {
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToEditProfile())
-//                return@OnNavigationItemSelectedListener true
-//            }
-//            R.id.searchFragment-> {
-//                findNavController(R.id.myNavHostFragment).navigate(NavigationDirections.navigateToSearchFragment())
-//                return@OnNavigationItemSelectedListener true
-//            }
-//        }
-//        false
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
-
-
-//        binding.navView.setNavigationItemSelectedListener(onDrawerItemSelectedListener)
-
-        // Test crash for Crashlytics
-//        val crashButton = Button(this)
-//        crashButton.text = "Crash!"
-//        crashButton.setOnClickListener {
-//            throw RuntimeException("Test Crash") // Force a crash
-//        }
-//
-//        addContentView(crashButton, ViewGroup.LayoutParams(
-//            ViewGroup.LayoutParams.MATCH_PARENT,
-//            ViewGroup.LayoutParams.WRAP_CONTENT))
 
         // Set up header of drawer ui using data binding
         val bindingNavHeader = NavHeaderMain02Binding.inflate(
@@ -142,20 +94,22 @@ class MainActivity : AppCompatActivity() {
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.myNavHostFragment)
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
             R.id.articleFragment, R.id.myArticleFragment, R.id.myCollectFragment, R.id.followedByFragment, R.id.followingFragment), drawerLayout)
-        //下面這是讓你有左上角那三槓的
+
+        // The following function is to show the three bars in the upper left corner
+        // in the upper right corner of the ToolBar
         setupActionBarWithNavController(navController, appBarConfiguration)
-        //下面這個是讓你可以導航到 Drawer 的其他頁面去的
+        // The following function is to navigate to other pages of Drawer
         navView.setupWithNavController(navController)
 
         // Drawer and ToolBar End
-
         var db = FirebaseFirestore.getInstance()
 
-        //隨時監聽整份 collectionPath 變化
+        // Get collectionPath realtime updates with
         db.collection("Friends")
                 .addSnapshotListener { snapshots, e ->
                     if (e != null) {
@@ -174,20 +128,14 @@ class MainActivity : AppCompatActivity() {
                                         "TAG",
                                         "Changed Data: ${dc.document.data}"
                                 )
-
                             }
-
                             DocumentChange.Type.REMOVED -> Log.d(
                                     "TAG",
                                     "Removed Invitation Card: ${dc.document.data}"
                             )
-//                        inviter = dc.document.data["name"]
                         }
                     }
                 }
-
-//        viewModel.setUpUser(UserManager.user)
-
         viewModel.userInfo.observe(this, androidx.lifecycle.Observer {
             Log.d("checkHeader", "userInfo = $it")
         })
@@ -200,7 +148,7 @@ class MainActivity : AppCompatActivity() {
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    // 這是設置右上角 ToolBar 裡面的 icon
+    // This function is set the the settings icon in the upper right corner of the ToolBar
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.toolbar_menu, menu)
@@ -210,11 +158,9 @@ class MainActivity : AppCompatActivity() {
                 val profileModeMenu = menu.findItem(R.id.item_profile_mode)
                 profileModeMenu.isVisible = when (it) {
                     CurrentFragmentType.PROFILE -> {
-//                        profileModeMenu.title = getString(R.string.menu_item_title_edit)
                         false
                     }
                     CurrentFragmentType.EDITPROFILE -> {
-//                        profileModeMenu.title = getString(R.string.menu_item_title_save)
                         false
                     }
                     else -> false
@@ -224,7 +170,6 @@ class MainActivity : AppCompatActivity() {
         })
         return super.onCreateOptionsMenu(menu)
     }
-
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -236,7 +181,6 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-
 
     /**
      * Set up [BottomNavigationView]
@@ -282,8 +226,5 @@ class MainActivity : AppCompatActivity() {
         binding.myToolbar.visibility = View.VISIBLE
         bottomNavView_content.visibility = View.VISIBLE
         toolbar.visibility = View.VISIBLE
-
     }
-
-
 }

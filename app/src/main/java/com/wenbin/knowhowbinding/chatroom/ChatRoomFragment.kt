@@ -22,10 +22,6 @@ class ChatRoomFragment  : Fragment() {
     private lateinit var binding : FragmentChatroomBinding
     val viewModel by viewModels<ChatRoomViewModel> { getVmFactory() }
 
-//    private val viewModel : ChatRoomViewModel by lazy {
-//        ViewModelProvider(this).get(ChatRoomViewModel::class.java)
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,7 +49,7 @@ class ChatRoomFragment  : Fragment() {
 
 
         viewModel.updatedChatRooms.observe(viewLifecycleOwner, Observer {
-            /////// test function
+            // test function
 
             Log.d("wenbin", "updatedChatRooms = $it")
 
@@ -75,7 +71,7 @@ class ChatRoomFragment  : Fragment() {
                 val list = listOf<String>("1", "2")
                 Log.d("wenbin","PrintList list = $list")
             }
-            ///////test function
+
             it?.let {
                 val filteredChatRoom = mutableListOf<ChatRoom>()
 

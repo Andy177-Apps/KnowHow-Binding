@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
@@ -67,9 +68,15 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
         getUserArticle(UserManager.user.email)
     }
 
-    // 一開始就一口氣把所有需要的該 App 使用者的資料都拿下來，像是個人文章或個人資訊
-    // 之後若有需要的話就來跟 MainViewModel 要，這樣就不用每個葉面都自己重寫一次
-    // 而且因為資料早就載下來的關係，可能頁面 loading 的時間還比較短
+    /**
+     * At the beginning, take down all the information of
+     * the App user that you need, such as personal articles or
+     * personal information, and then ask for MainViewModel if necessary,
+     * so that you don’t have to rewrite every leaf by yourself. 
+     * And because the data has been loaded long ago, the page loading
+     * time may be relatively short
+     */
+
     fun getUser(userEmail: String) {
 
         coroutineScope.launch {

@@ -30,6 +30,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
     private val timePickerTypeStart = 0X01
     private val timePickerTypeEnd = 0x02
 
+
     private lateinit var binding : DialogCreateEventBinding
 
     private val viewModel by viewModels<CreateEventViewModel> { getVmFactory(
@@ -46,7 +47,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         binding.viewModel = viewModel
 
         // Multiple Spinner for followingName
-//        var listArray1 = listOf<String>("123", "456", "789")
         val listArray0: MutableList<KeyPairBoolData> = ArrayList()
 
         viewModel.followingName.observe(viewLifecycleOwner, Observer {
@@ -88,14 +88,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             viewModel.setMultipleInvitation(list)
         })
 
-        //limit counts
-//        binding.multipleItemSelectionSpinner.setLimit(1, LimitExceedListener {
-//            Toast.makeText(
-//                KnowHowBindingApplication.appContext,
-//                "Limit exceed ", Toast.LENGTH_LONG
-//            ).show()
-//        })
-
         viewModel.multipleInvitation.observe(viewLifecycleOwner, Observer {
             Log.d("MultipleSpinner", "multipleInvitation = $it")
         })
@@ -129,7 +121,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             showTimePickerDialog(timePickerTypeEnd, hour, minute)
         }
         binding.viewBtnSend.setOnClickListener {
-            // TODO determine condition if filled out the form.
             val event = viewModel.getEvent()
             Log.d("newEvent", "event = $event")
             Logger.i("${viewModel.startTime.value}")
@@ -166,11 +157,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         viewModel.type.observe(viewLifecycleOwner, Observer {
             Log.d("wenbin", "createEventViewModel type = $it")
         })
-
-
-
-//        binding.spinnerOtherUser.adapter = viewModel.followingName.value?.let { CreateEventFollowingSpinnerAdapter(it) }
-
 
         // Set Invitation
         binding.spinnerOtherUser.onItemSelectedListener = object :
@@ -215,10 +201,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             Log.d("wenbin", "createEventViewModel invitation = $it")
         })
 
-//        binding.viewBtnSend.setOnClickListener {
-//            if ()
-//        }
-
         viewModel.title.observe(viewLifecycleOwner, Observer {
             Log.d("wenbin", "it = $it")
         })
@@ -226,7 +208,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
     }
 
     private fun timeIntervalVisibility(condition: Boolean) {
-        // When condtion == ture, it represent switch is open
         if (condition) {
             binding.textViewStartTime.visibility = View.GONE
             binding.textViewEndTime.visibility = View.GONE

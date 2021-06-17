@@ -61,13 +61,4 @@ class MessageFragment : Fragment() {
         }
         super.onDestroyView()
     }
-
-    private fun formMessage() : Message {
-        return Message(
-                id = "leo55576",
-                senderName = "Wenbin",
-                senderImage = "https://scontent.ftpe2-2.fna.fbcdn.net/v/t1.18169-9/10600632_1420184154908051_3953315238743376164_n.jpg?_nc_cat=109&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=9pzyPuhjvj4AX9nX5hZ&_nc_ht=scontent.ftpe2-2.fna&oh=89a98fa3e4fea279f82cb066100790be&oe=60C7754F",
-                text = viewModel.textSend.value!!
-        )
-    }
 }

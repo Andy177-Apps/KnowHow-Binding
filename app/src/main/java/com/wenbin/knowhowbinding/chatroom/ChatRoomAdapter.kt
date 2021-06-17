@@ -18,7 +18,7 @@ class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener
     ) : RecyclerView.ViewHolder(binding.root){
         fun bind (item : ChatRoom) {
             binding.chatRoom = item
-//             Chat room has been filtered, the attendee info only holds the other user's info
+            // Chat room has been filtered, the attendee info only holds the other user's info
             Log.d("wenbin", " item.attendeesInfo = ${item.attendeesInfo}")
 
             val friendInfo = item.attendeesInfo.component1()

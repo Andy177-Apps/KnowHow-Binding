@@ -34,6 +34,4 @@ class PostArticleTypeSpinnerAdapter(private val strings: Array<String>) : BaseAd
         }
         return binding.root
     }
-
-
 }

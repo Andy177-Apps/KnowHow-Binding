@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class UserProfileFragment: Fragment() {
+
     private lateinit var binding: FragmentUserDetailBinding
 
     private val viewModel by viewModels<UserProfileViewModel> {
@@ -45,8 +46,6 @@ class UserProfileFragment: Fragment() {
         binding.viewModel = viewModel
         val imageViewGender = binding.imageViewGender
         var firstTimeEntry = true
-
-
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("check_follow", "accepted userInfo = $it")
@@ -112,13 +111,7 @@ class UserProfileFragment: Fragment() {
                 viewModel.onMyArticleNavigated()
             }
         })
-//        binding.imageViewInformation.setOnClickListener {
-//            if (binding.layoutInformation.visibility == View.GONE) {
-//                binding.layoutInformation.visibility = View.VISIBLE
-//            } else {
-//                binding.layoutInformation.visibility = View.GONE
-//            }
-//        }
+
         if (activity is MainActivity) {
             Log.d("wenbin" , "user fun is used.")
             (activity as MainActivity).coverBottomNav()
@@ -175,19 +168,6 @@ class UserProfileFragment: Fragment() {
                 }, 3000)
                 }
         }
-
-//        binding.imageViewChat.setOnClickListener {
-//            viewModel.postChatRoom(viewModel.createChatRoom())
-//            Log.d("check_follow", "buttonMessage is clicked")
-//
-//            Log.d("check_follow", "user.email= ${user.email}")
-//
-//            if (!user.email.isNullOrEmpty()){
-//                Handler(Looper.getMainLooper()).postDelayed({
-//                    findNavController().navigate(NavigationDirections.navigateToMessageFragment(user.email, user.name))
-//                }, 3000)
-//            }
-//        }
     }
 
     private fun showFollowButton(showFollow: Boolean) {

@@ -25,8 +25,6 @@ class MyCollectAdapter(val viewModel: MyCollectViewModel) : ListAdapter<Article,
                 viewModel.saveArticle(item, UserManager.user.email)
 
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
-
-//                viewModel.isChecked(bookmarkIcon.isSelected)
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)

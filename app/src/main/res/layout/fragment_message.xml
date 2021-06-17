@@ -36,7 +36,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             />
 
         <EditText
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="4dp"
+            android:layout_marginBottom="16dp"
             android:ems="10"
             android:gravity="start|center_vertical"
             android:hint="@string/indicator_message"

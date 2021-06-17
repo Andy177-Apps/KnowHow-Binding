@@ -62,7 +62,6 @@ fun List<User>?.sortByUserAnswer(answer : Answer) : List<User> {
     return resultList
 }
 
-
 fun List<User>?.recommendedUser(ownerUser: User) : List<User> {
     val resultList = mutableListOf<User>()
 

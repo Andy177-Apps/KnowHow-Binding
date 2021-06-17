@@ -105,11 +105,11 @@ class MessageViewModel(
         }
     }
 
-    fun getUserEmails(userOneEmail: String, userTwoEmail: String): List<String> {
+    private fun getUserEmails(userOneEmail: String, userTwoEmail: String): List<String> {
         return listOf(userOneEmail,userTwoEmail)
     }
 
-    fun getMessage(): Message {
+    private fun getMessage(): Message {
         return Message(
                 id = "",
                 senderName = UserManager.user.name,
@@ -164,5 +164,4 @@ class MessageViewModel(
             }
         }
     }
-
 }

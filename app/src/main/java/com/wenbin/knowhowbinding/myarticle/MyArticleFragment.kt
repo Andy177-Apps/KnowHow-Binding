@@ -20,11 +20,6 @@ class MyArticleFragment : Fragment() {
 
     private val viewModel by viewModels<MyArticleViewModel> { getVmFactory()}
 
-
-//    private val viewModel : MyArticleViewModel by lazy {
-//        ViewModelProvider(this).get(MyArticleViewModel::class.java)
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

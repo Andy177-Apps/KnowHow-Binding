@@ -52,7 +52,7 @@ fun Fragment.checkPermission() {
     val permission = ActivityCompat.checkSelfPermission(KnowHowBindingApplication.instance.applicationContext,
         android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     if (permission != PackageManager.PERMISSION_GRANTED) {
-        //未取得權限，向使用者要求允許權限
+        // No permission, so, ask the user for permission
         ActivityCompat.requestPermissions(
             requireActivity(),
             arrayOf(
@@ -69,7 +69,7 @@ fun Fragment.checkPermission(requestCode : Int) {
     val permission = ActivityCompat.checkSelfPermission(KnowHowBindingApplication.instance.applicationContext,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     if (permission != PackageManager.PERMISSION_GRANTED) {
-        //未取得權限，向使用者要求允許權限
+        // No permission, so, ask the user for permission
         ActivityCompat.requestPermissions(
                 requireActivity(),
                 arrayOf(

@@ -29,10 +29,6 @@ class ProfileFragment  : Fragment() {
     private lateinit var binding : FragmentMyselfProfileBinding
     val viewModel by viewModels<ProfileViewModel> { getVmFactory() }
 
-//    private val viewModel : ProfileViewModel by lazy {
-//        ViewModelProvider(this).get(ProfileViewModel::class.java)
-//    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -69,9 +65,6 @@ class ProfileFragment  : Fragment() {
 
             viewModel.userInfo.value?.let { ownerUser ->
                 Log.d("checkOwnerUser", "OwnerUser in fragment = $ownerUser")
-//                if (ownerUser.identity == null) {
-//                    binding.textViewUserNameLayout.text = "尚未設定"
-//                }
                 resultList = it.recommendedUser(ownerUser).excludeOwner()
             }
             Log.d("checkRecommendedList", "Final resultList in fragment = $resultList")

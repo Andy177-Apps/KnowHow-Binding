@@ -40,7 +40,6 @@ class FollowingFragment : Fragment() {
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Log.d("checkFollowing", "userInfo = $it")
-//            (binding.recyclerViewFollowing.adapter as FollowingAdapter).submitList(it)
         })
 
         return binding.root

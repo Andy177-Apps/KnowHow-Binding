@@ -29,10 +29,6 @@ import kotlin.collections.ArrayList
 class SearchFragment : Fragment() {
     private lateinit var binding: FragmentSearchBinding
     val viewModel by viewModels<SearchViewModel> { getVmFactory() }
-//
-//    private val viewModel : SearchViewModel by lazy {
-//        ViewModelProvider(this).get(SearchViewModel::class.java)
-//    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

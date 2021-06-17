@@ -33,7 +33,6 @@ class NotifyFragment: Fragment() {
         adapter.notifyDataSetChanged()
 
         viewModel.getLiveAllEventInvitations(UserManager.user.email)
-//        Log.d("fragment", "viewModel.allLiveEventInvitations = ${viewModel.allLiveEventInvitations.value} ")
 
         viewModel.allLiveEventInvitations.observe(viewLifecycleOwner, Observer {
             Log.d("see_what_is_Empty" , "allLiveEventInvitations_1 = $it ")

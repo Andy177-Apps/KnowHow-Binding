@@ -22,7 +22,7 @@ import kotlin.math.absoluteValue
 
 class CreateEventViewModel(
     private val repository: KnowHowBindingRepository,
-    private val selectedDate: Long
+    selectedDate: Long
 ) : ViewModel() {
 
     val title = MutableLiveData<String>()
@@ -172,7 +172,6 @@ class CreateEventViewModel(
             _status.value = LoadApiStatus.LOADING
             Log.d("wenbin", "title.value = ${title.value}")
 
-//            val event = Event(id = "leo55576", city = city.value.toString(), title = title.value.toString(), description = description.value.toString())
             Log.d("wenbin", "event = $event")
             when (val result = repository.postEvent(event)) {
                 is Result.Success -> {
@@ -237,10 +236,6 @@ class CreateEventViewModel(
 
     fun setAllDay(isAllDay: Boolean) {
         _isAllDay.value = isAllDay
-    }
-
-    fun setEventTime(timeStamp: Long) {
-        _eventTime.value = timeStamp
     }
 
     fun setStartIme(timeStamp: Long) {

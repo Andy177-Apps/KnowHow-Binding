@@ -67,46 +67,46 @@ class EditProfileFragment : Fragment() {
             updateBackground()
         }
         // Firebase Storage //
-
-        // 設置雲存儲
-        // 訪問 Cloud Storage 存儲FirebaseStorage第一步是創建FirebaseStorage的實例：
-        val storage = Firebase.storage
-
-        // Points to the root reference
-        // 取得它的參考
-        val storageRef = storage.reference
-
-        // Points to "images"
-        // 指向資料夾 images
-        var imagesRef = storageRef.child("images")
-
-        // Points to "images/space.jpg"
-        // Note that you can use variables to create child values
-        val fileName = "space.jpg"
-        // 指向 imagesRef 的資料夾：images 裡面的檔案：fileName i.e "space.jpg"
-        val spaceRef = imagesRef.child(fileName)
-
-        // File path is "images/space.jpg"
-        // 該檔案後面加 .path 可以叫出它的檔案路徑
-        val path = spaceRef.path
-
-        // File name is "space.jpg"
-        // 該檔案後面加 .path 可以叫出它的檔案名稱
-        val name = spaceRef.name
-
-        // Points to "images"
-        // 該檔案後面加 .path 可以叫出儲存它的資料夾的名稱，像這邊就是 image
-        imagesRef = spaceRef.parent!!
-
-        //  End  //
-
-        // Image //
-
-
-        // Image //
-
-        // Call mainViewModel to observe if the save button is pressed
-        val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
+//
+//        // 設置雲存儲
+//        // 訪問 Cloud Storage 存儲FirebaseStorage第一步是創建FirebaseStorage的實例：
+//        val storage = Firebase.storage
+//
+//        // Points to the root reference
+//        // 取得它的參考
+//        val storageRef = storage.reference
+//
+//        // Points to "images"
+//        // 指向資料夾 images
+//        var imagesRef = storageRef.child("images")
+//
+//        // Points to "images/space.jpg"
+//        // Note that you can use variables to create child values
+//        val fileName = "space.jpg"
+//        // 指向 imagesRef 的資料夾：images 裡面的檔案：fileName i.e "space.jpg"
+//        val spaceRef = imagesRef.child(fileName)
+//
+//        // File path is "images/space.jpg"
+//        // 該檔案後面加 .path 可以叫出它的檔案路徑
+//        val path = spaceRef.path
+//
+//        // File name is "space.jpg"
+//        // 該檔案後面加 .path 可以叫出它的檔案名稱
+//        val name = spaceRef.name
+//
+//        // Points to "images"
+//        // 該檔案後面加 .path 可以叫出儲存它的資料夾的名稱，像這邊就是 image
+//        imagesRef = spaceRef.parent!!
+//
+//        //  End  //
+//
+//        // Image //
+//
+//
+//        // Image //
+//
+//        // Call mainViewModel to observe if the save button is pressed
+//        val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         // Setup chip group for TalentedSubjects chip selection
         val chipGroupTalented = binding.chipGroupTalentedSubjects
@@ -276,44 +276,6 @@ class EditProfileFragment : Fragment() {
                     viewModel.setInterested(list)
                 })
 
-        // Setup Spinner for city
-//        binding.spinnerCity.onItemSelectedListener = object :
-//                AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//            }
-//            override fun onItemSelected(
-//                    parent: AdapterView<*>?,
-//                    view: View?,
-//                    position: Int,
-//                    id: Long
-//            ) {
-//                if (parent != null) {
-//                    val selectedType = parent.selectedItem.toString()
-//                    Log.d("Spinner_type","position = $position")
-//                    Log.d("Spinner_type","id = $id")
-//
-//                    viewModel.setCity(selectedType)
-//                }
-//            }
-//        }
-
-        // Observer for save button, when pressed send update user info (With empty handel)
-        // 進入頁面之後這個 fun 就會被啟動，有點不太穩定，我先暫時註解掉，先用下面的
-//        mainViewModel.saveIsPressed.observe(viewLifecycleOwner, Observer {
-//            Log.d("checkBtn", "mainViewModel.saveIsPressed is used")
-//            if (it) {
-//                if (viewModel.checkIfComplete()) {
-//                    val user = viewModel.getUser()
-//                    Log.d("check_user", "user = $user")
-//                    viewModel.updateUser(user)
-//                    findNavController().navigate(NavigationDirections.navigateToProfileFragment())
-//                    mainViewModel.saveIsPressed.value = false
-//                } else {
-//                    Toast.makeText(KnowHowBindingApplication.appContext, getString(R.string.reminder_finish_user_info), Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//        })
-
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{
             Log.d("checkBtn", "viewModel.navigateToProfilePage is used")
@@ -323,7 +285,6 @@ class EditProfileFragment : Fragment() {
 
                 viewModel.updateUser(observeIdentity)
 
-//                findNavController().navigate(EditProfileFragmentDirections.navigateToProfileFragment())
                 Toast.makeText(this.context, "資料儲存成功！", Toast.LENGTH_SHORT).show()
 
                 viewModel.onProfilePageNavigated()
@@ -344,11 +305,6 @@ class EditProfileFragment : Fragment() {
 
     private fun updateBackground() {
         checkPermission(PICK_BACKGROUND_IMAGE)
-
-//        val intent = Intent()
-//        intent.type = "image/*"
-//        intent.action = Intent.ACTION_GET_CONTENT
-//        startActivityForResult(intent, PICK_BACKGROUND_IMAGE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {

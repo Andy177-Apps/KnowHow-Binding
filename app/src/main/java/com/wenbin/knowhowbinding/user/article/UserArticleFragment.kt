@@ -26,11 +26,6 @@ class UserArticleFragment : Fragment() {
         )
     }
 
-
-//    private val viewModel : MyArticleViewModel by lazy {
-//        ViewModelProvider(this).get(MyArticleViewModel::class.java)
-//    }
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,

@@ -147,7 +147,3 @@ fun bindTimeToHrMin(text: TextView, time : Long?){
         text.text = "${SimpleDateFormat("HH:mm").format(time)}"
     }
 }
-//@BindingAdapter("ShowLatestTime")
-//fun bindLatestTime(textView: TextView, time : Long?) {
-//    time?.let {  textView.text = TimeUtil.stampTo }
-//}

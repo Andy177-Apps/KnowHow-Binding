@@ -18,10 +18,6 @@ class MyCollectFragment  : Fragment() {
     private lateinit var binding : FragmentMycollectBinding
     private val viewModel by viewModels<MyCollectViewModel> { getVmFactory()}
 
-//    private val viewModel : MyCollectViewModel by lazy {
-//        ViewModelProvider(this).get(MyCollectViewModel::class.java)
-//    }
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -40,7 +36,6 @@ class MyCollectFragment  : Fragment() {
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("我的收藏")
-//            (activity as MainActivity).coverBottomNav()
         }
         return binding.root
     }

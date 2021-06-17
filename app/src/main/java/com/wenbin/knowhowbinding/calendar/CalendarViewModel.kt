@@ -118,7 +118,7 @@ class CalendarViewModel(
     }
 
     fun createdDailyEvent (toTimeStamp: Long) {
-        Log.d("test", "toTimeStamp = ${toTimeStamp}")
+        Log.d("test", "toTimeStamp = $toTimeStamp")
 
         Log.d("test", "liveEvents.value = ${liveEvents.value}")
         selectedLiveEvent.value = liveEvents.value.sortByTimeStamp(toTimeStamp)

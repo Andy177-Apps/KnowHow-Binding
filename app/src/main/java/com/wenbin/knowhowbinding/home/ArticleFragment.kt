@@ -22,24 +22,12 @@ class ArticleFragment : Fragment() {
     private lateinit var binding: FragmentArticleBinding
 
         val viewModel by viewModels<ArticleViewModel> { getVmFactory() }
-//    private val homeViewModel: HomeViewModel by lazy {
-//        ViewModelProvider(this).get(HomeViewModel::class.java)
-//    }
-
-//    private lateinit var viewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-//        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
-//        val homeViewModel = ViewModelProvider(this.requireActivity()).get(HomeViewModel::class.java)
-//
-//        binding.lifecycleOwner = this
-//
-//        binding = FragmentCreateBinding.inflate(layoutInflater, container, false)
 
         binding = FragmentArticleBinding.inflate(layoutInflater, container, false)
         binding.lifecycleOwner = this
@@ -57,7 +45,6 @@ class ArticleFragment : Fragment() {
             Log.d("checkSearch", "searchEditText in ArticleFragment = $it")
         })
 
-//        FragmentArticleBinding.inflate(inflater, container, false).apply {
         binding.apply {
             lifecycleOwner = viewLifecycleOwner
             viewpagerArticles.let {

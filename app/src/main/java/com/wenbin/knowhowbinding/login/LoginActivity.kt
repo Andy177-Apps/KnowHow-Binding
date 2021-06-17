@@ -123,7 +123,7 @@ class LoginActivity : AppCompatActivity() {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 Log.d(TAG, "firebaseAuthWithGoogle:" + account.id)
-//                firebaseAuthWithGoogle(account.idToken!!)
+                // firebaseAuthWithGoogle(account.idToken!!)
                 viewModel.firebaseAuthWithGoogle(account.idToken!!)
                 updateUI(viewModel.firebaseUser.value)
             } catch (e: ApiException) {
@@ -132,7 +132,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
-// [END onactivityresult]
+    // [END onactivityresult]
 
     // [START auth_with_google]
     private fun firebaseAuthWithGoogle(idToken: String) {

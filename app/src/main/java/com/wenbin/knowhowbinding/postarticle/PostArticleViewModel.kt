@@ -36,16 +36,6 @@ class PostArticleViewModel(
         get() = _userInfo
 
     private val _article = MutableLiveData<Article>()
-//            .apply {
-//        value = Article(
-//                author = User(UserManager.user.id,
-//                        UserManager.user.name,
-//                        email = UserManager.user.email,
-//                        image = UserManager.user.image),
-//
-//        )
-//
-//    }
 
     var articleType = MutableLiveData<String>()
     var articleCity = MutableLiveData<String>()
@@ -205,5 +195,4 @@ class PostArticleViewModel(
             }
         }
     }
-
 }

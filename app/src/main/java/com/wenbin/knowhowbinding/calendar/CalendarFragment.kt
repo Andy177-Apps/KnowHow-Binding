@@ -56,17 +56,13 @@ class CalendarFragment : Fragment() {
         viewModel.selectedLiveEvent.observe(viewLifecycleOwner, Observer {
             Log.d("checkImage", "selectedLiveEvent = $it")
         })
-        // Set Indecator of current date
+        // Set Indicator of current date
         widget.setSelectedDate(localDate)
 
         viewModel.events.observe(viewLifecycleOwner, Observer { it ->
-//            Log.d("events_in_calendar_page", "events = $it")
             it?.forEach {
                 Log.d("events_in_calendar_page", "events = $it")
-
-//                Log.d("events_in_calendar_page", "it.attendeesName.component1() = ${it.attendeesName.component1()}")
             }
-
         })
 
         // Add dots based on my events
@@ -103,9 +99,6 @@ class CalendarFragment : Fragment() {
         viewModel.navigationToCreateEventDialogFragment.observe(viewLifecycleOwner,
         Observer { date ->
             date?.let {
-//                binding.imageViewCreateEvent.setOnClickListener {
-//                    findNavController().navigate(CalendarFragmentDirections.navigateToCreateEventDialog(date))
-//                }
                 binding.fabCreateEvent.setOnClickListener {
                     findNavController().navigate(CalendarFragmentDirections.navigateToCreateEventDialog(date))
                     binding.fabShadow.visibility = View.GONE
@@ -142,8 +135,6 @@ class CalendarFragment : Fragment() {
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }
-
-
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("月曆")

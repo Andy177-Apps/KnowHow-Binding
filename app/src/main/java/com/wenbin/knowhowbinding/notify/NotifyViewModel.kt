@@ -24,7 +24,6 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
 
     var allLiveEventInvitations = MutableLiveData<List<Event>>()
 
-
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
 
@@ -120,7 +119,4 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
             }
         }
     }
-
-
-
 }

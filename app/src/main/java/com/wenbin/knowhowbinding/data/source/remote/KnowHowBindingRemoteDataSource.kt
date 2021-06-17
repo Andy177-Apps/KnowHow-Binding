@@ -98,11 +98,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                         .update("saveList", FieldValue.arrayRemove(userEmail))
                             }
 
-//                    db.document(article.id)
-//                        .update("saveList",FieldValue.arrayUnion(userEmail))
-//                    Log.d("saveArticle", "article.id = ${article.id}")
-//                    Log.d("saveArticle", "userEmail = $userEmail")
-
                             for (document in documents) {
                                 Log.d("saveArticle", "${document.id} => ${document.data}")
                             }
@@ -380,20 +375,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun postUserToFollow(userOwnerEmail: String, user: User): Result<Boolean> =
             suspendCoroutine { continuation ->
 
-//        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
-//
-//        users.document(userOwnerEmail).collection("followList").document(user.email)
-//                .set(user)
-//                .addOnSuccessListener {
-//                    Logger.d("DocumentSnapshot added with ID: $users")
-//                }
-//                .addOnFailureListener { e ->
-//                    Logger.w("Error adding document $e")
-//                }
-//        users.document(user.email).update("followedBy", FieldValue.arrayUnion(userOwnerEmail))
-//        users.document(userOwnerEmail).update("followingEmail", FieldValue.arrayUnion(user.email))
-//        users.document(userOwnerEmail).update("followingName", FieldValue.arrayUnion(user.name))
-
                 val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
                 Log.d("RemoteupdateUser", "user.email = ${user.email}")
 
@@ -441,19 +422,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun removeUserFromFollow(userOwnerEmail: String, user: User): Result<Boolean> =
             suspendCoroutine { continuation ->
-//        val users = FirebaseFirestore.getInstance().collection(PATH_USERS)
-//
-//        users.document(userOwnerEmail).collection("followList").document(user.email)
-//                .delete()
-//                .addOnSuccessListener {
-//                    Logger.d("DocumentSnapshot added with ID: ${users}")
-//                }
-//                .addOnFailureListener { e ->
-//                    Logger.w("Error adding document $e")
-//                }
-//        users.document(user.email).update("followedBy", FieldValue.arrayRemove(userOwnerEmail))
-//        users.document(userOwnerEmail).update("followingEmail", FieldValue.arrayRemove(user.email))
-//        users.document(userOwnerEmail).update("followingName", FieldValue.arrayRemove(user.name))
 
                 val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
                 Log.d("RemoteupdateUser", "user.email = ${user.email}")
@@ -505,10 +473,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
                 articles
-//                .whereEqualTo("creatorEmail", userEmail)
                         .whereEqualTo("author.email", userEmail)
-//                .orderBy("author").whereEqualTo("email", userEmail)
-//                .whereGreaterThanOrEqualTo("author",userEmail)
                         .get()
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
@@ -535,7 +500,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                         )
                                 )
                             }
-
                         }
             }
 
@@ -603,48 +567,16 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                     Log.d("checkUser", "User in addOnSuccessListener = $user")
 
                                     Logger.i("User: $user")
-//                            continuation.resume(Result.Success(true))
                                 }
                                 .addOnFailureListener { e ->
                                     Log.w(TAG, "Error writing document", e)
                                     Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
-//                            continuation.resume(Result.Error(e))
                                 }
-//                    continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
                     }
                 }
                 .addOnFailureListener { exception ->
                     Log.w("documents", "Error getting documents: ", exception)
                 }
-
-//        db.whereEqualTo("email", user.email)
-//            .get()
-//            .addOnSuccessListener { documents ->
-//                Log.d("postUser","Already initialized")
-//                for (document in documents) {
-//                    Log.d("checkUser", "in DataSource ： ${document.id} => ${document.data}")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.d("postUser","Yet initialized")
-//
-//                document
-//                    .set(user)
-//                    .addOnSuccessListener {
-//                        Log.d(TAG, "DocumentSnapshot successfully written!")
-//                        Log.d("checkUser", "User in addOnSuccessListener = $user")
-//
-//                        Logger.i("User: $user")
-//                        continuation.resume(Result.Success(true))
-//                    }
-//                    .addOnFailureListener { e ->
-//                             Log.w(TAG, "Error writing document", e)
-//                        Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
-//                        continuation.resume(Result.Error(e))
-//                    }
-//                continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
-//
-//            }
     }
 
     override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> =
@@ -679,7 +611,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 )
                             }
                         }
-
             }
 
     override suspend fun postMessage(
@@ -689,18 +620,18 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
         val chat = FirebaseFirestore.getInstance().collection(PATH_CHATROOMLIST)
         chat.whereIn("attendees", listOf(emails, emails.reversed()))
-//            .whereEqualTo("id", chatRoom.id)
                 .get()
                 .addOnSuccessListener { result ->
                     val documentId = chat.document(result.documents[0].id)
                     documentId
-                            //更新文檔的某些字段而不覆蓋整個文檔，請使用update()方法：
+                            // In order to update some fields of the document without covering the entire document
+                            // Please use the update() method:
                             .update(
                                     "latestTime", Calendar.getInstance().timeInMillis,
                                     "latestMessage", message.text
                             )
                 }
-                // 用上 Storage 的 continueWithTask
+                // Using continueWithTask method of Storage
                 .continueWithTask { task ->
                     if (!task.isSuccessful) {
                         if (task.exception != null) {
@@ -744,15 +675,14 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         }
                         continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
                     }
-
                 }
     }
 
     override suspend fun postEvent(event: Event): Result<Boolean> =
             suspendCoroutine { continuation ->
-                //先與 Firebase 的 collection 連動
+                // Connect collection of Firebase in the first place.
                 val events = FirebaseFirestore.getInstance().collection(PATH_EVENTS)
-                //再與 Firebase 的 document 連動，方法就是創造該 document
+                // Next, connect document of Firebase by creating the document.
                 val document = events.document()
 
                 event.id = document.id
@@ -789,7 +719,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun getAllEvents(): Result<List<Event>> = suspendCoroutine { continuation ->
         FirebaseFirestore.getInstance()
                 .collection(PATH_EVENTS)
-//            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
@@ -821,7 +750,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
         FirebaseFirestore.getInstance()
                 .collection(PATH_EVENTS)
-//            .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
                 .addSnapshotListener { snapshot, exception ->
 
                     Logger.i("addSnapshotListener detect")
@@ -829,7 +757,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     exception?.let {
                         Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                     }
-
                     val list = mutableListOf<Event>()
                     for (document in snapshot!!) {
                         Logger.d(document.id + " =>>>> " + document.data)
@@ -903,7 +830,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
-                        //發出邀請
+                        // Invite
                         val updateUserInfo = db.collection(PATH_USERS).document(document.id)
                         // Set the "isCapital" field of the city 'DC'
                         updateUserInfo.update(
@@ -922,17 +849,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 .addOnFailureListener { exception ->
                     Log.w("TAG", "Error getting documents: ", exception)
                 }
-
-
-        // 更新資料
-//        users.
-//
-//                .addOnSuccessListener {
-//                    Logger.d("DocumentSnapshot added with ID: $users")
-//                }
-//                .addOnFailureListener { e ->
-//                    Logger.w("Error adding document $e")
-//                }
     }
 
     override suspend fun getUser(userEmail: String): Result<User> =
@@ -991,15 +907,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                         list.add(event)
                     }
-//                if (snapshot != null) {
-//                    for (document in snapshot) {
-//                        Logger.d(document.id + " => " + document.data)
-//
-//                        val event = document.toObject(Event::class.java)
-//                        list.add(event)
-//                    }
-//                }
-
 
                     liveData.value = list
                     Log.d("check_liveevents", "liveData.value = ${liveData.value}")

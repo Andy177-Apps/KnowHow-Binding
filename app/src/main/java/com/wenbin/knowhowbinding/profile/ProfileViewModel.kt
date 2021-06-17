@@ -70,9 +70,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-//        createTestedData()
         getUser(UserManager.user.email)
-//        getAllUsers()
 
     }
 
@@ -141,18 +139,6 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
                 }
             }
         }
-    }
-
-    private fun createTestedData(){
-        var defaultData = mutableListOf<Comment>()
-        defaultData.run {
-            add(Comment("Armin","觀念講解仔細"))
-            add(Comment("Mikasa","深入淺出"))
-
-        }
-        Log.d("DefaultData", "Frist Data = $defaultData")
-        _comment.value = defaultData
-        Log.d("Wenbin", "_articles.value = $_comment.value")
     }
 
     /**

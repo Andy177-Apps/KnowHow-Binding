@@ -45,7 +45,6 @@ class FollowedByFragment : Fragment() {
             Log.d("checkFollowedBy", "appOwenerUser.followedBy = ${it.followedBy}")
 
             viewModel.getFollowedBy(it.followedBy)
-//            (binding.recyclerViewFollowing.adapter as FollowingAdapter).submitList(it)
         })
 
         return binding.root

@@ -32,7 +32,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     val interestedSubjects = MutableLiveData<String>()
 
     val introduction = MutableLiveData<String>()
-//    private var imageUrlPathLiveData = MutableLiveData<String>()
 
     val talentedList: MutableList<String> = ArrayList()
     val interestedList: MutableList<String> = ArrayList()
@@ -216,9 +215,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     _status.value = LoadApiStatus.ERROR
                     ""
                 }
-//                is Result.Loading -> {
-//                    "loading"
-//                }
                 else -> {
                     _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR
@@ -256,9 +252,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     _status.value = LoadApiStatus.ERROR
                     ""
                 }
-//                is Result.Loading -> {
-//                    "loading"
-//                }
                 else -> {
                     _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
                     _status.value = LoadApiStatus.ERROR

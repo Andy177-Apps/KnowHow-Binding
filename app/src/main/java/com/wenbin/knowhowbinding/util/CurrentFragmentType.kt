@@ -10,5 +10,4 @@ enum class CurrentFragmentType(val value: String) {
     PROFILE(getString(R.string.profile)),
     SEARCH(getString(R.string.search)),
     EDITPROFILE("Profile"),
-
 }

@@ -78,9 +78,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
         getUser(UserManager.user.email)
 
         Log.d("checkArticles","articles.value in ViewModel = ${articles.value}")
-//        practiceMVVMfun()
-        // When I am not connected to Google sign mechanism, use the following function to create a simulated user information.
-//        autoLogin("wenbin")
+
     }
     fun checkIfInfoComplete(): Boolean {
         val userInfo = userInfo.value

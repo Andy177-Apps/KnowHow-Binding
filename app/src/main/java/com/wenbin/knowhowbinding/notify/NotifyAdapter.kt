@@ -104,6 +104,4 @@ class NotifyAdapter (val viewModel: NotifyViewModel) : ListAdapter<Event, Recycl
     override fun getItemViewType(position: Int): Int {
         return ITEM_VIEW_TYPE_INVITATION
     }
-
-
 }
