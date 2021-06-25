@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.calendar.eventdetail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentEventDetailBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class EventDetailFragment : Fragment(){
 
@@ -30,7 +30,7 @@ class EventDetailFragment : Fragment(){
         val binding = FragmentEventDetailBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
-        Log.d("check_accepted_event","viewModel.event = ${viewModel.event}")
+        Logger.d("viewModel.event = ${viewModel.event}")
 
 
         if(viewModel.event.startTime.equals(-1)){
@@ -47,7 +47,7 @@ class EventDetailFragment : Fragment(){
         }
 
         binding.buttonAccept.setOnClickListener {
-            Log.d("bug", "UserManager.user.image = ${UserManager.user.image}")
+            Logger.d("UserManager.user.image = ${UserManager.user.image}")
             viewModel.acceptEvent(viewModel.event, UserManager.user.email, UserManager.user.name, UserManager.user.image)
             findNavController().navigate(NavigationDirections.navigateToNotifyFragment())
         }

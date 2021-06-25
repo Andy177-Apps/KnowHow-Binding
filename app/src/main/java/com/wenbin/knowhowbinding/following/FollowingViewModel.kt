@@ -81,7 +81,7 @@ class FollowingViewModel(private val repository: KnowHowBindingRepository) : Vie
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

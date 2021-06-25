@@ -14,7 +14,7 @@
     <string name="select_subject">找尋合適的對象</string>
     <string name="go_result">看結果</string>
 
-    <string name="you_know_nothing">You know nothing</string>
+    <string name="connect_fails">The connect fails</string>
     <string name="start_a_new_conversation">Start a new conversation</string>
     <string name="indicator_message">輸入訊息</string>
     <string name="gender">性別</string>
@@ -23,7 +23,7 @@
     <string name="reminder_finish_user_info">Finishing the info would help when pairing</string>
     <string name="logger_already_added">Has Been Added</string>
     <string name="reminder_invalid_time">Time Interval</string>
-    <string name="you_shall_not_pass">You Shall Not Pass</string>
+    <string name="you_do_not_pass">You Do Not Pass</string>
     <string name="spinner_select_partner">Select Partner</string>
     <string name="no_notification">No Notification</string>
     <string name="btn_accept">ACCEPT</string>

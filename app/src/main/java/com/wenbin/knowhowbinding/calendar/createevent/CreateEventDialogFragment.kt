@@ -2,7 +2,6 @@ package com.wenbin.knowhowbinding.calendar.createevent
 
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +13,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.MultiSpinnerListener
-import com.androidbuts.multispinnerfilter.MultiSpinnerSearch.LimitExceedListener
-import com.facebook.FacebookSdk.getApplicationContext
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.databinding.DialogCreateEventBinding
@@ -50,7 +47,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         val listArray0: MutableList<KeyPairBoolData> = ArrayList()
 
         viewModel.followingName.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "followingName = $it")
+            Logger.d("followingName = $it")
             binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(it)
             it?.let {
                 for (i in it.indices) {
@@ -61,11 +58,11 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                     listArray0.add(h)
                 }
             }
-            Log.d("MultipleSpinner", "Updated listArray0 = $listArray0")
+            Logger.d("Updated listArray0 = $listArray0")
 
         })
 
-        Log.d("MultipleSpinner", "listArray0 in line 67= $listArray0")
+        Logger.d("listArray0 in line 67= $listArray0")
 
         binding.multipleItemSelectionSpinner.isSearchEnabled = true
         binding.multipleItemSelectionSpinner.setSearchHint("搜尋好友")
@@ -76,20 +73,17 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
 
             for (i in items.indices) {
                 if (items[i].isSelected) {
-                    Log.d(
-                        "MultipleSpinner",
-                        i.toString() + " : " + items[i].name + " : " + items[i].isSelected
-                    )
+                    Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
                     list.add(items[i].name)
                 }
             }
 
-            Log.d("MultipleSpinner", "final list in line 83 =$list")
+            Logger.d("final list in line 83 =$list")
             viewModel.setMultipleInvitation(list)
         })
 
         viewModel.multipleInvitation.observe(viewLifecycleOwner, Observer {
-            Log.d("MultipleSpinner", "multipleInvitation = $it")
+            Logger.d("multipleInvitation = $it")
         })
 
 
@@ -122,7 +116,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         }
         binding.viewBtnSend.setOnClickListener {
             val event = viewModel.getEvent()
-            Log.d("newEvent", "event = $event")
+            Logger.d("event = $event")
             Logger.i("${viewModel.startTime.value}")
 
             viewModel.post(event)
@@ -146,8 +140,8 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             ) {
                 if (parent != null) {
                     val selectedType = parent.selectedItem.toString()
-                    Log.d("Spinner_type", "position = $position")
-                    Log.d("Spinner_type", "id = $id")
+                    Logger.d("position = $position")
+                    Logger.d("id = $id")
 
                     viewModel.setType(selectedType)
                 }
@@ -155,7 +149,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         }
 
         viewModel.type.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "createEventViewModel type = $it")
+            Logger.d("createEventViewModel type = $it")
         })
 
         // Set Invitation
@@ -170,8 +164,8 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                 id: Long
             ) {
                 if (parent != null) {
-                    Log.d("Spinner_Following", "position = $position")
-                    Log.d("Spinner_Following", "id = $id")
+                    Logger.d("position = $position")
+                    Logger.d("id = $id")
                     viewModel.setInvitation(position)
                 }
             }
@@ -179,30 +173,28 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
 
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer { it ->
-            Log.d("wenbin", "got user = $it")
+            Logger.d("got user = $it")
 
-            Log.d("wenbin", "got user following = ${it.following}")
+            Logger.d("got user following = ${it.following}")
 
             // Get userEmail list from list of following
             val list = arrayListOf<String>()
 
             // Give following name
             for (item in it.following) {
-                Log.d("wenbin", "userEmail = ${item.userName}")
+                Logger.d("userEmail = ${item.userName}")
                 list.add(item.userName)
             }
-            Log.d("wenbin", "New list = $list")
+            Logger.d("New list = $list")
             viewModel.getFollowingName(list)
         })
 
-
-
         viewModel.invitation.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "createEventViewModel invitation = $it")
+            Logger.d("createEventViewModel invitation = $it")
         })
 
         viewModel.title.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "it = $it")
+            Logger.d("it = $it")
         })
         return binding.root
     }

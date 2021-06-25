@@ -8,7 +8,6 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.factory.*
-import com.wenbin.knowhowbinding.user.article.UserArticleViewModel
 import com.wenbin.knowhowbinding.util.REQUEST_EXTERNAL_STORAGE
 
 /**
@@ -18,10 +17,6 @@ fun Fragment.getVmFactory(): ViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
     return ViewModelFactory(repository)
 }
-//fun Fragment.getVmFactory(author: User?): AuthorViewModelFactory {
-//    val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
-//    return AuthorViewModelFactory(repository, author)
-//}
 
 fun Fragment.getVmFactory(userEmail: String, userName: String): MessageViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository

@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.following
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentFollowingBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.util.Logger
 
 class FollowingFragment : Fragment() {
     private lateinit var binding: FragmentFollowingBinding
@@ -39,7 +39,7 @@ class FollowingFragment : Fragment() {
         })
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("checkFollowing", "userInfo = $it")
+            Logger.d("checkFollowing, userInfo = $it")
         })
 
         return binding.root

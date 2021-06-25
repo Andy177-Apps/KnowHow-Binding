@@ -132,7 +132,7 @@ userEmail: String):ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -169,7 +169,7 @@ userEmail: String):ViewModel() {
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -199,7 +199,7 @@ userEmail: String):ViewModel() {
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -225,7 +225,7 @@ userEmail: String):ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -251,7 +251,7 @@ userEmail: String):ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -283,7 +283,7 @@ userEmail: String):ViewModel() {
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

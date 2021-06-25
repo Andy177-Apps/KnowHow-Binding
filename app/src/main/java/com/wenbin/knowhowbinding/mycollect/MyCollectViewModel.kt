@@ -69,7 +69,7 @@ class MyCollectViewModel(private val repository: KnowHowBindingRepository)  : Vi
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -95,7 +95,7 @@ class MyCollectViewModel(private val repository: KnowHowBindingRepository)  : Vi
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }

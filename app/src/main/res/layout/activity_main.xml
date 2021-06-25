@@ -68,19 +68,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:menu="@menu/bottom_nav_menu" />
 
-<!--        <fragment-->
-<!--            android:id="@+id/myNavHostFragment"-->
-<!--            android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--            android:layout_width="0dp"-->
-<!--            android:layout_height="0dp"-->
-<!--            app:navGraph="@navigation/navigation"-->
-<!--            app:defaultNavHost="true"-->
-<!--            app:layout_constraintBottom_toTopOf="@id/bottomNavView"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/my_toolbar"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintEnd_toEndOf="parent" />-->
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -91,7 +78,6 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:menu="@menu/activity_main_drawer" />
-<!--        app:headerLayout="@layout/nav_header_main_02"-->
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>

@@ -49,7 +49,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                 // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener {
-                    Log.d("checkStorage", "Error getting documents in DataSource:  ", it)
+                    Logger.d("Error getting documents in DataSource: it")
 
                     continuation.resume(Result.Error(it))
                 }.addOnSuccessListener { taskSnapshot ->
@@ -87,32 +87,32 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         .addOnSuccessListener { documents ->
 
                             if (documents.isEmpty) {
-                                Log.d("saveArticle", "documents is empty")
+                                Logger.d("documents is empty")
                                 db.document(article.id)
                                         .update("saveList", FieldValue.arrayUnion(userEmail))
                             } else {
                                 for (document in documents) {
-                                    Log.d("saveArticle", "${document.id} => ${document.data}")
+                                    Logger.d("${document.id} => ${document.data}")
                                 }
                                 db.document(article.id)
                                         .update("saveList", FieldValue.arrayRemove(userEmail))
                             }
 
                             for (document in documents) {
-                                Log.d("saveArticle", "${document.id} => ${document.data}")
+                                Logger.d("${document.id} => ${document.data}")
                             }
                             continuation.resume(Result.Success(true))
 
                         }
                         .addOnFailureListener { exception ->
-                            Log.w("saveArticle", "Error getting documents: ", exception)
+                            Logger.w("Error getting documents: $exception")
                             continuation.resume(Result.Error(exception))
                         }
             }
 
     override suspend fun getFollowing(userEmail: String): Result<List<User>> =
             suspendCoroutine { continuation ->
-                Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
+                Logger.d("getUserArticle in DataSource is used.")
 
                 val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
 
@@ -139,7 +139,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.appContext.getString(
-                                                        R.string.you_shall_not_pass
+                                                        R.string.you_do_not_pass
                                                 )
                                         )
                                 )
@@ -149,8 +149,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>> =
             suspendCoroutine { continuation ->
-                Log.d("MyCollectFragment", "getFollowedBy in DataSource is used.")
-                Log.d("MyCollectFragment", "userEmailList = $userEmailList")
+                Logger.d( "getFollowedBy in DataSource is used.")
+                Logger.d("userEmailList = $userEmailList")
 
                 val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
 
@@ -178,7 +178,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                     continuation.resume(
                                             Result.Fail(
                                                     KnowHowBindingApplication.appContext.getString(
-                                                            R.string.you_shall_not_pass
+                                                            R.string.you_do_not_pass
                                                     )
                                             )
                                     )
@@ -196,23 +196,20 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     if (task.isSuccessful) {
                         val list = mutableListOf<User>()
                         for (document in task.result!!) {
-                            Log.d("wembin", document.id + " => " + document.data)
+                            Logger.d(document.id + " => " + document.data)
                             val user = document.toObject(User::class.java)
                             list.add(user)
                         }
-                        Log.d("wembin", " list = $list")
+                        Logger.d(" list = $list")
                         continuation.resume(Result.Success(list))
                     } else {
                         task.exception?.let {
 
-                            Log.w(
-                                    "Wenbin",
-                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                            )
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.connect_fails)))
                     }
                 }
     }
@@ -237,23 +234,20 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         .set(article)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Log.i("wenbin", "Publish: $article")
+                                Logger.i("Publish: $article")
 
                                 continuation.resume(Result.Success(true))
                             } else {
                                 task.exception?.let {
 
-                                    Log.w(
-                                            "wenbin",
-                                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                                    )
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                                     continuation.resume(Result.Error(it))
                                     return@addOnCompleteListener
                                 }
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.instance.getString(
-                                                        R.string.you_know_nothing
+                                                        R.string.connect_fails
                                                 )
                                         )
                                 )
@@ -266,32 +260,27 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
         FirebaseFirestore.getInstance()
                 .collection(PATH_ARTICLES)
-//            .whereEqualTo("author.id","leo555")
                 .orderBy(KEY_CREATED_TIME, Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         val list = mutableListOf<Article>()
                         for (document in task.result!!) {
-                            Log.d("wembin", document.id + " => " + document.data)
+                            Logger.d(document.id + " => " + document.data)
                             val article = document.toObject(Article::class.java)
-                            Log.d("wembin", "article_list = $article")
+                            Logger.d("article_list = $article")
 
                             list.add(article)
                         }
-                        Log.d("wembin", "list = $list")
+                        Logger.d("list = $list")
                         continuation.resume(Result.Success(list))
                     } else {
                         task.exception?.let {
-
-                            Log.w(
-                                    "Wenbin",
-                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                            )
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.connect_fails)))
                     }
                 }
     }
@@ -316,12 +305,11 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         Logger.d(document.id + " => " + document.data)
 
                         val chatRoom = document.toObject(ChatRoom::class.java)
-                        Log.d("wenbin", "chatRoom = $chatRoom")
+                        Logger.d("chatRoom = $chatRoom")
 
                         list.add(chatRoom)
                     }
                     liveData.value = list
-
                 }
         return liveData
     }
@@ -338,7 +326,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         .whereIn("attendees", listOf(chatRoom.attendees, chatRoom.attendees.reversed()))
                         .get()
                         .addOnSuccessListener { result ->
-                            //這是在 ChatRoomList 創造與那個人的 document，如果沒有那個 document 才創建，有的話就不創了
+                            // This function is to create a document with that person in ChatRoomList.
+                            // If there is no such document, it will be created, vice versa.
                             if (result.isEmpty) {
                                 document
                                         .set(chatRoom)
@@ -349,7 +338,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                                 continuation.resume(Result.Success(true))
                                             } else {
                                                 task.exception?.let {
-
                                                     Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                                                     continuation.resume(Result.Error(it))
                                                     return@addOnCompleteListener
@@ -357,7 +345,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                                 continuation.resume(
                                                         Result.Fail(
                                                                 KnowHowBindingApplication.appContext.getString(
-                                                                        R.string.you_shall_not_pass
+                                                                        R.string.you_do_not_pass
                                                                 )
                                                         )
                                                 )
@@ -369,21 +357,20 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 }
                             }
                         }
-
             }
 
     override suspend fun postUserToFollow(userOwnerEmail: String, user: User): Result<Boolean> =
             suspendCoroutine { continuation ->
 
                 val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
-                Log.d("RemoteupdateUser", "user.email = ${user.email}")
+                Logger.d("user.email = ${user.email}")
 
                 db
                         .whereEqualTo("email", userOwnerEmail)
                         .get()
                         .addOnSuccessListener { documents ->
                             for (document in documents) {
-                                //發出邀請
+                                // Send invitation
                                 val updateUserInfo = db.document(document.id)
                                 // Set the "isCapital" field of the city 'DC'
                                 updateUserInfo.update("followingEmail", FieldValue.arrayUnion(user.email))
@@ -400,7 +387,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             }
                         }
                         .addOnFailureListener { exception ->
-                            Log.w("TAG", "Error getting documents: ", exception)
+                            Logger.w("Error getting documents: $exception")
                         }
 
                 db
@@ -408,14 +395,14 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         .get()
                         .addOnSuccessListener { documents ->
                             for (document in documents) {
-                                //發出邀請
+                                // Send invitation
                                 val updateUserInfo = db.document(document.id)
                                 // Set the "isCapital" field of the city 'DC'
                                 updateUserInfo.update("followedBy", FieldValue.arrayUnion(userOwnerEmail))
                             }
                         }
                         .addOnFailureListener { exception ->
-                            Log.w("TAG", "Error getting documents: ", exception)
+                            Logger.w("Error getting documents: $exception")
                         }
 
             }
@@ -424,14 +411,14 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
             suspendCoroutine { continuation ->
 
                 val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
-                Log.d("RemoteupdateUser", "user.email = ${user.email}")
+                Logger.d("user.email = ${user.email}")
 
                 db
                         .whereEqualTo("email", userOwnerEmail)
                         .get()
                         .addOnSuccessListener { documents ->
                             for (document in documents) {
-                                //發出邀請
+                                // Send invitation
                                 val updateUserInfo = db.document(document.id)
                                 // Set the "isCapital" field of the city 'DC'
                                 updateUserInfo.update("followingEmail", FieldValue.arrayRemove(user.email))
@@ -449,7 +436,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             }
                         }
                         .addOnFailureListener { exception ->
-                            Log.w("TAG", "Error getting documents: ", exception)
+                            Logger.w("Error getting documents: $exception")
                         }
 
                 db
@@ -462,13 +449,13 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             }
                         }
                         .addOnFailureListener { exception ->
-                            Log.w("TAG", "Error getting documents: ", exception)
+                            Logger.w("Error getting documents: $exception")
                         }
             }
 
     override suspend fun getUserArticle(userEmail: String): Result<List<Article>> =
             suspendCoroutine { continuation ->
-                Log.d("check_userArticles", "getUserArticle in DataSource is used.")
+                Logger.d("getUserArticle in DataSource is used.")
 
                 val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
@@ -495,7 +482,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.appContext.getString(
-                                                        R.string.you_shall_not_pass
+                                                        R.string.you_do_not_pass
                                                 )
                                         )
                                 )
@@ -505,7 +492,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun getSavedArticle(userEmail: String): Result<List<Article>> =
             suspendCoroutine { continuation ->
-                Log.d("MyCollectFragment", "getUserArticle in DataSource is used.")
+                Logger.d("getUserArticle in DataSource is used.")
 
                 val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
@@ -532,7 +519,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.appContext.getString(
-                                                        R.string.you_shall_not_pass
+                                                        R.string.you_do_not_pass
                                                 )
                                         )
                                 )
@@ -543,46 +530,43 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun postUser(user: User): Result<Boolean> = suspendCoroutine { continuation ->
         val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
         val document = db.document(user.id)
-        Log.d("checkUser", "user in DataSource = $user")
-        Log.d("checkUser", "user.id in DataSource = ${user.id}")
-        Log.d("checkUser", "user.email in DataSource = ${user.email}")
+        Logger.d("user in DataSource = $user")
+        Logger.d("user.id in DataSource = ${user.id}")
+        Logger.d("user.email in DataSource = ${user.email}")
 
         db.whereEqualTo("email", user.email)
                 .get()
                 .addOnSuccessListener { documents ->
-                    Log.d("documents", " Already initialized")
-                    Log.d("documents", "documents = ${documents.isEmpty}}")
+                    Logger.d(" Already initialized")
+                    Logger.d("documents = ${documents.isEmpty}}")
 
                     for (document in documents) {
-                        Log.d(
-                                "documents",
-                                "Received in DataSource = ${document.id} => ${document.data}"
-                        )
+                        Logger.d("Received in DataSource = ${document.id} => ${document.data}")
                     }
                     if (documents.isEmpty) {
                         document
                                 .set(user)
                                 .addOnSuccessListener {
-                                    Log.d(TAG, "DocumentSnapshot successfully written!")
-                                    Log.d("checkUser", "User in addOnSuccessListener = $user")
+                                    Logger.d("DocumentSnapshot successfully written!")
+                                    Logger.d("User in addOnSuccessListener = $user")
 
                                     Logger.i("User: $user")
                                 }
                                 .addOnFailureListener { e ->
-                                    Log.w(TAG, "Error writing document", e)
+                                    Logger.w("Error writing document $e")
                                     Logger.w("[${this::class.simpleName}] Error getting documents. ${e.message}")
                                 }
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.w("documents", "Error getting documents: ", exception)
+                    Logger.w("Error getting documents: $exception")
                 }
     }
 
     override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> =
             suspendCoroutine { continuation ->
-                Log.d("check_googleSign", "firebaseAuthWithGoogle in DataSource is used.")
-                Log.d("check_googleSign", "idToken = $idToken")
+                Logger.d("firebaseAuthWithGoogle in DataSource is used.")
+                Logger.d("idToken = $idToken")
                 val auth = Firebase.auth
 
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -590,14 +574,14 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 // Sign in success, update UI with the signed-in user's information
-                                Log.d(LoginActivity.TAG, "signInWithCredential:success")
+                                Logger.d("signInWithCredential:success")
                                 val user = auth.currentUser
                                 user?.let {
                                     continuation.resume(Result.Success(it))
                                 }
                             } else {
                                 // If sign in fails, display a message to the user.
-                                Log.w(LoginActivity.TAG, "signInWithCredential:failure", task.exception)
+                                Logger.w("signInWithCredential:failure ${task.exception}")
                                 task.exception?.let {
                                     continuation.resume(Result.Error(it))
                                     return@addOnCompleteListener
@@ -605,7 +589,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.instance.getString(
-                                                        R.string.you_know_nothing
+                                                        R.string.connect_fails
                                                 )
                                         )
                                 )
@@ -636,17 +620,14 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     if (!task.isSuccessful) {
                         if (task.exception != null) {
                             task.exception?.let {
-                                Log.d(
-                                        "wenbin",
-                                        "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                                )
+                                Logger.d("[${this::class.simpleName}] Error getting documents. ${it.message}")
                                 continuation.resume(Result.Error(it))
                             }
                         } else {
                             continuation.resume(
                                     Result.Fail(
                                             KnowHowBindingApplication.appContext.getString(
-                                                    R.string.you_shall_not_pass
+                                                    R.string.you_do_not_pass
                                             )
                                     )
                             )
@@ -665,7 +646,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 .addOnCompleteListener { taskTwo ->
                     if (taskTwo.isSuccessful) {
                         Logger.i("ChatRoom: $message")
-
                         continuation.resume(Result.Success(true))
                     } else {
                         taskTwo.exception?.let {
@@ -673,7 +653,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_shall_not_pass)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.appContext.getString(R.string.you_do_not_pass)))
                     }
                 }
     }
@@ -692,23 +672,20 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         .set(event)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                Log.i("wenbin", "Post: $event")
+                                Logger.i("Post: $event")
 
                                 continuation.resume(Result.Success(true))
                             } else {
                                 task.exception?.let {
 
-                                    Log.w(
-                                            "wenbin",
-                                            "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                                    )
+                                    Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                                     continuation.resume(Result.Error(it))
                                     return@addOnCompleteListener
                                 }
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.instance.getString(
-                                                        R.string.you_know_nothing
+                                                        R.string.connect_fails
                                                 )
                                         )
                                 )
@@ -724,7 +701,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     if (task.isSuccessful) {
                         val list = mutableListOf<Event>()
                         for (document in task.result!!) {
-                            Log.d("wembin", document.id + " => " + document.data)
+                            Logger.d(document.id + " => " + document.data)
                             val event = document.toObject(Event::class.java)
                             list.add(event)
                         }
@@ -732,14 +709,11 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                     } else {
                         task.exception?.let {
 
-                            Log.w(
-                                    "Wenbin",
-                                    "[${this::class.simpleName}] Error getting documents. ${it.message}"
-                            )
+                            Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.connect_fails)))
                     }
                 }
     }
@@ -793,9 +767,9 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                     Logger.i("addSnapshotListener detect")
 
                                     if (snapshot != null) {
-                                        Log.d("outbounder", "snapshot = ${snapshot.documents}")
+                                        Logger.d("snapshot = ${snapshot.documents}")
                                     } else {
-                                        Log.d("outbounder", "snapshot = null")
+                                        Logger.d("snapshot = null")
                                     }
 
 
@@ -807,7 +781,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                                     for (document in snapshot!!) {
                                         Logger.d(document.id + " => " + document.data)
-                                        Log.d("outbounder", "${document.data}")
+                                        Logger.d("${document.data}")
                                         val message = document.toObject(Message::class.java)
                                         list.add(message)
                                     }
@@ -822,8 +796,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun updateUser(user: User): Result<Boolean> = suspendCoroutine {
         val db = FirebaseFirestore.getInstance()
-        Log.d("RemoteupdateUser", "user.email = ${user.email}")
-        Log.d("RemoteupdateUser", "user.image = ${user.image}")
+        Logger.d("user.email = ${user.email}")
+        Logger.d("user.image = ${user.image}")
 
         db.collection(PATH_USERS)
                 .whereEqualTo("email", user.email)
@@ -835,19 +809,17 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         // Set the "isCapital" field of the city 'DC'
                         updateUserInfo.update(
                                 "identity", user.identity,
-
                                 "talentedSubjects", user.talentedSubjects,
                                 "city", user.city,
                                 "interestedSubjects", user.interestedSubjects,
                                 "introduction", user.introduction,
                                 "image", user.image,
                                 "bgImage", user.bgImage
-
                         )
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.w("TAG", "Error getting documents: ", exception)
+                    Logger.w("Error getting documents: $exception")
                 }
     }
 
@@ -877,7 +849,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.instance.getString(
-                                                        R.string.you_know_nothing
+                                                        R.string.connect_fails
                                                 )
                                         )
                                 )
@@ -903,13 +875,13 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         Logger.d(document.id + " => " + document.data)
 
                         val event = document.toObject(Event::class.java)
-                        Log.d("check_event", "event = $event")
+                        Logger.d("event = $event")
 
                         list.add(event)
                     }
 
                     liveData.value = list
-                    Log.d("check_liveevents", "liveData.value = ${liveData.value}")
+                    Logger.d("liveData.value = ${liveData.value}")
 
                 }
 
@@ -947,7 +919,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)))
                     }
                 }
 
@@ -972,7 +944,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)))
                     }
                 }
 
@@ -997,7 +969,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)))
                     }
                 }
         document
@@ -1021,7 +993,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                             continuation.resume(Result.Error(it))
                             return@addOnCompleteListener
                         }
-                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)))
+                        continuation.resume(Result.Fail(KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)))
                     }
                 }
     }
@@ -1048,7 +1020,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 continuation.resume(
                                         Result.Fail(
                                                 KnowHowBindingApplication.instance.getString(
-                                                        R.string.you_shall_not_pass
+                                                        R.string.you_do_not_pass
                                                 )
                                         )
                                 )

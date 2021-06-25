@@ -2,7 +2,6 @@ package com.wenbin.knowhowbinding.calendar
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,27 +53,27 @@ class CalendarFragment : Fragment() {
         binding.recyclerView.adapter = adapter
 
         viewModel.selectedLiveEvent.observe(viewLifecycleOwner, Observer {
-            Log.d("checkImage", "selectedLiveEvent = $it")
+            Logger.d("selectedLiveEvent = $it")
         })
         // Set Indicator of current date
         widget.setSelectedDate(localDate)
 
         viewModel.events.observe(viewLifecycleOwner, Observer { it ->
             it?.forEach {
-                Log.d("events_in_calendar_page", "events = $it")
+                Logger.d("events = $it")
             }
         })
 
         // Add dots based on my events
         viewModel.liveEvents.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "viewModel.allLiveEvents, it = $it")
+            Logger.d("viewModel.allLiveEvents, it = $it")
             it?.let {
                 it.forEach {event ->
                     val year = TimeUtil.stampToYear(event.eventTime).toInt()
                     val month = TimeUtil.stampToMothInt(event.eventTime).toInt()
                     val day = TimeUtil.stampToDayInt(event.eventTime).toInt()
-                    Log.d("checkDateFormat", "month = $month")
-                    Log.d("checkDateFormat", "day = $day")
+                    Logger.d("month = $month")
+                    Logger.d("day = $day")
 
                     addDotDecoration(year, month, day)
                 }
@@ -123,14 +122,14 @@ class CalendarFragment : Fragment() {
         }
         binding.fabNotification.setOnClickListener {
             findNavController().navigate(CalendarFragmentDirections.navigateToNotifyFragment())
-            Log.d("checkFab", "fabNotification is clicked")
+            Logger.d("fabNotification is clicked")
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }
 
         binding.fabLayoutNotification.setOnClickListener {
             findNavController().navigate(CalendarFragmentDirections.navigateToNotifyFragment())
-            Log.d("checkFab", "fabLayoutNotification is clicked")
+            Logger.d("fabLayoutNotification is clicked")
 
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()

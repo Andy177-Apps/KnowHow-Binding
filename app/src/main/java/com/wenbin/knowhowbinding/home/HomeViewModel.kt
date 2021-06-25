@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,6 +15,7 @@ import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -77,7 +77,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
         getArticlesResult()
         getUser(UserManager.user.email)
 
-        Log.d("checkArticles","articles.value in ViewModel = ${articles.value}")
+        Logger.d("checkArticles, articles.value in ViewModel = ${articles.value}")
 
     }
     fun checkIfInfoComplete(): Boolean {
@@ -101,14 +101,14 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
     }
 
     private fun getArticlesResult() {
-        Log.d("checkArticles","fun getArticlesResult is used in ViewModel.")
+        Logger.d("checkArticles, fun getArticlesResult is used in ViewModel.")
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.getArticles()
-            Log.d("wenbin", "ArticlesResult = $result")
+            Logger.d("ArticlesResult = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {
@@ -127,7 +127,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -147,7 +147,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.loginMockData(id)
-            Log.d("wenbin", "result = $result")
+            Logger.d("result = $result")
             _user.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
@@ -165,13 +165,13 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
             }
             _refreshStatus.value = false
-            Log.d("wenbin", "_user.value =  ${_user.value}")
+            Logger.d("_user.value =  ${_user.value}")
             assignUserInfo()
             it.resume(_user.value)
         }
@@ -188,7 +188,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
         if (currentUser != null) {
             UserManager.user = currentUser
         }
-        Log.d("wenbin", "UserManager.user = ${UserManager.user}")
+        Logger.d("UserManager.user = ${UserManager.user}")
     }
 
     private fun getUser(userEmail: String) {
@@ -216,7 +216,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -243,7 +243,7 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }

@@ -14,9 +14,6 @@
         android:background="@color/primary"
         tools:context=".login.LoginActivity">
 
-
-
-
         <ImageView
             android:id="@+id/imageView_app_name"
             android:layout_width="match_parent"

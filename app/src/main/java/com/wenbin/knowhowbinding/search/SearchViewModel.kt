@@ -107,7 +107,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
                 }
                 else -> {
                     _error.value =
-                        KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                        KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

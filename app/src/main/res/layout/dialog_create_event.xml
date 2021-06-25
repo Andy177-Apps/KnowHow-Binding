@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.wenbin.knowhowbinding.calendar.createevent.CreateEventViewModel" />
@@ -12,10 +13,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
-
+        android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_layout_create_event"
@@ -101,8 +99,8 @@
                         android:id="@+id/spinner_category"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dialog_edittext_height"
-                        android:background="@drawable/bg_edittext"
                         android:layout_marginTop="@dimen/dialog_margin_top"
+                        android:background="@drawable/bg_edittext"
                         android:spinnerMode="dialog"
                         app:layout_constraintEnd_toEndOf="@+id/editText_title"
                         app:layout_constraintStart_toStartOf="@id/textView_category"
@@ -262,11 +260,11 @@
                         android:id="@+id/multipleItemSelectionSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dialog_edittext_height"
-                        android:background="@drawable/bg_edittext"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_edittext"
                         app:hintText="勾選想要邀請的名單"
-                        app:layout_constraintTop_toBottomOf="@id/spinner_category"/>
+                        app:layout_constraintTop_toBottomOf="@id/spinner_category" />
 
 
                     <TextView
@@ -281,20 +279,15 @@
 
                     <Spinner
                         android:id="@+id/spinner_other_user"
-                        android:visibility="gone"
                         android:layout_width="0dp"
                         android:layout_height="@dimen/dialog_edittext_height"
                         android:layout_marginTop="@dimen/dialog_margin_top"
                         android:background="@drawable/bg_edittext"
                         android:spinnerMode="dialog"
+                        android:visibility="gone"
                         app:layout_constraintEnd_toEndOf="@+id/editText_description"
                         app:layout_constraintStart_toStartOf="@id/textView_category"
                         app:layout_constraintTop_toBottomOf="@id/spinner_category" />
-                    <!--                    android:entries="@{viewModel.followingName}"-->
-
-                    <!--                    android:spinnerMode="dropdown"-->
-                    <!--                    android:theme="@style/Widget.AppCompat.ListView.DropDown"-->
-                    <!--                    style="@style/Widget.AppCompat.ListView.DropDown"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
@@ -308,7 +301,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-
                 />
 
             <TextView

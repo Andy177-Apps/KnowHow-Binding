@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.calendar.createevent
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,7 +17,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.absoluteValue
 
 class CreateEventViewModel(
     private val repository: KnowHowBindingRepository,
@@ -75,7 +73,7 @@ class CreateEventViewModel(
 
     private val _isAllDay = MutableLiveData<Boolean>()
 
-    val isAllDay: LiveData<Boolean>
+    private val isAllDay: LiveData<Boolean>
         get() = _isAllDay
 
     // status: The internal MutableLiveData that stores the status of the most recent request
@@ -112,7 +110,7 @@ class CreateEventViewModel(
 
     // Get the user information in the first place.
     private fun getUser(userEmail: String) {
-        Log.d("check_userInfo", "getUser is used")
+        Logger.d("getUser is used")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
@@ -137,7 +135,7 @@ class CreateEventViewModel(
                 }
                 else -> {
                     _error.value =
-                        KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                        KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -161,7 +159,6 @@ class CreateEventViewModel(
             eventTime = eventTime.value ?: -1,
             startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
             endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
-//            invitation = listOf(_multipleInvitation.value) as List<String>,
             invitation = _multipleInvitation.value ?: listOf() ,
             attendeesImage = listOf(userInfo.value!!.image)
         )
@@ -170,9 +167,9 @@ class CreateEventViewModel(
     fun post(event: Event) {
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
-            Log.d("wenbin", "title.value = ${title.value}")
+            Logger.d("title.value = ${title.value}")
 
-            Log.d("wenbin", "event = $event")
+            Logger.d("event = $event")
             when (val result = repository.postEvent(event)) {
                 is Result.Success -> {
                     _error.value = null
@@ -188,7 +185,7 @@ class CreateEventViewModel(
                 }
                 else -> {
                     _error.value =
-                        KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                        KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -206,8 +203,8 @@ class CreateEventViewModel(
     }
 
     fun setMultipleInvitation(selectedFollowing: List<String>) {
-        Log.d("MultipleSpinner", "setMultipleInvitation is used.")
-        Log.d("MultipleSpinner", "selectedFollowing = $selectedFollowing")
+        Logger.d("setMultipleInvitation is used.")
+        Logger.d("selectedFollowing = $selectedFollowing")
 
         var listNumber = mutableListOf<Int>()
 
@@ -219,14 +216,14 @@ class CreateEventViewModel(
             }
         }
 
-        Log.d("MultipleSpinner", "Final listNumber = $listNumber")
+        Logger.d("Final listNumber = $listNumber")
 
         var listEmail = mutableListOf<String>()
 
         for (item in listNumber) {
             listEmail.add(_userInfo.value!!.following[item].userEmail)
         }
-        Log.d("MultipleSpinner", "Final listEmail = $listEmail")
+        Logger.d("Final listEmail = $listEmail")
         _multipleInvitation.value = listEmail
     }
 

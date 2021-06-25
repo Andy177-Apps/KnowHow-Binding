@@ -9,7 +9,6 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
-import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -75,7 +74,7 @@ class UserArticleViewModel (private val repository: KnowHowBindingRepository,
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -101,7 +100,7 @@ class UserArticleViewModel (private val repository: KnowHowBindingRepository,
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }

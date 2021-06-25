@@ -1,20 +1,17 @@
 package com.wenbin.knowhowbinding.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.tabs.TabLayout
 import com.wenbin.knowhowbinding.MainActivity
-import com.wenbin.knowhowbinding.MainViewModel
 import com.wenbin.knowhowbinding.databinding.FragmentArticleBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.*
 
 class ArticleFragment : Fragment() {
@@ -34,15 +31,15 @@ class ArticleFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.imageViewSearch.setOnClickListener {
-            Log.d("checkSearch", "binding.imageViewSearch is clicked")
+            Logger.d("checkSearch, binding.imageViewSearch is clicked")
 
-            Log.d("checkSearch", "binding.editTextSearch.text.toString() = ${binding.editTextSearch.text}")
+            Logger.d("checkSearch, binding.editTextSearch.text.toString() = ${binding.editTextSearch.text}")
 
             viewModel.searchEditText.value = binding.editTextSearch.text.toString()
         }
 
         viewModel.searchEditText.observe(viewLifecycleOwner, Observer {
-            Log.d("checkSearch", "searchEditText in ArticleFragment = $it")
+            Logger.d("checkSearch, searchEditText in ArticleFragment = $it")
         })
 
         binding.apply {

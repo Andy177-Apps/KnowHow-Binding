@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.calendar
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -56,10 +55,10 @@ class CalendarViewModel(
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
-    //Create a Coroutine scope using a job to be able to cancel when needed
+    // Create a Coroutine scope using a job to be able to cancel when needed
     private var viewModelJob = Job()
 
-    //the Coroutine runs using the Main (UI) dispatcher
+    // The Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
@@ -90,7 +89,7 @@ class CalendarViewModel(
 
             val result = repository.getAllEvents()
 
-            Log.d("wenbin", "EventsResult = $result")
+            Logger.d("EventsResult = $result")
             _events.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
@@ -108,7 +107,7 @@ class CalendarViewModel(
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -118,12 +117,12 @@ class CalendarViewModel(
     }
 
     fun createdDailyEvent (toTimeStamp: Long) {
-        Log.d("test", "toTimeStamp = $toTimeStamp")
+        Logger.d("toTimeStamp = $toTimeStamp")
 
-        Log.d("test", "liveEvents.value = ${liveEvents.value}")
+        Logger.d("liveEvents.value = ${liveEvents.value}")
         selectedLiveEvent.value = liveEvents.value.sortByTimeStamp(toTimeStamp)
         _navigationToCreateEventDialogFragment.value = toTimeStamp
-        Log.d("test", "selectedLiveEvent.value = ${selectedLiveEvent.value}")
+        Logger.d("selectedLiveEvent.value = ${selectedLiveEvent.value}")
 
     }
 

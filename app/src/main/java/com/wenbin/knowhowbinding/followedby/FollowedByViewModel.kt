@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.followedby
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -60,7 +60,7 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     init {
-        Log.d("checkFollowedBy", "UserManager.user.followedBy = ${UserManager.user.followedBy}")
+        Logger.d("checkFollowedBy, UserManager.user.followedBy = ${UserManager.user.followedBy}")
         getUser(UserManager.user.email)
     }
 
@@ -89,7 +89,7 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -99,7 +99,7 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
     }
 
     fun getFollowedBy(userEmailList: List<String>) {
-        Log.d("checkFollowedBy", "getFollowedBy is used.")
+        Logger.d("checkFollowedBy, getFollowedBy is used.")
 
         coroutineScope.launch {
 
@@ -124,7 +124,7 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

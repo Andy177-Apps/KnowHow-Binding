@@ -14,9 +14,6 @@
         android:background="@color/primary"
         tools:context=".login.LoginActivity">
 
-
-
-
         <ImageView
             android:id="@+id/imageView_app_name"
             android:layout_width="match_parent"
@@ -64,21 +61,6 @@
             android:elevation="4dp"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent">
-
-
-<!--            <Button-->
-<!--                android:id="@+id/google_sign_in_button"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="48dp"-->
-<!--                android:background="@drawable/bg_all_round_r8"-->
-<!--                android:gravity="center"-->
-<!--                android:paddingHorizontal="4dp"-->
-<!--                android:text="@string/sign_in_with_google"-->
-<!--                android:textSize="14sp"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent" -->
-<!--                />-->
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

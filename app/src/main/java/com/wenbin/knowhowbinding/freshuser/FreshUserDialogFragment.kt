@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.text.SpannableStringBuilder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.databinding.DialogFreshUserBinding
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class FreshUserDialogFragment: AppCompatDialogFragment() {
 
@@ -27,8 +27,8 @@ class FreshUserDialogFragment: AppCompatDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DialogFreshUserBinding.inflate(inflater)
-        Log.d("checkImage", "user = ${UserManager.user}")
-        Log.d("checkImage", "image = ${UserManager.user.image}")
+        Logger.d("checkImage, user = ${UserManager.user}")
+        Logger.d("checkImage, image = ${UserManager.user.image}")
         val reminder = SpannableStringBuilder()
             .bold { append(getString(R.string.reminder_new_member_bold)) }
             .append(getString(R.string.reminder_new_member))
@@ -44,7 +44,6 @@ class FreshUserDialogFragment: AppCompatDialogFragment() {
         binding.buttonGo.setOnClickListener {
             findNavController().navigate(NavigationDirections.navigateToEditProfile())
         }
-
         return binding.root
     }
 }

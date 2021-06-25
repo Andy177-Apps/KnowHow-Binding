@@ -3,7 +3,6 @@ package com.wenbin.knowhowbinding.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
-import com.wenbin.knowhowbinding.user.UserProfileViewModel
 import com.wenbin.knowhowbinding.user.article.UserArticleViewModel
 import java.lang.IllegalArgumentException
 

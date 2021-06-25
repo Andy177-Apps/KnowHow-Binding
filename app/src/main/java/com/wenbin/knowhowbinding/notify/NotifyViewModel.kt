@@ -87,7 +87,7 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
@@ -113,7 +113,7 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                 }
             }

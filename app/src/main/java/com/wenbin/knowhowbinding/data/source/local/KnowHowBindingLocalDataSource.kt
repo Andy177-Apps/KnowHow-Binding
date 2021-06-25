@@ -1,11 +1,11 @@
 package com.wenbin.knowhowbinding.data.source.local
 
 import android.content.Context
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
+import com.wenbin.knowhowbinding.util.Logger
 
 
 class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSource {
@@ -134,7 +134,7 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
 
     override suspend fun createTestedData(): Result<List<Article>> {
         var defaultData = mutableListOf<Article>()
-        Log.d("DefaultData", "Frist Data = $defaultData")
+        Logger.d("DefaultData = $defaultData")
         return Result.Success(defaultData)
     }
 

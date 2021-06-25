@@ -92,7 +92,7 @@ class SearchResultViewModel(private val repository: KnowHowBindingRepository, pr
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_shall_not_pass)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_do_not_pass)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }

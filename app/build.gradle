@@ -160,4 +160,7 @@ dependencies {
 
     // MultiSelectSpinner
     implementation 'com.github.pratikbutani:MultiSelectSpinner:1.0.1'
+
+    // Truth
+    testImplementation "com.google.truth:truth:1.1.3"
 }

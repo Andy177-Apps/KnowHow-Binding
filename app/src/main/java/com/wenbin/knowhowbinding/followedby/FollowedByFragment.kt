@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.followedby
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentFollowedbyBinding
-import com.wenbin.knowhowbinding.databinding.FragmentFollowingBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class FollowedByFragment : Fragment() {
     private lateinit var binding: FragmentFollowedbyBinding
@@ -41,8 +39,8 @@ class FollowedByFragment : Fragment() {
         })
 
         viewModel.appOwenerUser.observe(viewLifecycleOwner, Observer {
-            Log.d("checkFollowedBy", "appOwenerUser = $it")
-            Log.d("checkFollowedBy", "appOwenerUser.followedBy = ${it.followedBy}")
+            Logger.d("checkFollowedBy, appOwenerUser = $it")
+            Logger.d("checkFollowedBy, appOwenerUser.followedBy = ${it.followedBy}")
 
             viewModel.getFollowedBy(it.followedBy)
         })

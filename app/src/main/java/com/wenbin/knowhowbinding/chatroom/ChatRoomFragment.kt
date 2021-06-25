@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.chatroom
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +16,7 @@ import com.wenbin.knowhowbinding.data.UserInfo
 import com.wenbin.knowhowbinding.databinding.FragmentChatroomBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class ChatRoomFragment  : Fragment() {
     private lateinit var binding : FragmentChatroomBinding
@@ -32,10 +32,9 @@ class ChatRoomFragment  : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{ it ->
-            Log.d("check_userInfo", "it = $it")
-            Log.d("check_userInfo", "it.attendeesInfo[0].userEmail = ${it.attendeesInfo[0].userEmail}")
-//            Log.d("check_userInfo", "it.message!!.senderName = ${it.message!!.senderName}")
-            Log.d("check_userInfo", "it.attendeesInfo[0].userName = ${it.attendeesInfo[0].userName}")
+            Logger.d("check_userInfo, it = $it")
+            Logger.d("check_userInfo, it.attendeesInfo[0].userEmail = ${it.attendeesInfo[0].userEmail}")
+            Logger.d("check_userInfo, it.attendeesInfo[0].userName = ${it.attendeesInfo[0].userName}")
 
             findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(
                     it.attendeesInfo[0].userEmail, it.attendeesInfo[0].userName))
@@ -44,41 +43,41 @@ class ChatRoomFragment  : Fragment() {
 
         ///////test function
         viewModel.testString.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "testString = $it")
+            Logger.d("testString = $it")
         })
 
 
         viewModel.updatedChatRooms.observe(viewLifecycleOwner, Observer {
             // test function
 
-            Log.d("wenbin", "updatedChatRooms = $it")
+            Logger.d("updatedChatRooms = $it")
 
             it?.let {
                 it.forEach {chatRoom ->
-                    Log.d("wenbin", "chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
+                    Logger.d("chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
 
                     val list = arrayListOf<String>()
                     for (item in chatRoom.attendeesInfo) {
-                        Log.d("wenbin", "UserInfo Email = ${item.userEmail}")
+                        Logger.d("UserInfo Email = ${item.userEmail}")
                         list.add(item.userEmail)
                     }
-                    Log.d("wenbin", "New list = $list")
+                    Logger.d("New list = $list")
                     viewModel.changer(list)
                 }
             }
 
             fun printListandArray() {
                 val list = listOf<String>("1", "2")
-                Log.d("wenbin","PrintList list = $list")
+                Logger.d("PrintList list = $list")
             }
 
             it?.let {
                 val filteredChatRoom = mutableListOf<ChatRoom>()
 
                 it.forEach { chatRoom ->
-                    Log.d("werbin", "original chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
+                    Logger.d("original chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
                 chatRoom.attendeesInfo = excludeMyInfo(chatRoom.attendeesInfo)
-                    Log.d("werbin", "filtered chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
+                    Logger.d("filtered chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
 
 
                     filteredChatRoom.add(chatRoom)

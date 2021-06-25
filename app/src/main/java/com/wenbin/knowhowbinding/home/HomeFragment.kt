@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +17,7 @@ import com.wenbin.knowhowbinding.databinding.FragmentHomeBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import java.util.*
 
 
@@ -40,7 +40,7 @@ class HomeFragment (val type: String) : Fragment() {
         val mainViewModel = ViewModelProvider(this@HomeFragment.requireActivity()).get(MainViewModel::class.java)
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("HomePage", "userInfo = $it")
+            Logger.d("userInfo = $it")
             if (viewModel.checkIfInfoComplete()) {
                 if (mainViewModel.noticed.value == false) {
                     findNavController().navigate(NavigationDirections.navigateToFreshUserDialog())
@@ -52,10 +52,10 @@ class HomeFragment (val type: String) : Fragment() {
         })
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            Log.d("wenbin", "articles = $it")
+            Logger.d("articles = $it")
         })
 
-        Log.d("userEmail", UserManager.user.email)
+        Logger.d("userEmail = UserManager.user.email")
         // Navigating to Post Article Fragment.
         viewModel.navigateToPostArticle.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             it?.let {
@@ -69,10 +69,10 @@ class HomeFragment (val type: String) : Fragment() {
 
         // Determine fragment.
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            Log.d("checkType", "type = $type")
+            Logger.d("checkType, type = $type")
 
             articleViewModel.searchEditText.observe(viewLifecycleOwner, Observer { searchEditText->
-                Log.d("checkSearch", "searchEditText in HomeFragment= $searchEditText")
+                Logger.d("checkSearch, searchEditText in HomeFragment= $searchEditText")
                 if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
                     val resultList = mutableListOf<Article>()
                     for (item in it) {

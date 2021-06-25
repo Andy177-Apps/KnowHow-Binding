@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.home
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.databinding.ItemArticleBinding
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
         HomeAdapter.ViewHolder>(DiffCallback) {
@@ -24,7 +24,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
             // When bookmark icon is selected
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Log.d("saveArticle", "imageViewBookmark is clicked")
+                Logger.d("saveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
 
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
@@ -34,11 +34,11 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
 
             binding.constraintLayoutUserInformation.setOnClickListener {
-                Log.d("check_clicked", "binding.textViewDescription is clicked")
+                Logger.d("check_clicked, binding.textViewDescription is clicked")
 
                 item.author?.let {
-                    Log.d("check_clicked", "item.author.email = ${item.author.email}")
-                    Log.d("check_clicked", "UserManager.user.email = ${UserManager.user.email}")
+                    Logger.d("check_clicked, item.author.email = ${item.author.email}")
+                    Logger.d("check_clicked, UserManager.user.email = ${UserManager.user.email}")
 
                     if (item.author.email == UserManager.user.email) {
                         Navigation.createNavigateOnClickListener(NavigationDirections.navigateToProfileFragment()).

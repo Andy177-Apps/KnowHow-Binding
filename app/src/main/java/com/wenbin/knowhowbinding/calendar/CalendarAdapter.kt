@@ -1,16 +1,14 @@
 package com.wenbin.knowhowbinding.calendar
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
-import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.databinding.ItemEventBinding
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.main.item_event.view.*
 
 class CalendarAdapter : ListAdapter<Event,
@@ -24,7 +22,7 @@ class CalendarAdapter : ListAdapter<Event,
 
             binding.cardViewEvent.setOnClickListener {
 
-                Log.d("checkcard","cardView is clicked")
+                Logger.d("cardView is clicked")
                 if (binding.layoutScheduleDetail.visibility == View.GONE) {
                     binding.layoutScheduleDetail.visibility = View.VISIBLE
                 } else {

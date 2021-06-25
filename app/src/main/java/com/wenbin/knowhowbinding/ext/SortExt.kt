@@ -1,10 +1,10 @@
 package com.wenbin.knowhowbinding.ext
 
-import android.util.Log
 import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 fun List<Event>?.sortByTimeStamp (selectedTime: Long) : List<Event> {
     return this?.filter {
@@ -18,6 +18,12 @@ fun List<Event>?.sortByTimeStamp (selectedTime: Long) : List<Event> {
 fun List<User>?.excludeOwner() : List<User> {
     return this?.filter {
         it.email != UserManager.user.email
+    } ?: listOf()
+}
+
+fun List<User>?.excludeOwner(ownerUserEmail: String) : List<User> {
+    return this?.filter {
+        it.email != ownerUserEmail
     } ?: listOf()
 }
 
@@ -57,7 +63,7 @@ fun List<User>?.sortByUserAnswer(answer : Answer) : List<User> {
             }
         }
     }
-    Log.d("checkSearchList", "resultList in SortExt= $resultList")
+    Logger.d("resultList in SortExt= $resultList")
 
     return resultList
 }

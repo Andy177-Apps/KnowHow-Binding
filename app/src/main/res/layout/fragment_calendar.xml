@@ -69,14 +69,11 @@
             android:layout_alignParentBottom="false"
             app:elevation="10dp"
             app:layout_constraintHorizontal_bias="0.487"
-
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:backgroundTint="@color/primaryDark"
-
             />
 
         <ImageView
@@ -94,12 +91,10 @@
             app:layout_constraintTop_toTopOf="@+id/fab"
             app:srcCompat="@drawable/outline_add_black_24dp" />
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/imageView_create_event"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:visibility="gone"
             android:background="#FFDC35"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -206,65 +201,6 @@
                 app:layout_constraintTop_toTopOf="@+id/fab_create_event" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <!--        <androidx.core.widget.NestedScrollView-->
-        <!--            android:id="@+id/nestedScroll_bottom_sheet"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="0dp"-->
-        <!--            android:elevation="8dp"-->
-        <!--            android:orientation="vertical"-->
-        <!--            app:behavior_hideable="false"-->
-        <!--            app:behavior_peekHeight="232dp"-->
-        <!--            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"-->
-        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--            app:layout_constraintEnd_toEndOf="parent"-->
-        <!--            app:layout_constraintHorizontal_bias="0.0"-->
-        <!--            app:layout_constraintStart_toStartOf="parent"-->
-        <!--            app:layout_constraintTop_toBottomOf="@id/calendarView"-->
-        <!--            app:layout_constraintVertical_bias="0.0">-->
-
-        <!--            <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--                android:layout_width="match_parent"-->
-        <!--                android:layout_height="match_parent">-->
-
-        <!--                <View-->
-        <!--                    android:id="@+id/view"-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content" />-->
-
-        <!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--                    android:layout_width="match_parent"-->
-        <!--                    android:layout_height="match_parent">-->
-
-        <!--                    <TextView-->
-        <!--                        android:id="@+id/textView2"-->
-        <!--                        android:layout_width="wrap_content"-->
-        <!--                        android:layout_height="wrap_content"-->
-        <!--                        android:text="TextView" />-->
-
-        <!--                    <ImageView-->
-        <!--                        android:id="@+id/imageView2"-->
-        <!--                        android:layout_width="wrap_content"-->
-        <!--                        android:layout_height="wrap_content"-->
-        <!--                        tools:srcCompat="@tools:sample/avatars" />-->
-
-        <!--                    <androidx.recyclerview.widget.RecyclerView-->
-        <!--                        android:layout_width="match_parent"-->
-        <!--                        android:layout_height="match_parent"-->
-        <!--                        android:layout_marginBottom="104dp"-->
-        <!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--                        app:layout_constraintEnd_toEndOf="parent"-->
-        <!--                        app:layout_constraintHorizontal_bias="0.0"-->
-        <!--                        app:layout_constraintStart_toStartOf="parent" />-->
-        <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-        <!--                <Button-->
-        <!--                    android:id="@+id/button2"-->
-        <!--                    android:layout_width="wrap_content"-->
-        <!--                    android:layout_height="wrap_content"-->
-        <!--                    android:text="Button" />-->
-        <!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
-        <!--        </androidx.core.widget.NestedScrollView>-->
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

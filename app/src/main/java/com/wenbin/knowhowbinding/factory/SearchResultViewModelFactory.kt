@@ -2,9 +2,7 @@ package com.wenbin.knowhowbinding.factory
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.wenbin.knowhowbinding.calendar.eventdetail.EventDetailViewModel
 import com.wenbin.knowhowbinding.data.Answer
-import com.wenbin.knowhowbinding.data.Event
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.search.searchresult.SearchResultViewModel
 

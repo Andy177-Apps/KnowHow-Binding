@@ -7,12 +7,10 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
-import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.network.LoadApiStatus
-import com.wenbin.knowhowbinding.util.CurrentFragmentType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -74,7 +72,7 @@ class LoginViewModel(private val repository: KnowHowBindingRepository) : ViewMod
                     null
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -103,7 +101,7 @@ class LoginViewModel(private val repository: KnowHowBindingRepository) : ViewMod
                     _status.value = LoadApiStatus.ERROR
                 }
                 else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.you_know_nothing)
+                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }

@@ -1,12 +1,12 @@
 package com.wenbin.knowhowbinding.calendar
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.databinding.ItemAvatarEventBinding
+import com.wenbin.knowhowbinding.util.Logger
 
 class ImagesRecyclerViewAdapter() : ListAdapter<String,
         ImagesRecyclerViewAdapter.ViewHolder>(ImageDiffCallback){
@@ -16,7 +16,7 @@ class ImagesRecyclerViewAdapter() : ListAdapter<String,
         private var binding : ItemAvatarEventBinding
     ) : RecyclerView.ViewHolder (binding.root){
         fun bind (item : String) {
-            Log.d("chekcChild", "item = $item")
+            Logger.d("item = $item")
             binding.attendeesImage = item
             binding.executePendingBindings()
         }

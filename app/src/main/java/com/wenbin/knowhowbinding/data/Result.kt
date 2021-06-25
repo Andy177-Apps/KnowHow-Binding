@@ -9,7 +9,7 @@ sealed class Result<out R> {
 
     object Loading : Result<Nothing>()
 
-    override fun toString(): String {
+    override fun toString(): String {6
         return when (this) {
             is Success<*> -> "Success[result=$data]"
             is Fail -> "Fail[error=$error]"
