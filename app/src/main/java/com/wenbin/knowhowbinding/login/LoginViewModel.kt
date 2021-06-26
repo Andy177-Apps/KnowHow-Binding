@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.login
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -50,7 +50,7 @@ class LoginViewModel(private val repository: KnowHowBindingRepository) : ViewMod
 
     fun firebaseAuthWithGoogle(idToken: String) {
         coroutineScope.launch {
-            Log.d("check_googleSign", "fun firebaseAuthWithGoogle in ViewModel is used.")
+            Logger.d("check_googleSign, fun firebaseAuthWithGoogle in ViewModel is used.")
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.firebaseAuthWithGoogle(idToken)

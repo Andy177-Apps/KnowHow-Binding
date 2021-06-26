@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,22 +47,22 @@ class EditProfileFragment : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("checkElvis", "userInfo = $it")
-            Log.d("checkElvis", "userInfo.introduction = ${it.introduction}")
+            Logger.d("checkElvis, userInfo = $it")
+            Logger.d("checkElvis, userInfo.introduction = ${it.introduction}")
         })
         viewModel.introduction.observe(viewLifecycleOwner, Observer {
-            Log.d("checkElvis", "viewModel.introduction = $it")
+            Logger.d("checkElvis, viewModel.introduction = $it")
         })
 
-        Log.d("checkElvis", "viewModel.introduction = ${viewModel.introduction.value}")
+        Logger.d("checkElvis, viewModel.introduction = ${viewModel.introduction.value}")
 
         binding.imageViewUpdateAvatar.setOnClickListener {
-            Log.d("checkUpdateImage", "imageViewUpdateAvatar is clicked")
+            Logger.d("checkUpdateImage, imageViewUpdateAvatar is clicked")
             checkPermission()
         }
 
         binding.imageViewUpdateBg.setOnClickListener {
-            Log.d("checkUpdateImageBg", "imageViewUpdateBg is clicked")
+            Logger.d("checkUpdateImageBg, imageViewUpdateBg is clicked")
             updateBackground()
         }
         // Firebase Storage //
@@ -188,7 +187,7 @@ class EditProfileFragment : Fragment() {
                 listArrayType,
                 object : SingleSpinnerListener {
                     override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                        Log.d("CheckSelected", "Type : " + selectedItem.name)
+                        Logger.d("CheckSelected, Type : " + selectedItem.name)
                         viewModel.setCity(selectedItem.name)
                     }
 
@@ -215,7 +214,7 @@ class EditProfileFragment : Fragment() {
             listArrayTalentedSubject.add(h)
         }
 
-        Log.d("MultipleSpinner", "Updated listArraySubject in line 130 = $listArrayTalentedSubject")
+        Logger.d("Updated listArraySubject in line 130 = $listArrayTalentedSubject")
 
         binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.isSearchEnabled = true
         binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setSearchHint("選擇擅長的項目")
@@ -228,14 +227,11 @@ class EditProfileFragment : Fragment() {
 
                     for (i in items.indices) {
                         if (items[i].isSelected) {
-                            Log.d(
-                                    "MultipleSpinner",
-                                    i.toString() + " : " + items[i].name + " : " + items[i].isSelected
-                            )
+                            Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
                             list.add(items[i].name)
                         }
                     }
-                    Log.d("CheckSelected", "Final Subject list in line 216 =$list")
+                    Logger.d("CheckSelected, Final Subject list in line 216 =$list")
                     viewModel.setTalented(list)
                 })
 
@@ -252,7 +248,7 @@ class EditProfileFragment : Fragment() {
             listArrayInterestedSubject.add(h)
         }
 
-        Log.d("MultipleSpinner", "Updated listArraySubject in line 130 = $listArrayTalentedSubject")
+        Logger.d("Updated listArraySubject in line 130 = $listArrayTalentedSubject")
 
         binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.isSearchEnabled = true
         binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setSearchHint("選擇有興趣的項目")
@@ -265,23 +261,20 @@ class EditProfileFragment : Fragment() {
 
                     for (i in items.indices) {
                         if (items[i].isSelected) {
-                            Log.d(
-                                    "MultipleSpinner",
-                                    i.toString() + " : " + items[i].name + " : " + items[i].isSelected
-                            )
+                            Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
                             list.add(items[i].name)
                         }
                     }
-                    Log.d("CheckSelected", "Final Subject list in line 216 =$list")
+                    Logger.d("CheckSelected, Final Subject list in line 216 =$list")
                     viewModel.setInterested(list)
                 })
 
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{
-            Log.d("checkBtn", "viewModel.navigateToProfilePage is used")
+            Logger.d("checkBtn, viewModel.navigateToProfilePage is used")
             it?.let {
                 val observeIdentity = viewModel.getUser()
-                Log.d("EditPage", "observeIdentity = $observeIdentity")
+                Logger.d("EditPage, observeIdentity = $observeIdentity")
 
                 viewModel.updateUser(observeIdentity)
 
@@ -293,7 +286,7 @@ class EditProfileFragment : Fragment() {
 
         // Observe
         viewModel.identity.observe(viewLifecycleOwner, Observer {
-            Log.d("EditPage", "identity = $it")
+            Logger.d("EditPage, identity = $it")
         })
 
         if (activity is MainActivity) {
@@ -308,7 +301,7 @@ class EditProfileFragment : Fragment() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        Log.d("checkUpdateImageBg", "requestCode in fragment = $requestCode")
+        Logger.d("checkUpdateImageBg, requestCode in fragment = $requestCode")
 
         when (requestCode) {
             REQUEST_EXTERNAL_STORAGE -> {
@@ -323,7 +316,7 @@ class EditProfileFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("expand", "resultCode = $resultCode , requestCode = $requestCode")
+        Logger.d("resultCode = $resultCode , requestCode = $requestCode")
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 PICK_IMAGE -> {
@@ -331,7 +324,7 @@ class EditProfileFragment : Fragment() {
 
                     if (filePath.isNotEmpty()) {
 
-                        Log.d("checkImage", "filePath = $filePath")
+                        Logger.d("checkImage, filePath = $filePath")
                         Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                         Glide.with(this.requireContext()).load(filePath).into(binding.imageUserAvatar)
 
@@ -343,14 +336,14 @@ class EditProfileFragment : Fragment() {
                 }
 
                 PICK_BACKGROUND_IMAGE -> {
-                    Log.d("expand", "Entry PICK_BACKGROUND_IMAGE")
+                    Logger.d("Entry PICK_BACKGROUND_IMAGE")
 
                     val filePath = ImagePicker.getFilePath(data) ?: ""
-                    Log.d("expand", "filePath = $filePath")
+                    Logger.d("filePath = $filePath")
 
                     if (filePath.isNotEmpty()) {
 
-                        Log.d("checkBgImage", "BgfilePath = $filePath")
+                        Logger.d("checkBgImage, BgfilePath = $filePath")
                         Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                         Glide.with(this.requireContext()).load(filePath).into(binding.imageViewBackground)
 

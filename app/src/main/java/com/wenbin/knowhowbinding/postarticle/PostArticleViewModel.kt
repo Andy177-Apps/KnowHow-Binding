@@ -1,7 +1,5 @@
 package com.wenbin.knowhowbinding.postarticle
 
-import android.content.ContentValues
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,6 +13,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -73,7 +72,7 @@ class PostArticleViewModel(
     }
 
     fun getArticle(): Article {
-        Log.d("check_article", "UserManager.user.image = ${UserManager.user.image}")
+        Logger.d("check_article, UserManager.user.image = ${UserManager.user.image}")
         return Article(
 
                 id = "",
@@ -148,11 +147,11 @@ class PostArticleViewModel(
                 .get()
                 .addOnSuccessListener { result ->
                     for (document in result) {
-                        Log.d("TAG", "${document.id} => ${document.data}")
+                        Logger.d("${document.id} => ${document.data}")
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Log.d(ContentValues.TAG, "Error getting documents: ", exception)
+                    Logger.d("Error getting documents: $exception")
                 }
 
     }

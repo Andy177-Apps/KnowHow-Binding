@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.postarticle
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.calendar.createevent.CreateEventTypeSpinnerAdapter
 import com.wenbin.knowhowbinding.databinding.FragmentPostarticleBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.util.Logger
 
 class PostArticleFragment : Fragment(){
     private lateinit var binding : FragmentPostarticleBinding
@@ -31,16 +31,16 @@ class PostArticleFragment : Fragment(){
         binding.viewModel = viewModel
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("check_article", "userInfo = $it")
+            Logger.d("check_article, userInfo = $it")
 
         })
 
         binding.buttonSendArticle.setOnClickListener {
             val article = viewModel.getArticle()
             viewModel.publish(article)
-            Log.d("check_article", "article = $article")
+            Logger.d("check_article, article = $article")
             findNavController().navigate(PostArticleFragmentDirections.navigateToArticleFragment())
-            Log.d("Wenbin", "onClicked")
+            Logger.d("onClicked")
         }
 
         binding.spinnerCategory.adapter = PostArticleTypeSpinnerAdapter(
@@ -57,11 +57,10 @@ class PostArticleFragment : Fragment(){
                     id: Long
             ) {
                 if (parent != null) {
-                    Log.d("Spinner_type","position = $position")
-                    Log.d("Spinner_type","id = $id")
+                    Logger.d("Spinner_typeposition = $position")
+                    Logger.d("Spinner_type, id = $id")
 
                     viewModel.articleType.value = parent.selectedItem.toString()
-
                 }
             }
         }

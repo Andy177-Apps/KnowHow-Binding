@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.profile.editprofile
 
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -108,7 +107,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
-            Log.d("EditViewModel", "user = $user")
+            Logger.d("EditViewModel, user = $user")
 
             when (val result = repository.updateUser(user)) {
                 is Result.Success -> {
@@ -167,8 +166,8 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     }
 
     fun getUser(): User {
-        Log.d("checkUpdateImage", "enter getUser() $imageUrlPath")
-        Log.d("checkUpdateImage", "enter getUser() bgImageUrlPath = $bgImageUrlPath")
+        Logger.d("checkUpdateImage, enter getUser() $imageUrlPath")
+        Logger.d("checkUpdateImage,enter getUser() bgImageUrlPath = $bgImageUrlPath")
 
         return User(
                 id = UserManager.user.id,
@@ -193,7 +192,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
         coroutineScope.launch {
 
-            Log.d("checkUpdateImage", "original imageUrlPath is $imageUrlPath")
+            Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
 
             _status.value = LoadApiStatus.LOADING
 
@@ -221,7 +220,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Log.d("checkUpdateImage", "updated imageUrlPath is $imageUrlPath")
+            Logger.d("checkUpdateImage, updated imageUrlPath is $imageUrlPath")
             _refreshStatus.value = false
         }
     }
@@ -230,7 +229,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
         coroutineScope.launch {
 
-            Log.d("checkUpdateImage", "original imageUrlPath is $imageUrlPath")
+            Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
 
             _status.value = LoadApiStatus.LOADING
 
@@ -258,7 +257,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Log.d("checkUpdateBgImage", "updated bgImageUrlPath is $bgImageUrlPath")
+            Logger.d("checkUpdateBgImage, updated bgImageUrlPath is $bgImageUrlPath")
             _refreshStatus.value = false
         }
     }

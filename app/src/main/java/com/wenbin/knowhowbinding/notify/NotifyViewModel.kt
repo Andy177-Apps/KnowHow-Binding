@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.notify
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -63,7 +62,7 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
 
     fun getLiveAllEventInvitations(userEmail: String){
         allLiveEventInvitations = repository.getLiveMyEventInvitation(userEmail)
-        Log.d("wenbn", "getLiveAllEventInvitations is actioned")
+        Logger.d("getLiveAllEventInvitations is actioned")
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
     }

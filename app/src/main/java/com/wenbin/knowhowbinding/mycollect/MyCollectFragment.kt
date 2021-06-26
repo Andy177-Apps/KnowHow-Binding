@@ -1,18 +1,16 @@
 package com.wenbin.knowhowbinding.mycollect
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentMycollectBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.myarticle.MyArticleViewModel
+import com.wenbin.knowhowbinding.util.Logger
 
 class MyCollectFragment  : Fragment() {
     private lateinit var binding : FragmentMycollectBinding
@@ -28,7 +26,7 @@ class MyCollectFragment  : Fragment() {
         binding.viewModel = viewModel
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            Log.d("MyCollectFragment", "articles in Fragment = $it")
+            Logger.d("MyCollectFragment, articles in Fragment = $it")
         })
 
         var adapter = MyCollectAdapter(viewModel)

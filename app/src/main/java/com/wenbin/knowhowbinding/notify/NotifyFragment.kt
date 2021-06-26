@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.notify
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import androidx.lifecycle.Observer
 import com.wenbin.knowhowbinding.databinding.FragmentNotifyBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class NotifyFragment: Fragment() {
     private val viewModel by viewModels<NotifyViewModel> { getVmFactory() }
@@ -35,7 +35,7 @@ class NotifyFragment: Fragment() {
         viewModel.getLiveAllEventInvitations(UserManager.user.email)
 
         viewModel.allLiveEventInvitations.observe(viewLifecycleOwner, Observer {
-            Log.d("see_what_is_Empty" , "allLiveEventInvitations_1 = $it ")
+            Logger.d("see_what_is_Empty, allLiveEventInvitations_1 = $it ")
 
             if(it.isEmpty()) {
                 invitationValueVisibility(false)
@@ -45,12 +45,12 @@ class NotifyFragment: Fragment() {
 
             adapter.submitList(it)
             it?.let {
-                Log.d("see_what_is_Empty" , "allLiveEventInvitations_3 = $it ")
+                Logger.d("see_what_is_Empty, allLiveEventInvitations_3 = $it ")
                 binding.viewModel = viewModel
-                Log.d("see_what_is_Empty" , "allLiveEventInvitations_4 = $it ")
+                Logger.d("see_what_is_Empty, allLiveEventInvitations_4 = $it ")
 
             }
-            Log.d("see_what_is_Empty" , "allLiveEventInvitations_2 = $it ")
+            Logger.d("see_what_is_Empty, allLiveEventInvitations_2 = $it ")
         })
         return binding.root
     }

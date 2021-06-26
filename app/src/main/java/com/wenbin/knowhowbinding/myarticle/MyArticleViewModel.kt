@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.myarticle
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -51,12 +51,12 @@ class MyArticleViewModel(private val repository: KnowHowBindingRepository) : Vie
     }
 
     private fun getUserArticle(userEmail: String) {
-        Log.d("MyArticleFragment", "getUserArticle is used.")
+        Logger.d("MyArticleFragment, getUserArticle is used.")
 
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Log.d("MyArticleFragment", "result = $result")
+            Logger.d("MyArticleFragment, result = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {

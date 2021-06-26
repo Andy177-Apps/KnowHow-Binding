@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.myarticle
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.databinding.ItemArticleBinding
 import com.wenbin.knowhowbinding.login.UserManager
+import com.wenbin.knowhowbinding.util.Logger
 
 class MyArticleAdapter(val viewModel: MyArticleViewModel) : ListAdapter<Article,
         MyArticleAdapter.ViewHolder>(DiffCallback) {
@@ -21,7 +21,7 @@ class MyArticleAdapter(val viewModel: MyArticleViewModel) : ListAdapter<Article,
 
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Log.d("saveArticle", "imageViewBookmark is clicked")
+                Logger.d("saveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
 
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
