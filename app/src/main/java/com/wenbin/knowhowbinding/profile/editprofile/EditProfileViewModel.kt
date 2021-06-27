@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Result
@@ -323,5 +324,17 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     fun setCity(selectedType: String) {
         _selectedCity.value = selectedType
+    }
+
+    fun changeStringToKeyPairBoolData(listType: Array<out String>): MutableList<KeyPairBoolData> {
+        val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
+        for (i in listType.indices) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = listType[i]
+            h.isSelected = false
+            listArrayType.add(h)
+        }
+        return listArrayType
     }
 }

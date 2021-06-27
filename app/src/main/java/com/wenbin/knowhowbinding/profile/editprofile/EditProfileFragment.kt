@@ -65,47 +65,6 @@ class EditProfileFragment : Fragment() {
             Logger.d("checkUpdateImageBg, imageViewUpdateBg is clicked")
             updateBackground()
         }
-        // Firebase Storage //
-//
-//        // 設置雲存儲
-//        // 訪問 Cloud Storage 存儲FirebaseStorage第一步是創建FirebaseStorage的實例：
-//        val storage = Firebase.storage
-//
-//        // Points to the root reference
-//        // 取得它的參考
-//        val storageRef = storage.reference
-//
-//        // Points to "images"
-//        // 指向資料夾 images
-//        var imagesRef = storageRef.child("images")
-//
-//        // Points to "images/space.jpg"
-//        // Note that you can use variables to create child values
-//        val fileName = "space.jpg"
-//        // 指向 imagesRef 的資料夾：images 裡面的檔案：fileName i.e "space.jpg"
-//        val spaceRef = imagesRef.child(fileName)
-//
-//        // File path is "images/space.jpg"
-//        // 該檔案後面加 .path 可以叫出它的檔案路徑
-//        val path = spaceRef.path
-//
-//        // File name is "space.jpg"
-//        // 該檔案後面加 .path 可以叫出它的檔案名稱
-//        val name = spaceRef.name
-//
-//        // Points to "images"
-//        // 該檔案後面加 .path 可以叫出儲存它的資料夾的名稱，像這邊就是 image
-//        imagesRef = spaceRef.parent!!
-//
-//        //  End  //
-//
-//        // Image //
-//
-//
-//        // Image //
-//
-//        // Call mainViewModel to observe if the save button is pressed
-//        val mainViewModel = ViewModelProvider(requireActivity()).get(MainViewModel::class.java)
 
         // Setup chip group for TalentedSubjects chip selection
         val chipGroupTalented = binding.chipGroupTalentedSubjects
@@ -169,14 +128,7 @@ class EditProfileFragment : Fragment() {
 
         //-- multipleItemSelectionSpinner_type
         val listType = KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
-        val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
-        for (i in listType.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listType[i]
-            h.isSelected = false
-            listArrayType.add(h)
-        }
+        val listArrayType: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listType)
 
         // Pass true If you want searchView above the list. Otherwise false. default = true.
         binding.singleItemSelectionSpinnerCity.isSearchEnabled = true
@@ -204,15 +156,7 @@ class EditProfileFragment : Fragment() {
         //-- multipleItemSelectionSpinner_subject_talentedSubjects
         val listTalentedSubject =
                 KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
-        val listArrayTalentedSubject: MutableList<KeyPairBoolData> = ArrayList()
-
-        for (i in listTalentedSubject.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listTalentedSubject[i]
-            h.isSelected = false
-            listArrayTalentedSubject.add(h)
-        }
+        val listArrayTalentedSubject: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listTalentedSubject)
 
         Logger.d("Updated listArraySubject in line 130 = $listArrayTalentedSubject")
 
@@ -238,15 +182,7 @@ class EditProfileFragment : Fragment() {
         //-- multipleItemSelectionSpinner_subject_interestedSubjects
         val listInterestedSubject =
                 KnowHowBindingApplication.instance.resources.getStringArray(R.array.all_tag_array)
-        val listArrayInterestedSubject: MutableList<KeyPairBoolData> = ArrayList()
-
-        for (i in listInterestedSubject.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listInterestedSubject[i]
-            h.isSelected = false
-            listArrayInterestedSubject.add(h)
-        }
+        val listArrayInterestedSubject: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listInterestedSubject)
 
         Logger.d("Updated listArraySubject in line 130 = $listArrayTalentedSubject")
 

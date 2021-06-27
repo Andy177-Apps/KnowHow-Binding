@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerListener
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
@@ -157,7 +159,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
         _selectedSubject.value = subject
     }
 
-    fun changeStringToKeyPairBoolData(listType: Array<String>): MutableList<KeyPairBoolData> {
+    fun changeStringToKeyPairBoolData(listType: Array<out String>): MutableList<KeyPairBoolData> {
         val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
         for (i in listType.indices) {
             val h = KeyPairBoolData()
@@ -167,5 +169,31 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
             listArrayType.add(h)
         }
         return listArrayType
+    }
+
+    fun setMultipleSpinner(listArray: MutableList<KeyPairBoolData>, isSearchEnabled: Boolean, setSearchHint: String, setClearText: String, setEmptyTitle: String, multipleItemSelectionSpinner: MultiSpinnerSearch, listType: String) {
+        multipleItemSelectionSpinner.isSearchEnabled = isSearchEnabled
+        multipleItemSelectionSpinner.setSearchHint(setSearchHint)
+        multipleItemSelectionSpinner.setClearText(setClearText)
+        multipleItemSelectionSpinner.setEmptyTitle(setEmptyTitle)
+        multipleItemSelectionSpinner.setItems(
+                listArray,
+                MultiSpinnerListener { items ->
+                    val list = mutableListOf<String>()
+
+                    for (i in items.indices) {
+                        if (items[i].isSelected) {
+                            Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                            list.add(items[i].name)
+                        }
+                    }
+
+                    Logger.d("CheckSelected, Final city list in line 108 =$list")
+
+                    when (listType) {
+                        "city" -> setupCity(list)
+                        "subject" -> setupSubject(list)
+                    }
+                })
     }
 }
