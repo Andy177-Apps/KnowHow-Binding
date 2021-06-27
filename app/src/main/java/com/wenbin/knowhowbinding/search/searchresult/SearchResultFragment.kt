@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.search.searchresult
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,7 @@ import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentSearchResultBinding
 import com.wenbin.knowhowbinding.ext.excludeOwner
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.user.UserProfileFragmentArgs
+import com.wenbin.knowhowbinding.util.Logger
 
 
 class SearchResultFragment: Fragment() {
@@ -44,12 +43,12 @@ class SearchResultFragment: Fragment() {
 
 
         viewModel.allUsers.observe(viewLifecycleOwner, Observer {
-            Log.d("checkSearchList", "allUsers in fragment = $it")
+            Logger.d("checkSearchList, allUsers in fragment = $it")
             viewModel.createSortedList(it)
         })
 
         viewModel.usersWithMatch.observe(viewLifecycleOwner, Observer {
-            Log.d("checkSearchList", "usersWithMatch in fragment = $it")
+            Logger.d("checkSearchList, usersWithMatch in fragment = $it")
             val resultList = it.excludeOwner()
             searchResultAdapter.submitList(resultList)
         })

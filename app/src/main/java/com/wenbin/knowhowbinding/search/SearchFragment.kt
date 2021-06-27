@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +21,7 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.databinding.FragmentSearchBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
+import com.wenbin.knowhowbinding.util.Logger
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -59,7 +59,7 @@ class SearchFragment : Fragment() {
             listArrayType,
             object : SingleSpinnerListener {
                 override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Log.d("CheckSelected", "Type : " + selectedItem.name)
+                    Logger.d("CheckSelectedType : " + selectedItem.name)
                     viewModel.setupType(selectedItem.name)
                 }
 
@@ -87,7 +87,7 @@ class SearchFragment : Fragment() {
             listArrayCity.add(h)
         }
 
-        Log.d("MultipleSpinner", "Updated listArrayCity = $listArrayCity")
+        Logger.d("MultipleSpinner, Updated listArrayCity = $listArrayCity")
 
         binding.multipleItemSelectionSpinnerCity.isSearchEnabled = true
         binding.multipleItemSelectionSpinnerCity.setSearchHint("選擇城市")
@@ -100,15 +100,12 @@ class SearchFragment : Fragment() {
 
                 for (i in items.indices) {
                     if (items[i].isSelected) {
-                        Log.d(
-                            "MultipleSpinner",
-                            i.toString() + " : " + items[i].name + " : " + items[i].isSelected
-                        )
+                        Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
                         list.add(items[i].name)
                     }
                 }
 
-                Log.d("CheckSelected", "Final city list in line 108 =$list")
+                Logger.d("CheckSelected, Final city list in line 108 =$list")
                 viewModel.setupCity(list)
             })
 
@@ -132,7 +129,7 @@ class SearchFragment : Fragment() {
             listArrayGender,
             object : SingleSpinnerListener {
                 override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Log.d("CheckSelected", "Gender : " + selectedItem.name)
+                    Logger.d("CheckSelected, Gender : " + selectedItem.name)
                     viewModel.setupGender(selectedItem.name)
                 }
 
@@ -166,7 +163,7 @@ class SearchFragment : Fragment() {
             listArrayCategory,
             object : SingleSpinnerListener {
                 override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Log.d("CheckSelected", "Categoryr : " + selectedItem.name)
+                    Logger.d("CheckSelected, Categoryr : " + selectedItem.name)
 
                     viewModel.selectSubjects(selectedItem.name)
                     viewModel.setupCategory(selectedItem.name)
@@ -186,7 +183,7 @@ class SearchFragment : Fragment() {
         val listArraySubject: MutableList<KeyPairBoolData> = ArrayList()
 
         viewModel.listSubject.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("MultipleSpinner", "listSubject = $it")
+            Logger.d("listSubject = $it")
 
             for (i in it.indices) {
                 val h = KeyPairBoolData()
@@ -197,7 +194,7 @@ class SearchFragment : Fragment() {
             }
         })
 
-        Log.d("MultipleSpinner", "Updated listArraySubject in line 130 = $listArraySubject")
+        Logger.d("Updated listArraySubject in line 130 = $listArraySubject")
 
         binding.multipleItemSelectionSpinnerSubject.isSearchEnabled = true
         binding.multipleItemSelectionSpinnerSubject.setSearchHint("選擇科目")
@@ -210,14 +207,11 @@ class SearchFragment : Fragment() {
 
                 for (i in items.indices) {
                     if (items[i].isSelected) {
-                        Log.d(
-                            "MultipleSpinner",
-                            i.toString() + " : " + items[i].name + " : " + items[i].isSelected
-                        )
+                        Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
                         list.add(items[i].name)
                     }
                 }
-                Log.d("CheckSelected", "Final Subject list in line 216 =$list")
+                Logger.d("CheckSelected, Final Subject list in line 216 =$list")
                 viewModel.setupSubject(list)
             })
 
@@ -226,23 +220,23 @@ class SearchFragment : Fragment() {
         }
         // Observe
         viewModel.selectedType.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("Checklivedata", "selectedType = $it")
+            Logger.d("Checklivedata, selectedType = $it")
         })
 
         viewModel.selectedCity.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("Checklivedata", "selectedCity = $it")
+            Logger.d("Checklivedata, selectedCity = $it")
         })
 
         viewModel.selectedGender.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("Checklivedata", "selectedGender = $it")
+            Logger.d("Checklivedata, selectedGender = $it")
         })
 
         viewModel.selectedCategory.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("Checklivedata", "selectedCategory = $it")
+            Logger.d("Checklivedata, selectedCategory = $it")
         })
 
         viewModel.selectedSubject.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-            Log.d("Checklivedata", "selectedSubject = $it")
+            Logger.d("Checklivedata, selectedSubject = $it")
         })
 
         if (activity is MainActivity) {
@@ -259,7 +253,7 @@ class SearchFragment : Fragment() {
             gender = viewModel.selectedGender.value ?: "",
             subject = viewModel.selectedSubject.value ?: listOf<String>()
         )
-        Log.d("Checklivedata", "answer = $answer")
+        Logger.d("Checklivedata, answer = $answer")
 
         findNavController().navigate(NavigationDirections.navigateToSearchResultFragment(answer))
 

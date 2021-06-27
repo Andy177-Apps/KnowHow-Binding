@@ -1,7 +1,6 @@
 package com.wenbin.knowhowbinding.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +22,7 @@ import com.wenbin.knowhowbinding.ext.recommendedUser
 import com.wenbin.knowhowbinding.followedby.FollowedByAdapter
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 
 
 class ProfileFragment  : Fragment() {
@@ -34,7 +34,7 @@ class ProfileFragment  : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("wenbin","UserManager.user = ${UserManager.user}")
+        Logger.d("UserManager.user = ${UserManager.user}")
 
         binding = FragmentMyselfProfileBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -54,20 +54,20 @@ class ProfileFragment  : Fragment() {
         binding.recyclerView.adapter = adapter
 
         mainViewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
-            Log.d("check_userArticles", "userArticles = $list")
+            Logger.d("check_userArticles, userArticles = $list")
             binding.textPosts.text = list.size.toString()
         })
 
         // Filter recommended users
         viewModel.allUsers.observe(viewLifecycleOwner, Observer {
-            Log.d("checkRecommendedList", "allUsers in fragment = $it")
+            Logger.d("checkRecommendedList, allUsers in fragment = $it")
             var resultList = listOf<User>()
 
             viewModel.userInfo.value?.let { ownerUser ->
-                Log.d("checkOwnerUser", "OwnerUser in fragment = $ownerUser")
+                Logger.d("checkOwnerUser, OwnerUser in fragment = $ownerUser")
                 resultList = it.recommendedUser(ownerUser).excludeOwner()
             }
-            Log.d("checkRecommendedList", "Final resultList in fragment = $resultList")
+            Logger.d("checkRecommendedList, Final resultList in fragment = $resultList")
 
             adapter.submitList(resultList)
         })
@@ -125,7 +125,7 @@ class ProfileFragment  : Fragment() {
         })
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("ProfilePage", "userInfo = $it")
+            Logger.d("ProfilePage, userInfo = $it")
             setupLayout(it)
 
         })

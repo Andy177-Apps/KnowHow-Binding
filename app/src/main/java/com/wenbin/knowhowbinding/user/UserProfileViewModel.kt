@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.user
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -144,7 +143,7 @@ userEmail: String):ViewModel() {
     }
 
     fun getUser(userEmail: String) {
-        Log.d("check_follow", "getUser is used.")
+        Logger.d("Check_follow, getUser is used.")
 
         coroutineScope.launch {
 
@@ -264,7 +263,7 @@ userEmail: String):ViewModel() {
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Log.d("check_userArticles", "result = ${result}")
+            Logger.d("Check_userArticles, result = ${result}")
 
             _userArticles.value = when (result) {
                 is Result.Success -> {

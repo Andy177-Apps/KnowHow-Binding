@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding
 
-import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
@@ -20,6 +19,7 @@ import com.wenbin.knowhowbinding.mycollect.MyCollectAdapter
 import com.wenbin.knowhowbinding.profile.ProfileCommentAdapter
 import com.wenbin.knowhowbinding.search.SearchAdapter
 import com.wenbin.knowhowbinding.user.article.UserArticleAdapter
+import com.wenbin.knowhowbinding.util.Logger
 import com.wenbin.knowhowbinding.util.TimeUtil
 import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
@@ -72,11 +72,11 @@ fun bindRecyclerViewWithEvent(recyclerView: RecyclerView, data : List<Event>?) {
 
 @BindingAdapter("listImage")
 fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
-    Log.d("checkImage", "child data = $data")
+    Logger.d("CheckImage, child data = $data")
 
     data?.let {
         recyclerView.adapter.apply {
-            Log.d("this", "this = $this")
+            Logger.d("this = $this")
             when (this) {
                 is ImagesRecyclerViewAdapter -> submitList(it)
             }
@@ -86,7 +86,7 @@ fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
 
 @BindingAdapter("listUserInfo")
 fun BindUserInfoRecyclerView(recyclerView: RecyclerView, data : List<User>?) {
-    Log.d("checkFollowing", "child data = $data")
+    Logger.d("CheckFollowing, child data = $data")
 
     data?.let {
         recyclerView.adapter.apply {

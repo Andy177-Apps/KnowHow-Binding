@@ -1,11 +1,9 @@
 package com.wenbin.knowhowbinding
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.widget.Button
 import androidx.appcompat.widget.Toolbar
-
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -28,6 +26,7 @@ import com.wenbin.knowhowbinding.databinding.NavHeaderMain02Binding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import java.util.*
@@ -113,31 +112,24 @@ class MainActivity : AppCompatActivity() {
         db.collection("Friends")
                 .addSnapshotListener { snapshots, e ->
                     if (e != null) {
-                        Log.w("TAG", "listen:error", e)
+                        Logger.w("listen:error e = $e")
                         return@addSnapshotListener
                     }
 
                     for (dc in snapshots!!.documentChanges) {
                         when (dc.type) {
-                            DocumentChange.Type.ADDED -> Log.d(
-                                    "TAG",
-                                    "New Invitation Card: ${dc.document.data}"
-                            )
+                            DocumentChange.Type.ADDED -> Logger.d("New Invitation Card: ${dc.document.data}")
                             DocumentChange.Type.MODIFIED -> {
-                                Log.d(
-                                        "TAG",
+                                Logger.d(
                                         "Changed Data: ${dc.document.data}"
                                 )
                             }
-                            DocumentChange.Type.REMOVED -> Log.d(
-                                    "TAG",
-                                    "Removed Invitation Card: ${dc.document.data}"
-                            )
+                            DocumentChange.Type.REMOVED -> Logger.d("Removed Invitation Card: ${dc.document.data}")
                         }
                     }
                 }
         viewModel.userInfo.observe(this, androidx.lifecycle.Observer {
-            Log.d("checkHeader", "userInfo = $it")
+            Logger.d("checkHeader, userInfo = $it")
         })
         setupBottomNav()
         setupNavController ()
@@ -212,7 +204,7 @@ class MainActivity : AppCompatActivity() {
 
     fun coverBottomNav() {
         binding.bottomNavView.visibility = View.GONE
-        Log.d("checkfunction", "fun coverBottomNav is used.")
+        Logger.d("checkfunction, fun coverBottomNav is used.")
         bottomNavView_content.visibility = View.GONE
     }
 

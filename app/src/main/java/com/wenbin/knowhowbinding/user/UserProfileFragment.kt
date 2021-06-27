@@ -1,20 +1,16 @@
 package com.wenbin.knowhowbinding.user
 
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.chip.Chip
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.R
@@ -23,8 +19,7 @@ import com.wenbin.knowhowbinding.databinding.FragmentUserDetailBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
-import kotlinx.android.synthetic.main.content_main.*
-import kotlinx.android.synthetic.main.fragment_home.view.*
+import com.wenbin.knowhowbinding.util.Logger
 
 class UserProfileFragment: Fragment() {
 
@@ -48,16 +43,16 @@ class UserProfileFragment: Fragment() {
         var firstTimeEntry = true
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Log.d("check_follow", "accepted userInfo = $it")
+            Logger.d("Check_follow, accepted userInfo = $it")
 
             imageViewGender.isSelected = it.gender == "male"
 
-            Log.d("check_follow", "viewModel.userInfo.image = ${viewModel.userInfo.value!!.image}")
+            Logger.d("Check_follow, viewModel.userInfo.image = ${viewModel.userInfo.value!!.image}")
             if (it.email != "") {
-                Log.d("check_follow", "accepted userInfo in first if determine = $it")
+                Logger.d("Check_follow, accepted userInfo in first if determine = $it")
 
                 if (firstTimeEntry) {
-                    Log.d("check_follow", "accepted userInfo in second if determine = $it")
+                    Logger.d("Check_follow, accepted userInfo in second if determine = $it")
                     setupLayout(it)
                     firstTimeEntry = false
                 }
@@ -65,7 +60,7 @@ class UserProfileFragment: Fragment() {
 
             // Show the count of articles of the user.
             viewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
-                Log.d("check_userArticles", "userArticles = $list")
+                Logger.d("Check_userArticles, userArticles = $list")
                 binding.textPosts.text = list.size.toString()
             })
 
@@ -73,7 +68,7 @@ class UserProfileFragment: Fragment() {
             // follow
             viewModel.myInfo.observe(viewLifecycleOwner, Observer { my ->
 
-                Log.d("check_follow", "myInfo = $my")
+                Logger.d("Check_follow, myInfo = $my")
                 if (my.followingEmail.contains(it.email)) {
                     showFollowButton(false)
                     setupFollowButton(true, it)
@@ -85,7 +80,7 @@ class UserProfileFragment: Fragment() {
             })
 
             if (activity is MainActivity) {
-                Log.d("wenbin" , "user fun is used.")
+                Logger.d("user fun is used.")
                 (activity as MainActivity).coverBottomNav()
                     (activity as MainActivity).resetToolBar(it.name)
             }
@@ -113,7 +108,7 @@ class UserProfileFragment: Fragment() {
         })
 
         if (activity is MainActivity) {
-            Log.d("wenbin" , "user fun is used.")
+            Logger.d("user fun is used.")
             (activity as MainActivity).coverBottomNav()
             viewModel.userInfo.value?.let {
                 (activity as MainActivity).resetToolBar(it.name)
@@ -158,9 +153,9 @@ class UserProfileFragment: Fragment() {
 
         binding.buttonMessage.setOnClickListener {
             viewModel.postChatRoom(viewModel.createChatRoom())
-            Log.d("check_follow", "buttonMessage is clicked")
+            Logger.d("Check_follow, buttonMessage is clicked")
 
-            Log.d("check_follow", "user.email= ${user.email}")
+            Logger.d("Check_follow, user.email= ${user.email}")
 
             if (!user.email.isNullOrEmpty()){
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -175,12 +170,12 @@ class UserProfileFragment: Fragment() {
         // show -> false, show buttonUnfollow
 
         if (showFollow) {
-            Log.d("check_follow", "Line121")
+            Logger.d("Check_follow, Line121")
 
             binding.buttonFollow.visibility = View.VISIBLE
             binding.buttonUnfollow.visibility = View.GONE
         } else {
-            Log.d("check_follow", "Line126")
+            Logger.d("Check_follow, Line126")
 
             binding.buttonFollow.visibility = View.GONE
             binding.buttonUnfollow.visibility = View.VISIBLE
@@ -190,9 +185,9 @@ class UserProfileFragment: Fragment() {
     private fun setupFollowButton(contains: Boolean, user: User) {
         if (contains) {
             binding.buttonUnfollow.setOnClickListener {
-                Log.d("check_follow", "Line136")
+                Logger.d("Check_follow, Line136")
                 showFollowButton(true)
-                Log.d("check_follow", "Line138")
+                Logger.d("Check_follow, Line138")
 
                 viewModel.removeUserFromFollow(UserManager.user.email, user)
                 viewModel.getUser(viewModel.selectedUserEmail)
@@ -200,9 +195,9 @@ class UserProfileFragment: Fragment() {
             }
         } else {
             binding.buttonFollow.setOnClickListener {
-                Log.d("check_follow", "Line146")
+                Logger.d("Check_follow, Line146")
                 showFollowButton(false)
-                Log.d("check_follow", "Line148")
+                Logger.d("Check_follow, Line148")
 
                 viewModel.postUserToFollow(UserManager.user.email, user)
                 viewModel.getUser(viewModel.selectedUserEmail)

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.ItemRecommendedUserBinding
-import com.wenbin.knowhowbinding.followedby.FollowedByAdapter
 
 class ProfileRecommendedAdapter(private val onClickListener: OnClickListener) : ListAdapter<User,
         ProfileRecommendedAdapter.ViewHolder>(DiffCallback) {

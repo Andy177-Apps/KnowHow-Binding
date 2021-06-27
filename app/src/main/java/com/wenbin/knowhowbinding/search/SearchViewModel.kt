@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +9,7 @@ import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 import com.wenbin.knowhowbinding.network.LoadApiStatus
+import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -117,7 +117,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
     }
 
     fun selectSubjects(selectedItem: String) {
-        Log.d("MultipleSpinner", "selectedItem = $selectedItem")
+        Logger.d("selectedItem = $selectedItem")
 
         _listSubject.value = KnowHowBindingApplication.instance.resources.getStringArray(R.array.default_array)
         val array: Array<String> = when (selectedItem) {
@@ -130,7 +130,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
             "運動" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.sport_array)
             else -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.exam_array)
         }
-        Log.d("MultipleSpinner", "array = $array")
+        Logger.d("array = $array")
 
         _listSubject.value = array
 

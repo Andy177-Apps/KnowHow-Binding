@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.search.searchresult
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -8,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.databinding.ItemSearchResultBinding
+import com.wenbin.knowhowbinding.util.Logger
 
 class SearchResultAdapter(private val onClickListener: OnClickListener) :
         ListAdapter<User, SearchResultAdapter.UserViewHolder>(DiffCallback){
@@ -41,13 +41,13 @@ class SearchResultAdapter(private val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(user)
         }
-        Log.d("checkheight", "position = $position")
+        Logger.d("checkheight, position = $position")
 
         val layoutParams = holder.itemView.layoutParams
 
         layoutParams.height = 400 + (position % 4 + 1) *200
 
-        Log.d("checkheight", "layoutParams.height = ${layoutParams.height}")
+        Logger.d("checkheight, layoutParams.height = ${layoutParams.height}")
         holder.itemView.layoutParams = layoutParams
         holder.bind(user)
     }
