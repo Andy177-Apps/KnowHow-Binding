@@ -117,11 +117,16 @@
         <item>連江縣</item>
     </string-array>
 
-    <string-array name="default_array">
-
+    <string-array name="gender">
+        <item>male</item>
+        <item>female</item>
+        <item>unlimited</item>
     </string-array>
 
 
+    <string-array name="default_array">
+
+    </string-array>
 
     <string-array name="major_category_array">
         <item>高中</item>

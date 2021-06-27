@@ -3,6 +3,7 @@ package com.wenbin.knowhowbinding.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
@@ -156,4 +157,15 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
         _selectedSubject.value = subject
     }
 
+    fun changeStringToKeyPairBoolData(listType: Array<String>): MutableList<KeyPairBoolData> {
+        val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
+        for (i in listType.indices) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = listType[i]
+            h.isSelected = false
+            listArrayType.add(h)
+        }
+        return listArrayType
+    }
 }

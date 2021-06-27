@@ -1,15 +1,13 @@
 package com.wenbin.knowhowbinding.search
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.MultiSpinnerListener
@@ -22,7 +20,6 @@ import com.wenbin.knowhowbinding.data.Answer
 import com.wenbin.knowhowbinding.databinding.FragmentSearchBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -40,15 +37,11 @@ class SearchFragment : Fragment() {
         binding.viewModel = viewModel
 
         //-- multipleItemSelectionSpinner_type
+        // Refactor - Change String to KeyPairBoolData
+        // Inject string array
         val listType = KnowHowBindingApplication.instance.resources.getStringArray(R.array.search_type)
-        val listArrayType: MutableList<KeyPairBoolData> = ArrayList()
-        for (i in listType.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listType[i]
-            h.isSelected = false
-            listArrayType.add(h)
-        }
+
+        val listArrayType: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listType)
 
         // Pass true If you want searchView above the list. Otherwise false. default = true.
         binding.singleItemSelectionSpinnerType.isSearchEnabled = false
@@ -77,15 +70,18 @@ class SearchFragment : Fragment() {
         //-- multipleItemSelectionSpinner_city Multiple
         val listCity =
             KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
-        val listArrayCity: MutableList<KeyPairBoolData> = ArrayList()
 
-        for (i in listCity.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listCity[i]
-            h.isSelected = false
-            listArrayCity.add(h)
-        }
+        val listArrayCity: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listCity)
+
+//        val listArrayCity: MutableList<KeyPairBoolData> = ArrayList()
+//
+//        for (i in listCity.indices) {
+//            val h = KeyPairBoolData()
+//            h.id = (i + 1).toLong()
+//            h.name = listCity[i]
+//            h.isSelected = false
+//            listArrayCity.add(h)
+//        }
 
         Logger.d("MultipleSpinner, Updated listArrayCity = $listArrayCity")
 
@@ -110,16 +106,17 @@ class SearchFragment : Fragment() {
             })
 
         //-- multipleItemSelectionSpinner_gender
-        val listGender = listOf<String>("male", "female", "unlimited")
+        val listGender = KnowHowBindingApplication.instance.resources.getStringArray(R.array.gender)
+        val listArrayGender: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listGender)
 
-        val listArrayGender: MutableList<KeyPairBoolData> = ArrayList()
-        for (i in listGender.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listGender[i]
-            h.isSelected = false
-            listArrayGender.add(h)
-        }
+//        val listArrayGender: MutableList<KeyPairBoolData> = ArrayList()
+//        for (i in listGender.indices) {
+//            val h = KeyPairBoolData()
+//            h.id = (i + 1).toLong()
+//            h.name = listGender[i]
+//            h.isSelected = false
+//            listArrayGender.add(h)
+//        }
         // Pass true If you want searchView above the list. Otherwise false. default = true.
         binding.singleItemSelectionSpinnerGender.isSearchEnabled = false
 
@@ -146,14 +143,16 @@ class SearchFragment : Fragment() {
         //-- singleItemSelectionSpinner_category Single
         val listCategory =
             KnowHowBindingApplication.instance.resources.getStringArray(R.array.major_category_array)
-        val listArrayCategory: MutableList<KeyPairBoolData> = ArrayList()
-        for (i in listCategory.indices) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = listCategory[i]
-            h.isSelected = false
-            listArrayCategory.add(h)
-        }
+        val listArrayCategory: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listCategory)
+
+//        val listArrayCategory: MutableList<KeyPairBoolData> = ArrayList()
+//        for (i in listCategory.indices) {
+//            val h = KeyPairBoolData()
+//            h.id = (i + 1).toLong()
+//            h.name = listCategory[i]
+//            h.isSelected = false
+//            listArrayCategory.add(h)
+//        }
         // Pass true If you want searchView above the list. Otherwise false. default = true.
         binding.singleItemSelectionSpinnerCategory.isSearchEnabled = false
 
@@ -184,6 +183,7 @@ class SearchFragment : Fragment() {
 
         viewModel.listSubject.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Logger.d("listSubject = $it")
+            Log.d("wenbin", "listSubject = $it")
 
             for (i in it.indices) {
                 val h = KeyPairBoolData()
@@ -194,6 +194,7 @@ class SearchFragment : Fragment() {
             }
         })
 
+        Log.d("wenbin", "Updated listArraySubject in line 195 = $listArraySubject")
         Logger.d("Updated listArraySubject in line 130 = $listArraySubject")
 
         binding.multipleItemSelectionSpinnerSubject.isSearchEnabled = true
