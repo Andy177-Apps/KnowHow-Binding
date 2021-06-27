@@ -10,8 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
-import com.androidbuts.multispinnerfilter.MultiSpinnerListener
-import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.MainActivity
@@ -44,29 +42,13 @@ class SearchFragment : Fragment() {
 
         val listArrayType: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listType)
 
-        // Pass true If you want searchView above the list. Otherwise false. default = true.
-        binding.singleItemSelectionSpinnerType.isSearchEnabled = false
-
-        // A text that will display in search hint.
-        binding.singleItemSelectionSpinnerType.setSearchHint("您想要？")
-        binding.singleItemSelectionSpinnerType.setItems(
-            listArrayType,
-            object : SingleSpinnerListener {
-                override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Logger.d("CheckSelectedType : " + selectedItem.name)
-                    viewModel.setupType(selectedItem.name)
-                }
-
-                override fun onClear() {
-                    Toast.makeText(
-                        KnowHowBindingApplication.appContext,
-                        "Cleared Selected Item",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-            })
-
+        viewModel.setSingleSpinner(
+                binding.singleItemSelectionSpinnerType,
+                false,
+                "您想要？",
+                listArrayType,
+                "type"
+        )
 
         //-- multipleItemSelectionSpinner_city Multiple
         val listCity =
@@ -76,70 +58,39 @@ class SearchFragment : Fragment() {
 
         Logger.d("MultipleSpinner, Updated listArrayCity = $listArrayCity")
 
-        viewModel.setMultipleSpinner(listArrayCity,
+        viewModel.setMultipleSpinner(
+                binding.multipleItemSelectionSpinnerCity,
                 true,
                 "選擇城市",
                 "捨棄",
                 "您沒有選擇地點",
-                binding.multipleItemSelectionSpinnerCity,
+                listArrayCity,
                 "city")
 
         //-- multipleItemSelectionSpinner_gender
         val listGender = KnowHowBindingApplication.instance.resources.getStringArray(R.array.gender)
         val listArrayGender: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listGender)
 
-        // Pass true If you want searchView above the list. Otherwise false. default = true.
-        binding.singleItemSelectionSpinnerGender.isSearchEnabled = false
-
-        // A text that will display in search hint.
-//        binding.singleItemSelectionSpinnerCategory.setSearchHint("選擇領域")
-        binding.singleItemSelectionSpinnerGender.setItems(
-            listArrayGender,
-            object : SingleSpinnerListener {
-                override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Logger.d("CheckSelected, Gender : " + selectedItem.name)
-                    viewModel.setupGender(selectedItem.name)
-                }
-
-                override fun onClear() {
-                    Toast.makeText(
-                        KnowHowBindingApplication.appContext,
-                        "Cleared Selected Item",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-            })
+        viewModel.setSingleSpinner(
+                binding.singleItemSelectionSpinnerGender,
+                false,
+                "",
+                listArrayGender,
+                "gender"
+        )
 
         //-- singleItemSelectionSpinner_category Single
         val listCategory =
             KnowHowBindingApplication.instance.resources.getStringArray(R.array.major_category_array)
         val listArrayCategory: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listCategory)
 
-        // Pass true If you want searchView above the list. Otherwise false. default = true.
-        binding.singleItemSelectionSpinnerCategory.isSearchEnabled = false
-
-        // A text that will display in search hint.
-        binding.singleItemSelectionSpinnerCategory.setSearchHint("選擇領域")
-        binding.singleItemSelectionSpinnerCategory.setItems(
-            listArrayCategory,
-            object : SingleSpinnerListener {
-                override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                    Logger.d("CheckSelected, Categoryr : " + selectedItem.name)
-
-                    viewModel.selectSubjects(selectedItem.name)
-                    viewModel.setupCategory(selectedItem.name)
-                }
-
-                override fun onClear() {
-                    Toast.makeText(
-                        KnowHowBindingApplication.appContext,
-                        "Cleared Selected Item",
-                        Toast.LENGTH_SHORT
-                    )
-                        .show()
-                }
-            })
+        viewModel.setSingleSpinner(
+                binding.singleItemSelectionSpinnerCategory,
+                false,
+                "選擇領域",
+                listArrayCategory,
+                "subject"
+        )
 
         //-- multipleItemSelectionSpinner_subject
         val listArraySubject: MutableList<KeyPairBoolData> = ArrayList()
@@ -160,12 +111,13 @@ class SearchFragment : Fragment() {
         Log.d("wenbin", "Updated listArraySubject in line 195 = $listArraySubject")
         Logger.d("Updated listArraySubject in line 130 = $listArraySubject")
 
-        viewModel.setMultipleSpinner(listArraySubject,
+        viewModel.setMultipleSpinner(
+                binding.multipleItemSelectionSpinnerSubject,
                 true,
                 "選擇科目",
                 "捨棄",
                 "您還沒有選擇領域",
-                binding.multipleItemSelectionSpinnerSubject,
+                listArraySubject,
                 "subject")
 
         binding.textViewLook.setOnClickListener {

@@ -1,11 +1,10 @@
 package com.wenbin.knowhowbinding.search
 
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.androidbuts.multispinnerfilter.KeyPairBoolData
-import com.androidbuts.multispinnerfilter.MultiSpinnerListener
-import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+import com.androidbuts.multispinnerfilter.*
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Article
@@ -171,7 +170,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
         return listArrayType
     }
 
-    fun setMultipleSpinner(listArray: MutableList<KeyPairBoolData>, isSearchEnabled: Boolean, setSearchHint: String, setClearText: String, setEmptyTitle: String, multipleItemSelectionSpinner: MultiSpinnerSearch, listType: String) {
+    fun setMultipleSpinner(multipleItemSelectionSpinner: MultiSpinnerSearch, isSearchEnabled: Boolean, setSearchHint: String, setClearText: String, setEmptyTitle: String, listArray: MutableList<KeyPairBoolData>, listType: String) {
         multipleItemSelectionSpinner.isSearchEnabled = isSearchEnabled
         multipleItemSelectionSpinner.setSearchHint(setSearchHint)
         multipleItemSelectionSpinner.setClearText(setClearText)
@@ -187,11 +186,43 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
                             list.add(items[i].name)
                         }
                     }
-                    Logger.d("CheckSelected, Final list =$list")
+                    Logger.d("CheckSelected, Final $listType list =$list")
 
                     when (listType) {
                         "city" -> setupCity(list)
                         "subject" -> setupSubject(list)
+                    }
+                })
+    }
+
+    fun setSingleSpinner(singleItemSelectionSpinner: SingleSpinnerSearch, isSearchEnabled: Boolean, setSearchHint: String, listArrayType: MutableList<KeyPairBoolData>, listType: String) {
+        // Pass true If you want searchView above the list. Otherwise false. default = true.
+        singleItemSelectionSpinner.isSearchEnabled = isSearchEnabled
+
+        // A text that will display in search hint.
+        singleItemSelectionSpinner.setSearchHint(setSearchHint)
+        singleItemSelectionSpinner.setItems(
+                listArrayType,
+                object : SingleSpinnerListener {
+                    override fun onItemsSelected(selectedItem: KeyPairBoolData) {
+                        Logger.d("CheckSelected, Item : " + selectedItem.name)
+                        when (listType) {
+                            "type" -> setupType(selectedItem.name)
+                            "gender" -> setupGender(selectedItem.name)
+                            "subject" -> {
+                                selectSubjects(selectedItem.name)
+                                setupCategory(selectedItem.name)
+                            }
+                        }
+                    }
+
+                    override fun onClear() {
+                        Toast.makeText(
+                                KnowHowBindingApplication.appContext,
+                                "Cleared Selected Item",
+                                Toast.LENGTH_SHORT
+                        )
+                                .show()
                     }
                 })
     }

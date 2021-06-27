@@ -4,9 +4,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.androidbuts.multispinnerfilter.KeyPairBoolData
-import com.androidbuts.multispinnerfilter.MultiSpinnerListener
-import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+import com.androidbuts.multispinnerfilter.*
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Result
@@ -362,6 +360,31 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     when (listType) {
                         "talented" -> setTalented(list)
                         "interested" -> setInterested(list)
+                    }
+                })
+    }
+
+    fun setSingleSpinner(singleItemSelectionSpinner: SingleSpinnerSearch, isSearchEnabled: Boolean, setSearchHint: String, listArrayType: MutableList<KeyPairBoolData>) {
+        // Pass true If you want searchView above the list. Otherwise false. default = true.
+        singleItemSelectionSpinner.isSearchEnabled = isSearchEnabled
+
+        // A text that will display in search hint.
+        singleItemSelectionSpinner.setSearchHint(setSearchHint)
+        singleItemSelectionSpinner.setItems(
+                listArrayType,
+                object : SingleSpinnerListener {
+                    override fun onItemsSelected(selectedItem: KeyPairBoolData) {
+                        Logger.d("CheckSelected, Item : " + selectedItem.name)
+                        setCity(selectedItem.name)
+                    }
+
+                    override fun onClear() {
+                        Toast.makeText(
+                                KnowHowBindingApplication.appContext,
+                                "Cleared Selected Item",
+                                Toast.LENGTH_SHORT
+                        )
+                                .show()
                     }
                 })
     }

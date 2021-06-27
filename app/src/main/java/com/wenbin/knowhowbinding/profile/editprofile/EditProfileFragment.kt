@@ -15,6 +15,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.SingleSpinnerListener
+import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.chip.Chip
@@ -124,28 +125,12 @@ class EditProfileFragment : Fragment() {
         val listType = KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
         val listArrayType: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listType)
 
-        // Pass true If you want searchView above the list. Otherwise false. default = true.
-        binding.singleItemSelectionSpinnerCity.isSearchEnabled = true
-
-        // A text that will display in search hint.
-        binding.singleItemSelectionSpinnerCity.setSearchHint("搜尋居住的縣市")
-        binding.singleItemSelectionSpinnerCity.setItems(
-                listArrayType,
-                object : SingleSpinnerListener {
-                    override fun onItemsSelected(selectedItem: KeyPairBoolData) {
-                        Logger.d("CheckSelected, Type : " + selectedItem.name)
-                        viewModel.setCity(selectedItem.name)
-                    }
-
-                    override fun onClear() {
-                        Toast.makeText(
-                                KnowHowBindingApplication.appContext,
-                                "Cleared Selected Item",
-                                Toast.LENGTH_SHORT
-                        )
-                                .show()
-                    }
-                })
+        viewModel.setSingleSpinner(
+                binding.singleItemSelectionSpinnerCity,
+                true,
+                "搜尋居住的縣市",
+                listArrayType
+        )
 
         //-- multipleItemSelectionSpinner_subject_talentedSubjects
         val listTalentedSubject =
