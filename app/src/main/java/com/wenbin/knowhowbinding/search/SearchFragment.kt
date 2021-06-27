@@ -77,7 +77,8 @@ class SearchFragment : Fragment() {
         Logger.d("MultipleSpinner, Updated listArrayCity = $listArrayCity")
 
         viewModel.setMultipleSpinner(listArrayCity,
-                true, "選擇城市",
+                true,
+                "選擇城市",
                 "捨棄",
                 "您沒有選擇地點",
                 binding.multipleItemSelectionSpinnerCity,
@@ -160,7 +161,8 @@ class SearchFragment : Fragment() {
         Logger.d("Updated listArraySubject in line 130 = $listArraySubject")
 
         viewModel.setMultipleSpinner(listArraySubject,
-                true, "選擇科目",
+                true,
+                "選擇科目",
                 "捨棄",
                 "您還沒有選擇領域",
                 binding.multipleItemSelectionSpinnerSubject,

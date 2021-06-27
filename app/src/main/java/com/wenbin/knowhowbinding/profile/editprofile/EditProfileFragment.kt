@@ -7,23 +7,17 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.wenbin.knowhowbinding.databinding.FragmentEditprofileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
-import com.androidbuts.multispinnerfilter.MultiSpinnerListener
 import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.chip.Chip
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.wenbin.knowhowbinding.*
 import com.wenbin.knowhowbinding.ext.checkPermission
 import com.wenbin.knowhowbinding.ext.getLocalImg
@@ -160,24 +154,15 @@ class EditProfileFragment : Fragment() {
 
         Logger.d("Updated listArraySubject in line 130 = $listArrayTalentedSubject")
 
-        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.isSearchEnabled = true
-        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setSearchHint("選擇擅長的項目")
-        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setClearText("捨棄")
-        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setEmptyTitle("您還沒有選擇")
-        binding.multipleItemSelectionSpinnerSubjectTalentedSubjects.setItems(
+        viewModel.setMultipleSpinner(
+                binding.multipleItemSelectionSpinnerSubjectTalentedSubjects,
+                true,
+                "選擇擅長的項目",
+                "捨棄",
+                "您還沒有選擇",
                 listArrayTalentedSubject,
-                MultiSpinnerListener { items ->
-                    val list = mutableListOf<String>()
-
-                    for (i in items.indices) {
-                        if (items[i].isSelected) {
-                            Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
-                            list.add(items[i].name)
-                        }
-                    }
-                    Logger.d("CheckSelected, Final Subject list in line 216 =$list")
-                    viewModel.setTalented(list)
-                })
+                "talented"
+        )
 
         //-- multipleItemSelectionSpinner_subject_interestedSubjects
         val listInterestedSubject =
@@ -186,24 +171,15 @@ class EditProfileFragment : Fragment() {
 
         Logger.d("Updated listArraySubject in line 130 = $listArrayTalentedSubject")
 
-        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.isSearchEnabled = true
-        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setSearchHint("選擇有興趣的項目")
-        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setClearText("捨棄")
-        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setEmptyTitle("您還沒有選擇")
-        binding.multipleItemSelectionSpinnerSubjectInterestedSubjects.setItems(
+        viewModel.setMultipleSpinner(
+                binding.multipleItemSelectionSpinnerSubjectInterestedSubjects,
+                true,
+                "選擇有興趣的項目",
+                "捨棄",
+                "您還沒有選擇",
                 listArrayInterestedSubject,
-                MultiSpinnerListener { items ->
-                    val list = mutableListOf<String>()
-
-                    for (i in items.indices) {
-                        if (items[i].isSelected) {
-                            Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
-                            list.add(items[i].name)
-                        }
-                    }
-                    Logger.d("CheckSelected, Final Subject list in line 216 =$list")
-                    viewModel.setInterested(list)
-                })
+                "interested"
+        )
 
         // Navigating to Profile Fragment.
         viewModel.navigateToProfilePage.observe(viewLifecycleOwner, Observer{

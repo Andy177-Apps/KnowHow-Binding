@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerListener
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.Result
@@ -336,5 +338,31 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
             listArrayType.add(h)
         }
         return listArrayType
+    }
+
+    fun setMultipleSpinner(multipleItemSelectionSpinner: MultiSpinnerSearch, isSearchEnabled: Boolean, setSearchHint: String, setClearText: String, setEmptyTitle: String, listArray: MutableList<KeyPairBoolData>, listType: String) {
+        multipleItemSelectionSpinner.isSearchEnabled = isSearchEnabled
+        multipleItemSelectionSpinner.setSearchHint(setSearchHint)
+        multipleItemSelectionSpinner.setClearText(setClearText)
+        multipleItemSelectionSpinner.setEmptyTitle(setEmptyTitle)
+        multipleItemSelectionSpinner.setItems(
+                listArray,
+                MultiSpinnerListener { items ->
+                    val list = mutableListOf<String>()
+
+                    for (i in items.indices) {
+                        if (items[i].isSelected) {
+                            Logger.d(i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                            list.add(items[i].name)
+                        }
+                    }
+
+                    Logger.d("CheckSelected, Final $listType list =$list")
+
+                    when (listType) {
+                        "talented" -> setTalented(list)
+                        "interested" -> setInterested(list)
+                    }
+                })
     }
 }

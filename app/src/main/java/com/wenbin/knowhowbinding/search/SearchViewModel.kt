@@ -187,8 +187,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
                             list.add(items[i].name)
                         }
                     }
-
-                    Logger.d("CheckSelected, Final city list in line 108 =$list")
+                    Logger.d("CheckSelected, Final list =$list")
 
                     when (listType) {
                         "city" -> setupCity(list)
