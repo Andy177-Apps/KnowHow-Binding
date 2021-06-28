@@ -40,7 +40,6 @@ class SearchFragment : Fragment() {
 
         val listArrayType: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listType)
 
-        // Test
 
         viewModel.setSingleSpinner(
                 binding.singleItemSelectionSpinnerType,
