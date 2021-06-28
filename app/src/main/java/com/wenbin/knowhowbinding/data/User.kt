@@ -30,15 +30,3 @@ data class User(
 
         val introduction: String = ""
 ) : Parcelable
-
-@Parcelize
-data class Comment(
-    val poster_id : String,
-    val description: String
-) : Parcelable
-
-@Parcelize
-data class Following(
-        val userEmail : String="",
-        val userName: String=""
-) : Parcelable
