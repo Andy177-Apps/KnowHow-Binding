@@ -18,26 +18,3 @@ data class ChatRoom(
         var message : Message? = null,
         val latestMessage: String = ""
 ): Parcelable
-
-@Parcelize
-data class UserInfo(
-        var userEmail : String = "",
-        var userName : String = "",
-        var userImage : String = ""
-): Parcelable
-
-@Parcelize
-data class Message(
-        var id: String = "",
-        var senderName : String = "",
-        var senderImage : String = "",
-        var senderEmail : String = "",
-        var text : String = "",
-        var createdTime: Long = 0L
-) : Parcelable {
-    @SuppressLint("SimpleDateFormat")
-    @IgnoredOnParcel
-    private val sdf = SimpleDateFormat("yyyy.MM.dd.HH.mm")
-    val showTime = sdf.format(createdTime)
-}
-
