@@ -1,3 +1,6 @@
+*.apk
+*.aab
+*.ap_
 *.iml
 .gradle
 /local.properties
@@ -13,3 +16,7 @@
 .externalNativeBuild
 .cxx
 local.properties
+private_key.pepk
+
+# Android
+google-services.json
