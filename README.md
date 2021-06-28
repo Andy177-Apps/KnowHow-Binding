@@ -5,6 +5,8 @@ An app that connects people with knowledge. For anyone looking for a tutor, stud
 
 <img src="https://upload.cc/i1/2021/06/25/4j5qBv.png" width="500" />
 
+[<img
+src ="https://i.imgur.com/6Rsv9wB.png"  width="150" />](https://play.google.com/store/apps/details?id=com.wenbin.knowhowbinding)
 
 ## Features
 
