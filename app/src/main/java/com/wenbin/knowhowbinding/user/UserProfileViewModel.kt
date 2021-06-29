@@ -77,7 +77,6 @@ userEmail: String):ViewModel() {
         Logger.i("------------------------------------")
         _status.value = LoadApiStatus.LOADING
         getUser(selectedUserEmail)
-        getMyUserInfo(UserManager.user.email)
         getUserArticle(selectedUserEmail)
     }
 
