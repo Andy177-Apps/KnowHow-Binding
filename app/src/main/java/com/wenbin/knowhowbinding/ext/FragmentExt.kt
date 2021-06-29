@@ -43,23 +43,6 @@ fun Fragment.getVmFactory(answer: Answer) : SearchResultViewModelFactory {
     return SearchResultViewModelFactory(repository, answer)
 }
 
-fun Fragment.checkPermission() {
-    val permission = ActivityCompat.checkSelfPermission(KnowHowBindingApplication.instance.applicationContext,
-        android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    if (permission != PackageManager.PERMISSION_GRANTED) {
-        // No permission, so, ask the user for permission
-        ActivityCompat.requestPermissions(
-            requireActivity(),
-            arrayOf(
-                android.Manifest.permission.CAMERA,
-                android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            REQUEST_EXTERNAL_STORAGE
-        )
-    } else {
-        getLocalImg(this)
-    }
-}
-
 fun Fragment.checkPermission(requestCode : Int) {
     val permission = ActivityCompat.checkSelfPermission(KnowHowBindingApplication.instance.applicationContext,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -75,14 +58,6 @@ fun Fragment.checkPermission(requestCode : Int) {
     } else {
         getLocalImg(this, requestCode)
     }
-}
-
-fun getLocalImg(fragment: Fragment) {
-    ImagePicker.with(fragment)
-        .crop()	    			//Crop image(Optional), Check Customization for more option
-        .compress(1024)			//Final image size will be less than 1 MB(Optional)
-        .maxResultSize(1080, 1080)	//Final image resolution will be less than 1080 x 1080(Optional)
-        .start()
 }
 
 fun getLocalImg(fragment: Fragment, requestCode : Int) {

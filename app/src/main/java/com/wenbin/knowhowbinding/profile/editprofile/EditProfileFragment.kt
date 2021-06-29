@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,8 +15,6 @@ import com.wenbin.knowhowbinding.databinding.FragmentEditprofileBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import androidx.lifecycle.Observer
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
-import com.androidbuts.multispinnerfilter.SingleSpinnerListener
-import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.chip.Chip
@@ -53,7 +52,7 @@ class EditProfileFragment : Fragment() {
 
         binding.imageViewUpdateAvatar.setOnClickListener {
             Logger.d("checkUpdateImage, imageViewUpdateAvatar is clicked")
-            checkPermission()
+            checkPermission(PICK_IMAGE)
         }
 
         binding.imageViewUpdateBg.setOnClickListener {
@@ -199,11 +198,13 @@ class EditProfileFragment : Fragment() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         Logger.d("checkUpdateImageBg, requestCode in fragment = $requestCode")
+        Log.d("wenbin", "requestCode = $requestCode")
+        Log.d("wenbin", "REQUEST_EXTERNAL_STORAGE = $REQUEST_EXTERNAL_STORAGE")
 
         when (requestCode) {
             REQUEST_EXTERNAL_STORAGE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    getLocalImg(this)
+                    getLocalImg(this, requestCode)
                 } else {
                     Toast.makeText(this.context, R.string.do_nothing, Toast.LENGTH_SHORT).show()
                 }
