@@ -84,11 +84,9 @@ class UserProfileFragment: Fragment() {
                 Log.d("Check_btn", "isContains: true line 76")
 
                 showFollowButton(false)
-//                    setupFollowButton(true, it)
             } else {
                 Log.d("Check_btn", "isContains: false line 81")
                 showFollowButton(true)
-//                    setupFollowButton(false, it)
             }
         })
 
@@ -129,15 +127,7 @@ class UserProfileFragment: Fragment() {
                 viewModel.onMyArticleNavigated()
             }
         })
-
-        if (activity is MainActivity) {
-            Logger.d("user fun is used.")
-            (activity as MainActivity).coverBottomNav()
-            viewModel.userInfo.value?.let {
-                (activity as MainActivity).resetToolBar(it.name)
-                (activity as MainActivity).resetToolBar("個人頁面")
-            }
-        }
+        
         return binding.root
     }
 
@@ -204,37 +194,6 @@ class UserProfileFragment: Fragment() {
 
             binding.buttonFollow.visibility = View.GONE
             binding.buttonUnfollow.visibility = View.VISIBLE
-        }
-    }
-
-    private fun setupFollowButton(contains: Boolean, user: User) {
-        if (contains) {
-            binding.buttonUnfollow.setOnClickListener {
-                Log.d("Check_btn", "buttonUnfollow is clicked line 196")
-
-                Logger.d("Check_follow, Line136")
-                Logger.d("Check_follow, Line138")
-
-                viewModel.removeUserFromFollow(UserManager.user.email, user)
-                viewModel.getUser(viewModel.selectedUserEmail)
-                viewModel.getMyUserInfo(UserManager.user.email)
-                showFollowButton(true)
-
-            }
-        } else {
-            binding.buttonFollow.setOnClickListener {
-//                Logger.d("Check_follow, Line146")
-                Log.d("Check_btn", "buttonFollow is clicked line 210")
-
-                Log.d("Check_follow", "Line200")
-//                Logger.d("Check_follow, Line148")
-
-                viewModel.postUserToFollow(UserManager.user.email, user)
-                viewModel.getUser(viewModel.selectedUserEmail)
-                viewModel.getMyUserInfo(UserManager.user.email)
-                showFollowButton(false)
-
-            }
         }
     }
 }
