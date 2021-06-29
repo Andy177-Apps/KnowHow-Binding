@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.data.source.remote
 
-import android.content.ContentValues.TAG
 import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
@@ -16,7 +15,6 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.KnowHowBindingDataSource
-import com.wenbin.knowhowbinding.login.LoginActivity
 import com.wenbin.knowhowbinding.util.Logger
 import java.io.File
 import java.util.*

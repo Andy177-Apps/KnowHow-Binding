@@ -59,5 +59,4 @@ interface KnowHowBindingDataSource {
     suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>>
 
     suspend fun getAllUsers(): Result<List<User>>
-
 }

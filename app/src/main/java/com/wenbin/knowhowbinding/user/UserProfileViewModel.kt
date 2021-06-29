@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.user
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,6 +27,8 @@ userEmail: String):ViewModel() {
 
     val userInfo: LiveData<User>
         get() = _userInfo
+
+    var liveUser = MutableLiveData<List<User>>()
 
     private val _myInfo = MutableLiveData<User>()
 

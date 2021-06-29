@@ -99,8 +99,6 @@ class UserProfileFragment: Fragment() {
             Logger.d("Check_follow, Line138")
 
             viewModel.removeUserFromFollow(UserManager.user.email, viewModel.userInfo.value!!)
-//            viewModel.getUser(viewModel.selectedUserEmail)
-//            viewModel.getMyUserInfo(UserManager.user.email)
             showFollowButton(true)
         }
         binding.buttonFollow.setOnClickListener {
@@ -108,8 +106,6 @@ class UserProfileFragment: Fragment() {
             Log.d("Check_follow", "Line200")
 
             viewModel.postUserToFollow(UserManager.user.email, viewModel.userInfo.value!!)
-//            viewModel.getUser(viewModel.selectedUserEmail)
-//            viewModel.getMyUserInfo(UserManager.user.email)
             showFollowButton(false)
         }
 
