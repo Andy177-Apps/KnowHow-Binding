@@ -3,7 +3,6 @@ package com.wenbin.knowhowbinding.user
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +47,6 @@ class UserProfileFragment: Fragment() {
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Logger.d("Check_follow, accepted userInfo = $it")
-            Log.d("Check_follow", "Enter UserProfile: $it")
 
             imageViewGender.isSelected = it.gender == "male"
 
@@ -81,17 +79,14 @@ class UserProfileFragment: Fragment() {
 
             Logger.d("Check_follow, myInfo = $my")
             if (my.followingEmail.contains(viewModel.selectedUserEmail)) {
-                Log.d("Check_btn", "isContains: true line 76")
 
                 showFollowButton(false)
             } else {
-                Log.d("Check_btn", "isContains: false line 81")
                 showFollowButton(true)
             }
         })
 
         binding.buttonUnfollow.setOnClickListener {
-            Log.d("Check_btn", "buttonUnfollow is clicked line 196")
 
             Logger.d("Check_follow, Line136")
             Logger.d("Check_follow, Line138")
@@ -100,9 +95,6 @@ class UserProfileFragment: Fragment() {
             showFollowButton(true)
         }
         binding.buttonFollow.setOnClickListener {
-            Log.d("Check_btn", "buttonFollow is clicked line 210")
-            Log.d("Check_follow", "Line200")
-
             viewModel.postUserToFollow(UserManager.user.email, viewModel.userInfo.value!!)
             showFollowButton(false)
         }
@@ -127,7 +119,14 @@ class UserProfileFragment: Fragment() {
                 viewModel.onMyArticleNavigated()
             }
         })
-        
+
+        viewModel.liveUser.observe(viewLifecycleOwner, Observer {
+            Logger.d("viewModel.liveArticles.observe, it=$it")
+            it?.let {
+                viewModel.getUser(viewModel.selectedUserEmail)
+            }
+        })
+
         return binding.root
     }
 
@@ -181,8 +180,6 @@ class UserProfileFragment: Fragment() {
     private fun showFollowButton(showFollow: Boolean) {
         // show -> true, show buttonFollow
         // show -> false, show buttonUnFollow
-
-        Log.d("Check_btn", "showFollow line 178= $showFollow")
 
         if (showFollow) {
             Logger.d("Check_follow, Line121")
