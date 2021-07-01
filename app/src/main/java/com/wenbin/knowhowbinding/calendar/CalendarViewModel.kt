@@ -12,6 +12,7 @@ import com.wenbin.knowhowbinding.ext.sortByTimeStamp
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import com.wenbin.knowhowbinding.util.Logger
 import com.wenbin.knowhowbinding.util.TimeUtil
+import com.wenbin.knowhowbinding.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -77,7 +78,7 @@ class CalendarViewModel(
     }
 
     private fun getLiveEventsResult() {
-        liveEvents = repository.getLiveEvents()
+        liveEvents = repository.getLiveEvents(UserManager.user.email)
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
     }

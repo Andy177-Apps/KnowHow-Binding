@@ -22,7 +22,7 @@ interface KnowHowBindingDataSource {
 
     suspend fun getAllEvents():  Result<List<Event>>
 
-    fun getLiveEvents(): MutableLiveData<List<Event>>
+    fun getLiveEvents(userEmail: String): MutableLiveData<List<Event>>
 
     fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>>
 

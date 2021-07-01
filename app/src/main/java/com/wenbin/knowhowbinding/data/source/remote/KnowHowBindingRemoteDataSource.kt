@@ -716,12 +716,13 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 }
     }
 
-    override fun getLiveEvents(): MutableLiveData<List<Event>> {
+    override fun getLiveEvents(userEmail: String): MutableLiveData<List<Event>> {
 
         val liveData = MutableLiveData<List<Event>>()
 
         FirebaseFirestore.getInstance()
                 .collection(PATH_EVENTS)
+                .whereArrayContains("attendees", userEmail)
                 .addSnapshotListener { snapshot, exception ->
 
                     Logger.i("addSnapshotListener detect")
