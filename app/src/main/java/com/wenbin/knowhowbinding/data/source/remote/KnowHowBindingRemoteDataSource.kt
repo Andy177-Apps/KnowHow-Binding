@@ -856,6 +856,34 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                         }
             }
 
+    override fun getLiveUser(userEmail: String): MutableLiveData<List<User>> {
+
+        val liveData = MutableLiveData<List<User>>()
+
+        FirebaseFirestore.getInstance()
+                .collection(PATH_USERS)
+                .whereEqualTo("email", userEmail)
+                .addSnapshotListener { snapshot, exception ->
+
+                    Logger.i("addSnapshotListener detect")
+
+                    exception?.let {
+                        Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
+                    }
+
+                    val list = mutableListOf<User>()
+                    for (document in snapshot!!) {
+                        Logger.d(document.id + " => " + document.data)
+
+                        val user = document.toObject(User::class.java)
+                        list.add(user)
+                    }
+
+                    liveData.value = list
+                }
+        return liveData
+    }
+
     override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {
         val liveData = MutableLiveData<List<Event>>()
         FirebaseFirestore.getInstance()

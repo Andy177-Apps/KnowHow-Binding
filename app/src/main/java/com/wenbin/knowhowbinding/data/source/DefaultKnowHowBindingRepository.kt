@@ -58,6 +58,10 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.getUser(userEmail)
     }
 
+    override fun getLiveUser(userEmail: String): MutableLiveData<List<User>> {
+        return KnowHowBindingRemoteDataSource.getLiveUser(userEmail)
+    }
+
     override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {
         return KnowHowBindingRemoteDataSource.getLiveMyEventInvitation(userEmail)
     }

@@ -30,6 +30,8 @@ interface KnowHowBindingRepository {
 
     suspend fun getUser(userEmail: String): Result<User>
 
+    fun getLiveUser(userEmail: String): MutableLiveData<List<User>>
+
     fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>>
 
     suspend fun acceptEvent(event: Event, userEmail: String, userName: String, userImage: String): Result<Boolean>

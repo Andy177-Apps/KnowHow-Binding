@@ -66,6 +66,10 @@ class KnowHowBindingLocalDataSource(val context: Context) : KnowHowBindingDataSo
         TODO("Not yet implemented")
     }
 
+    override fun getLiveUser(userEmail: String): MutableLiveData<List<User>> {
+        TODO("Not yet implemented")
+    }
+
     override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {
         TODO("Not yet implemented")
     }
