@@ -3,6 +3,7 @@ package com.wenbin.knowhowbinding.user
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import com.wenbin.knowhowbinding.util.Logger
+import java.lang.ref.WeakReference
 
 class UserProfileFragment: Fragment() {
 
@@ -74,6 +76,8 @@ class UserProfileFragment: Fragment() {
             }
         })
 
+        val str = WeakReference(viewModel.userInfo)
+
         // follow
         viewModel.myInfo.observe(viewLifecycleOwner, Observer { my ->
 
@@ -120,7 +124,20 @@ class UserProfileFragment: Fragment() {
             }
         })
 
+        str.isEnqueued.let {
+            Log.d("GC", "str.get() = ${str.get()!!.value}")
+        }
+        if (str.get()==null) {
+            println("str 已經被清除了 ");
+            Log.d("GC", "str 已經被清除了 ")
+
+        } else {
+            println("str 尚未被清除")
+            Log.d("GC", "str 尚未被清除")
+        }
+
         viewModel.liveUser.observe(viewLifecycleOwner, Observer {
+            Log.d("GC", "str.get() = ${str.get()!!.value}")
             Logger.d("viewModel.liveArticles.observe, it=$it")
             it?.let {
                 viewModel.getUser(viewModel.selectedUserEmail)

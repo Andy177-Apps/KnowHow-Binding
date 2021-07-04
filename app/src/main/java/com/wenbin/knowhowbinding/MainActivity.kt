@@ -1,11 +1,11 @@
-package com.wenbin.knowhowbinding
+    package com.wenbin.knowhowbinding
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
-import android.widget.Button
-import androidx.appcompat.widget.Toolbar
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
@@ -20,15 +20,13 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.firestore.DocumentChange
 import com.google.firebase.firestore.FirebaseFirestore
 import com.wenbin.knowhowbinding.databinding.ActivityMainBinding
-import com.wenbin.knowhowbinding.databinding.AppBarMainBinding
-import com.wenbin.knowhowbinding.databinding.ContentMainBinding
 import com.wenbin.knowhowbinding.databinding.NavHeaderMain02Binding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.CurrentFragmentType
 import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.content_main.*
+import java.lang.ref.WeakReference
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -75,9 +73,34 @@ class MainActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val r: WeakReference<*> = WeakReference<Any?>("I'm here")
+        val sr = ("I'm here")
+        val sleepDuration: Long = 110000
+        Log.d("weakReference", "Before gc: r=" + r.get() + ", static=" + sr)
+        System.gc()
+        Thread.sleep(sleepDuration)
+
+        // Only r.get() becomes null.
+        if (r.get() != null) {
+            Log.d("weakReference", "After gc: r=" + r.get() + ", static=" + sr)
+        }
+        else {
+            Log.d("weakReference", "After gc: r= null, static=$sr")
+        }
+
+
+
+
+
+        val str = WeakReference("弱引用")
+        Log.d("wenbin", "str.get() = ${str.get()}")
+
+        str.get()?.let { it1 -> Log.e("wenbin", it1) }
+
+
         // Set up header of drawer ui using data binding
         val bindingNavHeader = NavHeaderMain02Binding.inflate(
-            LayoutInflater.from(this), binding.navView, false
+                LayoutInflater.from(this), binding.navView, false
         )
 
         bindingNavHeader.lifecycleOwner = this
@@ -97,7 +120,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.articleFragment, R.id.myArticleFragment, R.id.myCollectFragment, R.id.followedByFragment, R.id.followingFragment), drawerLayout)
+                R.id.articleFragment, R.id.myArticleFragment, R.id.myCollectFragment, R.id.followedByFragment, R.id.followingFragment), drawerLayout)
 
         // The following function is to show the three bars in the upper left corner
         // in the upper right corner of the ToolBar
@@ -188,7 +211,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.currentFragmentType.value = when (navController.currentDestination?.id) {
                 R.id.homeFragment -> CurrentFragmentType.HOME
                 R.id.searchFragment -> CurrentFragmentType.SEARCH
-                R.id.calendarFragment-> CurrentFragmentType.CALENDAR
+                R.id.calendarFragment -> CurrentFragmentType.CALENDAR
                 R.id.chatRoomFragment -> CurrentFragmentType.CHATROOM
                 R.id.profileFragment -> CurrentFragmentType.PROFILE
                 else -> viewModel.currentFragmentType.value

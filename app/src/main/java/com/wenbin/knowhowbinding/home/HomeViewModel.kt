@@ -16,6 +16,7 @@ import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
+import java.lang.ref.WeakReference
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 

@@ -1,9 +1,12 @@
 package com.wenbin.knowhowbinding.home
 
+import android.app.ActivityManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -13,6 +16,8 @@ import com.wenbin.knowhowbinding.databinding.FragmentArticleBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.*
+import java.lang.ref.ReferenceQueue
+import java.lang.ref.WeakReference
 
 class ArticleFragment : Fragment() {
 
@@ -30,7 +35,28 @@ class ArticleFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
+        val queue = ReferenceQueue<Int?>()
+        var mWeakReference: WeakReference<Int?>? = null
+        var number: Int? =1
+
+        mWeakReference = WeakReference(number , queue)
+
         binding.imageViewSearch.setOnClickListener {
+            System.gc()
+
+            Log.d("GC", "binding.imageViewSearch is clicked")
+            Log.d("GC", "number = $number")
+
+            Log.d("GC", "mWeakReference.get()" + mWeakReference!!.get())
+
+
+            number = null
+            System.gc()
+            Log.d("GC", "Updated number = $number")
+
+            Log.d("GC", "mWeakReference.get()" + mWeakReference!!.get())
+
+
             Logger.d("checkSearch, binding.imageViewSearch is clicked")
 
             Logger.d("checkSearch, binding.editTextSearch.text.toString() = ${binding.editTextSearch.text}")
@@ -63,4 +89,5 @@ class ArticleFragment : Fragment() {
         }
         super.onDestroyView()
     }
+
 }
