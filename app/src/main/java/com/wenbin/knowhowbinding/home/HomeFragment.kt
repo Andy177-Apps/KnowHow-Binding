@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,12 +79,12 @@ class HomeFragment (val type: String) : Fragment() {
                     for (item in it) {
                         item.author?.let {
                             if (
-                                item.author.name.contains(searchEditText) ||
-                                item.author.identity.contains(searchEditText) ||
-                                item.city.contains(searchEditText) ||
-                                item.find.contains(searchEditText) ||
-                                item.give.contains(searchEditText) ||
-                                item.content.contains(searchEditText)
+                                    item.author.name.contains(searchEditText) ||
+                                    item.author.identity.contains(searchEditText) ||
+                                    item.city.contains(searchEditText) ||
+                                    item.find.contains(searchEditText) ||
+                                    item.give.contains(searchEditText) ||
+                                    item.content.contains(searchEditText)
                             ) {
                                 resultList.add(item)
                             }
@@ -97,12 +98,12 @@ class HomeFragment (val type: String) : Fragment() {
                         for (item in it) {
                             item.author?.let {
                                 if (
-                                    item.author.name.contains(searchEditText) ||
-                                    item.author.identity.contains(searchEditText) ||
-                                    item.city.contains(searchEditText) ||
-                                    item.find.contains(searchEditText) ||
-                                    item.give.contains(searchEditText) ||
-                                    item.content.contains(searchEditText)
+                                        item.author.name.contains(searchEditText) ||
+                                        item.author.identity.contains(searchEditText) ||
+                                        item.city.contains(searchEditText) ||
+                                        item.find.contains(searchEditText) ||
+                                        item.give.contains(searchEditText) ||
+                                        item.content.contains(searchEditText)
                                 ) {
                                     resultList.add(item)
                                 }
@@ -116,15 +117,18 @@ class HomeFragment (val type: String) : Fragment() {
             })
 
             // Original
-            if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
-                adapter.submitList(it)
-            } else {
-                it?.let {
-                    adapter.submitList(it.filter { Article ->
-                        Article.type == type
-                    })
+            if (articleViewModel.searchEditText.value == null) {
+                if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
+                    adapter.submitList(it)
+                } else {
+                    it?.let {
+                        adapter.submitList(it.filter { Article ->
+                            Article.type == type
+                        })
+                    }
                 }
             }
+
         })
 
         // ProgressBar
