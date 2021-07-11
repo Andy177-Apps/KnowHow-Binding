@@ -34,7 +34,6 @@ class MyArticleFragment : Fragment() {
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("我的文章")
-            (activity as MainActivity).coverBottomNav()ㄔㄛ
         }
         return binding.root
     }
