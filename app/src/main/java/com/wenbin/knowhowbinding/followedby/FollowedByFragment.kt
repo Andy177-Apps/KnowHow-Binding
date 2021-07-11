@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentFollowedbyBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
@@ -46,9 +45,6 @@ class FollowedByFragment : Fragment() {
             viewModel.getFollowedBy(it.followedBy)
         })
 
-        if (activity is MainActivity) {
-            (activity as MainActivity).resetToolBar("粉絲")
-        }
         return binding.root
     }
 }

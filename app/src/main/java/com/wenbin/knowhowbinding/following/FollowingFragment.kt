@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentFollowingBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
@@ -42,10 +41,6 @@ class FollowingFragment : Fragment() {
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Logger.d("checkFollowing, userInfo = $it")
         })
-
-        if (activity is MainActivity) {
-            (activity as MainActivity).resetToolBar("追蹤中")
-        }
 
         return binding.root
     }
