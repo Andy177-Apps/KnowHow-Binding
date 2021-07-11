@@ -49,6 +49,7 @@ class FollowedByFragment : Fragment() {
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("粉絲")
         }
+
         return binding.root
     }
 }
