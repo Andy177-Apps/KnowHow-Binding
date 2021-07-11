@@ -2,6 +2,7 @@ package com.wenbin.knowhowbinding.calendar.createevent
 
 import android.app.TimePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -115,13 +116,19 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             showTimePickerDialog(timePickerTypeEnd, hour, minute)
         }
         binding.viewBtnSend.setOnClickListener {
-            val event = viewModel.getEvent()
-            Logger.d("event = $event")
-            Logger.i("${viewModel.startTime.value}")
+            Log.d("checkFormFilled", viewModel.isFormFilled().toString())
+            if (viewModel.isFormFilled()) {
+                val event = viewModel.getEvent()
+                Logger.d("event = $event")
+                Logger.i("${viewModel.startTime.value}")
 
-            viewModel.post(event)
-            Logger.i("$event")
-            findNavController().navigate(CreateEventDialogFragmentDirections.navigateToCalendarFragment())
+                viewModel.post(event)
+                Logger.i("$event")
+                findNavController().navigate(CreateEventDialogFragmentDirections.navigateToCalendarFragment())
+            }
+            else {
+                Toast.makeText(this.context, "約定名稱, 地點和 Type 都要選擇喔！", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.spinnerCategory.adapter = CreateEventTypeSpinnerAdapter(

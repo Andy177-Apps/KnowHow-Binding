@@ -91,6 +91,13 @@ class PostArticleViewModel(
         )
     }
 
+    fun isFormFilled(): Boolean {
+        return articleCity.value !== null &&
+                articleFind.value !== null &&
+                articleGive.value !== null &&
+                articleType.value !== 0.toString()
+    }
+
     fun publish(article: Article) {
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING

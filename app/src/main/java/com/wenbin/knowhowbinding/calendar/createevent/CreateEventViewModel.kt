@@ -20,8 +20,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class CreateEventViewModel(
-    private val repository: KnowHowBindingRepository,
-    selectedDate: Long
+        private val repository: KnowHowBindingRepository,
+        selectedDate: Long
 ) : ViewModel() {
 
     val title = MutableLiveData<String>()
@@ -136,7 +136,7 @@ class CreateEventViewModel(
                 }
                 else -> {
                     _error.value =
-                        KnowHowBindingApplication.instance.getString(R.string.connect_fails)
+                            KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                     null
                 }
@@ -149,20 +149,26 @@ class CreateEventViewModel(
     fun getEvent(): Event {
         //Where, id and createdTime are both assigned in fun postEvent at RemoteDataSource
         return Event(
-            city = city.value.toString(),
-            title = title.value.toString(),
-            description = description.value.toString(),
-            creatorName = "Wenbin",
-            creatorImage = UserManager.user.image,
-            attendees = listOf(UserManager.user.email),
-            attendeesName = listOf(UserManager.user.name),
-            tag = type.value.toString(),
-            eventTime = eventTime.value ?: -1,
-            startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
-            endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
-            invitation = _multipleInvitation.value ?: listOf() ,
-            attendeesImage = listOf(userInfo.value!!.image)
+                city = city.value.toString(),
+                title = title.value.toString(),
+                description = description.value.toString(),
+                creatorName = "Wenbin",
+                creatorImage = UserManager.user.image,
+                attendees = listOf(UserManager.user.email),
+                attendeesName = listOf(UserManager.user.name),
+                tag = type.value.toString(),
+                eventTime = eventTime.value ?: -1,
+                startTime = if (isAllDay.value == false) startTime.value ?: -1L else -1L,
+                endTime = if (isAllDay.value == false) endTime.value ?: -1L else -1L,
+                invitation = _multipleInvitation.value ?: listOf(),
+                attendeesImage = listOf(userInfo.value!!.image)
         )
+    }
+
+    fun isFormFilled(): Boolean {
+        return city.value !== null &&
+                title.value !== null &&
+                type.value !== 0.toString()
     }
 
     fun post(event: Event) {
@@ -186,7 +192,7 @@ class CreateEventViewModel(
                 }
                 else -> {
                     _error.value =
-                        KnowHowBindingApplication.instance.getString(R.string.connect_fails)
+                            KnowHowBindingApplication.instance.getString(R.string.connect_fails)
                     _status.value = LoadApiStatus.ERROR
                 }
             }
