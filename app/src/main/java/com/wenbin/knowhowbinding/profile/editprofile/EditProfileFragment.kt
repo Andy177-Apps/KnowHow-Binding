@@ -120,9 +120,6 @@ class EditProfileFragment : Fragment() {
             }
         }
 
-        viewModel.selectedGender.observe(viewLifecycleOwner, Observer {
-            Log.d("checkGender","selectedGender = $it")
-        })
         //-- multipleItemSelectionSpinner_type
         val listType = KnowHowBindingApplication.instance.resources.getStringArray(R.array.city_array)
         val listArrayType: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listType)

@@ -50,12 +50,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     //Consequence for selected chip interestedSubjects
     private var _selectedInterested = MutableLiveData<List<String>>()
-    val selectedInterested : LiveData<List<String>>
+    private val selectedInterested : LiveData<List<String>>
         get() = _selectedInterested
 
     //Variables for editable component
     private var _selectedGender = MutableLiveData<String>()
-    val selectedGender : LiveData<String>
+    private val selectedGender : LiveData<String>
         get() = _selectedGender
 
     //Consequence for selected city
@@ -170,7 +170,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     }
 
     fun getUser(): User {
-        Log.d("checkGender", "selectedGender = ${selectedGender.value}")
+        Log.d("checkGender", "selectedGender in viewModel= ${selectedGender.value}")
 
         return User(
                 id = UserManager.user.id,

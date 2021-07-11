@@ -813,7 +813,8 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                                 "interestedSubjects", user.interestedSubjects,
                                 "introduction", user.introduction,
                                 "image", user.image,
-                                "bgImage", user.bgImage
+                                "bgImage", user.bgImage,
+                                "gender", user.gender
                         )
                     }
                 }
