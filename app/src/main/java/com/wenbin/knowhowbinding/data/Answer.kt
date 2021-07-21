@@ -9,4 +9,4 @@ data class Answer(
     val city : List<String> = listOf(),
     val gender : String = "",
     val subject : List<String> = listOf(),
-    ) : Parcelable
+) : Parcelable

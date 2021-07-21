@@ -18,5 +18,4 @@ data class Message(
     @SuppressLint("SimpleDateFormat")
     @IgnoredOnParcel
     private val sdf = SimpleDateFormat("yyyy.MM.dd.HH.mm")
-    val showTime = sdf.format(createdTime)
 }

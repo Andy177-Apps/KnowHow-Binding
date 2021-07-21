@@ -27,8 +27,6 @@ class FreshUserDialogFragment: AppCompatDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = DialogFreshUserBinding.inflate(inflater)
-        Logger.d("checkImage, user = ${UserManager.user}")
-        Logger.d("checkImage, image = ${UserManager.user.image}")
         val reminder = SpannableStringBuilder()
             .bold { append(getString(R.string.reminder_new_member_bold)) }
             .append(getString(R.string.reminder_new_member))

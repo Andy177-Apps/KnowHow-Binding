@@ -31,15 +31,10 @@ class ArticleFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.imageViewSearch.setOnClickListener {
-            Logger.d("checkSearch, binding.imageViewSearch is clicked")
-
-            Logger.d("checkSearch, binding.editTextSearch.text.toString() = ${binding.editTextSearch.text}")
-
             viewModel.searchEditText.value = binding.editTextSearch.text.toString()
         }
 
         viewModel.searchEditText.observe(viewLifecycleOwner, Observer {
-            Logger.d("checkSearch, searchEditText in ArticleFragment = $it")
         })
 
         binding.apply {

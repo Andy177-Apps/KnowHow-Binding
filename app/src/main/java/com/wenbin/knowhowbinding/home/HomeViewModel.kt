@@ -25,45 +25,33 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
     val  searchEditText = MutableLiveData<String>()
 
     private val _articles = MutableLiveData<List<Article>>()
-
     val articles: LiveData<List<Article>>
         get() = _articles
 
     private val _user = MutableLiveData<User>()
-
     val user: LiveData<User>
         get() = _user
 
     private val _userInfo = MutableLiveData<User>()
-
     val userInfo: LiveData<User>
         get() = _userInfo
 
     private val _navigateToPostArticle = MutableLiveData<Boolean>()
-
     val navigateToPostArticle: LiveData<Boolean>
         get() = _navigateToPostArticle
 
-    private var _checked = MutableLiveData<Boolean>()
-
-    val checked: LiveData<Boolean>
-        get() = _checked
-
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -101,14 +89,12 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
     }
 
     private fun getArticlesResult() {
-        Logger.d("checkArticles, fun getArticlesResult is used in ViewModel.")
 
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.getArticles()
-            Logger.d("ArticlesResult = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {
@@ -147,7 +133,6 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.loginMockData(id)
-            Logger.d("result = $result")
             _user.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
@@ -188,7 +173,6 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
         if (currentUser != null) {
             UserManager.user = currentUser
         }
-        Logger.d("UserManager.user = ${UserManager.user}")
     }
 
     private fun getUser(userEmail: String) {
@@ -248,9 +232,5 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
                 }
             }
         }
-    }
-
-    fun isChecked(value: Boolean) {
-        _checked.value = value
     }
 }

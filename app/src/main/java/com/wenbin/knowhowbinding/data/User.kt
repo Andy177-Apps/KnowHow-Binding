@@ -19,14 +19,9 @@ data class User(
         var followingEmail: List<String> = listOf(),
         var followingName: List<String> = listOf(),
         var followedBy: List<String> = listOf(),
-
         var following: List<Following> = listOf(),
-
         var identity: String = "尚未設定",
-
         val talentedSubjects: List<String> = listOf(),
-
         val interestedSubjects: List<String> = listOf(),
-
         val introduction: String = ""
 ) : Parcelable

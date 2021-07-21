@@ -30,7 +30,6 @@ class MessageFragment : Fragment() {
 
         val myUserEmail = UserManager.user.email
         val friendUserEmail = viewModel.currentChattingUser
-        Logger.d("myUserEmail = $myUserEmail, friendUserEmail = $friendUserEmail")
 
         val adapter = MessageAdapter()
         binding.recyclerView.adapter = adapter
@@ -40,7 +39,6 @@ class MessageFragment : Fragment() {
         })
 
         binding.imageViewSend.setOnClickListener {
-
             viewModel.sendMessage(myUserEmail, friendUserEmail)
             viewModel.textSend.value = ""
         }

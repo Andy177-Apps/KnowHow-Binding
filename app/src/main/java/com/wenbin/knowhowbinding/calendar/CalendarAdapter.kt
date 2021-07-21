@@ -21,8 +21,6 @@ class CalendarAdapter : ListAdapter<Event,
             binding.event = item
 
             binding.cardViewEvent.setOnClickListener {
-
-                Logger.d("cardView is clicked")
                 if (binding.layoutScheduleDetail.visibility == View.GONE) {
                     binding.layoutScheduleDetail.visibility = View.VISIBLE
                 } else {

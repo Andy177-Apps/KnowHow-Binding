@@ -22,13 +22,15 @@ interface KnowHowBindingRepository {
 
     suspend fun getAllEvents():  Result<List<Event>>
 
-    fun getLiveEvents(): MutableLiveData<List<Event>>
+    fun getLiveEvents(userEmail: String): MutableLiveData<List<Event>>
 
     fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>>
 
     suspend fun updateUser(user: User):  Result<Boolean>
 
     suspend fun getUser(userEmail: String): Result<User>
+
+    fun getLiveUser(userEmail: String): MutableLiveData<List<User>>
 
     fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>>
 

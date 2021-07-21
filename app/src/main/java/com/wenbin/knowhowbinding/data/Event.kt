@@ -20,5 +20,4 @@ data class Event (
     var startTime : Long = -1L,
     val endTime : Long = -1L,
     var invitation : List<String> = listOf("")
-
-    ) : Parcelable
+) : Parcelable

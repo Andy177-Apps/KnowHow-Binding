@@ -19,19 +19,16 @@ import kotlinx.coroutines.launch
 class MyArticleViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
-
     val articles: LiveData<List<Article>>
         get() = _articles
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
@@ -51,12 +48,10 @@ class MyArticleViewModel(private val repository: KnowHowBindingRepository) : Vie
     }
 
     private fun getUserArticle(userEmail: String) {
-        Logger.d("MyArticleFragment, getUserArticle is used.")
 
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Logger.d("MyArticleFragment, result = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {

@@ -24,21 +24,14 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
             // When bookmark icon is selected
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Logger.d("saveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
-
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
-
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
 
             binding.constraintLayoutUserInformation.setOnClickListener {
-                Logger.d("check_clicked, binding.textViewDescription is clicked")
-
                 item.author?.let {
-                    Logger.d("check_clicked, item.author.email = ${item.author.email}")
-                    Logger.d("check_clicked, UserManager.user.email = ${UserManager.user.email}")
 
                     if (item.author.email == UserManager.user.email) {
                         Navigation.createNavigateOnClickListener(NavigationDirections.navigateToProfileFragment()).

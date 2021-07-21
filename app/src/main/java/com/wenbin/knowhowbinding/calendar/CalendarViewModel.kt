@@ -12,6 +12,7 @@ import com.wenbin.knowhowbinding.ext.sortByTimeStamp
 import com.wenbin.knowhowbinding.network.LoadApiStatus
 import com.wenbin.knowhowbinding.util.Logger
 import com.wenbin.knowhowbinding.util.TimeUtil
+import com.wenbin.knowhowbinding.login.UserManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -23,7 +24,6 @@ class CalendarViewModel(
     private val repository: KnowHowBindingRepository
 ) : ViewModel() {
     private val _events = MutableLiveData<List<Event>>()
-
     val events: LiveData<List<Event>>
         get() = _events
 
@@ -31,7 +31,6 @@ class CalendarViewModel(
 
     // Handle navigation to CreateEventDialogFragment with Selected date by safe arg
     private val _navigationToCreateEventDialogFragment = MutableLiveData<Long>()
-
     val navigationToCreateEventDialogFragment : LiveData<Long>
         get() = _navigationToCreateEventDialogFragment
 
@@ -39,19 +38,16 @@ class CalendarViewModel(
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -77,7 +73,7 @@ class CalendarViewModel(
     }
 
     private fun getLiveEventsResult() {
-        liveEvents = repository.getLiveEvents()
+        liveEvents = repository.getLiveEvents(UserManager.user.email)
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
     }
@@ -89,7 +85,6 @@ class CalendarViewModel(
 
             val result = repository.getAllEvents()
 
-            Logger.d("EventsResult = $result")
             _events.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
@@ -117,12 +112,9 @@ class CalendarViewModel(
     }
 
     fun createdDailyEvent (toTimeStamp: Long) {
-        Logger.d("toTimeStamp = $toTimeStamp")
 
-        Logger.d("liveEvents.value = ${liveEvents.value}")
         selectedLiveEvent.value = liveEvents.value.sortByTimeStamp(toTimeStamp)
         _navigationToCreateEventDialogFragment.value = toTimeStamp
-        Logger.d("selectedLiveEvent.value = ${selectedLiveEvent.value}")
 
     }
 

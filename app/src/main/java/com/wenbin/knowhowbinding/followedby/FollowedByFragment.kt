@@ -8,10 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.NavigationDirections
 import com.wenbin.knowhowbinding.databinding.FragmentFollowedbyBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.util.Logger
 
 class FollowedByFragment : Fragment() {
     private lateinit var binding: FragmentFollowedbyBinding
@@ -38,12 +38,13 @@ class FollowedByFragment : Fragment() {
             }
         })
 
-        viewModel.appOwenerUser.observe(viewLifecycleOwner, Observer {
-            Logger.d("checkFollowedBy, appOwenerUser = $it")
-            Logger.d("checkFollowedBy, appOwenerUser.followedBy = ${it.followedBy}")
-
+        viewModel.appOwnerUser.observe(viewLifecycleOwner, Observer {
             viewModel.getFollowedBy(it.followedBy)
         })
+
+        if (activity is MainActivity) {
+            (activity as MainActivity).resetToolBar("粉絲")
+        }
 
         return binding.root
     }

@@ -46,8 +46,7 @@ class ProfileFragment  : Fragment() {
 
         mainViewModel.getUser(UserManager.user.email)
         mainViewModel.getUserArticle(UserManager.user.email)
-
-
+        
         var adapter = ProfileRecommendedAdapter(ProfileRecommendedAdapter.OnClickListener {
             viewModel.navigateToUserProfile(it)
         })

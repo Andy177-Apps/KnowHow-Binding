@@ -7,8 +7,6 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.factory.ViewModelFactory
 
 /**
- * Created by Wayne Chen in Jul. 2019.
- *
  * Extension functions for Activity.
  */
 fun Activity.getVmFactory(): ViewModelFactory {

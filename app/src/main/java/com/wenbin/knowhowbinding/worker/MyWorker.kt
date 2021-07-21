@@ -33,19 +33,19 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineW
             // Create the notification to be shown
             val mBuilder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 Notification.Builder(appContext, "K.H.Binding")
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(KnowHowBindingApplication.instance.applicationContext.getColor(R.color.colorPrimary))
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setColor(KnowHowBindingApplication.instance.applicationContext.getColor(R.color.primary))
                     .setContentTitle("Upcoming Appointment")
                     .setContentText(content)
                     .setAutoCancel(true)
                     .setShowWhen(true)
                     .setWhen(currentTime)
-                    .setContentIntent(PendingIntent.getActivity(appContext, 0, Intent(appContext, MainActivity::class.java), 0))
+                    .setContentIntent(PendingIntent.getActivity(appContext, 0, Intent(appContext, MainActivity::class.java), PendingIntent.FLAG_UPDATE_CURRENT))
                     .setPriority(Notification.PRIORITY_DEFAULT)
-            } else {
+             } else {
                 Notification.Builder(appContext)
-                    .setSmallIcon(R.drawable.ic_notification)
-                    .setColor(KnowHowBindingApplication.instance.applicationContext.getColor(R.color.colorPrimary))
+                    .setSmallIcon(R.mipmap.ic_launcher_round)
+                    .setColor(KnowHowBindingApplication.instance.applicationContext.getColor(R.color.primary))
                     .setContentTitle("Upcoming Appointment")
                     .setContentText(content)
                     .setAutoCancel(true)

@@ -42,8 +42,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return knowHowBindingRemoteDataSource.getAllEvents()
     }
 
-    override fun getLiveEvents(): MutableLiveData<List<Event>> {
-        return knowHowBindingRemoteDataSource.getLiveEvents()
+    override fun getLiveEvents(userEmail: String): MutableLiveData<List<Event>> {
+        return knowHowBindingRemoteDataSource.getLiveEvents(userEmail)
     }
 
     override fun getLiveMessages(emails: List<String>): MutableLiveData<List<Message>> {
@@ -56,6 +56,10 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
 
     override suspend fun getUser(userEmail: String): Result<User> {
         return KnowHowBindingRemoteDataSource.getUser(userEmail)
+    }
+
+    override fun getLiveUser(userEmail: String): MutableLiveData<List<User>> {
+        return KnowHowBindingRemoteDataSource.getLiveUser(userEmail)
     }
 
     override fun getLiveMyEventInvitation(userEmail: String): MutableLiveData<List<Event>> {

@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.profile.editprofile
 
+import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -27,6 +28,8 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     val identity = MutableLiveData<String>()
 
+    private var isBgImageUpdated = false
+
     val talentedSubjects = MutableLiveData<String>()
 
     val interestedSubjects = MutableLiveData<String>()
@@ -34,7 +37,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     val introduction = MutableLiveData<String>()
 
     val talentedList: MutableList<String> = ArrayList()
-    val interestedList: MutableList<String> = ArrayList()
+    private val interestedList: MutableList<String> = ArrayList()
 
     private var imageUrlPath : String = ""
     private var bgImageUrlPath : String = ""
@@ -42,17 +45,17 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     //Consequence for selected chip talentedSubjects
     private var _selectedTalented = MutableLiveData<List<String>>()
-    val selectedTalented : LiveData<List<String>>
+    private val selectedTalented : LiveData<List<String>>
         get() = _selectedTalented
 
     //Consequence for selected chip interestedSubjects
     private var _selectedInterested = MutableLiveData<List<String>>()
-    val selectedInterested : LiveData<List<String>>
+    private val selectedInterested : LiveData<List<String>>
         get() = _selectedInterested
 
     //Variables for editable component
     private var _selectedGender = MutableLiveData<String>()
-    val selectedGender : LiveData<String>
+    private val selectedGender : LiveData<String>
         get() = _selectedGender
 
     //Consequence for selected city
@@ -167,8 +170,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     }
 
     fun getUser(): User {
-        Logger.d("checkUpdateImage, enter getUser() $imageUrlPath")
-        Logger.d("checkUpdateImage,enter getUser() bgImageUrlPath = $bgImageUrlPath")
+        Log.d("checkGender", "selectedGender in viewModel= ${selectedGender.value}")
 
         return User(
                 id = UserManager.user.id,
@@ -228,6 +230,8 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     fun getBgImageUri(filePath: String) {
 
+        isBgImageUpdated = true
+
         coroutineScope.launch {
 
             Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
@@ -275,10 +279,15 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
 
     fun navigateToProfilePage() {
-        if (bgImageUrlPath != "") {
+        if (isBgImageUpdated) {
+            if (bgImageUrlPath != "") {
+                _navigateToProfilePage.value = true
+            } else {
+                Toast.makeText(KnowHowBindingApplication.appContext, "照片上傳中請稍後再儲存", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else {
             _navigateToProfilePage.value = true
-        } else {
-            Toast.makeText(KnowHowBindingApplication.appContext, "照片上傳中請稍後再儲存", Toast.LENGTH_SHORT).show()
         }
     }
 

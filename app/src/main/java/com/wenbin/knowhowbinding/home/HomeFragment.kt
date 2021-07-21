@@ -1,6 +1,7 @@
 package com.wenbin.knowhowbinding.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,6 @@ import java.util.*
 
 class HomeFragment (val type: String) : Fragment() {
     private lateinit var binding : FragmentHomeBinding
-    private lateinit var bindingArticle: FragmentArticleBinding
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     private val articleViewModel by viewModels<ArticleViewModel>({ requireParentFragment()})
@@ -55,7 +55,6 @@ class HomeFragment (val type: String) : Fragment() {
             Logger.d("articles = $it")
         })
 
-        Logger.d("userEmail = UserManager.user.email")
         // Navigating to Post Article Fragment.
         viewModel.navigateToPostArticle.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             it?.let {
@@ -69,21 +68,19 @@ class HomeFragment (val type: String) : Fragment() {
 
         // Determine fragment.
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            Logger.d("checkType, type = $type")
 
             articleViewModel.searchEditText.observe(viewLifecycleOwner, Observer { searchEditText->
-                Logger.d("checkSearch, searchEditText in HomeFragment= $searchEditText")
                 if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
                     val resultList = mutableListOf<Article>()
                     for (item in it) {
                         item.author?.let {
                             if (
-                                item.author.name.contains(searchEditText) ||
-                                item.author.identity.contains(searchEditText) ||
-                                item.city.contains(searchEditText) ||
-                                item.find.contains(searchEditText) ||
-                                item.give.contains(searchEditText) ||
-                                item.content.contains(searchEditText)
+                                    item.author.name.contains(searchEditText) ||
+                                    item.author.identity.contains(searchEditText) ||
+                                    item.city.contains(searchEditText) ||
+                                    item.find.contains(searchEditText) ||
+                                    item.give.contains(searchEditText) ||
+                                    item.content.contains(searchEditText)
                             ) {
                                 resultList.add(item)
                             }
@@ -97,12 +94,12 @@ class HomeFragment (val type: String) : Fragment() {
                         for (item in it) {
                             item.author?.let {
                                 if (
-                                    item.author.name.contains(searchEditText) ||
-                                    item.author.identity.contains(searchEditText) ||
-                                    item.city.contains(searchEditText) ||
-                                    item.find.contains(searchEditText) ||
-                                    item.give.contains(searchEditText) ||
-                                    item.content.contains(searchEditText)
+                                        item.author.name.contains(searchEditText) ||
+                                        item.author.identity.contains(searchEditText) ||
+                                        item.city.contains(searchEditText) ||
+                                        item.find.contains(searchEditText) ||
+                                        item.give.contains(searchEditText) ||
+                                        item.content.contains(searchEditText)
                                 ) {
                                     resultList.add(item)
                                 }
@@ -116,15 +113,18 @@ class HomeFragment (val type: String) : Fragment() {
             })
 
             // Original
-            if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
-                adapter.submitList(it)
-            } else {
-                it?.let {
-                    adapter.submitList(it.filter { Article ->
-                        Article.type == type
-                    })
+            if (articleViewModel.searchEditText.value == null) {
+                if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
+                    adapter.submitList(it)
+                } else {
+                    it?.let {
+                        adapter.submitList(it.filter { Article ->
+                            Article.type == type
+                        })
+                    }
                 }
             }
+
         })
 
         // ProgressBar

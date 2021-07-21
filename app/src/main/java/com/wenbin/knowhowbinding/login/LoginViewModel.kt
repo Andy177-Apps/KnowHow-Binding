@@ -19,25 +19,21 @@ import kotlinx.coroutines.launch
 class LoginViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _firebaseUser = MutableLiveData<FirebaseUser>()
-
     val firebaseUser: LiveData< FirebaseUser>
         get() = _firebaseUser
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -47,10 +43,8 @@ class LoginViewModel(private val repository: KnowHowBindingRepository) : ViewMod
     //the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
     fun firebaseAuthWithGoogle(idToken: String) {
         coroutineScope.launch {
-            Logger.d("check_googleSign, fun firebaseAuthWithGoogle in ViewModel is used.")
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.firebaseAuthWithGoogle(idToken)

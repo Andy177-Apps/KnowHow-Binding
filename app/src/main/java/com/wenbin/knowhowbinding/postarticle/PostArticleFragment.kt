@@ -1,10 +1,12 @@
 package com.wenbin.knowhowbinding.postarticle
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -36,11 +38,17 @@ class PostArticleFragment : Fragment(){
         })
 
         binding.buttonSendArticle.setOnClickListener {
-            val article = viewModel.getArticle()
-            viewModel.publish(article)
-            Logger.d("check_article, article = $article")
-            findNavController().navigate(PostArticleFragmentDirections.navigateToArticleFragment())
-            Logger.d("onClicked")
+            Log.d("checkFormFilled", viewModel.isFormFilled().toString())
+            if (viewModel.isFormFilled()) {
+                val article = viewModel.getArticle()
+                viewModel.publish(article)
+                Logger.d("check_article, article = $article")
+                findNavController().navigate(PostArticleFragmentDirections.navigateToArticleFragment())
+                Logger.d("onClicked")
+            }
+            else {
+                Toast.makeText(this.context, "地點, 提供, 想找和 Type 都要選擇喔！", Toast.LENGTH_SHORT).show()
+            }
         }
 
         binding.spinnerCategory.adapter = PostArticleTypeSpinnerAdapter(
@@ -64,6 +72,10 @@ class PostArticleFragment : Fragment(){
                 }
             }
         }
+
+        viewModel.articleType.observe(viewLifecycleOwner, Observer {
+            Log.d("checkFormFilled", "articleType = $it")
+        })
 
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("發文")

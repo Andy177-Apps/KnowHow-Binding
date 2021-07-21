@@ -1,6 +1,5 @@
 package com.wenbin.knowhowbinding.user
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -80,6 +79,7 @@ userEmail: String):ViewModel() {
         Logger.i("------------------------------------")
         _status.value = LoadApiStatus.LOADING
         getUser(selectedUserEmail)
+        getLiveUserResult(selectedUserEmail)
         getUserArticle(selectedUserEmail)
     }
 
@@ -140,7 +140,7 @@ userEmail: String):ViewModel() {
         }
     }
 
-    fun leave(needRefresh: Boolean = false) {
+    private fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
     }
 
@@ -176,6 +176,11 @@ userEmail: String):ViewModel() {
                 }
             }
         }
+    }
+
+    private fun getLiveUserResult(userEmail: String) {
+        liveUser = repository.getLiveUser(userEmail)
+        _status.value = LoadApiStatus.DONE
     }
 
     fun getMyUserInfo(userEmail: String) {

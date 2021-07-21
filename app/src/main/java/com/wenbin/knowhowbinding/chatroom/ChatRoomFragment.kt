@@ -32,16 +32,12 @@ class ChatRoomFragment  : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = ChatRoomAdapter(ChatRoomAdapter.MessageOnItemClickListener{ it ->
-            Logger.d("check_userInfo, it = $it")
-            Logger.d("check_userInfo, it.attendeesInfo[0].userEmail = ${it.attendeesInfo[0].userEmail}")
-            Logger.d("check_userInfo, it.attendeesInfo[0].userName = ${it.attendeesInfo[0].userName}")
-
             findNavController().navigate(ChatRoomFragmentDirections.navigateToMessageFragment(
                     it.attendeesInfo[0].userEmail, it.attendeesInfo[0].userName))
         })
         binding.recyclerView.adapter = adapter
 
-        ///////test function
+        // test function
         viewModel.testString.observe(viewLifecycleOwner, Observer {
             Logger.d("testString = $it")
         })
@@ -50,36 +46,27 @@ class ChatRoomFragment  : Fragment() {
         viewModel.updatedChatRooms.observe(viewLifecycleOwner, Observer {
             // test function
 
-            Logger.d("updatedChatRooms = $it")
-
             it?.let {
                 it.forEach {chatRoom ->
-                    Logger.d("chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
 
                     val list = arrayListOf<String>()
                     for (item in chatRoom.attendeesInfo) {
                         Logger.d("UserInfo Email = ${item.userEmail}")
                         list.add(item.userEmail)
                     }
-                    Logger.d("New list = $list")
                     viewModel.changer(list)
                 }
             }
 
             fun printListandArray() {
                 val list = listOf<String>("1", "2")
-                Logger.d("PrintList list = $list")
             }
 
             it?.let {
                 val filteredChatRoom = mutableListOf<ChatRoom>()
 
                 it.forEach { chatRoom ->
-                    Logger.d("original chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
                 chatRoom.attendeesInfo = excludeMyInfo(chatRoom.attendeesInfo)
-                    Logger.d("filtered chatRoom.attendeesInfo = ${chatRoom.attendeesInfo}")
-
-
                     filteredChatRoom.add(chatRoom)
                 }
                 viewModel.createFilteredChatRooms(filteredChatRoom)

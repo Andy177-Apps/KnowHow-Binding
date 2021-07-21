@@ -16,32 +16,26 @@ import com.wenbin.knowhowbinding.login.UserManager
 class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _filteredChatRooms = MutableLiveData<List<ChatRoom>>()
-
     val filteredChatRooms: LiveData<List<ChatRoom>>
         get() = _filteredChatRooms
 
     private var _updatedChatRooms = MutableLiveData<List<ChatRoom>>()
-
     val updatedChatRooms: LiveData<List<ChatRoom>>
         get() = _updatedChatRooms
 
     private var _testString = MutableLiveData<List<String>>()
-
     val testString: LiveData<List<String>>
         get() = _testString
 
     private val _fakeMessages = MutableLiveData<List<Message>>()
-
     val fakeMessages: LiveData<List<Message>>
         get() = _fakeMessages
 
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status : LiveData<LoadApiStatus>
         get() = _status
 
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
