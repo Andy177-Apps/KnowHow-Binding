@@ -34,17 +34,13 @@ class PostArticleFragment : Fragment(){
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Logger.d("check_article, userInfo = $it")
-
         })
 
         binding.buttonSendArticle.setOnClickListener {
-            Log.d("checkFormFilled", viewModel.isFormFilled().toString())
             if (viewModel.isFormFilled()) {
                 val article = viewModel.getArticle()
                 viewModel.publish(article)
-                Logger.d("check_article, article = $article")
                 findNavController().navigate(PostArticleFragmentDirections.navigateToArticleFragment())
-                Logger.d("onClicked")
             }
             else {
                 Toast.makeText(this.context, "地點, 提供, 想找和 Type 都要選擇喔！", Toast.LENGTH_SHORT).show()
@@ -65,9 +61,6 @@ class PostArticleFragment : Fragment(){
                     id: Long
             ) {
                 if (parent != null) {
-                    Logger.d("Spinner_typeposition = $position")
-                    Logger.d("Spinner_type, id = $id")
-
                     viewModel.articleType.value = parent.selectedItem.toString()
                 }
             }

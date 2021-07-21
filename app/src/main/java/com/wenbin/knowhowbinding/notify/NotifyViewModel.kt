@@ -18,25 +18,19 @@ import com.wenbin.knowhowbinding.data.Result
 
 class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewModel(){
 
-
-    private val _allLiveEventInvitations = MutableLiveData<List<Event>>()
-
     var allLiveEventInvitations = MutableLiveData<List<Event>>()
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -62,7 +56,6 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
 
     fun getLiveAllEventInvitations(userEmail: String){
         allLiveEventInvitations = repository.getLiveMyEventInvitation(userEmail)
-        Logger.d("getLiveAllEventInvitations is actioned")
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
     }

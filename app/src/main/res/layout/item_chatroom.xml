@@ -4,13 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="chatRoom"
             type="com.wenbin.knowhowbinding.data.ChatRoom" />
-
         <variable
             name="imageUrl"
             type="String" />
@@ -79,9 +76,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Wenbin" />
 
-                <!--            android:text="@{chatRoom.message.senderName}"-->
-
-
                 <TextView
                     android:id="@+id/textView_show_latested_message"
                     android:layout_width="match_parent"
@@ -97,7 +91,6 @@
                     app:layout_constraintEnd_toStartOf="@id/textView_show_latested_time"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView_object_name" />
-
 
                 <TextView
                     android:id="@+id/textView_show_latested_time"

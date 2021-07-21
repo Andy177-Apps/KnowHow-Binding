@@ -41,13 +41,11 @@ class SearchResultAdapter(private val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(user)
         }
-        Logger.d("checkheight, position = $position")
 
         val layoutParams = holder.itemView.layoutParams
 
         layoutParams.height = 400 + (position % 4 + 1) *200
 
-        Logger.d("checkheight, layoutParams.height = ${layoutParams.height}")
         holder.itemView.layoutParams = layoutParams
         holder.bind(user)
     }

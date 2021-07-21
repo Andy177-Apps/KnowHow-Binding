@@ -27,9 +27,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/outline_create_white_48" />
 
-        <!--        app:GetArticle="@{viewModel.articles}"-->
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -54,8 +51,5 @@
             app:layout_constraintTop_toTopOf="parent"
             android:indeterminateTint="@color/primaryDark"
             tools:visibility="gone" />
-
-<!--        android:theme="@style/ProgressTheme"-->
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -59,7 +59,6 @@
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
-
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             style="@style/MyFloatingActionButton"

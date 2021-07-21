@@ -35,7 +35,6 @@ class NotifyFragment: Fragment() {
         viewModel.getLiveAllEventInvitations(UserManager.user.email)
 
         viewModel.allLiveEventInvitations.observe(viewLifecycleOwner, Observer {
-            Logger.d("see_what_is_Empty, allLiveEventInvitations_1 = $it ")
 
             if(it.isEmpty()) {
                 invitationValueVisibility(false)
@@ -45,12 +44,8 @@ class NotifyFragment: Fragment() {
 
             adapter.submitList(it)
             it?.let {
-                Logger.d("see_what_is_Empty, allLiveEventInvitations_3 = $it ")
                 binding.viewModel = viewModel
-                Logger.d("see_what_is_Empty, allLiveEventInvitations_4 = $it ")
-
             }
-            Logger.d("see_what_is_Empty, allLiveEventInvitations_2 = $it ")
         })
         return binding.root
     }

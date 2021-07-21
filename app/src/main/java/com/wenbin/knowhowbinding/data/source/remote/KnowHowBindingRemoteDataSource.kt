@@ -876,7 +876,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 .whereArrayContains("invitation", userEmail)
                 .addSnapshotListener { snapshot, exception ->
                     Logger.i("add SnapshotListener detected")
-
                     exception?.let {
                         Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                     }

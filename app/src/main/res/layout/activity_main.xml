@@ -48,7 +48,7 @@
             android:textColor="#3f3a3a"
             android:textStyle="normal"
             android:gravity="center_horizontal"
-            android:text="textView"
+            android:text="@string/textView"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -69,7 +69,6 @@
             app:menu="@menu/bottom_nav_menu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"

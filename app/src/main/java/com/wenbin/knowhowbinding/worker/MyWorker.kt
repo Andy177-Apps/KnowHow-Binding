@@ -26,7 +26,6 @@ class MyWorker(appContext: Context, workerParams: WorkerParameters) : CoroutineW
         return try {
 
             //Get the input
-            val eventTime = inputData.getLong(KEY_EVENT_TIME, 0L)
             val content = inputData.getString(KEY_EVENT_CONTENT)
             val currentTime = Calendar.getInstance().timeInMillis
 

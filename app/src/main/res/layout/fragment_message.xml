@@ -77,9 +77,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="Send"
             android:textSize="12sp"/>
-
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

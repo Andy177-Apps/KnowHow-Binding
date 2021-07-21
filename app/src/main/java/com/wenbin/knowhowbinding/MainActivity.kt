@@ -180,7 +180,6 @@ class MainActivity : AppCompatActivity() {
     private fun setupBottomNav() {
         binding.bottomNavView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         bottomNavView_content.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-
     }
 
     private fun setupNavController() {

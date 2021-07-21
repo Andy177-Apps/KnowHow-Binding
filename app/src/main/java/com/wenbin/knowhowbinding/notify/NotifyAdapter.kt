@@ -41,7 +41,6 @@ class NotifyAdapter (val viewModel: NotifyViewModel) : ListAdapter<Event, Recycl
             }
 
             binding.buttonAccept.setOnClickListener {
-                Logger.d("UserManager.user.image = ${UserManager.user.image}")
 
                 viewModel.acceptEvent(event, UserManager.user.email, UserManager.user.name, UserManager.user.image)
 

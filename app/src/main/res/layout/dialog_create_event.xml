@@ -19,7 +19,6 @@
             android:id="@+id/constraint_layout_create_event"
             android:layout_width="350dp"
             android:layout_height="700dp"
-
             android:layout_marginHorizontal="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="建立約定"
+                android:text="@string/makeAPinkyPromise"
                 android:textColor="@color/dark_01"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="24dp"
-                        android:text="Title"
+                        android:text="@string/title"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         android:visibility="gone"
@@ -75,7 +74,7 @@
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/bg_edittext"
                         android:ems="10"
-                        android:hint="輸入約定的名稱吧！"
+                        android:hint="@string/keyName"
                         android:text="@={viewModel.title}"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Type"
+                        android:text="@string/type"
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="@id/editText_title"
                         app:layout_constraintTop_toBottomOf="@id/editText_title" />
@@ -108,7 +107,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="City"
+                        android:text="@string/city"
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="@id/editText_title"
                         app:layout_constraintTop_toBottomOf="@id/spinner_category" />
@@ -124,7 +123,7 @@
                         android:background="@drawable/bg_edittext"
                         android:ems="10"
                         android:gravity="center_vertical"
-                        android:hint="地點"
+                        android:hint="@string/location"
                         android:inputType="text"
                         android:paddingHorizontal="8dp"
                         android:text="@={viewModel.city}"
@@ -154,7 +153,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="@dimen/dialog_time_period_padding"
-                            android:text="約定時間"
+                            android:text="@string/datingTime"
                             android:textColor="@color/black"
                             android:textSize="12sp"
                             android:textStyle="bold"
@@ -176,7 +175,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
                             android:fontFamily="@font/roboto"
-                            android:text="All-day"
+                            android:text="@string/all_day"
                             app:layout_constraintBottom_toBottomOf="@id/imageView_schedule"
                             app:layout_constraintStart_toEndOf="@id/imageView_schedule"
                             app:layout_constraintTop_toTopOf="@id/imageView_schedule" />
@@ -197,7 +196,6 @@
                             android:layout_marginTop="16dp"
                             android:layout_marginBottom="@dimen/dialog_time_period_padding"
                             android:fontFamily="@font/roboto"
-                            android:text="2021-05-19"
                             android:textSize="14sp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@id/textView_all_day"
@@ -207,7 +205,7 @@
                             android:id="@+id/textView_start_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="19:00"
+                            android:text="@string/_19_00"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="@id/switch_is_all_day"
                             app:layout_constraintTop_toTopOf="@id/textView_date" />
@@ -216,7 +214,7 @@
                             android:id="@+id/textView_end_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="21:00"
+                            android:text="@string/_21_00"
                             android:visibility="gone"
                             app:layout_constraintEnd_toEndOf="@id/switch_is_all_day"
                             app:layout_constraintTop_toBottomOf="@id/textView_start_time" />
@@ -227,7 +225,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Description"
+                        android:text="@string/description"
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="@id/editText_title"
                         app:layout_constraintTop_toBottomOf="@id/constraint_layout_time_period" />
@@ -243,7 +241,7 @@
                         android:background="@drawable/bg_edittext"
                         android:ems="10"
                         android:gravity="top"
-                        android:hint="約定內容"
+                        android:hint="@string/context"
                         android:inputType="text"
                         android:paddingHorizontal="8dp"
                         android:text="@={viewModel.description}"
@@ -262,13 +260,12 @@
                         app:hintText="勾選想要邀請的名單"
                         app:layout_constraintTop_toBottomOf="@id/spinner_category" />
 
-
                     <TextView
                         android:id="@+id/textView_other_user"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
-                        android:text="Attendee"
+                        android:text="@string/attendee"
                         android:visibility="gone"
                         app:layout_constraintStart_toStartOf="@id/editText_title"
                         app:layout_constraintTop_toBottomOf="@id/editText_description" />
@@ -296,15 +293,14 @@
                 android:background="@drawable/bg_all_round_corner_primarydark"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/textView_send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/noto_sans"
-                android:text="送出邀請"
+                android:text="@string/send_invitation"
                 android:textColor="@color/white"
                 android:textFontWeight="400"
                 android:textSize="20sp"

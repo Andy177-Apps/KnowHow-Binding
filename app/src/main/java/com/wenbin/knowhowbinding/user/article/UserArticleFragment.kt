@@ -34,7 +34,7 @@ class UserArticleFragment : Fragment() {
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Logger.d("MyArticleFragment, articles in Fragment = $it")
         })
-        var adapter = UserArticleAdapter(viewModel)
+        val adapter = UserArticleAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

@@ -10,6 +10,7 @@ import com.wenbin.knowhowbinding.R
 import com.wenbin.knowhowbinding.databinding.ItemTypeSpinnerBinding
 
 class PostArticleTypeSpinnerAdapter(private val strings: Array<String>) : BaseAdapter(){
+
     override fun getCount(): Int {
         return strings.size+1
     }

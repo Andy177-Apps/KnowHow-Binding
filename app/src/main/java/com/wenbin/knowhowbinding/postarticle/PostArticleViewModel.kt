@@ -27,37 +27,31 @@ class PostArticleViewModel(
     var category: String? = null
     var content: String? = null
 
-    private val _userInfo = MutableLiveData<User>()
-
-    val userInfo: LiveData<User>
-        get() = _userInfo
-
-    private val _article = MutableLiveData<Article>()
-
     var articleType = MutableLiveData<String>()
     var articleCity = MutableLiveData<String>()
     var articleFind = MutableLiveData<String>()
     var articleGive = MutableLiveData<String>()
     var articleContent = MutableLiveData<String>()
 
+    private val _userInfo = MutableLiveData<User>()
+    val userInfo: LiveData<User>
+        get() = _userInfo
 
+    private val _article = MutableLiveData<Article>()
     val article: LiveData<Article>
         get() = _article
 
     private val _leave = MutableLiveData<Boolean>()
-
     val leave: LiveData<Boolean>
         get() = _leave
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
@@ -72,9 +66,7 @@ class PostArticleViewModel(
     }
 
     fun getArticle(): Article {
-        Logger.d("check_article, UserManager.user.image = ${UserManager.user.image}")
         return Article(
-
                 id = "",
                 createdTime = 0,
                 author = User(
@@ -106,7 +98,6 @@ class PostArticleViewModel(
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
                     leave(true)
-
                 }
                 is Result.Fail -> {
                     _error.value = result.error
@@ -124,46 +115,9 @@ class PostArticleViewModel(
         }
     }
 
-    fun addData() {
-        var newTitle = title
-        var newCategory = category
-        var newContent = content
-        val articles = FirebaseFirestore.getInstance()
-                .collection("articles")
-        val document = articles.document()
-        val data = hashMapOf(
-                "author" to hashMapOf(
-                        "email" to "wayne@school.appworks.tw",
-                        "id" to "waynechen323",
-                        "name" to "AKA小安老師"
-                ),
-                "title" to newTitle,
-                "content" to newContent,
-                "createdTime" to Calendar.getInstance().timeInMillis,
-                "id" to document.id,
-                "category" to newCategory
-        )
-        document.set(data)
-    }
-
     var db = FirebaseFirestore.getInstance()
 
-    fun getData() {
-        db.collection("Friends")
-                .orderBy("createdTime", Query.Direction.DESCENDING)
-                .get()
-                .addOnSuccessListener { result ->
-                    for (document in result) {
-                        Logger.d("${document.id} => ${document.data}")
-                    }
-                }
-                .addOnFailureListener { exception ->
-                    Logger.d("Error getting documents: $exception")
-                }
-
-    }
-
-    fun leave(needRefresh: Boolean = false) {
+    private fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
     }
 

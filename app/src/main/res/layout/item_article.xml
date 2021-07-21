@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="article"
             type="com.wenbin.knowhowbinding.data.Article" />
@@ -16,7 +15,6 @@
         app:cardCornerRadius="8dp"
         app:cardUseCompatPadding="true"
         android:layout_marginHorizontal="@dimen/recyclerView_layout_marginHorizontal"
-
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -26,11 +24,9 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_marginTop="8dp"
-
             android:background="@color/white"
             app:cardCornerRadius="8dp"
             app:contentPadding="4dp">
-
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip"
@@ -74,7 +70,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/constraint_layout_user_information"
                 android:layout_width="wrap_content"
@@ -94,7 +89,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_goneMarginTop="16dp"
                     tools:srcCompat="@drawable/outline_person_outline_black_24dp"
-
                     />
 
                 <de.hdodenhof.circleimageview.CircleImageView
@@ -107,14 +101,12 @@
                     app:layout_goneMarginTop="16dp"
                     tools:srcCompat="@drawable/outline_person_outline_black_24dp" />
 
-
                 <TextView
                     android:id="@+id/textView_author_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/noto_sans"
-                    android:hint="Wenbin"
                     android:text="@{article.author.name}"
                     android:textColor="@color/dark_01"
                     android:textSize="@dimen/item_article_text_name"
@@ -129,7 +121,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:fontFamily="@font/noto_sans"
-                    android:hint="Wenbin"
                     android:text="@{article.author.identity}"
                     android:textColor="@color/lightGrey_02"
                     android:textSize="@dimen/item_article_text_identify"
@@ -157,7 +148,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/noto_sans"
                 android:layout_marginStart="@dimen/item_image_margin_end"
-                android:text="地點"
+                android:text="@string/location"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="400"
                 android:textSize="@dimen/item_article_text_title"
@@ -174,25 +165,19 @@
                 app:layout_constraintTop_toBottomOf="@id/textView_city_title"
                 app:srcCompat="@drawable/outline_sort_black_18" />
 
-
             <TextView
                 android:id="@+id/textView_find_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_article_text_margin_top"
                 android:fontFamily="@font/noto_sans"
-                android:text="想找"
+                android:text="@string/interested"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="400"
                 app:layout_constraintStart_toEndOf="@id/imageView_city"
                 android:layout_marginStart="@dimen/item_image_margin_end"
-
                 android:textSize="@dimen/item_article_text_title"
-                app:layout_constraintTop_toBottomOf="@id/textView_city_title" /><![CDATA[
-
-            />
-
-            ]]>
+                app:layout_constraintTop_toBottomOf="@id/textView_city_title" />
 
             <ImageView
                 android:id="@+id/imageView_give"
@@ -209,12 +194,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/item_article_text_margin_top"
                 android:fontFamily="@font/noto_sans"
-                android:text="提供"
+                android:text="@string/give"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="400"
                 app:layout_constraintStart_toEndOf="@id/imageView_city"
                 android:layout_marginStart="@dimen/item_image_margin_end"
-
                 android:textSize="@dimen/item_article_text_title"
                 app:layout_constraintTop_toBottomOf="@id/textView_find_title" />
 
@@ -224,13 +208,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:clickable="true"
-
                 android:fontFamily="@font/noto_sans"
                 android:hint="Taipei"
                 android:text="@{article.city}"
                 android:textColor="@color/dark_01"
-
-
                 android:textFontWeight="400"
                 android:textSize="@dimen/item_article_text_content"
                 app:layout_constraintStart_toEndOf="@id/textView_city_title"
@@ -242,12 +223,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/noto_sans"
-                android:hint="Taipei"
                 android:text="@{article.find}"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="400"
-
-
                 android:textSize="@dimen/item_article_text_content"
                 app:layout_constraintStart_toEndOf="@id/textView_find_title"
                 app:layout_constraintTop_toTopOf="@+id/textView_find_title" />
@@ -258,12 +236,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:fontFamily="@font/noto_sans"
-
-                android:hint="Taipei"
                 android:text="@{article.give}"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="400"
-
                 android:textSize="@dimen/item_article_text_content"
                 app:layout_constraintStart_toEndOf="@id/textView_give_title"
                 app:layout_constraintTop_toTopOf="@+id/textView_give_title" />
@@ -275,7 +250,6 @@
                 android:layout_marginTop="@dimen/item_article_text_margin_top"
                 android:layout_marginEnd="16dp"
                 android:fontFamily="@font/noto_sans"
-                android:hint="Hi Hi"
                 android:text="@{article.content}"
                 android:textColor="@color/text_07"
                 android:textFontWeight="400"
@@ -286,7 +260,6 @@
                 app:layout_constraintTop_toBottomOf="@id/textView_give_title"
                 android:singleLine="true"
                 />
-
 
             <com.google.android.material.chip.ChipGroup
                 android:layout_width="wrap_content"
@@ -362,12 +335,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/imageView_bookmark"
                 app:layout_constraintStart_toEndOf="@id/imageView_bookmark"
                 app:layout_constraintTop_toTopOf="@id/imageView_bookmark" />
-
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-
 </layout>

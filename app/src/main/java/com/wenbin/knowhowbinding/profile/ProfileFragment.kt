@@ -34,7 +34,6 @@ class ProfileFragment  : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Logger.d("UserManager.user = ${UserManager.user}")
 
         binding = FragmentMyselfProfileBinding.inflate(inflater)
         binding.lifecycleOwner = this
@@ -53,21 +52,17 @@ class ProfileFragment  : Fragment() {
         binding.recyclerView.adapter = adapter
 
         mainViewModel.userArticles.observe(viewLifecycleOwner, Observer { list ->
-            Logger.d("check_userArticles, userArticles = $list")
             binding.textPosts.text = list.size.toString()
         })
 
         // Filter recommended users
         viewModel.allUsers.observe(viewLifecycleOwner, Observer {
-            Logger.d("checkRecommendedList, allUsers in fragment = $it")
             var resultList = listOf<User>()
 
             viewModel.userInfo.value?.let { ownerUser ->
-                Logger.d("checkOwnerUser, OwnerUser in fragment = $ownerUser")
                 resultList = it.recommendedUser(ownerUser).excludeOwner()
             }
             Logger.d("checkRecommendedList, Final resultList in fragment = $resultList")
-
             adapter.submitList(resultList)
         })
 
@@ -126,7 +121,6 @@ class ProfileFragment  : Fragment() {
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Logger.d("ProfilePage, userInfo = $it")
             setupLayout(it)
-
         })
         if (activity is MainActivity) {
             (activity as MainActivity).resetToolBar("個人頁面")
@@ -156,6 +150,5 @@ class ProfileFragment  : Fragment() {
             chip.textSize = chipTextSize
             chipGroupInterested.addView(chip)
         }
-
     }
 }

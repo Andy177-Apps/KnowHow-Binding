@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="message"
             type="com.wenbin.knowhowbinding.data.Message" />
@@ -22,7 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="8dp"
-
             />
 
         <de.hdodenhof.circleimageview.CircleImageView
@@ -79,16 +77,13 @@
             app:layout_constraintBottom_toBottomOf="@id/textView_other_side_body"
             app:layout_constraintStart_toEndOf="@id/textView_other_side_body"
             android:layout_marginStart="@dimen/item_message_time_margin"
-
             timeToHrMin="@{message.createdTime}"
             android:fontFamily="@font/roboto"
             android:textFontWeight="400"
             android:textSize="@dimen/item_message_time_size"
             android:textColor="@color/lightGrey_02"
             android:hint="Time"
-
         />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

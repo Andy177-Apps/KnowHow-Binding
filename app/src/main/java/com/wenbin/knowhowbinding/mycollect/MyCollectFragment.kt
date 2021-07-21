@@ -29,7 +29,7 @@ class MyCollectFragment  : Fragment() {
             Logger.d("MyCollectFragment, articles in Fragment = $it")
         })
 
-        var adapter = MyCollectAdapter(viewModel)
+        val adapter = MyCollectAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

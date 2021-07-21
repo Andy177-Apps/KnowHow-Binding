@@ -23,11 +23,8 @@ class UserArticleAdapter (val viewModel: UserArticleViewModel) : ListAdapter<Art
 
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Logger.d("SaveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
-
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
-
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)

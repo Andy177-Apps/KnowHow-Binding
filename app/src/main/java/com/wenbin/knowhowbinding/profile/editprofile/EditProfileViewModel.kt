@@ -21,8 +21,7 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
-    var _userInfo = MutableLiveData<User>(User())
-
+    private var _userInfo = MutableLiveData<User>(User())
     val userInfo: LiveData<User>
         get() = _userInfo
 
@@ -30,18 +29,12 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     private var isBgImageUpdated = false
 
-    val talentedSubjects = MutableLiveData<String>()
-
-    val interestedSubjects = MutableLiveData<String>()
-
     val introduction = MutableLiveData<String>()
-
     val talentedList: MutableList<String> = ArrayList()
     private val interestedList: MutableList<String> = ArrayList()
 
     private var imageUrlPath : String = ""
     private var bgImageUrlPath : String = ""
-
 
     //Consequence for selected chip talentedSubjects
     private var _selectedTalented = MutableLiveData<List<String>>()
@@ -65,23 +58,19 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     private val _leave = MutableLiveData<Boolean>()
-
     val leave: LiveData<Boolean>
         get() = _leave
 
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -95,7 +84,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
      * For navigate to Profile Fragment
      */
     private val _navigateToProfilePage = MutableLiveData<Boolean>()
-
     val navigateToProfilePage: LiveData<Boolean>
         get() = _navigateToProfilePage
 
@@ -103,7 +91,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
         getUser(UserManager.user.email)
     }
 
@@ -111,7 +98,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
-            Logger.d("EditViewModel, user = $user")
 
             when (val result = repository.updateUser(user)) {
                 is Result.Success -> {
@@ -170,7 +156,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     }
 
     fun getUser(): User {
-        Log.d("checkGender", "selectedGender in viewModel= ${selectedGender.value}")
 
         return User(
                 id = UserManager.user.id,
@@ -194,8 +179,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     fun getImageUri(filePath: String) {
 
         coroutineScope.launch {
-
-            Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
 
             _status.value = LoadApiStatus.LOADING
 
@@ -223,7 +206,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Logger.d("checkUpdateImage, updated imageUrlPath is $imageUrlPath")
             _refreshStatus.value = false
         }
     }
@@ -233,8 +215,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         isBgImageUpdated = true
 
         coroutineScope.launch {
-
-            Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
 
             _status.value = LoadApiStatus.LOADING
 
@@ -262,21 +242,9 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Logger.d("checkUpdateBgImage, updated bgImageUrlPath is $bgImageUrlPath")
             _refreshStatus.value = false
         }
     }
-
-    fun checkIfComplete(): Boolean {
-
-        return !(introduction.value == null ||
-                selectedCity.value == null ||
-                selectedGender.value == null ||
-                selectedTalented.value == null ||
-                selectedInterested.value == null
-                )
-    }
-
 
     fun navigateToProfilePage() {
         if (isBgImageUpdated) {
@@ -309,7 +277,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         }
     }
 
-    fun setTalented(list: List<String>) {
+    private fun setTalented(list: List<String>) {
         _selectedTalented.value = list
     }
 
@@ -323,7 +291,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         }
     }
 
-    fun setInterested(list: List<String>) {
+    private fun setInterested(list: List<String>) {
         _selectedInterested.value = list
     }
 

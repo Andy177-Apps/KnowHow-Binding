@@ -19,43 +19,37 @@ import com.wenbin.knowhowbinding.util.Logger
 
 
 class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
-    private val _comment = MutableLiveData<List<Comment>>()
 
+    private val _comment = MutableLiveData<List<Comment>>()
     val comment: LiveData<List<Comment>>
         get() = _comment
 
     // Information supposed to demonstrate in UI
     private val _userInfo = MutableLiveData<User>(User())
-
     val userInfo: LiveData<User>
         get() = _userInfo
 
     private val _allUsers = MutableLiveData<List<User>>()
-
     val allUsers: LiveData<List<User>>
         get() = _allUsers
 
     // Handle navigation to user profile
     private val _navigateToUserProfile = MutableLiveData<User>()
-
     val navigateToUserProfile: LiveData<User>
         get() = _navigateToUserProfile
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -140,11 +134,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         }
     }
 
-    /**
-     * For navigate to My Article Fragment
-     */
     private val _navigateToMyArticle = MutableLiveData<Boolean>()
-
     val navigateToMyArticle: LiveData<Boolean>
         get() = _navigateToMyArticle
 
@@ -156,11 +146,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         _navigateToMyArticle.value = null
     }
 
-    /**
-     * For navigate to My Collect Fragment
-     */
     private val _navigateToMyCollect = MutableLiveData<Boolean>()
-
     val navigateToMyCollect: LiveData<Boolean>
         get() = _navigateToMyCollect
 
@@ -172,11 +158,7 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         _navigateToMyCollect.value = null
     }
 
-    /**
-     * For navigate to Edit Profile Fragment
-     */
     private val _navigateToEditProfile = MutableLiveData<Boolean>()
-
     val navigateToEditProfile: LiveData<Boolean>
         get() = _navigateToEditProfile
 

@@ -21,14 +21,11 @@ class MyCollectAdapter(val viewModel: MyCollectViewModel) : ListAdapter<Article,
 
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Logger.d("saveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
-
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
-
             binding.executePendingBindings()
         }
         companion object {

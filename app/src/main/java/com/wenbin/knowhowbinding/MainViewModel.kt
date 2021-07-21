@@ -29,30 +29,25 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     val noticed = MutableLiveData<Boolean>(false)
 
     private val _userInfo = MutableLiveData<User>(User())
-
     val userInfo: LiveData<User>
         get() = _userInfo
 
     private val _userArticles = MutableLiveData<List<Article>>()
-
     val userArticles: LiveData<List<Article>>
         get() = _userArticles
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
-
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
-
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
-
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -66,15 +61,6 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
         getUser(UserManager.user.email)
         getUserArticle(UserManager.user.email)
     }
-
-    /**
-     * At the beginning, take down all the information of
-     * the App user that you need, such as personal articles or
-     * personal information, and then ask for MainViewModel if necessary,
-     * so that you don’t have to rewrite every leaf by yourself.
-     * And because the data has been loaded long ago, the page loading
-     * time may be relatively short
-     */
 
     fun getUser(userEmail: String) {
 
@@ -111,12 +97,10 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
     }
 
     fun getUserArticle(userEmail: String) {
-        Logger.d("MyArticleFragment, getUserArticle is used.")
 
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Logger.d("MyArticleFragment, result = $result")
 
             _userArticles.value = when (result) {
                 is Result.Success -> {
@@ -140,9 +124,5 @@ class MainViewModel(private val repository: KnowHowBindingRepository) : ViewMode
                 }
             }
         }
-    }
-
-    fun setUpUser(user: User) {
-        _userInfo.value = user
     }
 }

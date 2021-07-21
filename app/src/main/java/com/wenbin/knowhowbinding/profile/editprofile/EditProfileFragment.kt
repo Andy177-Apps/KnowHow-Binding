@@ -28,6 +28,7 @@ import com.wenbin.knowhowbinding.util.REQUEST_EXTERNAL_STORAGE
 
 
 class EditProfileFragment : Fragment() {
+
     private lateinit var binding: FragmentEditprofileBinding
     val viewModel by viewModels<EditProfileViewModel> { getVmFactory() }
 
@@ -48,15 +49,11 @@ class EditProfileFragment : Fragment() {
             Logger.d("checkElvis, viewModel.introduction = $it")
         })
 
-        Logger.d("checkElvis, viewModel.introduction = ${viewModel.introduction.value}")
-
         binding.imageViewUpdateAvatar.setOnClickListener {
-            Logger.d("checkUpdateImage, imageViewUpdateAvatar is clicked")
             checkPermission(PICK_IMAGE)
         }
 
         binding.imageViewUpdateBg.setOnClickListener {
-            Logger.d("checkUpdateImageBg, imageViewUpdateBg is clicked")
             updateBackground()
         }
 
@@ -77,7 +74,6 @@ class EditProfileFragment : Fragment() {
                     } else {
                         viewModel.setTalented(c.text.toString(),false)
                     }
-
                     // Remove tag from list when uncheck
                 } else {
                     viewModel.setTalented(c.text.toString(),true)
@@ -170,8 +166,6 @@ class EditProfileFragment : Fragment() {
             Logger.d("checkBtn, viewModel.navigateToProfilePage is used")
             it?.let {
                 val observeIdentity = viewModel.getUser()
-                Logger.d("EditPage, observeIdentity = $observeIdentity")
-
                 viewModel.updateUser(observeIdentity)
 
                 Toast.makeText(this.context, "資料儲存成功！", Toast.LENGTH_SHORT).show()
@@ -197,10 +191,6 @@ class EditProfileFragment : Fragment() {
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        Logger.d("checkUpdateImageBg, requestCode in fragment = $requestCode")
-        Log.d("wenbin", "requestCode = $requestCode")
-        Log.d("wenbin", "REQUEST_EXTERNAL_STORAGE = $REQUEST_EXTERNAL_STORAGE")
-
         when (requestCode) {
             REQUEST_EXTERNAL_STORAGE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -222,7 +212,6 @@ class EditProfileFragment : Fragment() {
 
                     if (filePath.isNotEmpty()) {
 
-                        Logger.d("checkImage, filePath = $filePath")
                         Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                         Glide.with(this.requireContext()).load(filePath).into(binding.imageUserAvatar)
 
@@ -234,14 +223,11 @@ class EditProfileFragment : Fragment() {
                 }
 
                 PICK_BACKGROUND_IMAGE -> {
-                    Logger.d("Entry PICK_BACKGROUND_IMAGE")
 
                     val filePath = ImagePicker.getFilePath(data) ?: ""
-                    Logger.d("filePath = $filePath")
 
                     if (filePath.isNotEmpty()) {
 
-                        Logger.d("checkBgImage, BgfilePath = $filePath")
                         Toast.makeText(this.requireContext(), filePath, Toast.LENGTH_SHORT).show()
                         Glide.with(this.requireContext()).load(filePath).into(binding.imageViewBackground)
 
