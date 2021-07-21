@@ -20,45 +20,55 @@ import kotlinx.coroutines.launch
 class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _selectedType = MutableLiveData<String>()
+
     val selectedType: LiveData<String>
         get() = _selectedType
 
     private val _selectedCity = MutableLiveData<List<String>>()
+
     val selectedCity: LiveData<List<String>>
         get() = _selectedCity
 
     private val _selectedGender = MutableLiveData<String>()
+
     val selectedGender: LiveData<String>
         get() = _selectedGender
 
     private val _selectedCategory = MutableLiveData<String>()
+
     val selectedCategory: LiveData<String>
         get() = _selectedCategory
 
     private val _selectedSubject = MutableLiveData<List<String>>()
+
     val selectedSubject: LiveData<List<String>>
         get() = _selectedSubject
 
     private val _articles = MutableLiveData<List<Article>>()
+
     val articles: LiveData<List<Article>>
         get() = _articles
 
     private var _listSubject = MutableLiveData<Array<String>>()
+
     val listSubject: LiveData<Array<String>>
         get() = _listSubject
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
+
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
+
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
+
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 

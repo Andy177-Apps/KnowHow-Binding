@@ -31,55 +31,67 @@ class CreateEventViewModel(
     val description = MutableLiveData<String>()
 
     private val _userInfo = MutableLiveData<User>()
+
     val userInfo: LiveData<User>
         get() = _userInfo
 
     private var _followingName = MutableLiveData<ArrayList<String>>()
+
     val followingName: LiveData<ArrayList<String>>
         get() = _followingName
 
     private val _startTime = MutableLiveData<Long>()
+
     val startTime: LiveData<Long>
         get() = _startTime
 
     private val _endTime = MutableLiveData<Long>()
+
     private val endTime: LiveData<Long>
         get() = _endTime
 
     private val _eventTime = MutableLiveData<Long>()
+
     val eventTime: LiveData<Long>
         get() = _eventTime
 
     private val _type = MutableLiveData<String>()
+
     val type: LiveData<String>
         get() = _type
 
     private val _invitation = MutableLiveData<String>()
+
     val invitation: LiveData<String>
         get() = _invitation
 
     private val _multipleInvitation = MutableLiveData<List<String>>()
+
     val multipleInvitation: LiveData<List<String>>
         get() = _multipleInvitation
 
     val date = TimeUtil.stampToDate(selectedDate)
 
     private val _isAllDay = MutableLiveData<Boolean>()
+
     private val isAllDay: LiveData<Boolean>
         get() = _isAllDay
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
+
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
+
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
+
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 

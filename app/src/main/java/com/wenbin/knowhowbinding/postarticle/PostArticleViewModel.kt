@@ -24,7 +24,6 @@ class PostArticleViewModel(
         private val repository: KnowHowBindingRepository
 ) : ViewModel() {
     var title: String? = null
-    var category: String? = null
     var content: String? = null
 
     var articleType = MutableLiveData<String>()
@@ -34,24 +33,29 @@ class PostArticleViewModel(
     var articleContent = MutableLiveData<String>()
 
     private val _userInfo = MutableLiveData<User>()
+
     val userInfo: LiveData<User>
         get() = _userInfo
 
     private val _article = MutableLiveData<Article>()
+
     val article: LiveData<Article>
         get() = _article
 
     private val _leave = MutableLiveData<Boolean>()
+
     val leave: LiveData<Boolean>
         get() = _leave
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
+
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
+
     val error: LiveData<String>
         get() = _error
 

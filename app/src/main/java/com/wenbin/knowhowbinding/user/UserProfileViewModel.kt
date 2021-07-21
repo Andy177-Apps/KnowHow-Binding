@@ -21,37 +21,43 @@ userEmail: String):ViewModel() {
     // Use arguments to receive data, and then send it to the select User Email here
     val selectedUserEmail = userEmail
 
+    private val _userInfo = MutableLiveData<User>( User() )
 
-    private val _userInfo = MutableLiveData<User>(User())
     val userInfo: LiveData<User>
         get() = _userInfo
 
     var liveUser = MutableLiveData<List<User>>()
 
     private val _myInfo = MutableLiveData<User>()
+
     val myInfo: LiveData<User>
         get() = _myInfo
 
     private val _userArticles = MutableLiveData<List<Article>>()
+
     val userArticles: LiveData<List<Article>>
         get() = _userArticles
 
     // Handle navigation to order detail
     private val _navigateToMyArticle = MutableLiveData<String>()
+
     val navigateToMyArticle: LiveData<String>
         get() = _navigateToMyArticle
 
     private val _leave = MutableLiveData<Boolean>()
+
     val leave: LiveData<Boolean>
         get() = _leave
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
+
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
+
     val error: LiveData<String>
         get() = _error
 

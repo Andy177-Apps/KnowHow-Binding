@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
-    private var _userInfo = MutableLiveData<User>(User())
+    private var _userInfo = MutableLiveData<User>( User() )
+
     val userInfo: LiveData<User>
         get() = _userInfo
 
@@ -38,39 +39,47 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     //Consequence for selected chip talentedSubjects
     private var _selectedTalented = MutableLiveData<List<String>>()
+
     private val selectedTalented : LiveData<List<String>>
         get() = _selectedTalented
 
     //Consequence for selected chip interestedSubjects
     private var _selectedInterested = MutableLiveData<List<String>>()
+
     private val selectedInterested : LiveData<List<String>>
         get() = _selectedInterested
 
     //Variables for editable component
     private var _selectedGender = MutableLiveData<String>()
+
     private val selectedGender : LiveData<String>
         get() = _selectedGender
 
     //Consequence for selected city
     private var _selectedCity = MutableLiveData<String>()
+
     private val selectedCity : LiveData<String>
         get() = _selectedCity
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
+
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
+
     val error: LiveData<String>
         get() = _error
 
     private val _leave = MutableLiveData<Boolean>()
+
     val leave: LiveData<Boolean>
         get() = _leave
 
     private val _refreshStatus = MutableLiveData<Boolean>()
+
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
@@ -80,10 +89,8 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    /**
-     * For navigate to Profile Fragment
-     */
     private val _navigateToProfilePage = MutableLiveData<Boolean>()
+
     val navigateToProfilePage: LiveData<Boolean>
         get() = _navigateToProfilePage
 

@@ -24,6 +24,7 @@ class CalendarViewModel(
     private val repository: KnowHowBindingRepository
 ) : ViewModel() {
     private val _events = MutableLiveData<List<Event>>()
+
     val events: LiveData<List<Event>>
         get() = _events
 
@@ -31,6 +32,7 @@ class CalendarViewModel(
 
     // Handle navigation to CreateEventDialogFragment with Selected date by safe arg
     private val _navigationToCreateEventDialogFragment = MutableLiveData<Long>()
+
     val navigationToCreateEventDialogFragment : LiveData<Long>
         get() = _navigationToCreateEventDialogFragment
 
@@ -38,16 +40,19 @@ class CalendarViewModel(
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
+
     val status: LiveData<LoadApiStatus>
         get() = _status
 
     // error: The internal MutableLiveData that stores the error of the most recent request
     private val _error = MutableLiveData<String>()
+
     val error: LiveData<String>
         get() = _error
 
     // status for the loading icon of swl
     private val _refreshStatus = MutableLiveData<Boolean>()
+
     val refreshStatus: LiveData<Boolean>
         get() = _refreshStatus
 
