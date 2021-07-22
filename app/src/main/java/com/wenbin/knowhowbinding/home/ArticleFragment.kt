@@ -11,7 +11,6 @@ import com.google.android.material.tabs.TabLayout
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentArticleBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.*
 
 class ArticleFragment : Fragment() {
@@ -31,15 +30,10 @@ class ArticleFragment : Fragment() {
         binding.viewModel = viewModel
 
         binding.imageViewSearch.setOnClickListener {
-            Logger.d("checkSearch, binding.imageViewSearch is clicked")
-
-            Logger.d("checkSearch, binding.editTextSearch.text.toString() = ${binding.editTextSearch.text}")
-
             viewModel.searchEditText.value = binding.editTextSearch.text.toString()
         }
 
         viewModel.searchEditText.observe(viewLifecycleOwner, Observer {
-            Logger.d("checkSearch, searchEditText in ArticleFragment = $it")
         })
 
         binding.apply {
@@ -59,7 +53,7 @@ class ArticleFragment : Fragment() {
 
     override fun onDestroyView() {
         if (activity is MainActivity) {
-            (activity as MainActivity).recoverToolBarandBottomNav()
+            (activity as MainActivity).recoverToolBarAndBottomNav()
         }
         super.onDestroyView()
     }

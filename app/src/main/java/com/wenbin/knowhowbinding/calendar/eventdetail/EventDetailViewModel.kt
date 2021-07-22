@@ -16,9 +16,7 @@ import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
 
 
-class EventDetailViewModel(private val repository: KnowHowBindingRepository, event: Event): ViewModel(){
-
-    val event = event
+class EventDetailViewModel(private val repository: KnowHowBindingRepository, val event: Event): ViewModel(){
 
     // status: The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<LoadApiStatus>()
@@ -102,5 +100,4 @@ class EventDetailViewModel(private val repository: KnowHowBindingRepository, eve
             }
         }
     }
-
 }

@@ -54,8 +54,6 @@ class SearchFragment : Fragment() {
 
         val listArrayCity: MutableList<KeyPairBoolData> = viewModel.changeStringToKeyPairBoolData(listCity)
 
-        Logger.d("MultipleSpinner, Updated listArrayCity = $listArrayCity")
-
         viewModel.setMultipleSpinner(
                 binding.multipleItemSelectionSpinnerCity,
                 true,
@@ -106,9 +104,6 @@ class SearchFragment : Fragment() {
             }
         })
 
-        Log.d("wenbin", "Updated listArraySubject in line 195 = $listArraySubject")
-        Logger.d("Updated listArraySubject in line 130 = $listArraySubject")
-
         viewModel.setMultipleSpinner(
                 binding.multipleItemSelectionSpinnerSubject,
                 true,
@@ -121,6 +116,7 @@ class SearchFragment : Fragment() {
         binding.textViewLook.setOnClickListener {
             navigateToResult()
         }
+
         // Observe
         viewModel.selectedType.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
             Logger.d("Checklivedata, selectedType = $it")
@@ -158,7 +154,6 @@ class SearchFragment : Fragment() {
             gender = viewModel.selectedGender.value ?: "",
             subject = viewModel.selectedSubject.value ?: listOf<String>()
         )
-        Logger.d("Checklivedata, answer = $answer")
 
         findNavController().navigate(NavigationDirections.navigateToSearchResultFragment(answer))
 

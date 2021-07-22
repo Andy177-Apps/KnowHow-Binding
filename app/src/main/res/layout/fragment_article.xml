@@ -32,7 +32,7 @@
             android:layout_height="36dp"
             android:ems="10"
             android:text="@={viewModel.searchEditText}"
-            android:hint="Search"
+            android:hint="@string/search_EN"
             android:textSize="14sp"
             android:inputType="text"
             app:layout_constraintTop_toTopOf="parent"

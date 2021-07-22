@@ -11,17 +11,15 @@ import com.wenbin.knowhowbinding.util.Logger
 class ImagesRecyclerViewAdapter() : ListAdapter<String,
         ImagesRecyclerViewAdapter.ViewHolder>(ImageDiffCallback){
 
-
     class ViewHolder (
-        private var binding : ItemAvatarEventBinding
+        private var binding: ItemAvatarEventBinding
     ) : RecyclerView.ViewHolder (binding.root){
-        fun bind (item : String) {
-            Logger.d("item = $item")
+        fun bind (item: String) {
             binding.attendeesImage = item
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent : ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemAvatarEventBinding.inflate(layoutInflater,
                     parent, false)
@@ -38,7 +36,6 @@ class ImagesRecyclerViewAdapter() : ListAdapter<String,
         override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MyCollectViewModel(private val repository: KnowHowBindingRepository)  : ViewModel() {
+class MyCollectViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
 
@@ -46,12 +46,10 @@ class MyCollectViewModel(private val repository: KnowHowBindingRepository)  : Vi
     }
 
     private fun getSavedArticle(userEmail: String) {
-        Logger.d("MyCollectFragment, getUserArticle is used.")
 
         coroutineScope.launch {
 
             val result = repository.getSavedArticle(userEmail)
-            Logger.d("MyCollectFragment, result = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {

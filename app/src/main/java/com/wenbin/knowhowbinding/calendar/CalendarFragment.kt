@@ -26,10 +26,10 @@ import org.threeten.bp.LocalDate
 import java.util.*
 
 class CalendarFragment : Fragment() {
-    private lateinit var binding : FragmentCalendarBinding
+    private lateinit var binding: FragmentCalendarBinding
     val viewModel by viewModels<CalendarViewModel> { getVmFactory() }
 
-    private lateinit var widget : MaterialCalendarView
+    private lateinit var widget: MaterialCalendarView
     private val oneDayDecorator: OneDayDecorator = OneDayDecorator()
     @RequiresApi(Build.VERSION_CODES.O)
 
@@ -49,7 +49,7 @@ class CalendarFragment : Fragment() {
         val localDate = LocalDate.now()
         widget.setCurrentDate(localDate)
 
-        var adapter = CalendarAdapter()
+        val adapter = CalendarAdapter()
         binding.recyclerView.adapter = adapter
 
         viewModel.selectedLiveEvent.observe(viewLifecycleOwner, Observer {
@@ -66,15 +66,11 @@ class CalendarFragment : Fragment() {
 
         // Add dots based on my events
         viewModel.liveEvents.observe(viewLifecycleOwner, Observer {
-            Logger.d("viewModel.allLiveEvents, it = $it")
             it?.let {
                 it.forEach {event ->
                     val year = TimeUtil.stampToYear(event.eventTime).toInt()
                     val month = TimeUtil.stampToMothInt(event.eventTime).toInt()
                     val day = TimeUtil.stampToDayInt(event.eventTime).toInt()
-                    Logger.d("month = $month")
-                    Logger.d("day = $day")
-
                     addDotDecoration(year, month, day)
                 }
                 viewModel.createdDailyEvent(TimeUtil.dateToStamp(localDate.toString(), Locale.TAIWAN))
@@ -90,8 +86,6 @@ class CalendarFragment : Fragment() {
 
                 // Create a sorted list of event based on the current date
                 viewModel.createdDailyEvent(selectedDate)
-
-                Logger.d("selectedDate = $selectedDate")
             }
         }
 
@@ -122,15 +116,12 @@ class CalendarFragment : Fragment() {
         }
         binding.fabNotification.setOnClickListener {
             findNavController().navigate(CalendarFragmentDirections.navigateToNotifyFragment())
-            Logger.d("fabNotification is clicked")
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }
 
         binding.fabLayoutNotification.setOnClickListener {
             findNavController().navigate(CalendarFragmentDirections.navigateToNotifyFragment())
-            Logger.d("fabLayoutNotification is clicked")
-
             binding.fabShadow.visibility = View.GONE
             closeFABMenu()
         }

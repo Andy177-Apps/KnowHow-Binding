@@ -12,8 +12,8 @@ import com.wenbin.knowhowbinding.databinding.FragmentMycollectBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
 
-class MyCollectFragment  : Fragment() {
-    private lateinit var binding : FragmentMycollectBinding
+class MyCollectFragment : Fragment() {
+    private lateinit var binding: FragmentMycollectBinding
     private val viewModel by viewModels<MyCollectViewModel> { getVmFactory()}
 
     override fun onCreateView(
@@ -29,7 +29,7 @@ class MyCollectFragment  : Fragment() {
             Logger.d("MyCollectFragment, articles in Fragment = $it")
         })
 
-        var adapter = MyCollectAdapter(viewModel)
+        val adapter = MyCollectAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

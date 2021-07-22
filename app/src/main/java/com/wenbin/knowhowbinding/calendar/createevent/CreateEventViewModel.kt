@@ -47,7 +47,7 @@ class CreateEventViewModel(
 
     private val _endTime = MutableLiveData<Long>()
 
-    val endTime: LiveData<Long>
+    private val endTime: LiveData<Long>
         get() = _endTime
 
     private val _eventTime = MutableLiveData<Long>()
@@ -111,7 +111,6 @@ class CreateEventViewModel(
 
     // Get the user information in the first place.
     private fun getUser(userEmail: String) {
-        Logger.d("getUser is used")
         coroutineScope.launch {
 
             _status.value = LoadApiStatus.LOADING
@@ -174,9 +173,7 @@ class CreateEventViewModel(
     fun post(event: Event) {
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
-            Logger.d("title.value = ${title.value}")
 
-            Logger.d("event = $event")
             when (val result = repository.postEvent(event)) {
                 is Result.Success -> {
                     _error.value = null
@@ -210,10 +207,8 @@ class CreateEventViewModel(
     }
 
     fun setMultipleInvitation(selectedFollowing: List<String>) {
-        Logger.d("setMultipleInvitation is used.")
-        Logger.d("selectedFollowing = $selectedFollowing")
 
-        var listNumber = mutableListOf<Int>()
+        val listNumber = mutableListOf<Int>()
 
         for ((i, item) in _userInfo.value!!.followingName.withIndex()) {
             if (selectedFollowing.contains(item)) {
@@ -223,14 +218,11 @@ class CreateEventViewModel(
             }
         }
 
-        Logger.d("Final listNumber = $listNumber")
-
-        var listEmail = mutableListOf<String>()
+        val listEmail = mutableListOf<String>()
 
         for (item in listNumber) {
             listEmail.add(_userInfo.value!!.following[item].userEmail)
         }
-        Logger.d("Final listEmail = $listEmail")
         _multipleInvitation.value = listEmail
     }
 

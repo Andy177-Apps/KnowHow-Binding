@@ -4,10 +4,10 @@ import com.wenbin.knowhowbinding.KnowHowBindingApplication
 
 object UserManager {
 
-    const val EMAIL = "email"
-    const val EMAIL_VALUE = "email_value"
+    private const val EMAIL = "email"
+    private const val EMAIL_VALUE = "email_value"
 
-    var email : String?
+    var email: String?
         get() {
             return KnowHowBindingApplication.instance.getSharedPreferences(EMAIL, 0)
                     .getString(EMAIL_VALUE,null)

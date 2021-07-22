@@ -23,8 +23,7 @@ import java.util.*
 
 
 class HomeFragment (val type: String) : Fragment() {
-    private lateinit var binding : FragmentHomeBinding
-    private lateinit var bindingArticle: FragmentArticleBinding
+    private lateinit var binding: FragmentHomeBinding
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     private val articleViewModel by viewModels<ArticleViewModel>({ requireParentFragment()})
@@ -56,7 +55,6 @@ class HomeFragment (val type: String) : Fragment() {
             Logger.d("articles = $it")
         })
 
-        Logger.d("userEmail = UserManager.user.email")
         // Navigating to Post Article Fragment.
         viewModel.navigateToPostArticle.observe(viewLifecycleOwner, androidx.lifecycle.Observer{
             it?.let {
@@ -65,15 +63,13 @@ class HomeFragment (val type: String) : Fragment() {
             }
         })
 
-        var adapter = HomeAdapter(viewModel)
+        val adapter = HomeAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         // Determine fragment.
         viewModel.articles.observe(viewLifecycleOwner, Observer {
-            Logger.d("checkType, type = $type")
 
             articleViewModel.searchEditText.observe(viewLifecycleOwner, Observer { searchEditText->
-                Logger.d("checkSearch, searchEditText in HomeFragment= $searchEditText")
                 if (type == KnowHowBindingApplication.appContext.getString(R.string.pager_title_all)) {
                     val resultList = mutableListOf<Article>()
                     for (item in it) {

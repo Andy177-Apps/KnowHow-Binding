@@ -47,10 +47,8 @@ class LoginViewModel(private val repository: KnowHowBindingRepository) : ViewMod
     //the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-
     fun firebaseAuthWithGoogle(idToken: String) {
         coroutineScope.launch {
-            Logger.d("check_googleSign, fun firebaseAuthWithGoogle in ViewModel is used.")
             _status.value = LoadApiStatus.LOADING
 
             val result = repository.firebaseAuthWithGoogle(idToken)

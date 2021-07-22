@@ -24,10 +24,10 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
     val userInfo: LiveData<List<User>>
         get() = _userInfo
 
-    private val _appOwenerUser = MutableLiveData<User>()
+    private val _appOwnerUser = MutableLiveData<User>()
 
-    val appOwenerUser: LiveData<User>
-        get() = _appOwenerUser
+    val appOwnerUser: LiveData<User>
+        get() = _appOwnerUser
 
     // Handle navigation to user profile
     private val _navigateToUserProfile = MutableLiveData<User>()
@@ -72,7 +72,7 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
 
             val result = repository.getUser(userEmail)
 
-            _appOwenerUser.value = when (result) {
+            _appOwnerUser.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
                     _status.value = LoadApiStatus.DONE
@@ -99,7 +99,6 @@ class FollowedByViewModel(private val repository: KnowHowBindingRepository) : Vi
     }
 
     fun getFollowedBy(userEmailList: List<String>) {
-        Logger.d("checkFollowedBy, getFollowedBy is used.")
 
         coroutineScope.launch {
 

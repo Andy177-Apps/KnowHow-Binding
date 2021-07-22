@@ -16,10 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
 
-class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewModel(){
-
-
-    private val _allLiveEventInvitations = MutableLiveData<List<Event>>()
+class NotifyViewModel(private val repository: KnowHowBindingRepository) : ViewModel(){
 
     var allLiveEventInvitations = MutableLiveData<List<Event>>()
 
@@ -62,7 +59,6 @@ class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewMod
 
     fun getLiveAllEventInvitations(userEmail: String){
         allLiveEventInvitations = repository.getLiveMyEventInvitation(userEmail)
-        Logger.d("getLiveAllEventInvitations is actioned")
         _status.value = LoadApiStatus.DONE
         _refreshStatus.value = false
     }

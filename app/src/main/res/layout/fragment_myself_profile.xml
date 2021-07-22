@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.wenbin.knowhowbinding.login.UserManager" />
-
         <import type="android.view.View"/>
 
         <variable
@@ -21,12 +19,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
         >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         >
 
         <ImageView
@@ -39,7 +36,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/istockphoto_1005276578_640x640" />
-
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/image_user_avatar"
@@ -91,15 +87,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Following"
+                    android:text="@string/following"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_following"
                     tools:text="Following" />
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
@@ -126,12 +119,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Followers"
+                    android:text="@string/followers"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_follow_by" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="0dp"
@@ -158,7 +150,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="Posts"
+                    android:text="@string/posts"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/text_posts" />
@@ -179,7 +171,6 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="18sp"
                 android:fontFamily="@font/roboto"
-                android:hint="葉文彬"
                 android:text="@{viewModel.userInfo.name}"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="400"
@@ -214,7 +205,6 @@
                 android:layout_marginStart="@dimen/user_detail_margin_start"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/roboto"
-                android:hint="未編輯"
                 android:text='@{viewModel.userInfo.identity != null ? viewModel.userInfo.identity : "未編輯"}'
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_content"
@@ -237,7 +227,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_detail_margin_start"
                 android:fontFamily="@font/roboto"
-                android:hint="臺北市"
                 android:text="@{viewModel.userInfo.city}"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_content"
@@ -260,7 +249,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/user_detail_margin_start"
                 android:fontFamily="@font/roboto"
-                android:hint="未編輯"
                 android:text="@{viewModel.userInfo.gender}"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_content"
@@ -301,9 +289,6 @@
                     android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/outline_expand_more_black_48" />
-
-
-
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -341,10 +326,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/textView_recommended_title"
                     tools:listitem="@layout/item_recommended_user" />
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         <ProgressBar
             android:id="@+id/progress"
@@ -369,7 +351,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
-                android:text="擅長"
+                android:text="@string/talented"
                 android:fontFamily="@font/roboto"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_title"
@@ -396,19 +378,17 @@
                 android:background="@color/lightGrey_02"
                 app:layout_constraintTop_toBottomOf="@+id/textView_talentedSubjects_title" />
 
-
             <TextView
                 android:id="@+id/textView_interestedSubject_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:fontFamily="@font/roboto"
-                android:text="想學"
+                android:text="@string/interested"
                 android:textColor="@color/dark_01"
                 android:textSize="@dimen/user_detail_text_title"
                 app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
                 app:layout_constraintTop_toBottomOf="@id/bar_talentedSubjects"
-
                 />
 
             <com.google.android.material.chip.ChipGroup
@@ -420,10 +400,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/textView_interestedSubject_title"
                 app:layout_constraintStart_toEndOf="@+id/textView_interestedSubject_title"
                 app:layout_constraintTop_toTopOf="@+id/textView_interestedSubject_title"
-
-
                 ></com.google.android.material.chip.ChipGroup>
-
 
             <View
                 android:id="@+id/bar_interestedSubject"
@@ -446,7 +423,6 @@
                 app:layout_constraintStart_toStartOf="@id/textView_talentedSubjects_title"
                 app:layout_constraintTop_toBottomOf="@id/bar_interestedSubject" />
 
-
             <TextView
                 android:id="@+id/textView_about_user"
                 android:layout_width="wrap_content"
@@ -462,8 +438,6 @@
                 app:layout_constraintTop_toBottomOf="@id/textView_about_user_title"
                 tools:text="自我介紹欄位" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
 </layout>

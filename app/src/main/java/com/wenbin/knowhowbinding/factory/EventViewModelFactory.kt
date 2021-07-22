@@ -10,7 +10,7 @@ import com.wenbin.knowhowbinding.data.source.KnowHowBindingRepository
 class EventViewModelFactory(
     private val repository: KnowHowBindingRepository,
     private val event: Event
-) : ViewModelProvider.Factory{
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
 

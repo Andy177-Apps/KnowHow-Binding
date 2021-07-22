@@ -25,7 +25,7 @@ import java.text.SimpleDateFormat
 import kotlin.time.ExperimentalTime
 
 @BindingAdapter("imageUrl")
-fun bindImage (imgView: ImageView, imgUrl : String) {
+fun bindImage (imgView: ImageView, imgUrl: String) {
     imgUrl.let {
         val imgUrl = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
@@ -54,13 +54,13 @@ fun bindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>
 }
 
 @BindingAdapter("ShowMessage")
-fun bindRecyclerViewWithMessage(recyclerView: RecyclerView, data : List<ChatRoom>?) {
+fun bindRecyclerViewWithMessage(recyclerView: RecyclerView, data: List<ChatRoom>?) {
     val adapter = recyclerView.adapter as ChatRoomAdapter
     adapter.submitList(data)
 }
 
 @BindingAdapter("ShowEvent")
-fun bindRecyclerViewWithEvent(recyclerView: RecyclerView, data : List<Event>?) {
+fun bindRecyclerViewWithEvent(recyclerView: RecyclerView, data: List<Event>?) {
     data?.let {
         recyclerView.adapter.apply {
             when (this) {
@@ -71,7 +71,7 @@ fun bindRecyclerViewWithEvent(recyclerView: RecyclerView, data : List<Event>?) {
 }
 
 @BindingAdapter("listImage")
-fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
+fun BindImageRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
     Logger.d("CheckImage, child data = $data")
 
     data?.let {
@@ -85,7 +85,7 @@ fun BindImageRecyclerView(recyclerView: RecyclerView, data : List<String>?) {
 }
 
 @BindingAdapter("listUserInfo")
-fun BindUserInfoRecyclerView(recyclerView: RecyclerView, data : List<User>?) {
+fun BindUserInfoRecyclerView(recyclerView: RecyclerView, data: List<User>?) {
     Logger.d("CheckFollowing, child data = $data")
 
     data?.let {
@@ -100,7 +100,7 @@ fun BindUserInfoRecyclerView(recyclerView: RecyclerView, data : List<User>?) {
 
 
 @BindingAdapter("ShowComment")
-fun bindRecyclerViewWithComment(recyclerView: RecyclerView, data : List<Comment>?) {
+fun bindRecyclerViewWithComment(recyclerView: RecyclerView, data: List<Comment>?) {
     val adapter = recyclerView.adapter as ProfileCommentAdapter
     adapter.submitList(data)
 }
@@ -136,13 +136,13 @@ fun bindTime(textView: TextView, time: Long?) {
 }
 
 @BindingAdapter("ago")
-fun bindAgo(textView: TextView, time:Long?){
+fun bindAgo(textView: TextView, time: Long?){
     time?.let { textView.text = TimeUtil.stampToAgo(time) }
 }
 
 @ExperimentalTime
 @BindingAdapter("timeToHrMin")
-fun bindTimeToHrMin(text: TextView, time : Long?){
+fun bindTimeToHrMin(text: TextView, time: Long?){
     time?.let {
         text.text = "${SimpleDateFormat("HH:mm").format(time)}"
     }

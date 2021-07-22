@@ -44,7 +44,6 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
     val selectedSubject: LiveData<List<String>>
         get() = _selectedSubject
 
-
     private val _articles = MutableLiveData<List<Article>>()
 
     val articles: LiveData<List<Article>>
@@ -119,7 +118,6 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
     }
 
     fun selectSubjects(selectedItem: String) {
-        Logger.d("selectedItem = $selectedItem")
 
         _listSubject.value = KnowHowBindingApplication.instance.resources.getStringArray(R.array.default_array)
         val array: Array<String> = when (selectedItem) {
@@ -132,7 +130,6 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
             "運動" -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.sport_array)
             else -> KnowHowBindingApplication.instance.resources.getStringArray(R.array.exam_array)
         }
-        Logger.d("array = $array")
 
         _listSubject.value = array
 
@@ -142,7 +139,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
         _selectedType.value = type
     }
 
-    fun setupCity(city: List<String>) {
+    private fun setupCity(city: List<String>) {
         _selectedCity.value = city
     }
 

@@ -33,7 +33,7 @@ class CalendarViewModel(
     // Handle navigation to CreateEventDialogFragment with Selected date by safe arg
     private val _navigationToCreateEventDialogFragment = MutableLiveData<Long>()
 
-    val navigationToCreateEventDialogFragment : LiveData<Long>
+    val navigationToCreateEventDialogFragment: LiveData<Long>
         get() = _navigationToCreateEventDialogFragment
 
     val selectedLiveEvent = MutableLiveData<List<Event>>()
@@ -90,7 +90,6 @@ class CalendarViewModel(
 
             val result = repository.getAllEvents()
 
-            Logger.d("EventsResult = $result")
             _events.value = when (result) {
                 is Result.Success -> {
                     _error.value = null
@@ -118,12 +117,9 @@ class CalendarViewModel(
     }
 
     fun createdDailyEvent (toTimeStamp: Long) {
-        Logger.d("toTimeStamp = $toTimeStamp")
 
-        Logger.d("liveEvents.value = ${liveEvents.value}")
         selectedLiveEvent.value = liveEvents.value.sortByTimeStamp(toTimeStamp)
         _navigationToCreateEventDialogFragment.value = toTimeStamp
-        Logger.d("selectedLiveEvent.value = ${selectedLiveEvent.value}")
 
     }
 

@@ -46,16 +46,11 @@ class UserProfileFragment: Fragment() {
 
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
-            Logger.d("Check_follow, accepted userInfo = $it")
 
             imageViewGender.isSelected = it.gender == "male"
 
-            Logger.d("Check_follow, viewModel.userInfo.image = ${viewModel.userInfo.value!!.image}")
             if (it.email != "") {
-                Logger.d("Check_follow, accepted userInfo in first if determine = $it")
-
                 if (firstTimeEntry) {
-                    Logger.d("Check_follow, accepted userInfo in second if determine = $it")
                     setupLayout(it)
                     firstTimeEntry = false
                 }
@@ -77,9 +72,7 @@ class UserProfileFragment: Fragment() {
         // follow
         viewModel.myInfo.observe(viewLifecycleOwner, Observer { my ->
 
-            Logger.d("Check_follow, myInfo = $my")
             if (my.followingEmail.contains(viewModel.selectedUserEmail)) {
-
                 showFollowButton(false)
             } else {
                 showFollowButton(true)
@@ -87,10 +80,6 @@ class UserProfileFragment: Fragment() {
         })
 
         binding.buttonUnfollow.setOnClickListener {
-
-            Logger.d("Check_follow, Line136")
-            Logger.d("Check_follow, Line138")
-
             viewModel.removeUserFromFollow(UserManager.user.email, viewModel.userInfo.value!!)
             showFollowButton(true)
         }
@@ -121,7 +110,6 @@ class UserProfileFragment: Fragment() {
         })
 
         viewModel.liveUser.observe(viewLifecycleOwner, Observer {
-            Logger.d("viewModel.liveArticles.observe, it=$it")
             it?.let {
                 viewModel.getUser(viewModel.selectedUserEmail)
             }
@@ -132,7 +120,7 @@ class UserProfileFragment: Fragment() {
 
     override fun onDestroyView() {
         if (activity is MainActivity) {
-            (activity as MainActivity).recoverToolBarandBottomNav()
+            (activity as MainActivity).recoverToolBarAndBottomNav()
         }
         super.onDestroyView()
     }
@@ -165,9 +153,6 @@ class UserProfileFragment: Fragment() {
 
         binding.buttonMessage.setOnClickListener {
             viewModel.postChatRoom(viewModel.createChatRoom())
-            Logger.d("Check_follow, buttonMessage is clicked")
-
-            Logger.d("Check_follow, user.email= ${user.email}")
 
             if (!user.email.isNullOrEmpty()){
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -182,13 +167,9 @@ class UserProfileFragment: Fragment() {
         // show -> false, show buttonUnFollow
 
         if (showFollow) {
-            Logger.d("Check_follow, Line121")
-
             binding.buttonFollow.visibility = View.VISIBLE
             binding.buttonUnfollow.visibility = View.GONE
         } else {
-            Logger.d("Check_follow, Line126")
-
             binding.buttonFollow.visibility = View.GONE
             binding.buttonUnfollow.visibility = View.VISIBLE
         }

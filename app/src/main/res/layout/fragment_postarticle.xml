@@ -28,18 +28,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             />
-<!--        android:entries="@array/category_array"-->
-
 
         <TextView
             android:id="@+id/textView_article_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="文章標題"
+            android:text="@string/article_title"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/textView_category_title"
-
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
@@ -56,10 +53,9 @@
             app:layout_constraintEnd_toStartOf="@id/editText_articleGive"
             android:layout_marginEnd="5dp"
             android:text="@={viewModel.articleCity}"
-            android:hint="地點"
+            android:hint="@string/location"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/spinner_category" />
-
 
         <EditText
             android:id="@+id/editText_articleGive"
@@ -70,7 +66,7 @@
             android:layout_marginEnd="16dp"
             android:background="@drawable/bg_edittext"
             android:ems="10"
-            android:hint="提供"
+            android:hint="@string/give"
             android:inputType="textMultiLine"
             android:text="@={viewModel.articleGive}"
             android:textColor="@color/black"
@@ -85,34 +81,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="類別"
+            android:text="@string/category"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/editText_articleFind" />
-
-
-
-        <TextView
-            android:id="@+id/textView_city_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="地點"
-            android:visibility="gone"
-
-            app:layout_constraintStart_toStartOf="@id/textView_category_title"
-            app:layout_constraintTop_toBottomOf="@id/spinner_category" />
-
-
-        <TextView
-            android:id="@+id/textView_interestedSubject_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="應徵科目"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/textView_category_title"
-            app:layout_constraintTop_toBottomOf="@id/editText_articleCity" />
 
         <EditText
             android:id="@+id/editText_articleFind"
@@ -123,7 +95,7 @@
             android:ems="10"
             android:inputType="text"
             android:text="@={viewModel.articleFind}"
-            android:hint="想找"
+            android:hint="@string/interested"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:background="@drawable/bg_edittext"
@@ -133,17 +105,7 @@
             android:layout_marginTop="16dp"
             />
 
-        <TextView
-            android:id="@+id/textView_description_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="教學形式"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="@id/textView_category_title"
-            app:layout_constraintTop_toBottomOf="@id/editText_articleGive" />
-
-        <EditText
+         <EditText
             android:id="@+id/editText_articleContent"
             android:layout_width="0dp"
             android:layout_height="162dp"
@@ -152,7 +114,7 @@
             android:inputType="text"
             android:ems="10"
             android:text="@={viewModel.articleContent}"
-            android:hint="內容"
+            android:hint="@string/context"
             android:gravity="top"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -162,7 +124,6 @@
             android:textColor="@color/black"
             android:textColorHint="@color/lightGrey_02"
             />
-
 
         <Button
             android:id="@+id/button_send_article"
@@ -180,7 +141,7 @@
             android:textSize="@dimen/btn_text_size"
             android:textFontWeight="400"
             android:fontFamily="@font/noto_sans"
-            android:text="發布文章"
+            android:text="@string/post_article"
             android:layout_marginHorizontal="16dp"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>

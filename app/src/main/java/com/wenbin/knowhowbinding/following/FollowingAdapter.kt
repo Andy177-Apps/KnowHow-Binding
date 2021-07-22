@@ -13,7 +13,7 @@ class FollowingAdapter(private val onClickListener: OnClickListener) :
 
     class UserViewHolder(private var binding: ItemFollowingBinding) :
     RecyclerView.ViewHolder(binding.root) {
-        fun bind(user : User) {
+        fun bind(user: User) {
             binding.user = user
             binding.executePendingBindings()
         }

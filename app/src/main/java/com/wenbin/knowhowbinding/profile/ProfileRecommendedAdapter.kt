@@ -12,14 +12,14 @@ class ProfileRecommendedAdapter(private val onClickListener: OnClickListener) : 
         ProfileRecommendedAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-            private var binding : ItemRecommendedUserBinding
+            private var binding: ItemRecommendedUserBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : User) {
+        fun bind (item: User) {
             binding.user = item
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemRecommendedUserBinding.inflate(layoutInflater,
                         parent, false)

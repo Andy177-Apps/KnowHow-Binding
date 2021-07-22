@@ -11,10 +11,9 @@ import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentMessageBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
-import com.wenbin.knowhowbinding.util.Logger
 
 class MessageFragment : Fragment() {
-    private lateinit var binding : FragmentMessageBinding
+    private lateinit var binding: FragmentMessageBinding
     private val viewModel by viewModels<MessageViewModel> { getVmFactory(
             MessageFragmentArgs.fromBundle(requireArguments()).userEmail,
             MessageFragmentArgs.fromBundle(requireArguments()).userName
@@ -30,7 +29,6 @@ class MessageFragment : Fragment() {
 
         val myUserEmail = UserManager.user.email
         val friendUserEmail = viewModel.currentChattingUser
-        Logger.d("myUserEmail = $myUserEmail, friendUserEmail = $friendUserEmail")
 
         val adapter = MessageAdapter()
         binding.recyclerView.adapter = adapter
@@ -40,7 +38,6 @@ class MessageFragment : Fragment() {
         })
 
         binding.imageViewSend.setOnClickListener {
-
             viewModel.sendMessage(myUserEmail, friendUserEmail)
             viewModel.textSend.value = ""
         }
@@ -55,7 +52,7 @@ class MessageFragment : Fragment() {
 
     override fun onDestroyView() {
         if (activity is MainActivity) {
-            (activity as MainActivity).recoverToolBarandBottomNav()
+            (activity as MainActivity).recoverToolBarAndBottomNav()
         }
         super.onDestroyView()
     }

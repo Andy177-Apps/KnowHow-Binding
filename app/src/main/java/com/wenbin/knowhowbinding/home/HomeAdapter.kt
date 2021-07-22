@@ -17,28 +17,21 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
         HomeAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-        private var binding : ItemArticleBinding
+        private var binding: ItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Article, viewModel: HomeViewModel) {
+        fun bind (item: Article, viewModel: HomeViewModel) {
             binding.article = item
             // When bookmark icon is selected
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Logger.d("saveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
-
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
-
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
 
             binding.constraintLayoutUserInformation.setOnClickListener {
-                Logger.d("check_clicked, binding.textViewDescription is clicked")
-
                 item.author?.let {
-                    Logger.d("check_clicked, item.author.email = ${item.author.email}")
-                    Logger.d("check_clicked, UserManager.user.email = ${UserManager.user.email}")
 
                     if (item.author.email == UserManager.user.email) {
                         Navigation.createNavigateOnClickListener(NavigationDirections.navigateToProfileFragment()).
@@ -65,7 +58,7 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemArticleBinding.inflate(layoutInflater,
                     parent, false)

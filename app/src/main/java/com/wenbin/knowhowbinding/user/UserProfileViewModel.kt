@@ -16,13 +16,12 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class UserProfileViewModel(private val repository: KnowHowBindingRepository,
-userEmail: String):ViewModel() {
+userEmail: String) : ViewModel() {
+
     // Use arguments to receive data, and then send it to the select User Email here
     val selectedUserEmail = userEmail
 
-
-    private val _userInfo = MutableLiveData<User>(User(
-    ))
+    private val _userInfo = MutableLiveData<User>( User() )
 
     val userInfo: LiveData<User>
         get() = _userInfo
@@ -85,7 +84,6 @@ userEmail: String):ViewModel() {
 
     private var doneProgressCount = 3
     private fun doneProgress() {
-
         doneProgressCount--
         if (doneProgressCount == 0) _status.value = LoadApiStatus.DONE
     }
@@ -145,7 +143,6 @@ userEmail: String):ViewModel() {
     }
 
     fun getUser(userEmail: String) {
-        Logger.d("Check_follow, getUser is used.")
 
         coroutineScope.launch {
 
@@ -270,7 +267,7 @@ userEmail: String):ViewModel() {
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Logger.d("Check_userArticles, result = ${result}")
+            Logger.d("Check_userArticles, result = $result")
 
             _userArticles.value = when (result) {
                 is Result.Success -> {

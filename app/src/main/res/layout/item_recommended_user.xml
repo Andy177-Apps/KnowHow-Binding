@@ -65,9 +65,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_follow_name"
                     app:layout_constraintStart_toStartOf="@+id/text_follow_name"
                     app:layout_constraintEnd_toEndOf="@+id/text_follow_name"/>
-
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </androidx.cardview.widget.CardView>
 </layout>

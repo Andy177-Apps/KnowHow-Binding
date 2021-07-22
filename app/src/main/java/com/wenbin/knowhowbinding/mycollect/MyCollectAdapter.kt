@@ -14,25 +14,22 @@ class MyCollectAdapter(val viewModel: MyCollectViewModel) : ListAdapter<Article,
         MyCollectAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-            private var binding : ItemArticleBinding
+            private var binding: ItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Article, viewModel: MyCollectViewModel) {
+        fun bind (item: Article, viewModel: MyCollectViewModel) {
             binding.article = item
 
             val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
-                Logger.d("saveArticle, imageViewBookmark is clicked")
                 viewModel.saveArticle(item, UserManager.user.email)
-
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
-
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemArticleBinding.inflate(layoutInflater,
                         parent, false)

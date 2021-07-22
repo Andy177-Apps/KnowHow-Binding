@@ -30,7 +30,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="textView"
+                    android:text="@string/textView"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:textStyle="normal" />

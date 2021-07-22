@@ -10,12 +10,11 @@
             type="com.wenbin.knowhowbinding.profile.editprofile.EditProfileViewModel" />
     </data>
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-    android:fillViewport="true">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -69,8 +68,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="-40dp"
-                    >
+                    android:layout_marginTop="-40dp">
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image_user_avatar"
@@ -82,7 +80,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-
                         tools:src="@drawable/avatar_1" />
 
                     <View
@@ -103,19 +100,20 @@
                         app:layout_constraintEnd_toEndOf="@+id/image_user_avatar"
                         app:srcCompat="@drawable/ic_menu_camera" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
                 <TextView
                     android:id="@+id/textView_user_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/roboto"
                     android:hint="@string/project_owner_name"
                     android:text="@{viewModel.userInfo.name}"
                     android:textColor="@color/dark_01"
-                    android:textSize="18sp"
                     android:textFontWeight="400"
+                    android:textSize="18sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center_horizontal"
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
 
@@ -123,6 +121,7 @@
                 android:id="@+id/editText_identity"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/edit_margin_top"
+                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_edittext"
                 android:ems="10"
@@ -130,50 +129,45 @@
                 android:inputType="text"
                 android:text="@={viewModel.identity}"
                 android:textColor="@color/black"
-                android:layout_marginHorizontal="16dp"
-
                 android:textColorHint="@color/lightGrey_02"
                 app:layout_constraintEnd_toEndOf="parent"
-
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/radio_gender"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/radio_gender" />
 
             <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
                 android:id="@+id/multipleItemSelectionSpinner_subject_talentedSubjects"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_margin_top"
                 android:layout_marginHorizontal="@dimen/edit_spinner_marginHorizontal"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_edittext"
-                app:hintText="願意教別人的項目"
-                android:layout_height="@dimen/edit_margin_top"
-
                 android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@+id/editText_identity"/>
+                app:hintText="願意教別人的項目"
+                app:layout_constraintTop_toBottomOf="@+id/editText_identity" />
 
             <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
                 android:id="@+id/multipleItemSelectionSpinner_subject_interestedSubjects"
                 android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_margin_top"
                 android:layout_marginHorizontal="@dimen/edit_spinner_marginHorizontal"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_edittext"
-                app:hintText="想學的知識"
-                android:layout_height="@dimen/edit_margin_top"
                 android:textAlignment="center"
-                app:layout_constraintTop_toBottomOf="@+id/multipleItemSelectionSpinner_subject_talentedSubjects"/>
+                app:hintText="想學的知識"
+                app:layout_constraintTop_toBottomOf="@+id/multipleItemSelectionSpinner_subject_talentedSubjects" />
 
             <TextView
                 android:id="@+id/text_edit_profile_title_gender"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/gender"
                 android:fontFamily="@font/noto_sans"
+                android:text="@string/gender"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="500"
                 android:textSize="@dimen/profile_text_title"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/editText_identity"
                 app:layout_constraintTop_toBottomOf="@id/editText_identity" />
 
@@ -181,21 +175,19 @@
                 android:id="@+id/radio_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/bg_all_round_corner_white"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/layout_image"
-
-                android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                >
+                app:layout_constraintTop_toBottomOf="@+id/layout_image">
 
                 <ImageView
                     android:id="@+id/imageView_male"
                     android:layout_width="@dimen/edit_imageView_gemder_size"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/outline_male_black_48" />
 
@@ -206,7 +198,6 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/outline_female_black_48" />
-
 
                 <View
                     android:id="@+id/bar_talentedSubjects"
@@ -230,7 +221,6 @@
                     android:layout_marginEnd="8dp"
                     android:text="@string/female"
                     android:textColor="@color/black_54_alpha" />
-
             </RadioGroup>
 
             <TextView
@@ -238,39 +228,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:visibility="gone"
-                android:text="縣市"
                 android:fontFamily="@font/noto_sans"
+                android:text="縣市"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="500"
                 android:textSize="@dimen/profile_text_title"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/radio_gender"
-                app:layout_constraintTop_toTopOf="@+id/text_edit_profile_title_gender"
-                />
-
+                app:layout_constraintTop_toTopOf="@+id/text_edit_profile_title_gender" />
 
             <Spinner
                 android:id="@+id/spinner_city"
-                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="56dp"
                 android:layout_marginTop="16dp"
                 android:entries="@array/city_array"
+                android:visibility="gone"
                 app:layout_constraintStart_toEndOf="@+id/textView_city_title"
-                app:layout_constraintTop_toBottomOf="@+id/textView_city_title"
-                />
+                app:layout_constraintTop_toBottomOf="@+id/textView_city_title" />
 
             <com.androidbuts.multispinnerfilter.SingleSpinnerSearch
                 android:id="@+id/singleItemSelectionSpinner_city"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginHorizontal="@dimen/search_spinner_marginHorizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/bg_all_round_corner_white"
                 app:hintText="城市"
                 app:layout_constraintBottom_toBottomOf="@+id/radio_gender"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginEnd="16dp"
                 app:layout_constraintHorizontal_bias="0.513"
                 app:layout_constraintStart_toEndOf="@+id/radio_gender"
                 app:layout_constraintTop_toTopOf="@+id/radio_gender"
@@ -281,13 +268,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:visibility="gone"
-
-                android:text="擅長"
                 android:fontFamily="@font/noto_sans"
+                android:text="@string/talented"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="500"
                 android:textSize="@dimen/profile_text_title"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/editText_identity"
                 app:layout_constraintTop_toBottomOf="@+id/editText_identity" />
 
@@ -296,11 +282,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
-                android:visibility="gone"
-
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:scrollbars="none"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
@@ -315,36 +300,32 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
-
                 </com.google.android.material.chip.ChipGroup>
-
             </HorizontalScrollView>
-
 
             <TextView
                 android:id="@+id/textView_interestedSubjects_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="想學"
-                android:visibility="gone"
-
                 android:fontFamily="@font/noto_sans"
+                android:text="@string/interested"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="500"
                 android:textSize="@dimen/profile_text_title"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/editText_identity"
                 app:layout_constraintTop_toBottomOf="@+id/scroll_chip_talentedSubjects" />
 
             <HorizontalScrollView
                 android:id="@+id/scroll_chip_interestedSubject"
                 android:layout_width="0dp"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"
                 android:layout_marginTop="8dp"
                 android:orientation="horizontal"
                 android:scrollbars="none"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textView_interestedSubjects_title">
@@ -360,22 +341,20 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/textView_talentedSubjects_title">
-
                 </com.google.android.material.chip.ChipGroup>
-
             </HorizontalScrollView>
 
             <TextView
                 android:id="@+id/textView_introduction_title"
-                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="自我介紹"
                 android:fontFamily="@font/noto_sans"
+                android:text="@string/introduction"
                 android:textColor="@color/dark_01"
                 android:textFontWeight="500"
                 android:textSize="@dimen/profile_text_title"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/editText_identity"
                 app:layout_constraintTop_toBottomOf="@+id/scroll_chip_interestedSubject" />
 
@@ -383,17 +362,17 @@
                 android:id="@+id/editTextTextMultiLine_introduction"
                 android:layout_width="0dp"
                 android:layout_height="147dp"
-                android:hint="自我介紹"
-                android:background="@drawable/bg_edittext"
-                android:textColor="@color/black"
-                android:textColorHint="@color/lightGrey_02"
                 android:layout_marginTop="16dp"
-                android:ems="10"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_edittext"
+                android:ems="10"
                 android:gravity="start|top"
+                android:hint="@string/introduction"
                 android:inputType="textMultiLine"
                 android:text="@={viewModel.introduction}"
+                android:textColor="@color/black"
+                android:textColorHint="@color/lightGrey_02"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/editText_identity"
                 app:layout_constraintTop_toBottomOf="@+id/multipleItemSelectionSpinner_subject_interestedSubjects" />
 
@@ -401,24 +380,21 @@
                 android:id="@+id/textView_save"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/btn_height"
-                android:background="@drawable/bg_all_round_corner_primarydark"
-                android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_introduction"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="48dp"
-                android:textSize="@dimen/btn_text_size"
-                android:textFontWeight="400"
+                android:background="@drawable/bg_all_round_corner_primarydark"
                 android:fontFamily="@font/noto_sans"
                 android:gravity="center"
                 android:onClick="@{() -> viewModel.navigateToProfilePage()}"
-                android:layout_marginTop="24dp"
-                android:text="儲存"
-                />
-
+                android:text="@string/save"
+                android:textColor="@color/white"
+                android:textFontWeight="400"
+                android:textSize="@dimen/btn_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextTextMultiLine_introduction" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.core.widget.NestedScrollView>
 </layout>

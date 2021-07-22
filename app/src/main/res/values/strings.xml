@@ -11,9 +11,9 @@
     <string name="chatroom">訊息</string>
     <string name="profile">Profile</string>
     <string name="search">搜尋文章</string>
+    <string name="search_EN">Search</string>
     <string name="select_subject">找尋合適的對象</string>
     <string name="go_result">看結果</string>
-
     <string name="connect_fails">The connect fails</string>
     <string name="start_a_new_conversation">Start a new conversation</string>
     <string name="indicator_message">輸入訊息</string>
@@ -37,7 +37,6 @@
     <string name="colon">:</string>
     <string name="detail">Detail</string>
     <string name="identity">身分</string>
-
     <string name="menu_item_title_edit">EDIT</string>
     <string name="menu_item_title_save">SAVE</string>
     <string name="show_less">Show Less</string>
@@ -71,7 +70,33 @@
     <string name="edit_introduction_reminder">目前還沒有您的自我介紹喔，趕快點\"編輯個人資訊\"來編輯您的各資訊吧！</string>
     <string name="recommended_title">為您推薦</string>
     <string name="project_owner_name">葉文彬</string>
-
+    <string name="button">Button</string>
+    <string name="textView">textView</string>
+    <string name="makeAPinkyPromise">建立約定</string>
+    <string name="title">Title</string>
+    <string name="keyName">輸入約定的名稱吧！</string>
+    <string name="type">Type</string>
+    <string name="city">City</string>
+    <string name="location">地點</string>
+    <string name="datingTime">約定時間</string>
+    <string name="all_day">All-day</string>
+    <string name="_19_00">19:00</string>
+    <string name="_21_00">21:00</string>
+    <string name="description">Description</string>
+    <string name="context">約定內容</string>
+    <string name="attendee">Attendee</string>
+    <string name="send_invitation">送出邀請</string>
+    <string name="talented">擅長</string>
+    <string name="interested">想學</string>
+    <string name="introduction">自我介紹</string>
+    <string name="save">儲存</string>
+    <string name="following">Following</string>
+    <string name="followers">Followers</string>
+    <string name="posts">Posts</string>
+    <string name="article_title">文章標題</string>
+    <string name="give">提供</string>
+    <string name="category">類別</string>
+    <string name="post_article">發布文章</string>
 
     <string-array name="category_array">
         <item>交換技能</item>
@@ -123,9 +148,7 @@
         <item>unlimited</item>
     </string-array>
 
-
     <string-array name="default_array">
-
     </string-array>
 
     <string-array name="major_category_array">

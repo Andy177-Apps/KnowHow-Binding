@@ -15,14 +15,12 @@ class CalendarAdapter : ListAdapter<Event,
         CalendarAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-            private var binding : ItemEventBinding
+            private var binding: ItemEventBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Event) {
+        fun bind (item: Event) {
             binding.event = item
 
             binding.cardViewEvent.setOnClickListener {
-
-                Logger.d("cardView is clicked")
                 if (binding.layoutScheduleDetail.visibility == View.GONE) {
                     binding.layoutScheduleDetail.visibility = View.VISIBLE
                 } else {

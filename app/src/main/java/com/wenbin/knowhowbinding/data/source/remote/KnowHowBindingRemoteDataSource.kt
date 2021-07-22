@@ -47,8 +47,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
                 // Register observers to listen for when the download is done or if it fails
                 uploadTask.addOnFailureListener {
-                    Logger.d("Error getting documents in DataSource: it")
-
                     continuation.resume(Result.Error(it))
                 }.addOnSuccessListener { taskSnapshot ->
                     val storagePath = taskSnapshot.metadata?.path as String
@@ -74,7 +72,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun saveArticle(article: Article, userEmail: String): Result<Boolean> =
             suspendCoroutine { continuation ->
-                Log.d("saveArticle", "fun saveArticle in DataSource is used")
 
                 val db = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
@@ -110,7 +107,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun getFollowing(userEmail: String): Result<List<User>> =
             suspendCoroutine { continuation ->
-                Logger.d("getUserArticle in DataSource is used.")
 
                 val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
 
@@ -147,8 +143,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun getFollowedBy(userEmailList: List<String>): Result<List<User>> =
             suspendCoroutine { continuation ->
-                Logger.d( "getFollowedBy in DataSource is used.")
-                Logger.d("userEmailList = $userEmailList")
 
                 val followings = FirebaseFirestore.getInstance().collection(PATH_USERS)
 
@@ -254,7 +248,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
             }
 
     override suspend fun getArticles(): Result<List<Article>> = suspendCoroutine { continuation ->
-        Log.d("wembin", "getArticles is used")
 
         FirebaseFirestore.getInstance()
                 .collection(PATH_ARTICLES)
@@ -361,7 +354,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
             suspendCoroutine { continuation ->
 
                 val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
-                Logger.d("user.email = ${user.email}")
 
                 db
                         .whereEqualTo("email", userOwnerEmail)
@@ -409,7 +401,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
             suspendCoroutine { continuation ->
 
                 val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
-                Logger.d("user.email = ${user.email}")
 
                 db
                         .whereEqualTo("email", userOwnerEmail)
@@ -453,7 +444,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun getUserArticle(userEmail: String): Result<List<Article>> =
             suspendCoroutine { continuation ->
-                Logger.d("getUserArticle in DataSource is used.")
 
                 val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
@@ -490,7 +480,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun getSavedArticle(userEmail: String): Result<List<Article>> =
             suspendCoroutine { continuation ->
-                Logger.d("getUserArticle in DataSource is used.")
 
                 val articles = FirebaseFirestore.getInstance().collection(PATH_ARTICLES)
 
@@ -528,9 +517,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
     override suspend fun postUser(user: User): Result<Boolean> = suspendCoroutine { continuation ->
         val db = FirebaseFirestore.getInstance().collection(PATH_USERS)
         val document = db.document(user.id)
-        Logger.d("user in DataSource = $user")
-        Logger.d("user.id in DataSource = ${user.id}")
-        Logger.d("user.email in DataSource = ${user.email}")
 
         db.whereEqualTo("email", user.email)
                 .get()
@@ -563,8 +549,7 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun firebaseAuthWithGoogle(idToken: String): Result<FirebaseUser> =
             suspendCoroutine { continuation ->
-                Logger.d("firebaseAuthWithGoogle in DataSource is used.")
-                Logger.d("idToken = $idToken")
+
                 val auth = Firebase.auth
 
                 val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -795,8 +780,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
 
     override suspend fun updateUser(user: User): Result<Boolean> = suspendCoroutine {
         val db = FirebaseFirestore.getInstance()
-        Logger.d("user.email = ${user.email}")
-        Logger.d("user.image = ${user.image}")
 
         db.collection(PATH_USERS)
                 .whereEqualTo("email", user.email)
@@ -893,7 +876,6 @@ object KnowHowBindingRemoteDataSource : KnowHowBindingDataSource {
                 .whereArrayContains("invitation", userEmail)
                 .addSnapshotListener { snapshot, exception ->
                     Logger.i("add SnapshotListener detected")
-
                     exception?.let {
                         Logger.w("[${this::class.simpleName}] Error getting documents. ${it.message}")
                     }

@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class EditProfileViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
-    var _userInfo = MutableLiveData<User>(User())
+    private var _userInfo = MutableLiveData<User>( User() )
 
     val userInfo: LiveData<User>
         get() = _userInfo
@@ -30,37 +30,35 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
     private var isBgImageUpdated = false
 
-    val talentedSubjects = MutableLiveData<String>()
-
-    val interestedSubjects = MutableLiveData<String>()
-
     val introduction = MutableLiveData<String>()
-
     val talentedList: MutableList<String> = ArrayList()
     private val interestedList: MutableList<String> = ArrayList()
 
-    private var imageUrlPath : String = ""
-    private var bgImageUrlPath : String = ""
-
+    private var imageUrlPath: String = ""
+    private var bgImageUrlPath: String = ""
 
     //Consequence for selected chip talentedSubjects
     private var _selectedTalented = MutableLiveData<List<String>>()
-    private val selectedTalented : LiveData<List<String>>
+
+    private val selectedTalented: LiveData<List<String>>
         get() = _selectedTalented
 
     //Consequence for selected chip interestedSubjects
     private var _selectedInterested = MutableLiveData<List<String>>()
-    private val selectedInterested : LiveData<List<String>>
+
+    private val selectedInterested: LiveData<List<String>>
         get() = _selectedInterested
 
     //Variables for editable component
     private var _selectedGender = MutableLiveData<String>()
-    private val selectedGender : LiveData<String>
+
+    private val selectedGender: LiveData<String>
         get() = _selectedGender
 
     //Consequence for selected city
     private var _selectedCity = MutableLiveData<String>()
-    private val selectedCity : LiveData<String>
+
+    private val selectedCity: LiveData<String>
         get() = _selectedCity
 
     // status: The internal MutableLiveData that stores the status of the most recent request
@@ -91,9 +89,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     // the Coroutine runs using the Main (UI) dispatcher
     private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
-    /**
-     * For navigate to Profile Fragment
-     */
     private val _navigateToProfilePage = MutableLiveData<Boolean>()
 
     val navigateToProfilePage: LiveData<Boolean>
@@ -103,7 +98,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         Logger.i("------------------------------------")
         Logger.i("[${this::class.simpleName}]${this}")
         Logger.i("------------------------------------")
-
         getUser(UserManager.user.email)
     }
 
@@ -111,7 +105,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
 
         coroutineScope.launch {
             _status.value = LoadApiStatus.LOADING
-            Logger.d("EditViewModel, user = $user")
 
             when (val result = repository.updateUser(user)) {
                 is Result.Success -> {
@@ -170,7 +163,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     }
 
     fun getUser(): User {
-        Log.d("checkGender", "selectedGender in viewModel= ${selectedGender.value}")
 
         return User(
                 id = UserManager.user.id,
@@ -194,8 +186,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     fun getImageUri(filePath: String) {
 
         coroutineScope.launch {
-
-            Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
 
             _status.value = LoadApiStatus.LOADING
 
@@ -223,7 +213,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Logger.d("checkUpdateImage, updated imageUrlPath is $imageUrlPath")
             _refreshStatus.value = false
         }
     }
@@ -233,8 +222,6 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         isBgImageUpdated = true
 
         coroutineScope.launch {
-
-            Logger.d("checkUpdateImage, original imageUrlPath is $imageUrlPath")
 
             _status.value = LoadApiStatus.LOADING
 
@@ -262,21 +249,9 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
                     ""
                 }
             }
-            Logger.d("checkUpdateBgImage, updated bgImageUrlPath is $bgImageUrlPath")
             _refreshStatus.value = false
         }
     }
-
-    fun checkIfComplete(): Boolean {
-
-        return !(introduction.value == null ||
-                selectedCity.value == null ||
-                selectedGender.value == null ||
-                selectedTalented.value == null ||
-                selectedInterested.value == null
-                )
-    }
-
 
     fun navigateToProfilePage() {
         if (isBgImageUpdated) {
@@ -309,7 +284,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         }
     }
 
-    fun setTalented(list: List<String>) {
+    private fun setTalented(list: List<String>) {
         _selectedTalented.value = list
     }
 
@@ -323,7 +298,7 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
         }
     }
 
-    fun setInterested(list: List<String>) {
+    private fun setInterested(list: List<String>) {
         _selectedInterested.value = list
     }
 

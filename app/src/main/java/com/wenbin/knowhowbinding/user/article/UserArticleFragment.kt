@@ -15,7 +15,7 @@ import com.wenbin.knowhowbinding.util.Logger
 
 
 class UserArticleFragment : Fragment() {
-    private lateinit var binding : FragmentUserArticleBinding
+    private lateinit var binding: FragmentUserArticleBinding
     private val viewModel by viewModels<UserArticleViewModel> {
         getVmFactory(
                 UserProfileFragmentArgs.fromBundle(requireArguments()).userEmail
@@ -34,7 +34,7 @@ class UserArticleFragment : Fragment() {
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Logger.d("MyArticleFragment, articles in Fragment = $it")
         })
-        var adapter = UserArticleAdapter(viewModel)
+        val adapter = UserArticleAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

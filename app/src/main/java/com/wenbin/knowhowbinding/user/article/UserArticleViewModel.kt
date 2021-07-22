@@ -51,12 +51,10 @@ class UserArticleViewModel (private val repository: KnowHowBindingRepository,
     }
 
     private fun getUserArticle(userEmail: String) {
-        Logger.d("MyArticleFragment, getUserArticle is used.")
 
         coroutineScope.launch {
 
             val result = repository.getUserArticle(userEmail)
-            Logger.d("MyArticleFragment, result = $result")
 
             _articles.value = when (result) {
                 is Result.Success -> {

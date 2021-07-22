@@ -11,6 +11,7 @@ class ArticleAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapt
     override fun toString(): String {
         return super.toString()
     }
+
     override fun getItem(position: Int): Fragment {
 
         return HomeFragment(when(position) {

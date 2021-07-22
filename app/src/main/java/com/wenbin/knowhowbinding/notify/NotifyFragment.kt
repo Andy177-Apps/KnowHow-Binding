@@ -12,7 +12,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
 
-class NotifyFragment: Fragment() {
+class NotifyFragment : Fragment() {
     private val viewModel by viewModels<NotifyViewModel> { getVmFactory() }
 
     lateinit var binding: FragmentNotifyBinding
@@ -35,7 +35,6 @@ class NotifyFragment: Fragment() {
         viewModel.getLiveAllEventInvitations(UserManager.user.email)
 
         viewModel.allLiveEventInvitations.observe(viewLifecycleOwner, Observer {
-            Logger.d("see_what_is_Empty, allLiveEventInvitations_1 = $it ")
 
             if(it.isEmpty()) {
                 invitationValueVisibility(false)
@@ -45,12 +44,8 @@ class NotifyFragment: Fragment() {
 
             adapter.submitList(it)
             it?.let {
-                Logger.d("see_what_is_Empty, allLiveEventInvitations_3 = $it ")
                 binding.viewModel = viewModel
-                Logger.d("see_what_is_Empty, allLiveEventInvitations_4 = $it ")
-
             }
-            Logger.d("see_what_is_Empty, allLiveEventInvitations_2 = $it ")
         })
         return binding.root
     }

@@ -29,7 +29,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
     private val timePickerTypeEnd = 0x02
 
 
-    private lateinit var binding : DialogCreateEventBinding
+    private lateinit var binding: DialogCreateEventBinding
 
     private val viewModel by viewModels<CreateEventViewModel> { getVmFactory(
         CreateEventDialogFragmentArgs.fromBundle(requireArguments()).selectedDate
@@ -48,7 +48,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
         val listArray0: MutableList<KeyPairBoolData> = ArrayList()
 
         viewModel.followingName.observe(viewLifecycleOwner, Observer {
-            Logger.d("followingName = $it")
             binding.spinnerOtherUser.adapter = CreateEventFollowingSpinnerAdapter(it)
             it?.let {
                 for (i in it.indices) {
@@ -59,11 +58,8 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                     listArray0.add(h)
                 }
             }
-            Logger.d("Updated listArray0 = $listArray0")
 
         })
-
-        Logger.d("listArray0 in line 67= $listArray0")
 
         binding.multipleItemSelectionSpinner.isSearchEnabled = true
         binding.multipleItemSelectionSpinner.setSearchHint("搜尋好友")
@@ -79,15 +75,12 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
                 }
             }
 
-            Logger.d("final list in line 83 =$list")
             viewModel.setMultipleInvitation(list)
         })
 
         viewModel.multipleInvitation.observe(viewLifecycleOwner, Observer {
             Logger.d("multipleInvitation = $it")
         })
-
-
 
         val calendar = Calendar.getInstance()
         val hour = calendar.get(Calendar.HOUR_OF_DAY)
@@ -116,7 +109,6 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             showTimePickerDialog(timePickerTypeEnd, hour, minute)
         }
         binding.viewBtnSend.setOnClickListener {
-            Log.d("checkFormFilled", viewModel.isFormFilled().toString())
             if (viewModel.isFormFilled()) {
                 val event = viewModel.getEvent()
                 Logger.d("event = $event")
@@ -147,16 +139,12 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             ) {
                 if (parent != null) {
                     val selectedType = parent.selectedItem.toString()
-                    Logger.d("position = $position")
-                    Logger.d("id = $id")
-
                     viewModel.setType(selectedType)
                 }
             }
         }
 
         viewModel.type.observe(viewLifecycleOwner, Observer {
-            Logger.d("createEventViewModel type = $it")
         })
 
         // Set Invitation
@@ -178,21 +166,15 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
             }
         }
 
-
         viewModel.userInfo.observe(viewLifecycleOwner, Observer { it ->
-            Logger.d("got user = $it")
-
-            Logger.d("got user following = ${it.following}")
 
             // Get userEmail list from list of following
             val list = arrayListOf<String>()
 
             // Give following name
             for (item in it.following) {
-                Logger.d("userEmail = ${item.userName}")
                 list.add(item.userName)
             }
-            Logger.d("New list = $list")
             viewModel.getFollowingName(list)
         })
 
