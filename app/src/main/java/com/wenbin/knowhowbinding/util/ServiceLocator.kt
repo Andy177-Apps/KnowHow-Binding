@@ -10,7 +10,7 @@ import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSour
 
 object ServiceLocator {
     @Volatile
-    var knowHowBindingRepository : KnowHowBindingRepository? = null
+    var knowHowBindingRepository: KnowHowBindingRepository? = null
         @VisibleForTesting set
 
     fun provideTasksRepository(context: Context): KnowHowBindingRepository {

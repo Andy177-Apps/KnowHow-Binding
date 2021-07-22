@@ -34,31 +34,31 @@ class EditProfileViewModel(private val repository: KnowHowBindingRepository) : V
     val talentedList: MutableList<String> = ArrayList()
     private val interestedList: MutableList<String> = ArrayList()
 
-    private var imageUrlPath : String = ""
-    private var bgImageUrlPath : String = ""
+    private var imageUrlPath: String = ""
+    private var bgImageUrlPath: String = ""
 
     //Consequence for selected chip talentedSubjects
     private var _selectedTalented = MutableLiveData<List<String>>()
 
-    private val selectedTalented : LiveData<List<String>>
+    private val selectedTalented: LiveData<List<String>>
         get() = _selectedTalented
 
     //Consequence for selected chip interestedSubjects
     private var _selectedInterested = MutableLiveData<List<String>>()
 
-    private val selectedInterested : LiveData<List<String>>
+    private val selectedInterested: LiveData<List<String>>
         get() = _selectedInterested
 
     //Variables for editable component
     private var _selectedGender = MutableLiveData<String>()
 
-    private val selectedGender : LiveData<String>
+    private val selectedGender: LiveData<String>
         get() = _selectedGender
 
     //Consequence for selected city
     private var _selectedCity = MutableLiveData<String>()
 
-    private val selectedCity : LiveData<String>
+    private val selectedCity: LiveData<String>
         get() = _selectedCity
 
     // status: The internal MutableLiveData that stores the status of the most recent request

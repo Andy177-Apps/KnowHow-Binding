@@ -11,7 +11,6 @@ import com.google.android.material.tabs.TabLayout
 import com.wenbin.knowhowbinding.MainActivity
 import com.wenbin.knowhowbinding.databinding.FragmentArticleBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
-import com.wenbin.knowhowbinding.util.Logger
 import kotlinx.android.synthetic.*
 
 class ArticleFragment : Fragment() {
@@ -54,7 +53,7 @@ class ArticleFragment : Fragment() {
 
     override fun onDestroyView() {
         if (activity is MainActivity) {
-            (activity as MainActivity).recoverToolBarandBottomNav()
+            (activity as MainActivity).recoverToolBarAndBottomNav()
         }
         super.onDestroyView()
     }

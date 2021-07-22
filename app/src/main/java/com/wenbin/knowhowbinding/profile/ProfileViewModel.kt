@@ -140,30 +140,6 @@ class ProfileViewModel(private val repository: KnowHowBindingRepository) : ViewM
         }
     }
 
-    private val _navigateToMyArticle = MutableLiveData<Boolean>()
-    val navigateToMyArticle: LiveData<Boolean>
-        get() = _navigateToMyArticle
-
-    fun navigateToMyArticle() {
-        _navigateToMyArticle.value = true
-    }
-
-    fun onMyArticleNavigated() {
-        _navigateToMyArticle.value = null
-    }
-
-    private val _navigateToMyCollect = MutableLiveData<Boolean>()
-    val navigateToMyCollect: LiveData<Boolean>
-        get() = _navigateToMyCollect
-
-    fun navigateToMyCollect() {
-        _navigateToMyCollect.value = true
-    }
-
-    fun onMyCollectNavigated() {
-        _navigateToMyCollect.value = null
-    }
-
     private val _navigateToEditProfile = MutableLiveData<Boolean>()
     val navigateToEditProfile: LiveData<Boolean>
         get() = _navigateToEditProfile

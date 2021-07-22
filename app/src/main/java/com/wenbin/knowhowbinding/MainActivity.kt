@@ -106,13 +106,13 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         // Drawer and ToolBar End
-        var db = FirebaseFirestore.getInstance()
+        val db = FirebaseFirestore.getInstance()
 
         // Get collectionPath realtime updates with
         db.collection("Friends")
                 .addSnapshotListener { snapshots, e ->
                     if (e != null) {
-                        Logger.w("listen:error e = $e")
+                        Logger.w("listen: error e = $e")
                         return@addSnapshotListener
                     }
 
@@ -212,7 +212,7 @@ class MainActivity : AppCompatActivity() {
         toolbar.visibility = View.GONE
     }
 
-    fun recoverToolBarandBottomNav() {
+    fun recoverToolBarAndBottomNav() {
         binding.bottomNavView.visibility = View.VISIBLE
         binding.myToolbar.visibility = View.VISIBLE
         bottomNavView_content.visibility = View.VISIBLE

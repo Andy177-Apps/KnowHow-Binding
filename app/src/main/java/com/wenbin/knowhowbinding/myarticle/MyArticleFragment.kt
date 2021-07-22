@@ -13,7 +13,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
 
 class MyArticleFragment : Fragment() {
-    private lateinit var binding : FragmentMyarticleBinding
+    private lateinit var binding: FragmentMyarticleBinding
 
     private val viewModel by viewModels<MyArticleViewModel> { getVmFactory()}
 
@@ -29,7 +29,7 @@ class MyArticleFragment : Fragment() {
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Logger.d("MyArticleFragment, articles in Fragment = $it")
         })
-        var adapter = MyArticleAdapter(viewModel)
+        val adapter = MyArticleAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         if (activity is MainActivity) {

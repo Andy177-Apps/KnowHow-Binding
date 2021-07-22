@@ -5,6 +5,6 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Following(
-    val userEmail : String="",
+    val userEmail: String="",
     val userName: String=""
 ) : Parcelable

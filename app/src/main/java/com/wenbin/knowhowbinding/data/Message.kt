@@ -9,13 +9,9 @@ import java.text.SimpleDateFormat
 @Parcelize
 data class Message(
     var id: String = "",
-    var senderName : String = "",
-    var senderImage : String = "",
-    var senderEmail : String = "",
-    var text : String = "",
+    var senderName: String = "",
+    var senderImage: String = "",
+    var senderEmail: String = "",
+    var text: String = "",
     var createdTime: Long = 0L
-) : Parcelable {
-    @SuppressLint("SimpleDateFormat")
-    @IgnoredOnParcel
-    private val sdf = SimpleDateFormat("yyyy.MM.dd.HH.mm")
-}
+) : Parcelable

@@ -10,25 +10,26 @@ object TimeUtil {
      * This singleton converts timestamp to required format
      * Be advised the timestamp contains milliseconds
      */
+
     @JvmStatic
     fun stampToDate(time: Long): String {
         val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         return simpleDateFormat.format(Date(time))
     }
     @JvmStatic
-    fun stampToYear(time : Long): String {
+    fun stampToYear(time: Long): String {
         val simpleDateFormat = SimpleDateFormat("yyyy")
         return simpleDateFormat.format(Date(time))
     }
 
     @JvmStatic
-    fun stampToMothInt(time : Long): String {
+    fun stampToMothInt(time: Long): String {
         val simpleDateFormat = SimpleDateFormat("MM")
         return simpleDateFormat.format(Date(time))
     }
 
     @JvmStatic
-    fun stampToDayInt(time : Long): String {
+    fun stampToDayInt(time: Long): String {
         val simpleDateFormat = SimpleDateFormat("dd")
         return simpleDateFormat.format(Date(time))
     }

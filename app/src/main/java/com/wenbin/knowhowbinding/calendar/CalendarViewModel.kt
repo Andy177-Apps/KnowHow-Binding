@@ -33,7 +33,7 @@ class CalendarViewModel(
     // Handle navigation to CreateEventDialogFragment with Selected date by safe arg
     private val _navigationToCreateEventDialogFragment = MutableLiveData<Long>()
 
-    val navigationToCreateEventDialogFragment : LiveData<Long>
+    val navigationToCreateEventDialogFragment: LiveData<Long>
         get() = _navigationToCreateEventDialogFragment
 
     val selectedLiveEvent = MutableLiveData<List<Event>>()

@@ -12,7 +12,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
 
-class NotifyFragment: Fragment() {
+class NotifyFragment : Fragment() {
     private val viewModel by viewModels<NotifyViewModel> { getVmFactory() }
 
     lateinit var binding: FragmentNotifyBinding

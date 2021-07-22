@@ -16,7 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class UserProfileViewModel(private val repository: KnowHowBindingRepository,
-userEmail: String):ViewModel() {
+userEmail: String) : ViewModel() {
 
     // Use arguments to receive data, and then send it to the select User Email here
     val selectedUserEmail = userEmail

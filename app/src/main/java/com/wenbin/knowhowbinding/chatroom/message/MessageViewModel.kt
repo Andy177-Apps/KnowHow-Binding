@@ -20,8 +20,8 @@ import kotlinx.coroutines.launch
 
 class MessageViewModel(
         private val repository: KnowHowBindingRepository,
-        userEmail : String,
-        userName : String
+        userEmail: String,
+        userName: String
 ) : ViewModel() {
 
     private val _userInfo = MutableLiveData<User>()
@@ -35,7 +35,7 @@ class MessageViewModel(
 
     private val _identified = MutableLiveData<ChatRoom>()
 
-    val identified : LiveData<ChatRoom>
+    val identified: LiveData<ChatRoom>
         get() = _identified
 
     val textSend = MutableLiveData<String>()

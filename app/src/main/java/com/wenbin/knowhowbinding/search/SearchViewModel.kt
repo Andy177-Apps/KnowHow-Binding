@@ -139,7 +139,7 @@ class SearchViewModel(private val repository: KnowHowBindingRepository) : ViewMo
         _selectedType.value = type
     }
 
-    fun setupCity(city: List<String>) {
+    private fun setupCity(city: List<String>) {
         _selectedCity.value = city
     }
 

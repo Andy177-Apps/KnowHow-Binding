@@ -29,15 +29,15 @@ class ChatRoomViewModel(private val repository: KnowHowBindingRepository) : View
 
     val testString: LiveData<List<String>>
         get() = _testString
-
-    private val _fakeMessages = MutableLiveData<List<Message>>()
-
-    val fakeMessages: LiveData<List<Message>>
-        get() = _fakeMessages
+//
+//    private val _fakeMessages = MutableLiveData<List<Message>>()
+//
+//    val fakeMessages: LiveData<List<Message>>
+//        get() = _fakeMessages
 
     private val _status = MutableLiveData<LoadApiStatus>()
 
-    val status : LiveData<LoadApiStatus>
+    val status: LiveData<LoadApiStatus>
         get() = _status
 
     private val _error = MutableLiveData<String>()

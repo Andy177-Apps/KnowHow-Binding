@@ -6,7 +6,7 @@ import com.wenbin.knowhowbinding.data.User
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
 
-fun List<Event>?.sortByTimeStamp (selectedTime: Long) : List<Event> {
+fun List<Event>?.sortByTimeStamp (selectedTime: Long): List<Event> {
     return this?.filter {
         it.let {
             selectedTime <= it.eventTime && it.eventTime < selectedTime + 86400000
@@ -15,19 +15,19 @@ fun List<Event>?.sortByTimeStamp (selectedTime: Long) : List<Event> {
         ?: listOf()
 }
 
-fun List<User>?.excludeOwner() : List<User> {
+fun List<User>?.excludeOwner(): List<User> {
     return this?.filter {
         it.email != UserManager.user.email
     } ?: listOf()
 }
 
-fun List<User>?.excludeOwner(ownerUserEmail: String) : List<User> {
+fun List<User>?.excludeOwner(ownerUserEmail: String): List<User> {
     return this?.filter {
         it.email != ownerUserEmail
     } ?: listOf()
 }
 
-fun List<User>?.sortByUserAnswer(answer : Answer) : List<User> {
+fun List<User>?.sortByUserAnswer(answer: Answer): List<User> {
     val resultList = mutableListOf<User>()
 
     var listFilteredByGender  = if (answer.gender != "unlimited") {
@@ -68,7 +68,7 @@ fun List<User>?.sortByUserAnswer(answer : Answer) : List<User> {
     return resultList
 }
 
-fun List<User>?.recommendedUser(ownerUser: User) : List<User> {
+fun List<User>?.recommendedUser(ownerUser: User): List<User> {
     val resultList = mutableListOf<User>()
 
     this?.let {

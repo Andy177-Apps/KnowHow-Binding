@@ -119,8 +119,6 @@ class PostArticleViewModel(
         }
     }
 
-    var db = FirebaseFirestore.getInstance()
-
     private fun leave(needRefresh: Boolean = false) {
         _leave.value = needRefresh
     }

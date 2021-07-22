@@ -15,7 +15,7 @@ import com.wenbin.knowhowbinding.util.Logger
 
 
 class UserArticleFragment : Fragment() {
-    private lateinit var binding : FragmentUserArticleBinding
+    private lateinit var binding: FragmentUserArticleBinding
     private val viewModel by viewModels<UserArticleViewModel> {
         getVmFactory(
                 UserProfileFragmentArgs.fromBundle(requireArguments()).userEmail

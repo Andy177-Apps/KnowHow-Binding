@@ -16,7 +16,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
 
 
-class SearchResultFragment: Fragment() {
+class SearchResultFragment : Fragment() {
     private lateinit var binding: FragmentSearchResultBinding
 
     private val viewModel by viewModels<SearchResultViewModel> { getVmFactory(

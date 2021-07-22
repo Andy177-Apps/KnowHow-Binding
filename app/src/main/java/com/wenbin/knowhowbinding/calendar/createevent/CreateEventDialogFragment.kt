@@ -29,7 +29,7 @@ class CreateEventDialogFragment : AppCompatDialogFragment() {
     private val timePickerTypeEnd = 0x02
 
 
-    private lateinit var binding : DialogCreateEventBinding
+    private lateinit var binding: DialogCreateEventBinding
 
     private val viewModel by viewModels<CreateEventViewModel> { getVmFactory(
         CreateEventDialogFragmentArgs.fromBundle(requireArguments()).selectedDate

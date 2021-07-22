@@ -28,22 +28,22 @@ fun Fragment.getVmFactory(selectedDate: Long): CreateEventViewModelFactory {
     return CreateEventViewModelFactory(repository, selectedDate)
 }
 
-fun Fragment.getVmFactory(event: Event) : EventViewModelFactory {
+fun Fragment.getVmFactory(event: Event): EventViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
     return EventViewModelFactory(repository, event)
 }
 
-fun Fragment.getVmFactory(userEmail: String) : UserProfileViewModelFactory {
+fun Fragment.getVmFactory(userEmail: String): UserProfileViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
     return UserProfileViewModelFactory(repository, userEmail)
 }
 
-fun Fragment.getVmFactory(answer: Answer) : SearchResultViewModelFactory {
+fun Fragment.getVmFactory(answer: Answer): SearchResultViewModelFactory {
     val repository = (requireContext().applicationContext as KnowHowBindingApplication).repository
     return SearchResultViewModelFactory(repository, answer)
 }
 
-fun Fragment.checkPermission(requestCode : Int) {
+fun Fragment.checkPermission(requestCode: Int) {
     val permission = ActivityCompat.checkSelfPermission(KnowHowBindingApplication.instance.applicationContext,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
     if (permission != PackageManager.PERMISSION_GRANTED) {
@@ -60,7 +60,7 @@ fun Fragment.checkPermission(requestCode : Int) {
     }
 }
 
-fun getLocalImg(fragment: Fragment, requestCode : Int) {
+fun getLocalImg(fragment: Fragment, requestCode: Int) {
     ImagePicker.with(fragment)
             .crop()	    			//Crop image(Optional), Check Customization for more option
             .compress(1024)			//Final image size will be less than 1 MB(Optional)

@@ -9,14 +9,14 @@ import com.wenbin.knowhowbinding.data.ChatRoom
 import com.wenbin.knowhowbinding.databinding.ItemChatroomBinding
 import com.wenbin.knowhowbinding.util.Logger
 
-class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener) :
+class ChatRoomAdapter(private val itemChickListener: MessageOnItemClickListener) :
         ListAdapter<ChatRoom,
         ChatRoomAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-        private var binding : ItemChatroomBinding
+        private var binding: ItemChatroomBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : ChatRoom) {
+        fun bind (item: ChatRoom) {
             binding.chatRoom = item
             // Chat room has been filtered, the attendee info only holds the other user's info
             val friendInfo = item.attendeesInfo.component1()
@@ -26,7 +26,7 @@ class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener
         }
 
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemChatroomBinding.inflate(layoutInflater,
                     parent, false)
@@ -62,7 +62,7 @@ class ChatRoomAdapter(private val itemChickListener : MessageOnItemClickListener
         }
     }
 
-    class MessageOnItemClickListener(val clickListener : (chatRoom : ChatRoom) -> Unit) {
-        fun onItemClicked(chatRoom : ChatRoom) = clickListener(chatRoom)
+    class MessageOnItemClickListener(val clickListener: (chatRoom: ChatRoom) -> Unit) {
+        fun onItemClicked(chatRoom: ChatRoom) = clickListener(chatRoom)
     }
 }

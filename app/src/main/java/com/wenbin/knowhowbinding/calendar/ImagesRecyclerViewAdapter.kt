@@ -12,14 +12,14 @@ class ImagesRecyclerViewAdapter() : ListAdapter<String,
         ImagesRecyclerViewAdapter.ViewHolder>(ImageDiffCallback){
 
     class ViewHolder (
-        private var binding : ItemAvatarEventBinding
+        private var binding: ItemAvatarEventBinding
     ) : RecyclerView.ViewHolder (binding.root){
-        fun bind (item : String) {
+        fun bind (item: String) {
             binding.attendeesImage = item
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent : ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemAvatarEventBinding.inflate(layoutInflater,
                     parent, false)

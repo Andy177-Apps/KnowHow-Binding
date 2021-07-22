@@ -12,8 +12,8 @@ import com.wenbin.knowhowbinding.databinding.FragmentMycollectBinding
 import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
 
-class MyCollectFragment  : Fragment() {
-    private lateinit var binding : FragmentMycollectBinding
+class MyCollectFragment : Fragment() {
+    private lateinit var binding: FragmentMycollectBinding
     private val viewModel by viewModels<MyCollectViewModel> { getVmFactory()}
 
     override fun onCreateView(

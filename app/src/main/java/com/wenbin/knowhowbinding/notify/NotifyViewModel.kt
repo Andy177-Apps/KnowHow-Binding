@@ -16,7 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import com.wenbin.knowhowbinding.data.Result
 
-class NotifyViewModel(private val repository: KnowHowBindingRepository): ViewModel(){
+class NotifyViewModel(private val repository: KnowHowBindingRepository) : ViewModel(){
 
     var allLiveEventInvitations = MutableLiveData<List<Event>>()
 

@@ -15,9 +15,9 @@ class CalendarAdapter : ListAdapter<Event,
         CalendarAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-            private var binding : ItemEventBinding
+            private var binding: ItemEventBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Event) {
+        fun bind (item: Event) {
             binding.event = item
 
             binding.cardViewEvent.setOnClickListener {

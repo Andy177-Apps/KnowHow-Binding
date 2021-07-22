@@ -14,9 +14,9 @@ class MyArticleAdapter(val viewModel: MyArticleViewModel) : ListAdapter<Article,
         MyArticleAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-        private var binding : ItemArticleBinding
+        private var binding: ItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Article, viewModel: MyArticleViewModel) {
+        fun bind (item: Article, viewModel: MyArticleViewModel) {
             binding.article = item
 
             val bookmarkIcon = binding.imageViewBookmark
@@ -30,7 +30,7 @@ class MyArticleAdapter(val viewModel: MyArticleViewModel) : ListAdapter<Article,
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemArticleBinding.inflate(layoutInflater,
                     parent, false)

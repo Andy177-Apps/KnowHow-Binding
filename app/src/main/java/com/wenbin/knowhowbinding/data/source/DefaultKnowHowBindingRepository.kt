@@ -2,7 +2,6 @@ package com.wenbin.knowhowbinding.data.source
 
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseUser
-import com.wenbin.knowhowbinding.KnowHowBindingApplication
 import com.wenbin.knowhowbinding.data.*
 import com.wenbin.knowhowbinding.data.source.remote.KnowHowBindingRemoteDataSource
 
@@ -22,7 +21,7 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return knowHowBindingRemoteDataSource.publish(article)
     }
 
-    override suspend fun getArticles():  Result<List<Article>> {
+    override suspend fun getArticles(): Result<List<Article>> {
         return knowHowBindingRemoteDataSource.getArticles()
     }
 
@@ -83,8 +82,8 @@ class DefaultKnowHowBindingRepository (private val knowHowBindingRemoteDataSourc
         return KnowHowBindingRemoteDataSource.postChatRoom(chatRoom)
     }
 
-    override suspend fun postUserToFollow(userEmail: String, user: User): Result<Boolean> {
-        return KnowHowBindingRemoteDataSource.postUserToFollow(userEmail, user)
+    override suspend fun postUserToFollow(userOwnerEmail: String, user: User): Result<Boolean> {
+        return KnowHowBindingRemoteDataSource.postUserToFollow(userOwnerEmail, user)
     }
 
     override suspend fun removeUserFromFollow(userEmail: String, user: User): Result<Boolean> {

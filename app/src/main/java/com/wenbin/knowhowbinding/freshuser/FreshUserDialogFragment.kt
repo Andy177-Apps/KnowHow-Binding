@@ -17,16 +17,16 @@ import com.wenbin.knowhowbinding.databinding.DialogFreshUserBinding
 import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
 
-class FreshUserDialogFragment: AppCompatDialogFragment() {
+class FreshUserDialogFragment : AppCompatDialogFragment() {
 
-    private lateinit var binding : DialogFreshUserBinding
+    private lateinit var binding: DialogFreshUserBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = DialogFreshUserBinding.inflate(inflater)
+        binding = DialogFreshUserBinding.inflate(inflater)
         val reminder = SpannableStringBuilder()
             .bold { append(getString(R.string.reminder_new_member_bold)) }
             .append(getString(R.string.reminder_new_member))

@@ -16,7 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MyCollectViewModel(private val repository: KnowHowBindingRepository)  : ViewModel() {
+class MyCollectViewModel(private val repository: KnowHowBindingRepository) : ViewModel() {
 
     private val _articles = MutableLiveData<List<Article>>()
 

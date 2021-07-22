@@ -22,8 +22,6 @@ import kotlin.coroutines.suspendCoroutine
 
 class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
 
-    val  searchEditText = MutableLiveData<String>()
-
     private val _articles = MutableLiveData<List<Article>>()
 
     val articles: LiveData<List<Article>>
@@ -89,12 +87,6 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
         _navigateToPostArticle.value = null
     }
 
-    private fun practiceMVVMfun() {
-        coroutineScope.launch {
-            repository.createTestedData()
-        }
-    }
-
     private fun getArticlesResult() {
 
         coroutineScope.launch {
@@ -126,59 +118,6 @@ class HomeViewModel(val repository: KnowHowBindingRepository) : ViewModel() {
                 }
             }
             _refreshStatus.value = false
-        }
-    }
-
-    private fun autoLogin(id: String) {
-        coroutineScope.launch {
-            login(id)
-        }
-    }
-
-    private suspend fun login(id: String): User? = suspendCoroutine {
-        coroutineScope.launch {
-            _status.value = LoadApiStatus.LOADING
-
-            val result = repository.loginMockData(id)
-            _user.value = when (result) {
-                is Result.Success -> {
-                    _error.value = null
-                    _status.value = LoadApiStatus.DONE
-                    result.data
-                }
-                is Result.Fail -> {
-                    _error.value = result.error
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                is Result.Error -> {
-                    _error.value = result.exception.toString()
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-                else -> {
-                    _error.value = KnowHowBindingApplication.instance.getString(R.string.connect_fails)
-                    _status.value = LoadApiStatus.ERROR
-                    null
-                }
-            }
-            _refreshStatus.value = false
-            Logger.d("_user.value =  ${_user.value}")
-            assignUserInfo()
-            it.resume(_user.value)
-        }
-    }
-
-    private fun assignUserInfo() {
-        val currentUser = _user.value?.let {
-            User(
-                    id = it.id,
-                    email = it.email,
-                    name = it.name
-            )
-        }
-        if (currentUser != null) {
-            UserManager.user = currentUser
         }
     }
 

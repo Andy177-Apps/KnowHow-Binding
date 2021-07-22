@@ -8,18 +8,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.databinding.ItemArticleBinding
 
-class SearchAdapter: ListAdapter<Article,
+class SearchAdapter : ListAdapter<Article,
         SearchAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-            private var binding : ItemArticleBinding
+            private var binding: ItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Article) {
+        fun bind (item: Article) {
             binding.article = item
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemArticleBinding.inflate(layoutInflater,
                         parent, false)

@@ -25,8 +25,8 @@ import com.wenbin.knowhowbinding.network.LoadApiStatus
 import com.wenbin.knowhowbinding.util.Logger
 
 
-class ProfileFragment  : Fragment() {
-    private lateinit var binding : FragmentMyselfProfileBinding
+class ProfileFragment : Fragment() {
+    private lateinit var binding: FragmentMyselfProfileBinding
     val viewModel by viewModels<ProfileViewModel> { getVmFactory() }
 
     override fun onCreateView(
@@ -46,7 +46,7 @@ class ProfileFragment  : Fragment() {
         mainViewModel.getUser(UserManager.user.email)
         mainViewModel.getUserArticle(UserManager.user.email)
         
-        var adapter = ProfileRecommendedAdapter(ProfileRecommendedAdapter.OnClickListener {
+        val adapter = ProfileRecommendedAdapter(ProfileRecommendedAdapter.OnClickListener {
             viewModel.navigateToUserProfile(it)
         })
         binding.recyclerView.adapter = adapter
@@ -79,22 +79,6 @@ class ProfileFragment  : Fragment() {
             it?.let {
                 findNavController().navigate(NavigationDirections.navigateToUserProfileFragment(it.email))
                 viewModel.onUserProfileNavigated()
-            }
-        })
-
-        // Navigating to My Article Fragment.
-        viewModel.navigateToMyArticle.observe(viewLifecycleOwner, Observer{
-            it?.let {
-                findNavController().navigate(ProfileFragmentDirections.navigateToMyArticleFragment())
-                viewModel.onMyArticleNavigated()
-            }
-        })
-
-        // Navigating to My Collect Fragment.
-        viewModel.navigateToMyCollect.observe(viewLifecycleOwner, Observer{
-            it?.let {
-                findNavController().navigate(ProfileFragmentDirections.navigateToMyCollectFragment())
-                viewModel.onMyCollectNavigated()
             }
         })
 

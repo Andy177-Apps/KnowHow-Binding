@@ -26,9 +26,9 @@ class MessageAdapter() : ListAdapter<Message,
     }
 
     class MyselfViewHolder (
-            private var binding : ItemMessageMyselfBinding
+            private var binding: ItemMessageMyselfBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Message) {
+        fun bind (item: Message) {
             binding.message = item
             binding.executePendingBindings()
         }
@@ -45,12 +45,12 @@ class MessageAdapter() : ListAdapter<Message,
     class OtherSideViewHolder (
             private var binding : ItemMessageOtherSideBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Message) {
+        fun bind (item: Message) {
             binding.message = item
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : OtherSideViewHolder {
+            fun from(parent: ViewGroup): OtherSideViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemMessageOtherSideBinding.inflate(layoutInflater,
                         parent, false)

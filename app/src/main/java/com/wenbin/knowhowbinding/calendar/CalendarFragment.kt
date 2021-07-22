@@ -26,10 +26,10 @@ import org.threeten.bp.LocalDate
 import java.util.*
 
 class CalendarFragment : Fragment() {
-    private lateinit var binding : FragmentCalendarBinding
+    private lateinit var binding: FragmentCalendarBinding
     val viewModel by viewModels<CalendarViewModel> { getVmFactory() }
 
-    private lateinit var widget : MaterialCalendarView
+    private lateinit var widget: MaterialCalendarView
     private val oneDayDecorator: OneDayDecorator = OneDayDecorator()
     @RequiresApi(Build.VERSION_CODES.O)
 

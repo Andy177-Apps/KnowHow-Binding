@@ -17,7 +17,7 @@ import com.wenbin.knowhowbinding.data.Result
 import com.wenbin.knowhowbinding.ext.sortByUserAnswer
 import com.wenbin.knowhowbinding.util.Logger
 
-class SearchResultViewModel(private val repository: KnowHowBindingRepository, private val arguments: Answer) : ViewModel() {
+class SearchResultViewModel(private val repository: KnowHowBindingRepository, arguments: Answer) : ViewModel() {
 
     private val userAnswer = arguments
 

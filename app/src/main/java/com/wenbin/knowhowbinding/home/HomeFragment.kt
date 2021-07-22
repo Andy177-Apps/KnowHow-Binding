@@ -23,7 +23,7 @@ import java.util.*
 
 
 class HomeFragment (val type: String) : Fragment() {
-    private lateinit var binding : FragmentHomeBinding
+    private lateinit var binding: FragmentHomeBinding
     val viewModel by viewModels<HomeViewModel> { getVmFactory() }
 
     private val articleViewModel by viewModels<ArticleViewModel>({ requireParentFragment()})
@@ -63,7 +63,7 @@ class HomeFragment (val type: String) : Fragment() {
             }
         })
 
-        var adapter = HomeAdapter(viewModel)
+        val adapter = HomeAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         // Determine fragment.

@@ -14,13 +14,12 @@ import kotlin.properties.Delegates
 
 class KnowHowBindingApplication : Application() {
 
-    val repository : KnowHowBindingRepository
+    val repository: KnowHowBindingRepository
         get() = ServiceLocator.provideTasksRepository(this)
 
     companion object {
         var instance: KnowHowBindingApplication by Delegates.notNull()
-        lateinit var appContext : Context
-
+        lateinit var appContext: Context
     }
 
     override fun onCreate() {

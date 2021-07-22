@@ -20,7 +20,7 @@ import com.wenbin.knowhowbinding.ext.getVmFactory
 import com.wenbin.knowhowbinding.util.Logger
 
 class PostArticleFragment : Fragment(){
-    private lateinit var binding : FragmentPostarticleBinding
+    private lateinit var binding: FragmentPostarticleBinding
     val viewModel by viewModels<PostArticleViewModel> { getVmFactory() }
 
     override fun onCreateView(

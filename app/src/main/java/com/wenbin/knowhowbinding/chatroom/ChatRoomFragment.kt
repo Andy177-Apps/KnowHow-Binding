@@ -19,7 +19,7 @@ import com.wenbin.knowhowbinding.login.UserManager
 import com.wenbin.knowhowbinding.util.Logger
 
 class ChatRoomFragment  : Fragment() {
-    private lateinit var binding : FragmentChatroomBinding
+    private lateinit var binding: FragmentChatroomBinding
     val viewModel by viewModels<ChatRoomViewModel> { getVmFactory() }
 
     override fun onCreateView(
@@ -58,10 +58,6 @@ class ChatRoomFragment  : Fragment() {
                 }
             }
 
-            fun printListandArray() {
-                val list = listOf<String>("1", "2")
-            }
-
             it?.let {
                 val filteredChatRoom = mutableListOf<ChatRoom>()
 
@@ -80,7 +76,7 @@ class ChatRoomFragment  : Fragment() {
     }
 
     // Exclude owner information from attendees in ChatRoom documents.
-    private fun excludeMyInfo (attendees : List<UserInfo>): List<UserInfo> {
+    private fun excludeMyInfo (attendees: List<UserInfo>): List<UserInfo> {
         return attendees.filter {
             it.userEmail != UserManager.user.email
         }

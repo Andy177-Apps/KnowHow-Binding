@@ -12,14 +12,14 @@ class ProfileCommentAdapter : ListAdapter<Comment,
         ProfileCommentAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
-        private var binding : ItemCommentBinding
+        private var binding: ItemCommentBinding
     ) : RecyclerView.ViewHolder(binding.root){
-        fun bind (item : Comment) {
+        fun bind (item: Comment) {
             binding.comment = item
             binding.executePendingBindings()
         }
         companion object {
-            fun from(parent: ViewGroup) : ViewHolder {
+            fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ItemCommentBinding.inflate(layoutInflater,
                     parent, false)
