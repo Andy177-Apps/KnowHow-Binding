@@ -23,6 +23,8 @@ abstract class MyEntryModel : EpoxyModelWithHolder<MyEntryModel.EntryHolder>() {
 
     // 把外部傳進來的資料跟 item_xml 的 Views 做連結
     override fun bind(holder: EntryHolder) {
+        super.bind(holder)
+
         holder.chip.text = article.type
         holder.text_time_ago.text = article.createdTime.toString()
         holder.textView_category.text = article.tag
