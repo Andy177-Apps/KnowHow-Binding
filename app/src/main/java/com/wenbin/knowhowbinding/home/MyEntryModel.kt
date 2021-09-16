@@ -31,7 +31,7 @@ abstract class MyEntryModel : EpoxyModelWithHolder<MyEntryModel.EntryHolder>() {
         holder.textView_city.text = article.city
         holder.textView_find.text = article.find
         holder.textView_give.text = article.give
-        holder.textView_description.text = article.content
+//        holder.textView_description.text = article.content
         holder.textView_createdTime.text = article.createdTime.toString()
     }
 
@@ -59,7 +59,7 @@ abstract class MyEntryModel : EpoxyModelWithHolder<MyEntryModel.EntryHolder>() {
             textView_city = itemView.findViewById<TextView>(R.id.textView_city)
             textView_find = itemView.findViewById<TextView>(R.id.textView_find)
             textView_give = itemView.findViewById<TextView>(R.id.textView_give)
-            textView_description = itemView.findViewById<TextView>(R.id.text_description)
+//            textView_description = itemView.findViewById<TextView>(R.id.text_description)
             textView_createdTime = itemView.findViewById<TextView>(R.id.textView_createdTime)
         }
     }

@@ -39,15 +39,7 @@ class HomeFragment (val type: String) : Fragment() {
 
         val mainViewModel = ViewModelProvider(this@HomeFragment.requireActivity()).get(MainViewModel::class.java)
 
-        binding.mainActivityEpoxyRv.withModels {
-            // 用 data list.forEach 的方式把東西叫進來
-            viewModel.articles.value?.forEach {
-                myEntry {
-                    id(hashCode())
-                    article(it)
-                }
-            }
-        }
+
 
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Logger.d("userInfo = $it")
@@ -63,6 +55,19 @@ class HomeFragment (val type: String) : Fragment() {
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Logger.d("articles = $it")
+            binding.epoxyRv.withModels {
+                // 用 data list.forEach 的方式把東西叫進來
+                Log.d("Epoxy","Line44")
+
+                viewModel.articles.value?.forEach {
+                    Log.d("Epoxy","viewModel.articles.value = ${viewModel.articles.value}")
+
+                    myEntry {
+                        id(hashCode())
+                        article(it)
+                    }
+                }
+            }
         })
 
         // Navigating to Post Article Fragment.

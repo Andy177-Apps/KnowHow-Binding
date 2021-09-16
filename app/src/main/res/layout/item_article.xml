@@ -42,7 +42,7 @@
                 app:chipBackgroundColor='@{article.type.equals("讀書會") ? @color/study_group : article.type.equals("找老師") ? @color/findTeacher : article.type.equals("找學生") ? @color/findStudent : @color/skill}'
                 app:chipSpacingVertical="2dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"></com.google.android.material.chip.Chip>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/text_time_ago"

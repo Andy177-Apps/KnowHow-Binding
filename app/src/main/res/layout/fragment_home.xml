@@ -41,7 +41,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <com.airbnb.epoxy.EpoxyRecyclerView
-            android:id="@+id/main_activity_epoxy_rv"
+            android:id="@+id/epoxy_rv"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
