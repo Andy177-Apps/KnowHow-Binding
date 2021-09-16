@@ -39,6 +39,16 @@ class HomeFragment (val type: String) : Fragment() {
 
         val mainViewModel = ViewModelProvider(this@HomeFragment.requireActivity()).get(MainViewModel::class.java)
 
+        binding.mainActivityEpoxyRv.withModels {
+            // 用 data list.forEach 的方式把東西叫進來
+            viewModel.articles.value?.forEach {
+                myEntry {
+                    id(hashCode())
+                    article(it)
+                }
+            }
+        }
+
         viewModel.userInfo.observe(viewLifecycleOwner, Observer {
             Logger.d("userInfo = $it")
             if (viewModel.checkIfInfoComplete()) {
