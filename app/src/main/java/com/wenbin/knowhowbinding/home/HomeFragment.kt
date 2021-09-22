@@ -57,21 +57,26 @@ class HomeFragment (val type: String) : Fragment() {
 
         viewModel.articles.observe(viewLifecycleOwner, Observer {
             Logger.d("articles = $it")
+
+            // --- Below is achieved Rv by Controller
             binding.epoxyRv.adapter = myEntryController.adapter
             myEntryController.setData(it)
-//            binding.epoxyRv.withModels {
-//                // 用 data list.forEach 的方式把東西叫進來
-//                Log.d("Epoxy","Line44")
-//
-//                viewModel.articles.value?.forEach {
-//                    Log.d("Epoxy","viewModel.articles.value = ${viewModel.articles.value}")
-//
-//                    myEntry {
-//                        id(hashCode())
-//                        article(it)
-//                    }
-//                }
-//            }
+//            myEntryController.requestModelBuild()
+
+            // --- Below is withModels without Controller
+           binding.epoxyRv.withModels {
+                // 用 data list.forEach 的方式把東西叫進來
+                Log.d("Epoxy","Line44")
+
+                viewModel.articles.value?.forEach {
+                    Log.d("Epoxy","viewModel.articles.value = ${viewModel.articles.value}")
+
+                    myEntry {
+                        id(hashCode())
+                        article(it)
+                    }
+                }
+            }
         })
 
         // Navigating to Post Article Fragment.

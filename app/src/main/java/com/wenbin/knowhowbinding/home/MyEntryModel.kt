@@ -24,17 +24,18 @@ abstract class MyEntryModel : EpoxyModelWithHolder<MyEntryModel.EntryHolder>() {
     // 把外部傳進來的資料跟 item_xml 的 Views 做連結
     override fun bind(holder: EntryHolder) {
         super.bind(holder)
-
-        holder.chip.text = article.type
-        holder.text_time_ago.text = article.createdTime.toString()
-        holder.textView_category.text = article.tag
-        holder.textView_author_name.text = article.author!!.name
-        holder.textView_author_identity.text = article.author!!.identity
-        holder.textView_city.text = article.city
-        holder.textView_find.text = article.find
-        holder.textView_give.text = article.give
+        with(article) {
+            holder.chip.text = type
+            holder.text_time_ago.text = createdTime.toString()
+            holder.textView_category.text = tag
+            holder.textView_author_name.text = author!!.name
+            holder.textView_author_identity.text = author!!.identity
+            holder.textView_city.text = city
+            holder.textView_find.text = find
+            holder.textView_give.text = give
 //        holder.textView_description.text = article.content
-        holder.textView_createdTime.text = article.createdTime.toString()
+            holder.textView_createdTime.text = createdTime.toString()
+        }
     }
 
     class EntryHolder : EpoxyHolder() {
@@ -50,8 +51,6 @@ abstract class MyEntryModel : EpoxyModelWithHolder<MyEntryModel.EntryHolder>() {
         lateinit var textView_description : TextView
         lateinit var textView_createdTime : TextView
 
-
-
         override fun bindView(itemView: View) {
             chip = itemView.findViewById<Chip>(R.id.chip)
             text_time_ago = itemView.findViewById<TextView>(R.id.text_time_ago)
@@ -66,3 +65,4 @@ abstract class MyEntryModel : EpoxyModelWithHolder<MyEntryModel.EntryHolder>() {
         }
     }
 }
+
