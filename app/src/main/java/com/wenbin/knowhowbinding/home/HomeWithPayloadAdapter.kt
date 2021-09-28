@@ -1,5 +1,6 @@
 package com.wenbin.knowhowbinding.home
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +13,24 @@ import com.wenbin.knowhowbinding.data.Article
 import com.wenbin.knowhowbinding.databinding.ItemArticleBinding
 import com.wenbin.knowhowbinding.login.UserManager
 
-class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
-        HomeAdapter.ViewHolder>(DiffCallback) {
+class HomeWithPayloadAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
+        HomeWithPayloadAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder (
         private var binding: ItemArticleBinding
     ) : RecyclerView.ViewHolder(binding.root){
+        private val bookmarkIcon = binding.imageViewBookmark
 
-        fun setData (item: Article, viewModel: HomeViewModel) {
+        fun bind (item: Article, viewModel: HomeViewModel) {
             binding.article = item
             // When bookmark icon is selected
-            val bookmarkIcon = binding.imageViewBookmark
             binding.imageViewBookmark.setOnClickListener {
                 viewModel.saveArticle(item, UserManager.user.email)
                 bookmarkIcon.isSelected = !bookmarkIcon.isSelected
+                Log.d("Wenbin", "item.isFavorite 1= ${item.isFavorite}")
+                item.isFavorite = !item.isFavorite
+                Log.d("Wenbin", "item.isFavorite 2= ${item.isFavorite}")
+
             }
 
             bookmarkIcon.isSelected = item.saveList.contains(UserManager.user.email)
@@ -57,6 +62,16 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
 
             binding.executePendingBindings()
         }
+
+        fun bindFavoriteState(item: Article, viewModel: HomeViewModel) {
+            binding.imageViewBookmark.setOnClickListener {
+                viewModel.saveArticle(item, UserManager.user.email)
+                bookmarkIcon.isSelected = !bookmarkIcon.isSelected
+                item.isFavorite = !item.isFavorite
+            }
+            Log.d("Wenbin", "bindFavoriteState is used.")
+        }
+
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
@@ -75,6 +90,11 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
         override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem == newItem
         }
+
+        override fun getChangePayload(oldItem: Article, newItem: Article): Any? {
+            Log.d("Wenbin", "(oldItem.isFavorite != newItem.isFavorite) = ${(oldItem.isFavorite != newItem.isFavorite)}")
+            return if (oldItem.isFavorite != newItem.isFavorite) true else null
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -87,6 +107,20 @@ class HomeAdapter(val viewModel: HomeViewModel) : ListAdapter<Article,
          * Then, we convert the element to the data type we wanted, e.g. Article.
          * So, setData receives a specified data type element.
          */
-        holder.setData(getItem(position) as Article, viewModel)
+        holder.bind(getItem(position) as Article, viewModel)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int, payloads: MutableList<Any>) {
+        Log.d("Wenbin", "payloads = $payloads")
+
+        if (payloads.isEmpty()) {
+            onBindViewHolder(holder, position)
+        } else {
+            if (payloads[0] == true) {
+                Log.d("Wenbin", "payloads[0] = ${payloads[0]}")
+
+                holder.bindFavoriteState(getItem(position) as Article, viewModel)
+            }
+        }
     }
 }

@@ -43,7 +43,7 @@ fun bindRecyclerViewWithArticle(recyclerView: RecyclerView, data : List<Article>
     data?.let {
         recyclerView.adapter.apply {
             when (this) {
-                is HomeAdapter -> submitList(it)
+//                is HomeAdapter -> submitList(it)
                 is MyArticleAdapter -> submitList(it)
                 is MyCollectAdapter -> submitList(it)
                 is SearchAdapter -> submitList(it)

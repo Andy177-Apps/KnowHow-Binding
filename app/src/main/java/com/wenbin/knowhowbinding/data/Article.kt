@@ -15,5 +15,6 @@ data class Article(
         var give: String = "",
         var content: String = "",
         val saveList: List<String> = listOf(),
-        val author: User? = null
+        val author: User? = null,
+        var isFavorite: Boolean = false
 ) : Parcelable

@@ -63,7 +63,7 @@ class HomeFragment (val type: String) : Fragment() {
             }
         })
 
-        val adapter = HomeAdapter(viewModel)
+        val adapter = HomeWithPayloadAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         // Determine fragment.
